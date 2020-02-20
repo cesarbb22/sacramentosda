@@ -1,6 +1,6 @@
 <?php
 
-namespace sistemaCuriaDiocesana\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth;
 
 use sistemaCuriaDiocesana\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -40,11 +40,11 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    
-    
+
+
     public function authenticate(Request $request)
     {
-        if (Auth::attempt(['Email' => $request['email'], 'password' => $request['password'] ])) { 
+        if (Auth::attempt(['Email' => $request['email'], 'password' => $request['password'] ])) {
             //return Redirect::to('/ActasAdmin');
             if (Auth::user()->Activo == 0) {
                 Auth::logout();
@@ -56,10 +56,10 @@ class LoginController extends Controller
                 } else {
                     return Redirect::to('/Actas');
                 }
-            }  
+            }
         } else {
             $request->session()->flash('errorLogin', '¡Correo electrónico o contraseña incorrecta!');
             return Redirect::to('login');
-        }    
+        }
     }
 }
