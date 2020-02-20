@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use sistemaCuriaDiocesana\User;
-use sistemaCuriaDiocesana\Http\Controllers\Controller;
+use App\User;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use sistemaCuriaDiocesana\Solicitud;
+use App\Solicitud;
 
 class RegisterController extends Controller
 {
@@ -73,21 +73,21 @@ class RegisterController extends Controller
     }
 
     public function index() {
-        $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
-        $puesto = \sistemaCuriaDiocesana\Puesto::where('IDPuesto', '!=', 1)->get();
+        $parroquias = \App\Parroquia::all();
+        $puesto = \App\Puesto::where('IDPuesto', '!=', 1)->get();
         return view('auth.register', ['parroquias' => $parroquias, 'puesto' => $puesto]);
     }
 
 
     public function RegisterForm(Request $request) {
 
-        $email = \sistemaCuriaDiocesana\User::where('email', $request->email)->first();
+        $email = \App\User::where('email', $request->email)->first();
 
         if ($email != null) {
             $request->session()->flash('errorEmail', '¡El email ya se encuentra registrado! Revise sus datos e intente nuevamente');
 
-            $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
-            $puesto = \sistemaCuriaDiocesana\Puesto::all();
+            $parroquias = \App\Parroquia::all();
+            $puesto = \App\Puesto::all();
             return view('auth.register', ['parroquias' => $parroquias, 'puesto' => $puesto]);
         }
 
