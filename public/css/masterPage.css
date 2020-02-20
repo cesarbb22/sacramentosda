@@ -1,0 +1,62 @@
+ nav {
+                background-image: url("style/img/header3.jpeg");
+                background-position:  center center;
+                background-repeat: no-repeat;
+                background-size: 100% 65px;
+                background-color: #f9f3e3;
+                /*height:130px;*/
+            }
+            
+            #footer, .btn, .collapsible-header {
+                background-color: #610B21;
+            }
+            
+            #tamanoFooter { height: 50px; }
+            
+            .btn:hover {
+                background-color: #840f2d; 
+            }
+            
+            .dropdown-content li > a, .dropdown-content li > span {
+              color: #840f2d;
+            }
+            
+            #tablaConsulta td .material-icons {
+              color: #840f2d;
+            }
+            
+            .nav-wrapper li > a:hover {
+              color: #840f2d;
+              font-weight: bold;
+              font-size: 120%;
+            }
+            
+            [type="radio"]:checked + label:before,
+            [type="radio"]:checked + label:after {
+              border: 2px solid #840f2d;
+              background-color: #840f2d;
+            }
+            
+            input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=date]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+              border-bottom: 1px solid #840f2d;
+              box-shadow: 0 1px 0 0 #840f2d;
+            }
+            
+            input:not([type]):focus:not([readonly]) + label, input[type=text]:focus:not([readonly]) + label, input[type=password]:focus:not([readonly]) + label, input[type=email]:focus:not([readonly]) + label, input[type=date]:focus:not([readonly]) + label, textarea.materialize-textarea:focus:not([readonly]) + label {
+              color: #840f2d;
+            }
+
+            [type="checkbox"]:checked + label:before {
+              border-right: 2px solid #840f2d;
+              border-bottom: 2px solid #840f2d;
+            }
+
+
+ .picker__date-display { background-color: #51081C; }
+ .picker__weekday-display { background-color: #370008; }
+ .picker__day.picker__day--today { color: red; }
+ .picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected { background-color: #51081C;}
+ .picker__close { color: #51081C !important;}
+ .picker__today { color: #51081C !important;}
+ .picker__nav--prev:hover { background-color: #51081C; }
+ .picker__nav--next:hover { background-color: #51081C; }
