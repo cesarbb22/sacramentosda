@@ -1,6 +1,6 @@
 <?php
 
-namespace sistemaCuriaDiocesana\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -12,7 +12,7 @@ use sistemaCuriaDiocesana\User;
 use Validator;
 
 class UserController extends Controller {
-    
+
     public function index() {
         $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
         $puesto = \sistemaCuriaDiocesana\Puesto::where('IDPuesto', '=', Auth::user()->IDPuesto)->first();
@@ -22,26 +22,26 @@ class UserController extends Controller {
             return view('auth.editarPerfilUser', ['parroquias' => $parroquias, 'puesto' => $puesto]);
         }
     }
-    
+
     public function index2() {
         $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
         $puesto = \sistemaCuriaDiocesana\Puesto::where('IDPuesto', '!=', 1)->get();
         return view('AdminViews.AgregarUsuarioAdmin', ['parroquias' => $parroquias, 'puesto' => $puesto]);
     }
-    
+
     public function home() {
         $usuarios = \sistemaCuriaDiocesana\User::where([['IDUser', '!=', Auth::user()->IDUser], ['IDUser', '!=', 1]])->get();
-        
+
         return view('AdminViews.MantenimientoUsuario', ['usuarios'=> $usuarios]);
     }
 
     public function cambiarContrasena(Request $request) {
-        
+
         $rules = [
             'mypassword' => 'required',
             'password' => 'required|confirmed|min:6|max:18',
         ];
-        
+
         $messages = [
             'mypassword.required' => 'El campo es requerido',
             'password.required' => 'El campo es requerido',
@@ -49,7 +49,7 @@ class UserController extends Controller {
             'password.min' => 'El mínimo permitido son 6 caracteres',
             'password.max' => 'El máximo permitido son 18 caracteres',
         ];
-        
+
         $validator = Validator::make($request->all(), $rules, $messages);
         if($validator->fails()) {
             return back()->withErrors($validator);
@@ -64,7 +64,7 @@ class UserController extends Controller {
             }
         }
     }
-    
+
     public function editarPerfilUser(Request $request) {
         try {
             $user = new User;
@@ -75,8 +75,8 @@ class UserController extends Controller {
             return back()->with('msjMalo', "Ha ocurrido un error al editar la información");
         }
     }
-    
-    
+
+
     public function EliminarUsuario($id) {
         try {
             User::destroy($id);
@@ -87,11 +87,11 @@ class UserController extends Controller {
             return Redirect::to('/mantenimientoUsuarios');
         }
     }
-    
+
     public function editarUsuarioAdmin(Request $request) {
         try {
             $id = $_POST['IDUser'];
-            
+
             $user = User::find($id);
             $user->Nombre = $request->name;
             $user->PrimerApellido = $request->pApellido;
@@ -105,7 +105,7 @@ class UserController extends Controller {
                 $user->Activo = 1;
             }
             $user -> save();
-            
+
             return back()->with('msjBueno', "Se ha guardado correctamente la información");
             return Redirect::to('/ActasAdmin');
         } catch(\Exception $e) {
@@ -114,28 +114,28 @@ class UserController extends Controller {
             return Redirect::to('/ActasAdmin');
         }
     }
-    
+
     public function mostrarUsuario($id) {
         $usuario = User::where('IDUser', $id) -> first();
         $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
         $puesto = \sistemaCuriaDiocesana\Puesto::where('IDPuesto', '!=', 1)->get();
         return view('AdminViews.EditarUsuariosAdmin', ['usuario'=> $usuario, 'parroquias' => $parroquias, 'puesto' => $puesto]);
     }
-    
+
     public function agregarUsuario(Request $request) {
         try {
             $email = \sistemaCuriaDiocesana\User::where('email', $request->email)->first();
-                   
+
             if ($email != null) {
                 $request->session()->flash('errorEmail', '¡El email ya se encuentra registrado! Revise sus datos e intente nuevamente');
-                
+
                 $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
                 $puesto = \sistemaCuriaDiocesana\Puesto::all();
                 return view('AdminViews.AgregarUsuarioAdmin', ['parroquias' => $parroquias, 'puesto' => $puesto]);
-            }       
-            
+            }
+
             $user = new User;
-            
+
             $user->Nombre = $request->name;
             $user->PrimerApellido = $request->pApellido;
             $user->SegundoApellido = $request->sApellido;
@@ -144,13 +144,13 @@ class UserController extends Controller {
             $user->IDParroquia = $request->parroquia;
             $user->IDPuesto = $request->puesto;
             $user->Activo = 1;
-            
+
             if ($request->has('numCel')) {
                 $user->NumCelular = $request->numCel;
             }
-            
+
             $user->save();
-        
+
             return back()->with('msjBueno', "Se ha creado correctamente el usuario");
             return Redirect::to('/ActasAdmin');
         } catch(\Exception $e) {
@@ -158,5 +158,5 @@ class UserController extends Controller {
             return Redirect::to('/ActasAdmin');
         }
     }
-    
+
 }

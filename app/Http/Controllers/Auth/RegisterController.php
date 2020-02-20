@@ -1,6 +1,6 @@
 <?php
 
-namespace sistemaCuriaDiocesana\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth;
 
 use sistemaCuriaDiocesana\User;
 use sistemaCuriaDiocesana\Http\Controllers\Controller;
@@ -71,28 +71,28 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
-    
+
     public function index() {
         $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
         $puesto = \sistemaCuriaDiocesana\Puesto::where('IDPuesto', '!=', 1)->get();
         return view('auth.register', ['parroquias' => $parroquias, 'puesto' => $puesto]);
     }
-    
-    
+
+
     public function RegisterForm(Request $request) {
-        
+
         $email = \sistemaCuriaDiocesana\User::where('email', $request->email)->first();
-               
+
         if ($email != null) {
             $request->session()->flash('errorEmail', '¡El email ya se encuentra registrado! Revise sus datos e intente nuevamente');
-            
+
             $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
             $puesto = \sistemaCuriaDiocesana\Puesto::all();
             return view('auth.register', ['parroquias' => $parroquias, 'puesto' => $puesto]);
-        }       
-        
+        }
+
         $user = new User;
-        
+
         $user->Nombre = $request->name;
         $user->PrimerApellido = $request->pApellido;
         $user->SegundoApellido = $request->sApellido;
@@ -101,21 +101,21 @@ class RegisterController extends Controller
         $user->IDParroquia = $request->parroquia;
         $user->IDPuesto = $request->puesto;
         $user->Activo = 0;
-        
+
         if ($request->has('numCel')) {
             $user->NumCelular = $request->numCel;
         }
-        
+
         $user->save();
-        
+
         //agregar la solicitud
         $solicitud = new Solicitud;
         $solicitud->IDUser = $user->IDUser;
         $solicitud->IDTipo_Solicitud = 3;
         $solicitud->IDEstado_Solicitud = 3;
-            
+
         $solicitud->save();
-        
+
         if($user->save()){
             $request->session()->flash('justLogin', '¡Solicitud de registro enviada! Debe esperar que el administrador la acepte');
             return view('auth.login');
