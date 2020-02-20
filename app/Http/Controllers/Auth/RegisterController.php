@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace sistemaCuriaDiocesana\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
+use sistemaCuriaDiocesana\User;
+use sistemaCuriaDiocesana\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use sistemaCuriaDiocesana\Solicitud;
 
 class RegisterController extends Controller
 {
@@ -29,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -50,9 +51,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
         ]);
     }
 
@@ -60,14 +61,67 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return User
      */
     protected function create(array $data)
     {
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => bcrypt($data['password']),
         ]);
+    }
+    
+    public function index() {
+        $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
+        $puesto = \sistemaCuriaDiocesana\Puesto::where('IDPuesto', '!=', 1)->get();
+        return view('auth.register', ['parroquias' => $parroquias, 'puesto' => $puesto]);
+    }
+    
+    
+    public function RegisterForm(Request $request) {
+        
+        $email = \sistemaCuriaDiocesana\User::where('email', $request->email)->first();
+               
+        if ($email != null) {
+            $request->session()->flash('errorEmail', '¡El email ya se encuentra registrado! Revise sus datos e intente nuevamente');
+            
+            $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
+            $puesto = \sistemaCuriaDiocesana\Puesto::all();
+            return view('auth.register', ['parroquias' => $parroquias, 'puesto' => $puesto]);
+        }       
+        
+        $user = new User;
+        
+        $user->Nombre = $request->name;
+        $user->PrimerApellido = $request->pApellido;
+        $user->SegundoApellido = $request->sApellido;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->IDParroquia = $request->parroquia;
+        $user->IDPuesto = $request->puesto;
+        $user->Activo = 0;
+        
+        if ($request->has('numCel')) {
+            $user->NumCelular = $request->numCel;
+        }
+        
+        $user->save();
+        
+        //agregar la solicitud
+        $solicitud = new Solicitud;
+        $solicitud->IDUser = $user->IDUser;
+        $solicitud->IDTipo_Solicitud = 3;
+        $solicitud->IDEstado_Solicitud = 3;
+            
+        $solicitud->save();
+        
+        if($user->save()){
+            $request->session()->flash('justLogin', '¡Solicitud de registro enviada! Debe esperar que el administrador la acepte');
+            return view('auth.login');
+        } else{
+            $request->session()->flash('errorRegister', '¡Ha ocurrido un error! Revise sus datos e intente nuevamente');
+            return view('auth.register');
+        }
     }
 }
