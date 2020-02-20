@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use sistemaCuriaDiocesana\Parroquia;
-use sistemaCuriaDiocesana\Persona;
-use sistemaCuriaDiocesana\Acta;
+use App\Parroquia;
+use App\Persona;
+use App\Acta;
 
 class GenerarPDF extends Controller
 {
@@ -14,7 +14,7 @@ class GenerarPDF extends Controller
 
     public function generarPDF(Request $request)
     {
-        $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
+        $parroquias = \App\Parroquia::all();
 
         $pdf = \PDF::loadView('PDF.PdfCertificado', ['personaNom' => $request->nombreEdit, 'personaAp1' => $request->apellido1Edit, 'personaAp2' => $request->apellido2Edit, 'personamadre' => $request->nombreMadreEdit,
             'personaPadre' => $request->nombrePadreEdit, 'fechaNacEdit' => $request->fechaNacEdit,

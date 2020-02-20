@@ -6,17 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Log;
 use Auth;
-use sistemaCuriaDiocesana\Persona;
-use sistemaCuriaDiocesana\Laico;
-use sistemaCuriaDiocesana\UbicacionActa;
-use sistemaCuriaDiocesana\Acta;
-use sistemaCuriaDiocesana\ActaBautizo;
-use sistemaCuriaDiocesana\ActaConfirma;
-use sistemaCuriaDiocesana\ActaMatrimonio;
-use sistemaCuriaDiocesana\ActaDefuncion;
-use sistemaCuriaDiocesana\Parroquia;
-use sistemaCuriaDiocesana\Solicitud_Acta;
-use sistemaCuriaDiocesana\Solicitud;
+use App\Persona;
+use App\Laico;
+use App\UbicacionActa;
+use App\Acta;
+use App\ActaBautizo;
+use App\ActaConfirma;
+use App\ActaMatrimonio;
+use App\ActaDefuncion;
+use App\Parroquia;
+use App\Solicitud_Acta;
+use App\Solicitud;
 
 class CentroNotificacionUsuario extends Controller
 {
@@ -28,7 +28,7 @@ class CentroNotificacionUsuario extends Controller
 
     public function obtenerSolicitudes()
     {
-        $solicitud = \sistemaCuriaDiocesana\Solicitud::with('user', 'actas', 'tipo', 'estado', 'user.parroquia')
+        $solicitud = \App\Solicitud::with('user', 'actas', 'tipo', 'estado', 'user.parroquia')
             ->where('IDUser', '=', Auth::user()->IDUser)
             ->where(function ($q) {
                 $q->where('IDEstado_Solicitud', '=', 1)
@@ -42,7 +42,7 @@ class CentroNotificacionUsuario extends Controller
 
     public function aceptarSolicitud($id)
     {
-        $solicitud = \sistemaCuriaDiocesana\Solicitud::find($id);
+        $solicitud = \App\Solicitud::find($id);
 
         $estado = $solicitud->IDEstado_Solicitud;
         $tipo = $solicitud->IDTipo_Solicitud;
@@ -51,7 +51,7 @@ class CentroNotificacionUsuario extends Controller
             if ($tipo == 1) {
                 try {
                     //eliminar acta
-                    $sol_acta = \sistemaCuriaDiocesana\Solicitud_Acta::find($id);
+                    $sol_acta = \App\Solicitud_Acta::find($id);
 
                     $acta = Acta::find($sol_acta->IDActa);
 
@@ -104,10 +104,10 @@ class CentroNotificacionUsuario extends Controller
             } else {
                 //editar acta
                 try {
-                    $sol_acta = \sistemaCuriaDiocesana\Solicitud_Acta::find($id);
+                    $sol_acta = \App\Solicitud_Acta::find($id);
 
                     $acta = Acta::find($sol_acta->IDActa);
-                    $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
+                    $parroquias = \App\Parroquia::all();
 
                     $idBautismo = $acta->IDBautismo;
                     $idConfirma = $acta->IDConfirma;

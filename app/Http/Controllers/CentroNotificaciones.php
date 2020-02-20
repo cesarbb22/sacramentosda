@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
-use sistemaCuriaDiocesana\User;
+use App\User;
 
 class CentroNotificaciones extends Controller
 {
@@ -14,9 +14,9 @@ class CentroNotificaciones extends Controller
     }
 
     public function obtenerSolicitudesAdmin() {
-      //$solicitud = \sistemaCuriaDiocesana\Solicitud::where('IDEstado_Solicitud', '=', 3)->get();
+      //$solicitud = \App\Solicitud::where('IDEstado_Solicitud', '=', 3)->get();
 
-      $solicitud = \sistemaCuriaDiocesana\Solicitud::with('user', 'actas', 'tipo', 'estado', 'user.parroquia')->where('IDEstado_Solicitud', '=', 3)
+      $solicitud = \App\Solicitud::with('user', 'actas', 'tipo', 'estado', 'user.parroquia')->where('IDEstado_Solicitud', '=', 3)
 
         ->get();
       return $solicitud;
@@ -24,10 +24,10 @@ class CentroNotificaciones extends Controller
 
 
     public function aceptarSolicitud($id) {
-      $solicitud = \sistemaCuriaDiocesana\Solicitud::find($id);
+      $solicitud = \App\Solicitud::find($id);
 
       if ($solicitud->IDTipo_Solicitud == 3) {
-        $user = \sistemaCuriaDiocesana\User::find($solicitud->IDUser);
+        $user = \App\User::find($solicitud->IDUser);
         $user->Activo = 1;
 
         $user->save();
@@ -44,7 +44,7 @@ class CentroNotificaciones extends Controller
 
 
     public function rechazarSolicitud($id) {
-      $solicitud = \sistemaCuriaDiocesana\Solicitud::find($id);
+      $solicitud = \App\Solicitud::find($id);
 
       $solicitud->IDEstado_Solicitud = 2;
 

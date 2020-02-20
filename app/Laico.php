@@ -21,6 +21,6 @@ class Laico extends Model
 
 
     public function persona() {
-        return $this->belongsTo('sistemaCuriaDiocesana\Persona', 'IDPersona', 'IDPersona');
+        return $this->belongsTo('App\Persona', 'IDPersona', 'IDPersona');
     }
 }

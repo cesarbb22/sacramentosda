@@ -25,11 +25,11 @@ class Persona extends Model
 
 
     public function laico() {
-        return $this->hasOne('sistemaCuriaDiocesana\Laico', 'IDPersona', 'IDPersona'); // this matches the Eloquent model
+        return $this->hasOne('App\Laico', 'IDPersona', 'IDPersona'); // this matches the Eloquent model
     }
 
     public function acta()
     {
-        return $this->belongsTo('sistemaCuriaDiocesana\Acta', 'IDPersona', 'IDPersona');
+        return $this->belongsTo('App\Acta', 'IDPersona', 'IDPersona');
     }
 }

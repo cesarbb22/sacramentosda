@@ -43,10 +43,10 @@ class User extends Authenticatable
     }
 
     public function puesto() {
-        return $this->hasOne('sistemaCuriaDiocesana\Puesto', 'IDPuesto', 'IDPuesto');
+        return $this->hasOne('App\Puesto', 'IDPuesto', 'IDPuesto');
     }
 
     public function parroquia() {
-        return $this->hasOne('sistemaCuriaDiocesana\Parroquia', 'IDParroquia', 'IDParroquia');
+        return $this->hasOne('App\Parroquia', 'IDParroquia', 'IDParroquia');
     }
 }

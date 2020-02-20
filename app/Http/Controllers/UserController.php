@@ -7,15 +7,15 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Hash;
-use sistemaCuriaDiocesana\User;
+use App\User;
 
 use Validator;
 
 class UserController extends Controller {
 
     public function index() {
-        $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
-        $puesto = \sistemaCuriaDiocesana\Puesto::where('IDPuesto', '=', Auth::user()->IDPuesto)->first();
+        $parroquias = \App\Parroquia::all();
+        $puesto = \App\Puesto::where('IDPuesto', '=', Auth::user()->IDPuesto)->first();
         if ($puesto->IDPuesto == 1 || $puesto->IDPuesto == 2) {
             return view('auth.editarPerfil', ['parroquias' => $parroquias, 'puesto' => $puesto]);
         } else {
@@ -24,13 +24,13 @@ class UserController extends Controller {
     }
 
     public function index2() {
-        $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
-        $puesto = \sistemaCuriaDiocesana\Puesto::where('IDPuesto', '!=', 1)->get();
+        $parroquias = \App\Parroquia::all();
+        $puesto = \App\Puesto::where('IDPuesto', '!=', 1)->get();
         return view('AdminViews.AgregarUsuarioAdmin', ['parroquias' => $parroquias, 'puesto' => $puesto]);
     }
 
     public function home() {
-        $usuarios = \sistemaCuriaDiocesana\User::where([['IDUser', '!=', Auth::user()->IDUser], ['IDUser', '!=', 1]])->get();
+        $usuarios = \App\User::where([['IDUser', '!=', Auth::user()->IDUser], ['IDUser', '!=', 1]])->get();
 
         return view('AdminViews.MantenimientoUsuario', ['usuarios'=> $usuarios]);
     }
@@ -117,20 +117,20 @@ class UserController extends Controller {
 
     public function mostrarUsuario($id) {
         $usuario = User::where('IDUser', $id) -> first();
-        $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
-        $puesto = \sistemaCuriaDiocesana\Puesto::where('IDPuesto', '!=', 1)->get();
+        $parroquias = \App\Parroquia::all();
+        $puesto = \App\Puesto::where('IDPuesto', '!=', 1)->get();
         return view('AdminViews.EditarUsuariosAdmin', ['usuario'=> $usuario, 'parroquias' => $parroquias, 'puesto' => $puesto]);
     }
 
     public function agregarUsuario(Request $request) {
         try {
-            $email = \sistemaCuriaDiocesana\User::where('email', $request->email)->first();
+            $email = \App\User::where('email', $request->email)->first();
 
             if ($email != null) {
                 $request->session()->flash('errorEmail', '¡El email ya se encuentra registrado! Revise sus datos e intente nuevamente');
 
-                $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
-                $puesto = \sistemaCuriaDiocesana\Puesto::all();
+                $parroquias = \App\Parroquia::all();
+                $puesto = \App\Puesto::all();
                 return view('AdminViews.AgregarUsuarioAdmin', ['parroquias' => $parroquias, 'puesto' => $puesto]);
             }
 

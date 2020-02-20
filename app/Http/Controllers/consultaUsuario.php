@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Illuminate\Http\Response;
-use sistemaCuriaDiocesana\Parroquia;
-use sistemaCuriaDiocesana\Persona;
-use sistemaCuriaDiocesana\Acta;
+use App\Parroquia;
+use App\Persona;
+use App\Acta;
 
 class consultaUsuario extends Controller
 {
 
     public function home() {
-        $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
-        $personas = \sistemaCuriaDiocesana\Persona::All();
+        $parroquias = \App\Parroquia::all();
+        $personas = \App\Persona::All();
 
         return view('UserViews.ConsultaActa', ['parroquias'=> $parroquias, 'personas'=> $personas]);
     }

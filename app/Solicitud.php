@@ -21,21 +21,21 @@ class Solicitud extends Model
 
     public function actas()
     {
-        return $this->belongsToMany('sistemaCuriaDiocesana\Acta', 'Solicitud_Acta', 'IDSolicitud', 'IDActa')->withPivot('Descripcion');;
+        return $this->belongsToMany('App\Acta', 'Solicitud_Acta', 'IDSolicitud', 'IDActa')->withPivot('Descripcion');;
     }
 
     public function user()
     {
-        return $this->hasOne('sistemaCuriaDiocesana\User', 'IDUser', 'IDUser');
+        return $this->hasOne('App\User', 'IDUser', 'IDUser');
     }
 
     public function tipo()
     {
-        return $this->hasOne('sistemaCuriaDiocesana\Tipo_Solicitud', 'IDTipo_Solicitud', 'IDTipo_Solicitud');
+        return $this->hasOne('App\Tipo_Solicitud', 'IDTipo_Solicitud', 'IDTipo_Solicitud');
     }
 
     public function estado()
     {
-        return $this->hasOne('sistemaCuriaDiocesana\Estado_Solicitud', 'IDEstado_Solicitud', 'IDEstado_Solicitud');
+        return $this->hasOne('App\Estado_Solicitud', 'IDEstado_Solicitud', 'IDEstado_Solicitud');
     }
 }

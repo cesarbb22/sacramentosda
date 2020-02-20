@@ -6,17 +6,17 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use Auth;
-use sistemaCuriaDiocesana\Persona;
-use sistemaCuriaDiocesana\Solicitud;
-use sistemaCuriaDiocesana\Laico;
-use sistemaCuriaDiocesana\UbicacionActa;
-use sistemaCuriaDiocesana\Acta;
-use sistemaCuriaDiocesana\ActaBautizo;
-use sistemaCuriaDiocesana\ActaConfirma;
-use sistemaCuriaDiocesana\ActaMatrimonio;
-use sistemaCuriaDiocesana\ActaDefuncion;
-use sistemaCuriaDiocesana\Parroquia;
-use sistemaCuriaDiocesana\Solicitud_Acta;
+use App\Persona;
+use App\Solicitud;
+use App\Laico;
+use App\UbicacionActa;
+use App\Acta;
+use App\ActaBautizo;
+use App\ActaConfirma;
+use App\ActaMatrimonio;
+use App\ActaDefuncion;
+use App\Parroquia;
+use App\Solicitud_Acta;
 
 use Illuminate\Support\Facades\Redirect;
 
@@ -24,7 +24,7 @@ class ActaUsuarioController extends Controller
 {
 
     public function homeUsuario() {
-        $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
+        $parroquias = \App\Parroquia::all();
         return view('UserViews.mainActas', ['parroquias'=> $parroquias]);
     }
 
@@ -384,7 +384,7 @@ class ActaUsuarioController extends Controller
     public function DetalleActa($id) {
         try {
             $acta = Acta::where('IDPersona', $id) -> first();
-            $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
+            $parroquias = \App\Parroquia::all();
 
             $idBautismo = $acta -> IDBautismo;
             $idConfirma = $acta -> IDConfirma;

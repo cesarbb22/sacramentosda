@@ -16,6 +16,6 @@ class ActaMatrimonio extends Model
 
     public function acta()
     {
-        return $this->belongsTo('sistemaCuriaDiocesana\Acta');
+        return $this->belongsTo('App\Acta');
     }
 }

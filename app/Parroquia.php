@@ -20,10 +20,10 @@ class Parroquia extends Model
 
     public function acta()
     {
-        return $this->belongsToMany('sistemaCuriaDiocesana\Acta', 'IDParroquia', 'IDParroquia');
+        return $this->belongsToMany('App\Acta', 'IDParroquia', 'IDParroquia');
     }
 
     public function user() {
-        return $this->belongsToMany('sistemaCuriaDiocesana\User', 'IDParroquia', 'IDParroquia');
+        return $this->belongsToMany('App\User', 'IDParroquia', 'IDParroquia');
     }
 }

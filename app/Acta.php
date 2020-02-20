@@ -22,31 +22,31 @@ class Acta extends Model
 
     public function persona()
     {
-        return $this->hasOne('sistemaCuriaDiocesana\Persona', 'IDPersona', 'IDPersona');
+        return $this->hasOne('App\Persona', 'IDPersona', 'IDPersona');
     }
 
     public function parroquia()
     {
-        return $this->hasOne('sistemaCuriaDiocesana\Parroquia', 'IDParroquia', 'IDParroquia');
+        return $this->hasOne('App\Parroquia', 'IDParroquia', 'IDParroquia');
     }
 
     public function confirma()
     {
-        return $this->hasOne('sistemaCuriaDiocesana\ActaConfirma', 'IDConfirma', 'IDConfirma');
+        return $this->hasOne('App\ActaConfirma', 'IDConfirma', 'IDConfirma');
     }
 
     public function matrimonio()
     {
-        return $this->hasOne('sistemaCuriaDiocesana\ActaMatrimonio', 'IDMatrimonio', 'IDMatrimonio');
+        return $this->hasOne('App\ActaMatrimonio', 'IDMatrimonio', 'IDMatrimonio');
     }
 
     public function defuncion()
     {
-        return $this->hasOne('sistemaCuriaDiocesana\ActaDefuncion', 'IDDefuncion', 'IDDefuncion');
+        return $this->hasOne('App\ActaDefuncion', 'IDDefuncion', 'IDDefuncion');
     }
 
     public function solicitud()
     {
-        return $this->belongsToMany('sistemaCuriaDiocesana\Solicitud', 'Solicitud_Acta', 'IDActa', 'IDSolicitud');
+        return $this->belongsToMany('App\Solicitud', 'Solicitud_Acta', 'IDActa', 'IDSolicitud');
     }
 }

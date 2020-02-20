@@ -8,17 +8,17 @@ use Illuminate\Support\Facades\Redirect;
 
 use Validator;
 
-use sistemaCuriaDiocesana\Persona;
-use sistemaCuriaDiocesana\Laico;
-use sistemaCuriaDiocesana\UbicacionActa;
-use sistemaCuriaDiocesana\Acta;
-use sistemaCuriaDiocesana\ActaBautizo;
-use sistemaCuriaDiocesana\ActaConfirma;
-use sistemaCuriaDiocesana\ActaMatrimonio;
-use sistemaCuriaDiocesana\ActaDefuncion;
-use sistemaCuriaDiocesana\Parroquia;
-use sistemaCuriaDiocesana\Solicitud;
-use sistemaCuriaDiocesana\Solicitud_Acta;
+use App\Persona;
+use App\Laico;
+use App\UbicacionActa;
+use App\Acta;
+use App\ActaBautizo;
+use App\ActaConfirma;
+use App\ActaMatrimonio;
+use App\ActaDefuncion;
+use App\Parroquia;
+use App\Solicitud;
+use App\Solicitud_Acta;
 
 
 class SolicitudEliminarController extends Controller
@@ -28,7 +28,7 @@ class SolicitudEliminarController extends Controller
      public function solicitudEliminar($id) {
          $acta = Acta::where('IDPersona', $id) -> first();
 
-         $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
+         $parroquias = \App\Parroquia::all();
 
         return view('AdminViews.SolicitudEliminar', ['parroquias'=> $parroquias, $id ]);
     }

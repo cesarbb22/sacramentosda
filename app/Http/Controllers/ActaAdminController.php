@@ -9,28 +9,28 @@ use Carbon\Carbon;
 use Validator;
 use DateTime;
 
-use sistemaCuriaDiocesana\Persona;
-use sistemaCuriaDiocesana\Laico;
-use sistemaCuriaDiocesana\UbicacionActa;
-use sistemaCuriaDiocesana\Acta;
-use sistemaCuriaDiocesana\ActaBautizo;
-use sistemaCuriaDiocesana\ActaConfirma;
-use sistemaCuriaDiocesana\ActaMatrimonio;
-use sistemaCuriaDiocesana\ActaDefuncion;
-use sistemaCuriaDiocesana\Parroquia;
+use App\Persona;
+use App\Laico;
+use App\UbicacionActa;
+use App\Acta;
+use App\ActaBautizo;
+use App\ActaConfirma;
+use App\ActaMatrimonio;
+use App\ActaDefuncion;
+use App\Parroquia;
 
 
 class ActaAdminController extends Controller
 {
     public function index() {
-        $personas = \sistemaCuriaDiocesana\Persona::All();
+        $personas = \App\Persona::All();
         return view('AdminViews.ConsultaActaAdmin', compact('personas'));
     }
 
     public function EditarActa($id) {
         try {
             $acta = Acta::where('IDPersona', $id) -> first();
-            $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
+            $parroquias = \App\Parroquia::all();
 
             $idBautismo = $acta -> IDBautismo;
             $idConfirma = $acta -> IDConfirma;
@@ -92,7 +92,7 @@ class ActaAdminController extends Controller
     public function DetalleActa($id) {
         try {
             $acta = Acta::where('IDPersona', $id) -> first();
-            $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
+            $parroquias = \App\Parroquia::all();
 
             $idBautismo = $acta -> IDBautismo;
             $idConfirma = $acta -> IDConfirma;
@@ -389,7 +389,7 @@ class ActaAdminController extends Controller
 
 
     public function home() {
-        $parroquias = \sistemaCuriaDiocesana\Parroquia::all();
+        $parroquias = \App\Parroquia::all();
         return view('AdminViews.mainActasAdmin', ['parroquias'=> $parroquias]);
     }
 
