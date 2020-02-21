@@ -15,7 +15,7 @@
           </div>
           <div class="col 10"></div>
     @endif
-    
+
 @if (Session::has('errorRegister'))
             <div class="col l2"></div>
           <div class="col s12 m8 l8">
@@ -29,7 +29,7 @@
       <div class="col m2 l3"></div>
       <div class="col s12 m8 l6">
         <div class="card-panel z-depth-4">
-            
+
             <h3 class="center-align">Registrarse</h3>
           <br>
           <form class="form-horizontal" role="form" method="POST" action="{{ url('register') }}">
@@ -48,7 +48,7 @@
                                 @endif
                             </div>
                         </div>
-                        
+
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Primer Apellido *</label>
 
@@ -62,7 +62,7 @@
                                 @endif
                             </div>
                         </div>
-                        
+
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Segundo Apellido *</label>
 
@@ -76,7 +76,7 @@
                                 @endif
                             </div>
                         </div>
-                        
+
                         <div class="input-field">
                   <select name='parroquia'>
                     @foreach ($parroquias as $pa)
@@ -85,7 +85,7 @@
                   </select>
                   <label>Seleccione la Parroquia:</label>
                 </div>
-                
+
                 <div class="input-field">
                   <select name='puesto'>
                     @foreach ($puesto as $pu)
@@ -107,7 +107,7 @@
                                 @endif
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="cel" class="col-md-4 control-label">Número de celular:</label>
 
@@ -139,50 +139,50 @@
                         </div>
                         </br>
                         <div class=row>
-                        
+
                         <div class="form-group">
                             <div class="col l8">
                                 <button id ='btnFake' type="button" class="waves-effect waves-light btn">
                                     Registrar
                                 </button>
                                 <button id ='btnForm' type="submit" hidden>
-                                    
+
                                 </button>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="" class="col l4 control-label">* Campos obligatorios</label>
                         </div>
-                        
+
                         </div>
                     </form>
-          
+
         </div>
       </div>
       <div class="col m2 l3"></div>
 </div>
 
 <script>
-  
+
   window.onload = function() {
     $('select').material_select();
-    
-    
+
+
     $("#btnFake").click(function(){
         var pass1 = $('#password').val();
         var pass2 = $('#password-confirm').val();
-          
+
         if (pass1 == pass2) {
             $("#btnForm").click();
         } else {
             Materialize.toast('Las contraseñas deben coincidir!', 5000) // 4000 is the duration of the toast
         }
     });
-    
+
 
 }
-  
+
 </script>
 
 @endsection

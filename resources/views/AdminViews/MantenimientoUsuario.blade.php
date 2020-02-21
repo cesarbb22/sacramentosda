@@ -11,7 +11,7 @@
           </div>
           <div class="col l2"></div><br><br><br><br><br>
     @endif
-    
+
     @if(session()->has('msjBueno'))
         <div class="col l2"></div>
           <div class="col s12 m8 l8">
@@ -21,7 +21,7 @@
           </div>
           <div class="col l2"></div><br><br><br><br><br>
     @endif
-  
+
     <div class="col s12 m4 l2"></div>
     <div class="col s12 m4 l8 card-panel z-depth-2">
 
@@ -30,7 +30,7 @@
           <div class="col s12 m4 l8"><h4 class="center-align">Mantenimiento Usuarios</h4></div>
           <div class="col s12 m4 l2"></div>
         </div>
-        
+
       @if (count($errors) > 0)
         <div class="row">
           <div class="col s12">
@@ -44,12 +44,9 @@
           </div>
         </div>
       @endif
-        
-      <form method="POST" action="/">
-            
-          {{ csrf_field() }}
 
-      
+
+
         <table id='tablaConsulta' class="bordered centered">
             <thead>
                 <tr>
@@ -61,7 +58,7 @@
 
                 </tr>
             </thead>
-            
+
             @foreach($usuarios as $usuario)
                 <tbody>
                     <td>{{$usuario->Nombre}}</td>
@@ -72,13 +69,12 @@
                 </tbody>
             @endforeach
         </table>
-        
+
          <div class="row">
           <br>
-          <button id="nuevoUser" class="waves-effect waves-light btn right" type="submit"><a class="white-text" href="{{ url('agregarUsuario') }}"><i class="material-icons left">add</i>Nuevo Usuario</a></button>
+          <button id="nuevoUser" class="waves-effect waves-light btn right" type="button"><a class="white-text" href="{{ url('agregarUsuario') }}"><i class="material-icons left">add</i>Nuevo Usuario</a></button>
         </div>
-        
-      </form>
+
     </div>
     <div class="col s12 m4 l2"></div>
 </div>
