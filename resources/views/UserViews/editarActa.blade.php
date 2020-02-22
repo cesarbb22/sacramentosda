@@ -45,7 +45,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="/actualizarActa">
+            <form method="POST" action="/actualizarActa" autocomplete="off">
 
                 {{ csrf_field() }}
                 <div class="row">

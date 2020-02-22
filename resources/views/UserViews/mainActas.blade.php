@@ -19,7 +19,7 @@
           </div>
           <div class="col l2"></div><br><br><br><br><br>
     @endif
-    
+
     @if(session()->has('msjBueno'))
         <div class="col l2"></div>
           <div class="col s12 m8 l8">
@@ -29,20 +29,20 @@
           </div>
           <div class="col l2"></div><br><br><br><br><br>
     @endif
-    
+
     <div class="col s12 m4 l2"></div>
     <div class=" col s12 m4 l8 card-panel z-depth-5">
 
         <div class="row">
           <div class="col s12 m4 l4"></div>
-          
+
           <div class="col s12 m4 l4"><h4 class="center-align">Nueva Acta</h4></div>
-          
+
           <div class="col s12 m4 l4"></div>
         </div>
-        
+
         @if (count($errors) > 0)
-    
+
     <div class="row">
       <div class="col s12">
         <div class="card-panel red">
@@ -55,8 +55,8 @@
       </div>
     </div>
 @endif
-        
-        <form id="formActa" method="POST" action="/crearActaUsuario">
+
+        <form id="formActa" method="POST" action="/crearActaUsuario" autocomplete="off">
           {{ csrf_field() }}
             <div class="row">
                 <div class="input-field col s6">
@@ -129,25 +129,25 @@
                   <input id="fechaNac" name='fechaNac' pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d" class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa" required>
                 </div>
             </div>
-              
-            
+
+
             <div class="row">
         <div class="input-field col s12">
           <textarea id="notasMarginales" name="notasMarginales" class="materialize-textarea"></textarea>
           <label for="notasMarginales">Notas Marginales:</label>
         </div>
       </div>
-        
-        
+
+
         <div class="row"></div>
-        
+
         <div class="row">
-            
+
             <ul class="collapsible" data-collapsible="accordion">
                 <li>
                   <div class="collapsible-header waves-light waves-effect white-text">Acta de Bautismo</div>
                   <div class="collapsible-body">
-                      
+
                     <div class="row">
                       <div class="input-field col s6">
                         <p>
@@ -156,8 +156,8 @@
                         </p>
                       </div>
                     </div>
-                      
-                        
+
+
                         <div class="row">
               <div class="input-field col s6">
                 </div>
@@ -173,9 +173,9 @@
                  <div class="input-field col s6">
                   <input id="fechaBaut" name="fechaBautizo" pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d" class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa" required disabled>
                 </div>
-                
+
             </div>
-            
+
             <div class="row">
               <div class="input-field col s8">
                   <input id="nombreMadrina" name="nombreMadrinaB" type="text" class="validate" required disabled>
@@ -189,9 +189,9 @@
                 <label for="informacion">Esta Información consta en:</label>
                 </div>
             </div>
-            
+
             <div class="row">
-             
+
                 <div class="input-num col s4">
                   <input id="numLibroB" name="numLibroB" type="number" class="validate" required disabled>
                   <label for="numLibroB">Número de Libro:</label>
@@ -204,15 +204,15 @@
                   <input id="numAsientoB" name="numAsientoB" type="number" class="validate" required disabled>
                   <label for="numAsientoB">Número de Asiento:</label>
                 </div>
-                
-                      
+
+
                   </div>
                 </li>
-                
+
                 <li>
                   <div class="collapsible-header waves-light waves-effect white-text">Acta de Confirma</div>
                   <div class="collapsible-body">
-                    
+
                     <div class="row">
                       <div class="input-field col s6">
                         <p>
@@ -221,7 +221,7 @@
                         </p>
                       </div>
                     </div>
-                    
+
                         <div class="row">
               <div class="input-field col s6">
                 </div>
@@ -238,7 +238,7 @@
             <input id="fechaConfir" name="fechaConfirma" pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d" class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa" required disabled>
           </div>
           </div>
-                        
+
             <div class="row">
                 <div class="input-field col s8">
                   <input id="nombrePadrino1" name="nombrePadrinoC1" type="text" class="validate" required disabled>
@@ -252,9 +252,9 @@
                 <label for="informacion">Esta Información consta en:</label>
                 </div>
             </div>
-                          
+
             <div class="row">
-             
+
                 <div class="input-num col s4">
                   <input id="numLibroC" name="numLibroC" type="number" class="validate" required disabled>
                   <label for="numLibroC">Número de Libro:</label>
@@ -267,15 +267,15 @@
                   <input id="numAsientoC" name="numAsientoC" type="number" class="validate" required disabled>
                   <label for="numAsientoC">Número de Asiento:</label>
                 </div>
-                
-                  
+
+
                   </div>
                 </li>
-                
+
                 <li>
                   <div class="collapsible-header waves-light waves-effect white-text">Acta de Matrimonio</div>
                   <div class="collapsible-body">
-                   
+
                    <div class="row">
                       <div class="input-field col s6">
                         <p>
@@ -284,7 +284,7 @@
                         </p>
                       </div>
                     </div>
-                   
+
                         <div class="row">
               <div class="input-field col s6">
                 </div>
@@ -301,7 +301,7 @@
             <input id="fechaMatrimonio" name="fechaMatrimonio" pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d" class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa" required disabled>
           </div>
           </div>
-                        
+
             <div class="row">
                 <div class="input-field col s8">
                   <input id="nombreConyuge" name="nombreConyuge" type="text" class="validate" required disabled>
@@ -311,9 +311,9 @@
                 <label for="informacion">Esta Información consta en:</label>
                 </div>
             </div>
-                          
+
             <div class="row">
-             
+
                 <div class="input-num col s4">
                   <input id="numLibroM" name="numLibroM" type="number" class="validate" required disabled>
                   <label for="numLibroM">Número de Libro:</label>
@@ -326,14 +326,14 @@
                   <input id="numAsientoM" name="numAsientoM" type="number" class="validate" required disabled>
                   <label for="numAsientoM">Número de Asiento:</label>
                 </div>
-                
+
                   </div>
                 </li>
-                
+
                 <li>
                   <div class="collapsible-header waves-light waves-effect white-text">Acta de Defunción</div>
                   <div class="collapsible-body">
-                      
+
                       <div class="row">
                       <div class="input-field col s6">
                         <p>
@@ -342,7 +342,7 @@
                         </p>
                       </div>
                     </div>
-                      
+
                         <div class="row">
               <div class="input-field col s6">
                 </div>
@@ -359,7 +359,7 @@
             <input id="fechaDefuncion" name="fechaDefuncion" pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d" class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa" required disabled>
           </div>
           </div>
-                        
+
             <div class="row">
                 <div class="input-field col s8">
                   <input id="causaDefuncion" name="causaDefuncion" type="text" class="validate" required disabled>
@@ -369,9 +369,9 @@
                 <label for="informacion">Esta Información consta en:</label>
                 </div>
             </div>
-                          
+
             <div class="row">
-             
+
                 <div class="input-num col s4">
                   <input id="numLibroD" name="numLibroD" type="number" class="validate" required disabled>
                   <label for="numLibroD">Número de Libro:</label>
@@ -384,26 +384,26 @@
                   <input id="numAsientoD" name="numAsientoD" type="number" class="validate" required disabled>
                   <label for="numAsientoD">Número de Asiento:</label>
                 </div>
-                
+
             </div>
-            
+
                   </div>
                 </li>
             </ul>
-            
+
         </div>
-        
+
         <div class="row">
             <button id="guardarActa" class="waves-effect waves-light btn right" type="submit"><i class="material-icons left">save</i>Guardar</button>
         </div>
         </form>
-        
+
     </div>
     <div class="col s12 m4 l2"></div>
 </div>
 
 <script>
-  
+
   window.onload = function() {
       $('.datepicker').pickadate({
           format: 'dd/mm/yyyy',
@@ -424,23 +424,23 @@
           autoClose: true
       });
 
-  $("#tipoH2").change(function() {  
-        if($("#tipoH2").is(':checked')) {  
-            $("#nombrePadre").prop('disabled', false); 
+  $("#tipoH2").change(function() {
+        if($("#tipoH2").is(':checked')) {
+            $("#nombrePadre").prop('disabled', false);
             $("#nombreMadre").prop('disabled', false);
-        }  
+        }
     });
-    
-    
-    $("#tipoH1").change(function() {  
-        if($("#tipoH1").is(':checked')) {  
+
+
+    $("#tipoH1").change(function() {
+        if($("#tipoH1").is(':checked')) {
             $("#nombrePadre").prop('disabled', true);
             $("#nombreMadre").prop('disabled', false);
-        }  
+        }
     });
-    
-    $("#checkB").change(function() {  
-        if($("#checkB").is(':checked')) {  
+
+    $("#checkB").change(function() {
+        if($("#checkB").is(':checked')) {
             $("#lugarBautizo").prop('disabled', false);
             $("#fechaBaut").prop('disabled', false);
             $("#nombreMadrina").prop('disabled', false);
@@ -456,11 +456,11 @@
             $("#numLibroB").prop('disabled', true);
             $("#numFolioB").prop('disabled', true);
             $("#numAsientoB").prop('disabled', true);
-        }  
+        }
     });
-    
-    $("#checkC").change(function() {  
-        if($("#checkC").is(':checked')) {  
+
+    $("#checkC").change(function() {
+        if($("#checkC").is(':checked')) {
             $("#lugarConfirma").prop('disabled', false);
             $("#fechaConfir").prop('disabled', false);
             $("#nombrePadrino1").prop('disabled', false);
@@ -476,11 +476,11 @@
             $("#numLibroC").prop('disabled', true);
             $("#numFolioC").prop('disabled', true);
             $("#numAsientoC").prop('disabled', true);
-        }  
+        }
     });
-    
-    $("#checkM").change(function() {  
-        if($("#checkM").is(':checked')) {  
+
+    $("#checkM").change(function() {
+        if($("#checkM").is(':checked')) {
             $("#lugarMatrimonio").prop('disabled', false);
             $("#fechaMatrimonio").prop('disabled', false);
             $("#nombreConyuge").prop('disabled', false);
@@ -494,11 +494,11 @@
             $("#numLibroM").prop('disabled', true);
             $("#numFolioM").prop('disabled', true);
             $("#numAsientoM").prop('disabled', true);
-        }  
+        }
     });
-    
-    $("#checkD").change(function() {  
-        if($("#checkD").is(':checked')) {  
+
+    $("#checkD").change(function() {
+        if($("#checkD").is(':checked')) {
             $("#lugarDefuncion").prop('disabled', false);
             $("#fechaDefuncion").prop('disabled', false);
             $("#causaDefuncion").prop('disabled', false);
@@ -512,13 +512,13 @@
             $("#numLibroD").prop('disabled', true);
             $("#numFolioD").prop('disabled', true);
             $("#numAsientoD").prop('disabled', true);
-        }  
+        }
     });
-    
+
     $('select').material_select();
 
 }
-  
+
 </script>
 
 @endsection
