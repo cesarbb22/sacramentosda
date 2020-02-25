@@ -27,7 +27,7 @@
 
             <div class="row">
                 <div class="col s12 m4 l4"></div>
-                <div class="col s12 m4 l4"><h4 class="center-align">Editar Acta</h4></div>
+                <div class="col s12 m4 l4"><h4 class="center-align">Editar Partida</h4></div>
                 <div class="col s12 m4 l4"></div>
             </div>
 
@@ -147,7 +147,7 @@
 
                     <ul class="collapsible" data-collapsible="accordion">
                         <li>
-                            <div class="collapsible-header waves-light waves-effect white-text">Acta de Bautismo</div>
+                            <div class="collapsible-header waves-light waves-effect white-text">Partida de Bautismo</div>
                             <div class="collapsible-body">
                                 @if($actaBautismo != null)
 
@@ -208,7 +208,7 @@
                                 @else
                                     <div class="row">
                                         <div class="input-field col s6">
-                                            <p>No cuenta con esta acta</p>
+                                            <p>No cuenta con esta partida</p>
                                         </div>
                                         <div class="input-field col s6">
                                             <input type="checkbox" id="checkBautismo"/>
@@ -274,7 +274,7 @@
                         </li>
 
                         <li>
-                            <div class="collapsible-header waves-light waves-effect white-text">Acta de Confirma</div>
+                            <div class="collapsible-header waves-light waves-effect white-text">Partida de Confirma</div>
                             <div class="collapsible-body">
                                 @if($actaConfirma != null)
                                     <div class="row">
@@ -334,7 +334,7 @@
                                 @else
                                     <div class="row">
                                         <div class="input-field col s6">
-                                            <p>No cuenta con esta acta</p>
+                                            <p>No cuenta con esta partida</p>
                                         </div>
                                         <div class="input-field col s6">
                                             <input type="checkbox" id="checkConfirma"/>
@@ -403,7 +403,7 @@
                         </li>
 
                         <li>
-                            <div class="collapsible-header waves-light waves-effect white-text">Acta de Matrimonio</div>
+                            <div class="collapsible-header waves-light waves-effect white-text">Partida de Matrimonio</div>
                             <div class="collapsible-body">
                                 @if($actaMatrimonio != null)
                                     <div class="row">
@@ -459,7 +459,7 @@
                                 @else
                                     <div class="row">
                                         <div class="input-field col s6">
-                                            <p>No cuenta con esta acta</p>
+                                            <p>No cuenta con esta partida</p>
                                         </div>
                                         <div class="input-field col s6">
                                             <input type="checkbox" id="checkMatrimonio"/>
@@ -520,7 +520,7 @@
                         </li>
 
                         <li>
-                            <div class="collapsible-header waves-light waves-effect white-text">Acta de Defunción</div>
+                            <div class="collapsible-header waves-light waves-effect white-text">Partida de Defunción</div>
                             <div class="collapsible-body">
                                 @if($actaDefuncion != null)
                                     <div class="row">
@@ -577,7 +577,7 @@
                             @else
                                 <div class="row">
                                     <div class="input-field col s6">
-                                        <p>No cuenta con esta acta</p>
+                                        <p>No cuenta con esta partida</p>
                                     </div>
                                     <div class="input-field col s6">
                                         <input type="checkbox" id="checkDefuncion"/>

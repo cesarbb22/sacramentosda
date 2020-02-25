@@ -29,7 +29,7 @@
         <div class="row">
           <div class="col s12 m4 l4"></div>
 
-          <div class="col s12 m4 l4"><h4 class="center-align">Nueva Acta</h4></div>
+          <div class="col s12 m4 l4"><h4 class="center-align">Nueva Partida</h4></div>
 
           <div class="col s12 m4 l4"></div>
         </div>
@@ -138,7 +138,7 @@
 
             <ul class="collapsible" data-collapsible="accordion">
                 <li>
-                  <div class="collapsible-header waves-light waves-effect white-text">Acta de Bautismo</div>
+                  <div class="collapsible-header waves-light waves-effect white-text">Partida de Bautismo</div>
                   <div class="collapsible-body">
 
                     <div class="row">
@@ -203,7 +203,7 @@
                 </li>
 
                 <li>
-                  <div class="collapsible-header waves-light waves-effect white-text">Acta de Confirma</div>
+                  <div class="collapsible-header waves-light waves-effect white-text">Partida de Confirma</div>
                   <div class="collapsible-body">
 
                     <div class="row">
@@ -266,7 +266,7 @@
                 </li>
 
                 <li>
-                  <div class="collapsible-header waves-light waves-effect white-text">Acta de Matrimonio</div>
+                  <div class="collapsible-header waves-light waves-effect white-text">Partida de Matrimonio</div>
                   <div class="collapsible-body">
 
                    <div class="row">
@@ -324,7 +324,7 @@
                 </li>
 
                 <li>
-                  <div class="collapsible-header waves-light waves-effect white-text">Acta de Defunción</div>
+                  <div class="collapsible-header waves-light waves-effect white-text">Partida de Defunción</div>
                   <div class="collapsible-body">
 
                       <div class="row">

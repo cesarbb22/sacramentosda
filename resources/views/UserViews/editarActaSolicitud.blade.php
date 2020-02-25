@@ -11,7 +11,7 @@
           </div>
           <div class="col l2"></div><br><br><br><br><br>
     @endif
-    
+
     @if(session()->has('msjBueno'))
         <div class="col l2"></div>
           <div class="col s12 m8 l8">
@@ -20,17 +20,17 @@
             </div>
           </div>
           <div class="col l2"></div><br><br><br><br><br>
-    @endif 
-    
+    @endif
+
     <div class="col s12 m4 l2"></div>
     <div class=" col s12 m4 l8 card-panel z-depth-5">
 
         <div class="row">
           <div class="col s12 m4 l4"></div>
-          <div class="col s12 m4 l4"><h4 class="center-align">Editar Acta</h4></div>
+          <div class="col s12 m4 l4"><h4 class="center-align">Editar Partida</h4></div>
           <div class="col s12 m4 l4"></div>
         </div>
-        
+
       @if (count($errors) > 0)
         <div class="row">
           <div class="col s12">
@@ -44,18 +44,18 @@
           </div>
         </div>
       @endif
-        
+
       <form method="POST" action="/actualizarActaSol">
-            
+
           {{ csrf_field() }}
             <div class="row">
                 <div class="input-field col s6">
                   <input id="numCedulaEdit" name='numCedulaEdit' type="text" class="validate" value="{{ $persona->Cedula }}"  maxlength="9">
                   <label for="numCedulaEdit">Número de cédula:</label>
                 </div>
-                
+
                 <input hidden id="IDSolicitud" name='IDSolicitud' type="text" class="validate" value="{{ $IDSolicitud }}"  maxlength="9">
-                
+
                 <div class="input-field col s6">
                   <select name='parroquia' id="parroquia">
                     @foreach ($parroquias as $pa)
@@ -65,7 +65,7 @@
                   <label>Parroquia:</label>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="input-field col s4">
                   <input id="nombreEdit" name='nombreEdit' type="text" class="validate" value="{{ $persona->Nombre }}">
@@ -80,7 +80,7 @@
                   <label for="apellido2Edit">Segundo apellido:</label>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="input-field col s4">
                     <p>
@@ -107,14 +107,14 @@
                   </div>
                 </div>
             </div>
-            
+
             <div class="row">
               <div class="input-field col s6"></div>
                 <div class="input-field col s6">
                   <label>Fecha de nacimiento:</label>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="input-field col s6">
                   <input id="lugarNacEdit" name='lugarNacEdit' type="text" class="validate" value="{{ $laico->LugarNacimiento }}">
@@ -124,31 +124,31 @@
                   <input id="fechaNacEdit" name='fechaNacEdit' pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d" class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa" value="{{ $laico->FechaNacimiento }}">
                 </div>
             </div>
-            
+
           <div class="row">
             <div class="input-field col s12">
               <input id="notasMarginalesEdit" name='notasMarginalesEdit' type="text" class="validate" value="{{ $acta->NotasMarginales }}">
               <label for="notasMarginalesEdit">Notas Marginales:</label>
             </div>
           </div>
-          
+
         <div class="row"></div>
-        
+
         <div class="row">
-            
+
           <ul class="collapsible" data-collapsible="accordion">
               <li>
-                <div class="collapsible-header waves-light waves-effect white-text">Acta de Bautismo</div>
+                <div class="collapsible-header waves-light waves-effect white-text">Partida de Bautismo</div>
                 <div class="collapsible-body">
                     @if($actaBautismo != null)
-                      
+
                     <div class="row">
                         <div class="input-field col s6"></div>
                         <div class="input-field col s6">
                           <label>Fecha de Bautismo:</label>
                         </div>
                     </div>
-                  
+
                     <div class="row">
                         <div class="input-field col s6">
                           <input id="lugarBautizo" name="lugarBautizo" type="text" class="validate" value="{{ $actaBautismo->LugarBautismo }}">
@@ -158,7 +158,7 @@
                           <input id="fechaBaut" name="fechaBautizo" pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d" class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa" value="{{ $actaBautismo->FechaBautismo }}">
                         </div>
                     </div>
-                  
+
                     <div class="row">
                         <div class="input-field col s8">
                           <input id="nombreMadrina" name="nombreMadrinaB" type="text" class="validate" value="{{ $actaBautismo->PadrinoBau1 }}">
@@ -172,7 +172,7 @@
                           <label for="informacion">Esta Información consta en:</label>
                         </div>
                     </div>
-                  
+
                     <div class="row">
                         <div class="input-num col s4">
                           <input id="numLibroB" name="numLibroB" type="number" class="validate" value="{{ $UbicacionActaBautismo->Libro }}">
@@ -190,14 +190,14 @@
                   @else
                     <div class="row">
                       <div class="input-field col s6">
-                        <p>No cuenta con esta acta</p>
+                        <p>No cuenta con esta partida</p>
                       </div>
                       <div class="input-field col s6">
                         <input type="checkbox" id="checkBautismo"/>
                         <label for="checkBautismo">Agregar Bautismo</label>
                       </div>
                     </div>
-                    
+
                     <div id="contentBautismo" style="display: none;">
                     <div class="row">
                       <div class="input-field col s6"></div>
@@ -205,7 +205,7 @@
                           <label>Fecha de Bautismo:</label>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="input-field col s6">
                           <input id="lugarBautizo" name="lugarBautizo" type="text" class="validate">
@@ -215,7 +215,7 @@
                           <input id="fechaBaut" name="fechaBautizo" pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d" class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa">
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="input-field col s8">
                           <input id="nombreMadrina" name="nombreMadrinaB" type="text" class="validate">
@@ -229,7 +229,7 @@
                           <label for="informacion">Esta Información consta en:</label>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="input-num col s4">
                           <input id="numLibroB" name="numLibroB" type="number" class="validate">
@@ -247,9 +247,9 @@
                   </div>
                   @endif
               </li>
-                
+
               <li>
-                  <div class="collapsible-header waves-light waves-effect white-text">Acta de Confirma</div>
+                  <div class="collapsible-header waves-light waves-effect white-text">Partida de Confirma</div>
                   <div class="collapsible-body">
                   @if($actaConfirma != null)
                     <div class="row">
@@ -258,7 +258,7 @@
                         <label>Fecha de Confirma:</label>
                       </div>
                     </div>
-                
+
                     <div class="row">
                       <div class="input-field col s6">
                         <input id="lugarConfirma" name="lugarConfirma" type="text" class="validate" value="{{ $actaConfirma -> LugarConfirma }}">
@@ -268,7 +268,7 @@
                         <input id="fechaConfir" name="fechaConfirma" pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d" class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa" value="{{ $actaConfirma -> FechaConfirma }}">
                       </div>
                     </div>
-                                
+
                     <div class="row">
                         <div class="input-field col s8">
                           <input id="nombrePadrino1" name="nombrePadrinoC1" type="text" class="validate" value="{{ $actaConfirma -> PadrinoCon1 }}">
@@ -282,7 +282,7 @@
                           <label for="informacion">Esta Información consta en:</label>
                         </div>
                     </div>
-                                  
+
                     <div class="row">
                         <div class="input-num col s4">
                           <input id="numLibroC" name="numLibroC" type="number" class="validate" value="{{ $UbicacionActaConfirma->Libro }}">
@@ -300,14 +300,14 @@
                   @else
                     <div class="row">
                       <div class="input-field col s6">
-                        <p>No cuenta con esta acta</p>
+                        <p>No cuenta con esta partida</p>
                       </div>
                       <div class="input-field col s6">
                         <input type="checkbox" id="checkConfirma"/>
                         <label for="checkConfirma">Agregar Confirma</label>
                       </div>
                     </div>
-                    
+
                     <div id="contentConfirma" style="display: none;">
                     <div class="row">
                       <div class="input-field col s6"></div>
@@ -315,7 +315,7 @@
                         <label>Fecha de Confirma:</label>
                       </div>
                     </div>
-                    
+
                     <div class="row">
                       <div class="input-field col s6">
                         <input id="lugarConfirma" name="lugarConfirma" type="text" class="validate">
@@ -325,7 +325,7 @@
                         <input id="fechaConfir" name="fechaConfirma" pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d" class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa">
                       </div>
                     </div>
-                            
+
                     <div class="row">
                         <div class="input-field col s8">
                           <input id="nombrePadrino1" name="nombrePadrinoC1" type="text" class="validate">
@@ -339,7 +339,7 @@
                           <label for="informacion">Esta Información consta en:</label>
                         </div>
                     </div>
-                              
+
                     <div class="row">
                         <div class="input-num col s4">
                           <input id="numLibroC" name="numLibroC" type="number" class="validate">
@@ -356,11 +356,11 @@
                     </div>
                     </div>
                 @endif
-                
+
               </li>
-                  
+
               <li>
-                  <div class="collapsible-header waves-light waves-effect white-text">Acta de Matrimonio</div>
+                  <div class="collapsible-header waves-light waves-effect white-text">Partida de Matrimonio</div>
                   <div class="collapsible-body">
                   @if($actaMatrimonio != null)
                     <div class="row">
@@ -369,7 +369,7 @@
                         <label>Fecha del Matrimonio:</label>
                       </div>
                     </div>
-                  
+
                     <div class="row">
                       <div class="input-field col s6">
                         <input id="lugarMatrimonio" name="lugarMatrimonio" type="text" class="validate" value="{{ $actaMatrimonio -> LugarMatrimonio }}">
@@ -379,7 +379,7 @@
                         <input id="fechaMatrimonio" name="fechaMatrimonio" pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d" class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa" value="{{ $actaMatrimonio -> FechaMatrimonio }}">
                       </div>
                     </div>
-                              
+
                     <div class="row">
                       <div class="input-field col s8">
                         <input id="nombreConyuge" name="nombreConyuge" type="text" class="validate" value="{{ $actaMatrimonio -> NombreConyugue }}">
@@ -389,7 +389,7 @@
                         <label for="informacion">Esta Información consta en:</label>
                       </div>
                     </div>
-                                
+
                     <div class="row">
                       <div class="input-num col s4">
                         <input id="numLibroM" name="numLibroM" type="number" class="validate" value="{{ $UbicacionActaMatrimonio->Libro }}">
@@ -404,18 +404,18 @@
                         <label for="numAsientoM">Número de Asiento:</label>
                       </div>
                     </div>
-                  
+
                 @else
                  <div class="row">
                       <div class="input-field col s6">
-                        <p>No cuenta con esta acta</p>
+                        <p>No cuenta con esta partida</p>
                       </div>
                       <div class="input-field col s6">
                         <input type="checkbox" id="checkMatrimonio"/>
                         <label for="checkMatrimonio">Agregar Matrimonio</label>
                       </div>
                   </div>
-                    
+
                   <div id="contentMatrimonio" style="display: none;">
                   <div class="row">
                     <div class="input-field col s6"></div>
@@ -423,7 +423,7 @@
                         <label>Fecha del Matrimonio:</label>
                       </div>
                   </div>
-                  
+
                   <div class="row">
                     <div class="input-field col s6">
                       <input id="lugarMatrimonio" name="lugarMatrimonio" type="text" class="validate">
@@ -433,7 +433,7 @@
                       <input id="fechaMatrimonio" name="fechaMatrimonio" pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d" class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa">
                     </div>
                   </div>
-                            
+
                   <div class="row">
                       <div class="input-field col s8">
                         <input id="nombreConyuge" name="nombreConyuge" type="text" class="validate">
@@ -443,7 +443,7 @@
                         <label for="informacion">Esta Información consta en:</label>
                       </div>
                   </div>
-                              
+
                   <div class="row">
                       <div class="input-num col s4">
                         <input id="numLibroM" name="numLibroM" type="number" class="validate">
@@ -461,9 +461,9 @@
                 </div>
                 @endif
             </li>
-                
+
             <li>
-                <div class="collapsible-header waves-light waves-effect white-text">Acta de Defunción</div>
+                <div class="collapsible-header waves-light waves-effect white-text">Partida de Defunción</div>
                 <div class="collapsible-body">
                   @if($actaDefuncion != null)
                     <div class="row">
@@ -472,7 +472,7 @@
                         <label>Fecha de la defunción:</label>
                       </div>
                     </div>
-                  
+
                     <div class="row">
                       <div class="input-field col s6">
                         <input id="lugarDefuncion" name="lugarDefuncion" type="text" class="validate" value="{{ $actaDefuncion -> LugarDefuncion }}">
@@ -482,7 +482,7 @@
                         <input id="fechaDefuncion" name="fechaDefuncion" pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d" class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa" value="{{ $actaDefuncion -> FechaDefuncion }}">
                       </div>
                     </div>
-                              
+
                     <div class="row">
                         <div class="input-field col s8">
                           <input id="causaDefuncion" name="causaDefuncion" type="text" class="validate" value="{{ $actaDefuncion -> CausaMuerte }}">
@@ -492,7 +492,7 @@
                           <label for="informacion">Esta Información consta en:</label>
                         </div>
                     </div>
-                                
+
                     <div class="row">
                       <div class="input-num col s4">
                         <input id="numLibroD" name="numLibroD" type="number" class="validate" value="{{ $UbicacionActaDefuncion->Libro }}">
@@ -508,18 +508,18 @@
                       </div>
                   </div>
                 </div>
-                
+
                 @else
                  <div class="row">
                       <div class="input-field col s6">
-                        <p>No cuenta con esta acta</p>
+                        <p>No cuenta con esta partida</p>
                       </div>
                       <div class="input-field col s6">
                         <input type="checkbox" id="checkDefuncion"/>
                         <label for="checkDefuncion">Agregar Defunción</label>
                       </div>
                   </div>
-                    
+
                   <div id="contentDefuncion" style="display: none;">
                   <div class="row">
                     <div class="input-field col s6"></div>
@@ -527,7 +527,7 @@
                       <label>Fecha de la defunción:</label>
                     </div>
                   </div>
-                  
+
                   <div class="row">
                     <div class="input-field col s6">
                       <input id="lugarDefuncion" name="lugarDefuncion" type="text" class="validate">
@@ -537,7 +537,7 @@
                       <input id="fechaDefuncion" name="fechaDefuncion" pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d" class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa">
                     </div>
                   </div>
-                            
+
                   <div class="row">
                       <div class="input-field col s8">
                         <input id="causaDefuncion" name="causaDefuncion" type="text" class="validate">
@@ -547,7 +547,7 @@
                         <label for="informacion">Esta Información consta en:</label>
                       </div>
                   </div>
-                              
+
                   <div class="row">
                       <div class="input-num col s4">
                         <input id="numLibroD" name="numLibroD" type="number" class="validate">
@@ -569,13 +569,13 @@
         </div>
 
         <div class="row"></br></br></div>
-        
+
         <div class="row">
             <button id="guardarActa" class="waves-effect waves-light btn right" type="submit"><i class="material-icons left">save</i>Guardar</button>
         </div>
-        
+
         <input type="hidden" name="IDPersona" id="IDPersona" value= "{{ $persona->IDPersona }}" />
-        
+
       </form>
     </div>
     <div class="col s12 m4 l2"></div>
@@ -602,7 +602,7 @@
           max: new Date(),
           autoClose: true,
       });
-    
+
       $(document).ready(function(){
         $('#parroquia > option[value="{{ $acta->IDParroquia }}"]').attr('selected', 'selected');
         $("input[name=tipoHijo][value= {{ $laico->IDTipo_Hijo }} ]").prop('checked', true);
@@ -637,55 +637,55 @@
               $("#fechaDefuncion").pickadate("picker").set("select", actaDefuncion.FechaDefuncion, {format: "yyyy-mm-dd H:m:s"}).trigger("change");
           }
       });
-  
-      $("#tipoH2").change(function() {  
-          if($("#tipoH2").is(':checked')) {  
-              $("#nombrePadreEdit").prop('disabled', false); 
+
+      $("#tipoH2").change(function() {
+          if($("#tipoH2").is(':checked')) {
+              $("#nombrePadreEdit").prop('disabled', false);
               $("#nombreMadreEdit").prop('disabled', false);
-          }  
+          }
       });
-      
-      $("#tipoH1").change(function() {  
-          if($("#tipoH1").is(':checked')) {  
+
+      $("#tipoH1").change(function() {
+          if($("#tipoH1").is(':checked')) {
               $("#nombrePadreEdit").prop('disabled', true);
               $("#nombreMadreEdit").prop('disabled', false);
-          }  
+          }
       });
-      
-      $("#checkBautismo").change(function() {  
-        if($("#checkBautismo").is(':checked')) {  
+
+      $("#checkBautismo").change(function() {
+        if($("#checkBautismo").is(':checked')) {
             $("#contentBautismo").css("display", "block");
         }else {
             $("#contentBautismo").css("display", "none");
-        }  
+        }
       });
-      
-      $("#checkConfirma").change(function() {  
-        if($("#checkConfirma").is(':checked')) {  
+
+      $("#checkConfirma").change(function() {
+        if($("#checkConfirma").is(':checked')) {
             $("#contentConfirma").css("display", "block");
         }else {
             $("#contentConfirma").css("display", "none");
-        }  
+        }
       });
-      
-      $("#checkMatrimonio").change(function() {  
-        if($("#checkMatrimonio").is(':checked')) {  
+
+      $("#checkMatrimonio").change(function() {
+        if($("#checkMatrimonio").is(':checked')) {
             $("#contentMatrimonio").css("display", "block");
         }else {
             $("#contentMatrimonio").css("display", "none");
-        }  
+        }
       });
-      
-      $("#checkDefuncion").change(function() {  
-        if($("#checkDefuncion").is(':checked')) {  
+
+      $("#checkDefuncion").change(function() {
+        if($("#checkDefuncion").is(':checked')) {
             $("#contentDefuncion").css("display", "block");
         }else {
             $("#contentDefuncion").css("display", "none");
-        }  
+        }
       });
-  
+
       $('select').material_select();
-  
+
   }
 
 </script>

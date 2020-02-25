@@ -27,7 +27,7 @@
 
             <div class="row">
                 <div class="col s12 m4 l4"></div>
-                <div class="col s12 m4 l4"><h4 class="center-align">Detalle de Acta</h4></div>
+                <div class="col s12 m4 l4"><h4 class="center-align">Detalle de Partida</h4></div>
                 <div class="col s12 m4 l4"></div>
             </div>
 
@@ -137,7 +137,7 @@
 
                 <div class="row">
 
-                    <div class="collapsible-header waves-light waves-effect white-text">Acta de Bautismo</div>
+                    <div class="collapsible-header waves-light waves-effect white-text">Partida de Bautismo</div>
 
                     @if($actaBautismo != null)
 
@@ -198,7 +198,7 @@
                     @else
                         <div class="row">
                             <div class="input-field col s6">
-                                <p>No cuenta con esta acta</p>
+                                <p>No cuenta con esta partida</p>
                             </div>
 
                         </div>
@@ -207,7 +207,7 @@
                 @endif
 
 
-                <div class="collapsible-header waves-light waves-effect white-text">Acta de Confirma</div>
+                <div class="collapsible-header waves-light waves-effect white-text">Partida de Confirma</div>
 
                 @if($actaConfirma != null)
                     <div class="row">
@@ -267,7 +267,7 @@
                 @else
                     <div class="row">
                         <div class="input-field col s6">
-                            <p>No cuenta con esta acta</p>
+                            <p>No cuenta con esta partida</p>
                         </div>
 
                     </div>
@@ -275,7 +275,7 @@
                 @endif
 
 
-                <div class="collapsible-header waves-light waves-effect white-text">Acta de Matrimonio</div>
+                <div class="collapsible-header waves-light waves-effect white-text">Partida de Matrimonio</div>
 
                 @if($actaMatrimonio != null)
                     <div class="row">
@@ -331,7 +331,7 @@
                 @else
                     <div class="row">
                         <div class="input-field col s6">
-                            <p>No cuenta con esta acta</p>
+                            <p>No cuenta con esta partida</p>
                         </div>
 
                     </div>
@@ -339,7 +339,7 @@
                 @endif
 
 
-                <div class="collapsible-header waves-light waves-effect white-text">Acta de Defunción</div>
+                <div class="collapsible-header waves-light waves-effect white-text">Partida de Defunción</div>
 
                 @if($actaDefuncion != null)
                     <div class="row">
@@ -396,7 +396,7 @@
         @else
             <div class="row">
                 <div class="input-field col s6">
-                    <p>No cuenta con esta acta</p>
+                    <p>No cuenta con esta partida</p>
                 </div>
 
             </div>
@@ -479,5 +479,4 @@
 
     </script>
 
-@endsection         
-              
+@endsection

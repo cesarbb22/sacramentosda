@@ -14,14 +14,14 @@
 
         <div class="row">
           <div class="col s12 m4 l4"></div>
-          
+
           <div class="col s12 m4 l4"><h4 class="center-align">Solicitud Eliminar</h4></div>
-          
+
           <div class="col s12 m4 l4"></div>
         </div>
-        
+
         @if (count($errors) > 0)
-    
+
     <div class="row">
       <div class="col s12">
         <div class="card-panel red">
@@ -42,7 +42,7 @@
                  <input id="nombre" name='nombre' type="text" class="validate" required>
                   <label for="nombree">Nombre completo del solicitante:</label>
                  </div>
-                 
+
                 <div class="input-field col s3">
                  <select name="parroquia" id="parroquias">
                      <option value="">---</option>
@@ -52,31 +52,31 @@
                  </select>
                      <label>Seleccione la Parroquia:</label>
                 </div>
-                
+
        </div>
-            
+
             <div class="row">
                 <div class="input-field col s8">
                   <input id="email" name='email' type="text" class="validate" required>
                   <label for="emaill">Correo Electrónico :</label>
                 </div>
             </div>
-                 
+
             <div class="row">
                 <div class="input-field col s12">
                   <textarea id="descripcion" name="descripcion" class="materialize-textarea"></textarea>
-                  <label for="descripcion">Motivo para solicitar eliminar acta:</label>
+                  <label for="descripcion">Motivo para solicitar eliminar partida:</label>
                 </div>
            </div>
         <div class="row"></br></br></div>
         <div class="row">
                 <button id="guardarActa" class="waves-effect waves-light btn right" type="submit"><i class="material-icons left">save</i>Guardar</button>
             </div>
-               
+
     </form>
      </div>
      <div class="col s12 m4 l2"></div>
     </div>
-    
-    
+
+
 @endsection

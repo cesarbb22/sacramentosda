@@ -20,9 +20,9 @@ td, th {
 
 
 </style>
-        
+
  <div id='n' class="row">
-     
+
      @if(session()->has('msjMalo'))
         <div class="col l2"></div>
           <div class="col s12 m8 l8">
@@ -32,7 +32,7 @@ td, th {
           </div>
           <div class="col l2"></div><br><br><br><br><br>
     @endif
-    
+
     @if(session()->has('msjBueno'))
         <div class="col l2"></div>
           <div class="col s12 m8 l8">
@@ -41,16 +41,16 @@ td, th {
             </div>
           </div>
           <div class="col l2"></div><br><br><br><br><br>
-    @endif 
-    
+    @endif
+
     <div class="col s12 m4 l2"></div>
     <div class=" col s12 m4 l8 card-panel z-depth-5">
 
         <div class="row">
           <div class="col s12 m4 l3"></div>
-          
+
           <div class="col s12 m4 l6"><h4 class="center-align">Centro de Notificaciones</h4></div>
-          
+
           <div class="col s12 m4 l3">
              <div class="row">
                  <br>
@@ -60,7 +60,7 @@ td, th {
         </div>
 <br>
        <table id='miTabla' class="bordered">
-        </table> 
+        </table>
     </div>
 </div>
 
@@ -75,23 +75,23 @@ td, th {
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Cerrar</a>
     </div>
   </div>
-          
-  
+
+
 <script type="text/javascript">
-    
+
     function description(id) {
             $('#descripcion').html( $('#desc'+id).html() );
             $('#modal1').modal('open');
         }
-    
-    window.onload = function(e){ 
+
+    window.onload = function(e){
          setTimeout(function() {
             $("#reload").trigger('click');
         },1);
-        
+
         $('.modal').modal();
-        
-        
+
+
         $("#reload").click(function() {
             $.ajax({
                 type: "POST",
@@ -102,9 +102,9 @@ td, th {
                 },
                 success: function(data) {
                     $('#miTabla').empty();
-                    var content = "<thead><tr><th>Tipo de Solicitud</th><th>Remitente</th><th>Parroquia</th><th>Estado</th><th>Detalles</th><th>Ver acta</th><th>Aceptar respuesta</th></tr></thead><tbody>"
+                    var content = "<thead><tr><th>Tipo de Solicitud</th><th>Remitente</th><th>Parroquia</th><th>Estado</th><th>Detalles</th><th>Ver partida</th><th>Aceptar respuesta</th></tr></thead><tbody>"
                     for(i=0; i<data.length; i++){
-                        
+
                         if (data[i].IDTipo_Solicitud == 3) {
                             content += '<tr><td>' + data[i].tipo.NombreTipo_Solicitud + '</td>'
                                     + '<td>' + data[i].user.Nombre + ' '+ data[i].user.PrimerApellido + ' ' + data[i].user.SegundoApellido + '</td>'
@@ -133,5 +133,5 @@ td, th {
         });
     }
 </script>
-        
-@endsection  
+
+@endsection
