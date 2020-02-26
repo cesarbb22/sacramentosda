@@ -23,155 +23,165 @@ use Illuminate\Support\Facades\Redirect;
 class ActaUsuarioController extends Controller
 {
 
-    public function homeUsuario() {
+    public function homeUsuario()
+    {
         $parroquias = \App\Parroquia::all();
-        return view('UserViews.mainActas', ['parroquias'=> $parroquias]);
+        return view('UserViews.mainActas', ['parroquias' => $parroquias]);
     }
 
 
-    public function crearActa(Request $request) {
+    public function crearActa(Request $request)
+    {
 
         try {
-        $Persona = new Persona;
+            $Persona = new Persona;
 
-        if ($request->has('nombrePadre')) {
+            if ($request->has('nombrePadre')) {
 
-            $Persona->Cedula = $request->numCedula;
-            $Persona->Nombre = $request->nombre;
-            $Persona->PrimerApellido = $request->apellido1;
-            $Persona->SegundoApellido = $request->apellido2;
+                $Persona->Cedula = $request->numCedula;
+                $Persona->Nombre = $request->nombre;
+                $Persona->PrimerApellido = $request->apellido1;
+                $Persona->SegundoApellido = $request->apellido2;
 
-            $Persona->save();
+                $Persona->save();
 
-            $Laico = new Laico;
+                $Laico = new Laico;
 
-            $Laico->IDPersona = $Persona->IDPersona;
-            $Laico->IDTipo_Hijo = 2;
-            $Laico->NombreMadre = $request->nombreMadre;
-            $Laico->NombrePadre = $request->nombrePadre;
-            $Laico->LugarNacimiento = $request->lugarNac;
-            $Laico->FechaNacimiento = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaNac));
+                $Laico->IDPersona = $Persona->IDPersona;
+                $Laico->IDTipo_Hijo = 2;
+                $Laico->NombreMadre = $request->nombreMadre;
+                $Laico->NombrePadre = $request->nombrePadre;
+                $Laico->LugarNacimiento = $request->lugarNac;
+                $Laico->FechaNacimiento = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaNac));
 
-            $Laico->save();
-        } else {
+                $Laico->save();
+            } else {
 
-            $Persona->Cedula = $request->numCedula;
-            $Persona->Nombre = $request->nombre;
-            $Persona->PrimerApellido = $request->apellido1;
-            $Persona->SegundoApellido = $request->apellido2;
+                $Persona->Cedula = $request->numCedula;
+                $Persona->Nombre = $request->nombre;
+                $Persona->PrimerApellido = $request->apellido1;
+                $Persona->SegundoApellido = $request->apellido2;
 
-            $Persona->save();
-
-
-            $Laico = new Laico;
-
-            $Laico->IDPersona = $Persona->IDPersona;
-            $Laico->IDTipo_Hijo = 1;
-            $Laico->NombreMadre = $request->nombreMadre;
-            $Laico->LugarNacimiento = $request->lugarNac;
-            $Laico->FechaNacimiento = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaNac));
+                $Persona->save();
 
 
-            $Laico->save();
-        }
+                $Laico = new Laico;
 
-        //------------------------------------------------------------------------------
-        $Acta = new Acta;
-
-
-        if ($request->has('lugarBautizo') || $request->has('lugarConfirma') || $request->has('lugarMatrimonio') || $request->has('lugarDefuncion')) {
-
-        //------------------------------------------------------------------------------
-
-        if ($request->has('lugarBautizo')) {
-            $UbicacionActaB = new UbicacionActa;
-
-            $UbicacionActaB->Libro = $request->numLibroB;
-            $UbicacionActaB->Folio = $request->numFolioB;
-            $UbicacionActaB->Asiento = $request->numAsientoB;
-
-            $UbicacionActaB->save();
-
-            $ActaBautizo = new ActaBautizo;
-
-            $ActaBautizo->LugarBautismo = $request->lugarBautizo;
-            $ActaBautizo->FechaBautismo = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaBautizo));
-            $ActaBautizo->PadrinoBau1 = $request->nombreMadrinaB;
-            $ActaBautizo-> PadrinoBau2 = $request->nombrePadrinoB;
-            $ActaBautizo->IDUbicacionActaBau = $UbicacionActaB->IDUbicacionActa;
-            $ActaBautizo-> save();
-
-            $Acta->IDBautismo = $ActaBautizo-> IDBautismo;
-            //-------------------------------------------------------
-        }
-
-         if ($request->has('lugarConfirma')) {
-            $UbicacionActaC = new UbicacionActa;
-
-            $UbicacionActaC->Libro = $request->numLibroC;
-            $UbicacionActaC->Folio = $request->numFolioC;
-            $UbicacionActaC->Asiento = $request->numAsientoC;
-            $UbicacionActaC->save();
-
-            $ActaConfirma = new ActaConfirma;
-
-            $ActaConfirma->LugarConfirma = $request->lugarConfirma;
-            $ActaConfirma->FechaConfirma = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaConfirma));
-            $ActaConfirma->PadrinoCon1 = $request-> nombrePadrinoC1;
-            $ActaConfirma->PadrinoCon2 = $request->nombrePadrinoC2;
-            $ActaConfirma->IDUbicacionActaCon = $UbicacionActaC->IDUbicacionActa;
-            $ActaConfirma-> save();
-
-            $Acta->IDConfirma = $ActaConfirma->IDConfirma;
-         }
-             if ($request->has('lugarMatrimonio')) {
-            $UbicacionActaM = new UbicacionActa;
-
-            $UbicacionActaM->Libro = $request->numLibroM;
-            $UbicacionActaM->Folio = $request->numFolioM;
-            $UbicacionActaM->Asiento = $request->numAsientoM;
-
-            $UbicacionActaM->save();
-
-            $ActaMatrimonio = new ActaMatrimonio;
-
-            $ActaMatrimonio->LugarMatrimonio = $request->lugarMatrimonio;
-            $ActaMatrimonio->FechaMatrimonio = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaMatrimonio));
-            $ActaMatrimonio->NombreConyugue = $request-> nombreConyuge;
-            $ActaMatrimonio->IDUbicacionActaMat = $UbicacionActaM->IDUbicacionActa;
-            $ActaMatrimonio-> save();
-
-            $Acta->IDMatrimonio=$ActaMatrimonio->IDMatrimonio;
-         }
-         if ($request->has('lugarDefuncion')) {
-            $UbicacionActaD = new UbicacionActa;
-
-            $UbicacionActaD->Libro = $request->numLibroD;
-            $UbicacionActaD->Folio = $request->numFolioD;
-            $UbicacionActaD->Asiento = $request->numAsientoD;
-            $UbicacionActaD->save();
-
-            $ActaDefuncion = new ActaDefuncion;
-
-            $ActaDefuncion->LugarDefuncion = $request->lugarDefuncion;
-            $ActaDefuncion->FechaDefuncion = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaDefuncion));
-            $ActaDefuncion->CausaMuerte = $request-> causaDefuncion;
-            $ActaDefuncion->IDUbicacionActaDef = $UbicacionActaD->IDUbicacionActa;
-            $ActaDefuncion-> save();
-
-            $Acta->IDDefuncion = $ActaDefuncion->IDDefuncion;
-         }
-         if ($request->has('notasMarginales')) {
-             $Acta->NotasMarginales = $request->notasMarginales;
-         }
-        }//fin if acta
-
-        $Acta->IDPersona = $Persona->IDPersona;
-        $Acta->IDParroquia = $request->parroquia;
-        $Acta-> save();
+                $Laico->IDPersona = $Persona->IDPersona;
+                $Laico->IDTipo_Hijo = 1;
+                $Laico->NombreMadre = $request->nombreMadre;
+                $Laico->LugarNacimiento = $request->lugarNac;
+                $Laico->FechaNacimiento = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaNac));
 
 
-        return back()->with('msjBueno', "Se agregó el acta correctamente");
+                $Laico->save();
+            }
+
+            //------------------------------------------------------------------------------
+            $Acta = new Acta;
+
+
+            if ($request->has('lugarBautizo') || $request->has('lugarConfirma') || $request->has('lugarMatrimonio') || $request->has('lugarDefuncion')) {
+
+                //------------------------------------------------------------------------------
+
+                if ($request->has('lugarBautizo')) {
+                    $UbicacionActaB = new UbicacionActa;
+
+                    $UbicacionActaB->Libro = $request->numLibroB;
+                    $UbicacionActaB->Folio = $request->numFolioB;
+                    $UbicacionActaB->Asiento = $request->numAsientoB;
+
+                    $UbicacionActaB->save();
+
+                    $ActaBautizo = new ActaBautizo;
+
+                    $ActaBautizo->LugarBautismo = $request->lugarBautizo;
+                    $ActaBautizo->FechaBautismo = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaBautizo));
+                    $ActaBautizo->PadrinoBau1 = $request->nombreMadrinaB;
+                    $ActaBautizo->PadrinoBau2 = $request->nombrePadrinoB;
+                    $ActaBautizo->IDUbicacionActaBau = $UbicacionActaB->IDUbicacionActa;
+                    $ActaBautizo->IDUserRegistra = Auth::user()->IDUser;
+                    $ActaBautizo->IDParroquiaRegistra = Auth::user()->IDParroquia;
+                    $ActaBautizo->save();
+
+                    $Acta->IDBautismo = $ActaBautizo->IDBautismo;
+                    //-------------------------------------------------------
+                }
+
+                if ($request->has('lugarConfirma')) {
+                    $UbicacionActaC = new UbicacionActa;
+
+                    $UbicacionActaC->Libro = $request->numLibroC;
+                    $UbicacionActaC->Folio = $request->numFolioC;
+                    $UbicacionActaC->Asiento = $request->numAsientoC;
+                    $UbicacionActaC->save();
+
+                    $ActaConfirma = new ActaConfirma;
+
+                    $ActaConfirma->LugarConfirma = $request->lugarConfirma;
+                    $ActaConfirma->FechaConfirma = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaConfirma));
+                    $ActaConfirma->PadrinoCon1 = $request->nombrePadrinoC1;
+                    $ActaConfirma->PadrinoCon2 = $request->nombrePadrinoC2;
+                    $ActaConfirma->IDUbicacionActaCon = $UbicacionActaC->IDUbicacionActa;
+                    $ActaConfirma->IDUserRegistra = Auth::user()->IDUser;
+                    $ActaConfirma->IDParroquiaRegistra = Auth::user()->IDParroquia;
+                    $ActaConfirma->save();
+
+                    $Acta->IDConfirma = $ActaConfirma->IDConfirma;
+                }
+                if ($request->has('lugarMatrimonio')) {
+                    $UbicacionActaM = new UbicacionActa;
+
+                    $UbicacionActaM->Libro = $request->numLibroM;
+                    $UbicacionActaM->Folio = $request->numFolioM;
+                    $UbicacionActaM->Asiento = $request->numAsientoM;
+
+                    $UbicacionActaM->save();
+
+                    $ActaMatrimonio = new ActaMatrimonio;
+
+                    $ActaMatrimonio->LugarMatrimonio = $request->lugarMatrimonio;
+                    $ActaMatrimonio->FechaMatrimonio = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaMatrimonio));
+                    $ActaMatrimonio->NombreConyugue = $request->nombreConyuge;
+                    $ActaMatrimonio->IDUbicacionActaMat = $UbicacionActaM->IDUbicacionActa;
+                    $ActaMatrimonio->IDUserRegistra = Auth::user()->IDUser;
+                    $ActaMatrimonio->IDParroquiaRegistra = Auth::user()->IDParroquia;
+                    $ActaMatrimonio->save();
+
+                    $Acta->IDMatrimonio = $ActaMatrimonio->IDMatrimonio;
+                }
+                if ($request->has('lugarDefuncion')) {
+                    $UbicacionActaD = new UbicacionActa;
+
+                    $UbicacionActaD->Libro = $request->numLibroD;
+                    $UbicacionActaD->Folio = $request->numFolioD;
+                    $UbicacionActaD->Asiento = $request->numAsientoD;
+                    $UbicacionActaD->save();
+
+                    $ActaDefuncion = new ActaDefuncion;
+
+                    $ActaDefuncion->LugarDefuncion = $request->lugarDefuncion;
+                    $ActaDefuncion->FechaDefuncion = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaDefuncion));
+                    $ActaDefuncion->CausaMuerte = $request->causaDefuncion;
+                    $ActaDefuncion->IDUbicacionActaDef = $UbicacionActaD->IDUbicacionActa;
+                    $ActaDefuncion->IDUserRegistra = Auth::user()->IDUser;
+                    $ActaDefuncion->IDParroquiaRegistra = Auth::user()->IDParroquia;
+                    $ActaDefuncion->save();
+
+                    $Acta->IDDefuncion = $ActaDefuncion->IDDefuncion;
+                }
+                if ($request->has('notasMarginales')) {
+                    $Acta->NotasMarginales = $request->notasMarginales;
+                }
+            }//fin if acta
+
+            $Acta->IDPersona = $Persona->IDPersona;
+            $Acta->IDParroquia = $request->parroquia;
+            $Acta->save();
+
+
+            return back()->with('msjBueno', "Se agregó el acta correctamente");
 
         } catch (Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error. Intente nuevamente!");
@@ -179,9 +189,10 @@ class ActaUsuarioController extends Controller
     }
 
 
-    public function EditarActa(Request $request) {
+    public function EditarActa(Request $request)
+    {
         try {
-            $acta = Acta::where('IDPersona', $request->idPersona) -> first();
+            $acta = Acta::where('IDPersona', $request->idPersona)->first();
 
             $solicitud = new Solicitud;
             $solicitud->IDUser = Auth::user()->IDUser;
@@ -189,8 +200,6 @@ class ActaUsuarioController extends Controller
             $solicitud->IDEstado_Solicitud = 3;
 
             $solicitud->save();
-
-
 
             $solicitud_acta = new Solicitud_Acta;
             $solicitud_acta->IDSolicitud = $solicitud->IDSolicitud;
@@ -200,13 +209,14 @@ class ActaUsuarioController extends Controller
             $solicitud_acta->save();
 
             return back()->with('msjBueno', "Se envió la solicitud correctamente!");
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error. Intente nuevamente!");
         }
     } // fin EditarActa
 
 
-    public function actualizarActa(Request $request) {
+    public function actualizarActa(Request $request)
+    {
         try {
             $id = $_POST['IDPersona'];
 
@@ -215,7 +225,7 @@ class ActaUsuarioController extends Controller
             $persona->Nombre = $request->nombreEdit;
             $persona->PrimerApellido = $request->apellido1Edit;
             $persona->SegundoApellido = $request->apellido2Edit;
-            $persona -> save();
+            $persona->save();
 
             $laico = Laico::find($id);
             $laico->IDTipo_Hijo = $request->tipoHijo;
@@ -223,32 +233,31 @@ class ActaUsuarioController extends Controller
             $laico->NombrePadre = $request->nombrePadreEdit;
             $laico->LugarNacimiento = $request->lugarNacEdit;
             $laico->FechaNacimiento = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaNacEdit));
-            $laico -> save();
+            $laico->save();
 
-            $acta =  Acta::where('IDPersona', $id) -> first();
-            $acta -> NotasMarginales = $request->notasMarginalesEdit;
+            $acta = Acta::where('IDPersona', $id)->first();
+            $acta->NotasMarginales = $request->notasMarginalesEdit;
             $acta->IDParroquia = $request->parroquia;
-            $idBautismo = $acta -> IDBautismo;
-            $idConfirma = $acta -> IDConfirma;
-            $idMatrimonio = $acta -> IDMatrimonio;
-            $idDefuncion = $acta -> IDDefuncion;
+            $idBautismo = $acta->IDBautismo;
+            $idConfirma = $acta->IDConfirma;
+            $idMatrimonio = $acta->IDMatrimonio;
+            $idDefuncion = $acta->IDDefuncion;
 
-            if($idBautismo != null) {
-                $actaBautismo = ActaBautizo::where('IDBautismo', $idBautismo) -> first();
-                $actaBautismo -> LugarBautismo = $request->lugarBautizo;
+            if ($idBautismo != null) {
+                $actaBautismo = ActaBautizo::where('IDBautismo', $idBautismo)->first();
+                $actaBautismo->LugarBautismo = $request->lugarBautizo;
                 $actaBautismo->FechaBautismo = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaBautizo));
                 $actaBautismo->PadrinoBau1 = $request->nombreMadrinaB;
-                $actaBautismo-> PadrinoBau2 = $request->nombrePadrinoB;
-                $actaBautismo -> save();
+                $actaBautismo->PadrinoBau2 = $request->nombrePadrinoB;
+                $actaBautismo->save();
 
-                $idUbicacionActaBau = $actaBautismo ->IDUbicacionActaBau;
-                $UbicacionActaBautismo = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaBau) -> first();
+                $idUbicacionActaBau = $actaBautismo->IDUbicacionActaBau;
+                $UbicacionActaBautismo = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaBau)->first();
                 $UbicacionActaBautismo->Libro = $request->numLibroB;
                 $UbicacionActaBautismo->Folio = $request->numFolioB;
                 $UbicacionActaBautismo->Asiento = $request->numAsientoB;
                 $UbicacionActaBautismo->save();
-            } else {
-                if ($request->has('lugarBautizo')) {
+            } else if ($request->has('lugarBautizo')) {
                     $UbicacionActaBautismo = new UbicacionActa;
                     $UbicacionActaBautismo->Libro = $request->numLibroB;
                     $UbicacionActaBautismo->Folio = $request->numFolioB;
@@ -256,33 +265,33 @@ class ActaUsuarioController extends Controller
                     $UbicacionActaBautismo->save();
 
                     $actaBautismo = new ActaBautizo;
-                    $actaBautismo -> LugarBautismo = $request->lugarBautizo;
+                    $actaBautismo->LugarBautismo = $request->lugarBautizo;
                     $actaBautismo->FechaBautismo = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaBautizo));
                     $actaBautismo->PadrinoBau1 = $request->nombreMadrinaB;
-                    $actaBautismo-> PadrinoBau2 = $request->nombrePadrinoB;
-                    $actaBautismo ->IDUbicacionActaBau = $UbicacionActaBautismo -> IDUbicacionActa;
-                    $actaBautismo -> save();
+                    $actaBautismo->PadrinoBau2 = $request->nombrePadrinoB;
+                    $actaBautismo->IDUbicacionActaBau = $UbicacionActaBautismo->IDUbicacionActa;
+                    $actaBautismo->IDUserRegistra = Auth::user()->IDUser;
+                    $actaBautismo->IDParroquiaRegistra = Auth::user()->IDParroquia;
+                    $actaBautismo->save();
 
-                    $acta -> IDBautismo = $actaBautismo -> IDBautismo;
-                }
+                    $acta->IDBautismo = $actaBautismo->IDBautismo;
             }
 
-            if($idConfirma != null) {
-                $actaConfirma = ActaConfirma::where('IDConfirma', $idConfirma) -> first();
+            if ($idConfirma != null) {
+                $actaConfirma = ActaConfirma::where('IDConfirma', $idConfirma)->first();
                 $actaConfirma->LugarConfirma = $request->lugarConfirma;
                 $actaConfirma->FechaConfirma = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaConfirma));
-                $actaConfirma->PadrinoCon1 = $request-> nombrePadrinoC1;
+                $actaConfirma->PadrinoCon1 = $request->nombrePadrinoC1;
                 $actaConfirma->PadrinoCon2 = $request->nombrePadrinoC2;
-                $actaConfirma-> save();
+                $actaConfirma->save();
 
-                $idUbicacionActaCon = $actaConfirma ->IDUbicacionActaCon;
-                $UbicacionActaConfirma = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaCon) -> first();
+                $idUbicacionActaCon = $actaConfirma->IDUbicacionActaCon;
+                $UbicacionActaConfirma = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaCon)->first();
                 $UbicacionActaConfirma->Libro = $request->numLibroC;
                 $UbicacionActaConfirma->Folio = $request->numFolioC;
                 $UbicacionActaConfirma->Asiento = $request->numAsientoC;
                 $UbicacionActaConfirma->save();
-            } else {
-                if ($request->has('lugarConfirma')) {
+            } else if ($request->has('lugarConfirma') && $request->fechaConfirma != null) {
                     $UbicacionActaConfirma = new UbicacionActa;
                     $UbicacionActaConfirma->Libro = $request->numLibroC;
                     $UbicacionActaConfirma->Folio = $request->numFolioC;
@@ -292,30 +301,30 @@ class ActaUsuarioController extends Controller
                     $actaConfirma = new ActaConfirma;
                     $actaConfirma->LugarConfirma = $request->lugarConfirma;
                     $actaConfirma->FechaConfirma = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaConfirma));
-                    $actaConfirma->PadrinoCon1 = $request-> nombrePadrinoC1;
+                    $actaConfirma->PadrinoCon1 = $request->nombrePadrinoC1;
                     $actaConfirma->PadrinoCon2 = $request->nombrePadrinoC2;
                     $actaConfirma->IDUbicacionActaCon = $UbicacionActaConfirma->IDUbicacionActa;
-                    $actaConfirma-> save();
+                    $actaConfirma->IDUserRegistra = Auth::user()->IDUser;
+                    $actaConfirma->IDParroquiaRegistra = Auth::user()->IDParroquia;
+                    $actaConfirma->save();
 
-                    $acta -> IDConfirma =  $actaConfirma ->IDConfirma;
-                }
+                    $acta->IDConfirma = $actaConfirma->IDConfirma;
             }
 
-            if($idMatrimonio != null) {
-                $actaMatrimonio = ActaMatrimonio::where('IDMatrimonio', $idMatrimonio) -> first();
+            if ($idMatrimonio != null) {
+                $actaMatrimonio = ActaMatrimonio::where('IDMatrimonio', $idMatrimonio)->first();
                 $actaMatrimonio->LugarMatrimonio = $request->lugarMatrimonio;
                 $actaMatrimonio->FechaMatrimonio = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaMatrimonio));
-                $actaMatrimonio->NombreConyugue = $request-> nombreConyuge;
-                $actaMatrimonio-> save();
+                $actaMatrimonio->NombreConyugue = $request->nombreConyuge;
+                $actaMatrimonio->save();
 
-                $idUbicacionActaMat = $actaMatrimonio ->IDUbicacionActaMat;
-                $UbicacionActaMatrimonio = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaMat) -> first();
+                $idUbicacionActaMat = $actaMatrimonio->IDUbicacionActaMat;
+                $UbicacionActaMatrimonio = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaMat)->first();
                 $UbicacionActaMatrimonio->Libro = $request->numLibroM;
                 $UbicacionActaMatrimonio->Folio = $request->numFolioM;
                 $UbicacionActaMatrimonio->Asiento = $request->numAsientoM;
                 $UbicacionActaMatrimonio->save();
-            } else {
-                 if ($request->has('lugarMatrimonio')) {
+            } else if ($request->has('lugarMatrimonio') && $request->fechaMatrimonio != null) {
                     $UbicacionActaMatrimonio = new UbicacionActa;
                     $UbicacionActaMatrimonio->Libro = $request->numLibroM;
                     $UbicacionActaMatrimonio->Folio = $request->numFolioM;
@@ -325,29 +334,29 @@ class ActaUsuarioController extends Controller
                     $actaMatrimonio = new ActaMatrimonio;
                     $actaMatrimonio->LugarMatrimonio = $request->lugarMatrimonio;
                     $actaMatrimonio->FechaMatrimonio = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaMatrimonio));
-                    $actaMatrimonio->NombreConyugue = $request-> nombreConyuge;
+                    $actaMatrimonio->NombreConyugue = $request->nombreConyuge;
                     $actaMatrimonio->IDUbicacionActaMat = $UbicacionActaMatrimonio->IDUbicacionActa;
-                    $actaMatrimonio-> save();
+                    $actaMatrimonio->IDUserRegistra = Auth::user()->IDUser;
+                    $actaMatrimonio->IDParroquiaRegistra = Auth::user()->IDParroquia;
+                    $actaMatrimonio->save();
 
                     $acta->IDMatrimonio = $actaMatrimonio->IDMatrimonio;
-                 }
             }
 
-            if($idDefuncion != null) {
-                $actaDefuncion = ActaDefuncion::where('IDDefuncion', $idDefuncion) -> first();
+            if ($idDefuncion != null) {
+                $actaDefuncion = ActaDefuncion::where('IDDefuncion', $idDefuncion)->first();
                 $actaDefuncion->LugarDefuncion = $request->lugarDefuncion;
                 $actaDefuncion->FechaDefuncion = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaDefuncion));
-                $actaDefuncion->CausaMuerte = $request-> causaDefuncion;
-                $actaDefuncion-> save();
+                $actaDefuncion->CausaMuerte = $request->causaDefuncion;
+                $actaDefuncion->save();
 
-                $idUbicacionActaDef = $actaDefuncion ->IDUbicacionActaDef;
-                $UbicacionActaDefuncion = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaDef) -> first();
+                $idUbicacionActaDef = $actaDefuncion->IDUbicacionActaDef;
+                $UbicacionActaDefuncion = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaDef)->first();
                 $UbicacionActaDefuncion->Libro = $request->numLibroD;
                 $UbicacionActaDefuncion->Folio = $request->numFolioD;
                 $UbicacionActaDefuncion->Asiento = $request->numAsientoD;
                 $UbicacionActaDefuncion->save();
-            }  else {
-                if ($request->has('lugarDefuncion')) {
+            } else if ($request->has('lugarDefuncion') && $request->fechaDefuncion != null) {
                     $UbicacionActaDefuncion = new UbicacionActa;
                     $UbicacionActaDefuncion->Libro = $request->numLibroD;
                     $UbicacionActaDefuncion->Folio = $request->numFolioD;
@@ -357,12 +366,13 @@ class ActaUsuarioController extends Controller
                     $actaDefuncion = new ActaDefuncion;
                     $actaDefuncion->LugarDefuncion = $request->lugarDefuncion;
                     $actaDefuncion->FechaDefuncion = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaDefuncion));
-                    $actaDefuncion->CausaMuerte = $request-> causaDefuncion;
+                    $actaDefuncion->CausaMuerte = $request->causaDefuncion;
                     $actaDefuncion->IDUbicacionActaDef = $UbicacionActaDefuncion->IDUbicacionActa;
-                    $actaDefuncion-> save();
+                    $actaDefuncion->IDUserRegistra = Auth::user()->IDUser;
+                    $actaDefuncion->IDParroquiaRegistra = Auth::user()->IDParroquia;
+                    $actaDefuncion->save();
 
-                    $acta -> IDDefuncion = $actaDefuncion->IDDefuncion;
-                }
+                    $acta->IDDefuncion = $actaDefuncion->IDDefuncion;
             }
 
             $IDSolicitud = $request->IDSolicitud;
@@ -371,102 +381,102 @@ class ActaUsuarioController extends Controller
 
             $solicitud->save();
 
-            $acta -> save();
+            $acta->save();
             return back()->with('msjBueno', "Se ha modificado el acta correctamente");
 
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error al modificar el acta");
         }
     }//Fin actualizar acta
 
 
-
-    public function DetalleActa($id) {
+    public function DetalleActa($id)
+    {
         try {
-            $acta = Acta::where('IDPersona', $id) -> first();
+            $acta = Acta::where('IDPersona', $id)->first();
             $parroquias = \App\Parroquia::all();
 
-            $idBautismo = $acta -> IDBautismo;
-            $idConfirma = $acta -> IDConfirma;
-            $idMatrimonio = $acta -> IDMatrimonio;
-            $idDefuncion = $acta -> IDDefuncion;
-            $idParroquia = $acta ->IDParroquia;
+            $idBautismo = $acta->IDBautismo;
+            $idConfirma = $acta->IDConfirma;
+            $idMatrimonio = $acta->IDMatrimonio;
+            $idDefuncion = $acta->IDDefuncion;
+            $idParroquia = $acta->IDParroquia;
 
-            $actaBautismo = ActaBautizo::where('IDBautismo', $idBautismo) -> first();
-            $actaConfirma = ActaConfirma::where('IDConfirma', $idConfirma) -> first();
-            $actaMatrimonio = ActaMatrimonio::where('IDMatrimonio', $idMatrimonio) -> first();
-            $actaDefuncion = ActaDefuncion::where('IDDefuncion', $idDefuncion) -> first();
-            $parroquia = Parroquia::where('IDParroquia', $idParroquia) -> first();
+            $actaBautismo = ActaBautizo::where('IDBautismo', $idBautismo)->first();
+            $actaConfirma = ActaConfirma::where('IDConfirma', $idConfirma)->first();
+            $actaMatrimonio = ActaMatrimonio::where('IDMatrimonio', $idMatrimonio)->first();
+            $actaDefuncion = ActaDefuncion::where('IDDefuncion', $idDefuncion)->first();
+            $parroquia = Parroquia::where('IDParroquia', $idParroquia)->first();
             $laico = Laico::findOrFail($id);
 
             $date = $laico->FechaNacimiento;
             $laico->FechaNacimiento = $this->formatDateToString($date);
 
-            if($laico->IDTipo_Hijo == 1) {
+            if ($laico->IDTipo_Hijo == 1) {
                 $tipoHijo = "Natural";
             } else {
                 $tipoHijo = "Legítimo";
             }
 
-            if($idBautismo != null) {
-                $idUbicacionActaBau = $actaBautismo ->IDUbicacionActaBau;
+            if ($idBautismo != null) {
+                $idUbicacionActaBau = $actaBautismo->IDUbicacionActaBau;
                 $date = $actaBautismo->FechaBautismo;
                 $actaBautismo->FechaBautismo = $this->formatDatetoString($date);
-                $UbicacionActaBautismo = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaBau) -> first();
+                $UbicacionActaBautismo = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaBau)->first();
             } else {
                 $idUbicacionActaBau = null;
                 $UbicacionActaBautismo = null;
             }
 
-            if($idConfirma != null) {
-                $idUbicacionActaCon = $actaConfirma ->IDUbicacionActaCon;
+            if ($idConfirma != null) {
+                $idUbicacionActaCon = $actaConfirma->IDUbicacionActaCon;
                 $date = $actaConfirma->FechaConfirma;
                 $actaConfirma->FechaConfirma = $this->formatDatetoString($date);
-                $UbicacionActaConfirma = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaCon) -> first();
+                $UbicacionActaConfirma = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaCon)->first();
             } else {
                 $idUbicacionActaCon = null;
                 $UbicacionActaConfirma = null;
             }
 
-            if($idMatrimonio != null) {
-                $idUbicacionActaMat = $actaMatrimonio ->IDUbicacionActaMat;
+            if ($idMatrimonio != null) {
+                $idUbicacionActaMat = $actaMatrimonio->IDUbicacionActaMat;
                 $date = $actaMatrimonio->FechaMatrimonio;
                 $actaMatrimonio->FechaMatrimonio = $this->formatDatetoString($date);
-                $UbicacionActaMatrimonio = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaMat) -> first();
-            }
-            else {
+                $UbicacionActaMatrimonio = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaMat)->first();
+            } else {
                 $idUbicacionActaMat = null;
                 $UbicacionActaMatrimonio = null;
             }
 
-            if($idDefuncion != null) {
-                $idUbicacionActaDef = $actaDefuncion ->IDUbicacionActaDef;
+            if ($idDefuncion != null) {
+                $idUbicacionActaDef = $actaDefuncion->IDUbicacionActaDef;
                 $date = $actaDefuncion->FechaDefuncion;
                 $actaDefuncion->FechaDefuncion = $this->formatDatetoString($date);
-                $UbicacionActaDefuncion = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaDef) -> first();
+                $UbicacionActaDefuncion = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaDef)->first();
             } else {
                 $idUbicacionActaDef = null;
                 $UbicacionActaDefuncion = null;
             }
 
             return view('UserViews.DetalleActa', ['persona' => Persona::findOrFail($id), 'laico' => $laico,
-            'acta' => $acta, 'actaBautismo' => $actaBautismo, 'actaConfirma' => $actaConfirma, 'actaMatrimonio' => $actaMatrimonio,
-            'actaDefuncion' => $actaDefuncion, 'UbicacionActaBautismo' => $UbicacionActaBautismo, 'UbicacionActaConfirma' => $UbicacionActaConfirma,
-            'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion,'parroquia'=> $parroquia, 'tipoHijo' => $tipoHijo ]);
+                'acta' => $acta, 'actaBautismo' => $actaBautismo, 'actaConfirma' => $actaConfirma, 'actaMatrimonio' => $actaMatrimonio,
+                'actaDefuncion' => $actaDefuncion, 'UbicacionActaBautismo' => $UbicacionActaBautismo, 'UbicacionActaConfirma' => $UbicacionActaConfirma,
+                'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion, 'parroquia' => $parroquia, 'tipoHijo' => $tipoHijo]);
 
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error " + $e);
         }
     } // fin DetalleActa
 
 
-    public function EliminarActa(Request $request) {
+    public function EliminarActa(Request $request)
+    {
         try {
-            $acta = Acta::where('IDPersona', $request->idPersona) -> first();
+            $acta = Acta::where('IDPersona', $request->idPersona)->first();
 
             $solicitudes = Solicitud_Acta::where('IDActa', $acta->IDActa)->get();
             foreach ($solicitudes as $s) {
-                $solici = Solicitud::where('IDSolicitud', $s->IDSolicitud) -> first();
+                $solici = Solicitud::where('IDSolicitud', $s->IDSolicitud)->first();
                 if ($solici->IDEstado_Solicitud == 4) {
                     $solicitud = new Solicitud;
                     $solicitud->IDUser = Auth::user()->IDUser;
@@ -506,22 +516,24 @@ class ActaUsuarioController extends Controller
 
             return back()->with('msjBueno', "Se envió la solicitud correctamente!");
 
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error al enviar la solicitud!");
         }
     } // fin EliminarActa
 
-    function formatDate($dateString) {
+    function formatDate($dateString)
+    {
         $dd = substr($dateString, 0, 2);
         $mm = substr($dateString, 3, 2);
         $yyyy = substr($dateString, 6, 4);
-        return $yyyy.'-'.$mm.'-'.$dd.' 00:00:00';
+        return $yyyy . '-' . $mm . '-' . $dd . ' 00:00:00';
     }
 
-    function formatDateToString($dateString) {
+    function formatDateToString($dateString)
+    {
         $yyyy = substr($dateString, 0, 4);
         $mm = substr($dateString, 5, 2);
         $dd = substr($dateString, 8, 2);
-        return $dd.'/'.$mm.'/'.$yyyy;
+        return $dd . '/' . $mm . '/' . $yyyy;
     }
 }

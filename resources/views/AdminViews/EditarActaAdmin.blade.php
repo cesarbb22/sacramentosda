@@ -59,13 +59,13 @@
 
                 {{ csrf_field() }}
                 <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col s4">
                         <input id="numCedulaEdit" name='numCedulaEdit' type="text" class="validate"
                                value="{{ $persona->Cedula }}" maxlength="9">
                         <label for="numCedulaEdit">Número de cédula:</label>
                     </div>
 
-                    <div class="input-field col s6">
+                    <div class="input-field col s8">
                         <select name='parroquia' id="parroquia">
                             @foreach ($parroquias as $pa)
                                 <option value="{{ $pa->IDParroquia }}">{{ $pa->NombreParroquia }}</option>

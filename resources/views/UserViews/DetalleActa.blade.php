@@ -34,9 +34,9 @@
         <div class=" col s12 m4 l8 card-panel z-depth-5">
 
             <div class="row">
-                <div class="col s12 m4 l4"></div>
-                <div class="col s12 m4 l4"><h4 class="center-align">Detalle de Partida</h4></div>
-                <div class="col s12 m4 l4"></div>
+                <div class="col s12 m3 l3"></div>
+                <div class="col s12 m6 l6"><h4 class="center-align">Detalle de Partida</h4></div>
+                <div class="col s12 m3 l3"></div>
             </div>
 
             @if (count($errors) > 0)
@@ -57,13 +57,13 @@
 
                 {{ csrf_field() }}
                 <div class="row">
-                    <div class="input-field col s6">
+                    <div class="input-field col s4">
                         <input id="numCedulaEdit" name='numCedulaEdit' type="text" value="{{ $persona->Cedula }}"
                                readonly maxlength="9">
                         <label for="numCedulaEdit">Número de cédula:</label>
                     </div>
 
-                    <div class="input-field col s6">
+                    <div class="input-field col s8">
                         <input id="parroquia" name='parroquia' type="text" value="{{ $parroquia->NombreParroquia }}"
                                readonly>
                         <label for="parroquia">Parroquia:</label>

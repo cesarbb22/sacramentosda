@@ -152,10 +152,8 @@ class UserController extends Controller {
             $user->save();
 
             return back()->with('msjBueno', "Se ha creado correctamente el usuario");
-            return Redirect::to('/ActasAdmin');
         } catch(\Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error al ingresar el usuario");
-            return Redirect::to('/ActasAdmin');
         }
     }
 

@@ -52,12 +52,12 @@
         <form id="formActa" method="POST" action="/crearActa" autocomplete="off">
           {{ csrf_field() }}
             <div class="row">
-                <div class="input-field col s6">
+                <div class="input-field col s4">
                   <input id="numCedula" name='numCedula' type="text" class="validate" minlength="9" maxlength="9" required oninvalid="this.setCustomValidity('Debe ingresar cédula con el formato: 101230456')"
     oninput="setCustomValidity('')">
                   <label for="numCedula">Número de cédula:</label>
                 </div>
-                <div class="input-field col s6">
+                <div class="input-field col s8">
                   <select name='parroquia'>
                     @foreach ($parroquias as $pa)
                       <option value="{{ $pa->IDParroquia }}">{{ $pa->NombreParroquia }}</option>
