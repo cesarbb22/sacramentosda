@@ -382,10 +382,10 @@ class ActaUsuarioController extends Controller
             $solicitud->save();
 
             $acta->save();
-            return back()->with('msjBueno', "Se ha modificado el acta correctamente");
+            return back()->with('msjBueno', "Se ha modificado la partida correctamente");
 
         } catch (Exception $e) {
-            return back()->with('msjMalo', "Ha ocurrido un error al modificar el acta");
+            return back()->with('msjMalo', "Ha ocurrido un error al modificar la partida");
         }
     }//Fin actualizar acta
 
