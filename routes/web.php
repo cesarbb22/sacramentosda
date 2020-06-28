@@ -16,12 +16,12 @@ Route::get('/', function () {
 });
 
 Route::get('/login', function () {
-    return view('login');
+    return view('auth.login');
 });
 
-Route::get('/prueba', function () {
-    return view('PruebaMaster');
-});
+//Route::get('/prueba', function () {
+//    return view('PruebaMaster');
+//});
 
 Route::get('/notificacionesAdmin', function () {
     return view('AdminViews.notificaciones');
@@ -111,8 +111,6 @@ Route::get('/Detalle{id}',['as' => '/Detalle', 'uses' => 'ActaAdminController@De
 Route::get('/DetalleUsuario/{id}',['as' => '/DetalleUsuario', 'uses' => 'ActaUsuarioController@DetalleActa'])->middleware('auth');
 
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::post('/queryPersonas', 'consultaAdmin@query');
 
 Route::post('/queryPersonasUsuario', 'consultaUsuario@query');
@@ -128,13 +126,12 @@ Route::post('/guardarPerfil', 'UserController@editarPerfilUser');
 Route::get('/editarPerfil', 'UserController@index')->middleware('auth');
 
 // Authentication Routes...
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+//Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/loginn', 'Auth\LoginController@authenticate');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 // Registration Routes...
-//Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'Auth\RegisterController@registerForm');
+Route::post('/register', 'Auth\RegisterController@registerForm');
 
 // Password Reset Routes...
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
@@ -142,14 +139,4 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-
-
-
-
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

@@ -136,7 +136,7 @@
 
             <div class="nav-wrapper">
               <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="{{ route('login') }}">Iniciar sesión</a></li>
+                <li><a href="{{ url('/login') }}">Iniciar sesión</a></li>
                 <li><a href="{{ url('/registro') }}">Registrarse</a></li>
               </ul>
             </div>

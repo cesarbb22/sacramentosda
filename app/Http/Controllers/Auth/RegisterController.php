@@ -79,7 +79,7 @@ class RegisterController extends Controller
     }
 
 
-    public function RegisterForm(Request $request) {
+    public function registerForm(Request $request) {
 
         $email = \App\User::where('email', $request->email)->first();
 

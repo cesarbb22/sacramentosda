@@ -32,7 +32,7 @@
 
             <h3 class="center-align">Registrarse</h3>
           <br>
-          <form class="form-horizontal" role="form" method="POST" action="{{ url('register') }}">
+          <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
