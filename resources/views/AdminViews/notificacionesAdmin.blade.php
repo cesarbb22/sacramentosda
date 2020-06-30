@@ -61,6 +61,10 @@ td, th {
         }
 
     window.onload = function(e){
+        var content = "<thead><tr><th>Tipo de Solicitud</th><th>Remitente</th><th>Parroquia</th><th>Estado</th><th>Detalles</th><th>Ver Partida</th><th>Aceptar</th><th>Rechazar</th></tr></thead><tbody>";
+        content += "</tbody>"
+        $('#miTabla').append(content);
+
         setTimeout(function() {
             $("#reload").trigger('click');
         },1);
@@ -78,26 +82,36 @@ td, th {
                 },
                 success: function(data) {
                     $('#miTabla').empty();
-                    var content = "<thead><tr><th>Tipo de Solicitud</th><th>Remitente</th><th>Parroquia</th><th>Estado</th><th>Detalles</th><th>Ver partida</th><th>Aceptar</th><th>Rechazar</th></tr></thead><tbody>"
+                    var content = "<thead><tr><th>Tipo de Solicitud</th><th>Remitente</th><th>Parroquia</th><th>Estado</th><th>Detalles</th><th>Ver Partida</th><th>Aceptar</th><th>Rechazar</th></tr></thead><tbody>"
                     for(i=0; i<data.length; i++){
 
-                        if (data[i].IDTipo_Solicitud == 3) {
+                        if (data[i].IDTipo_Solicitud == 3) { // Nuevo Usuario
+                            content += '<tr><td>' + data[i].tipo.NombreTipo_Solicitud + '</td>'
+                                + '<td>' + data[i].user.Nombre + ' ' + data[i].user.PrimerApellido + ' ' + data[i].user.SegundoApellido + '</td>'
+                                + '<td>' + data[i].user.parroquia.NombreParroquia + '</td>'
+                                + '<td><strong><em>' + data[i].estado.NombreEstado_Solicitud + '</em></strong></td>'
+                                + '<td></td>'
+                                + '<td></td>'
+                                + '<td><a href="/solicitudAceptadaAdmin/' + data[i].IDSolicitud + '"><i class="material-icons">done</i></a></td>'
+                                + '<td><a href="/solicitudRechazadaAdmin/' + data[i].IDSolicitud + '"><i class="material-icons">shuffle</i></a></td> </tr>'
+                                + '<td id="desc' + i + '" hidden></td> </tr>';
+                        } else if (data[i].IDTipo_Solicitud == 2) { // Editar
+                            content += '<tr><td>' + data[i].tipo.NombreTipo_Solicitud + '</td>'
+                                + '<td>' + data[i].user.Nombre + ' '+ data[i].user.PrimerApellido + ' ' + data[i].user.SegundoApellido + '</td>'
+                                + '<td>' + data[i].user.parroquia.NombreParroquia+ '</td>'
+                                + '<td><strong><em>' + data[i].estado.NombreEstado_Solicitud + '</em></strong></td>'
+                                + '<td><a class="desc" href="#" onClick = "description('+i+');"><i class="material-icons">description</i></a></td>'
+                                + '<td><a class="desc" href="/Detalle'+data[i].actas[0].IDPersona+'"><i class="material-icons">description</i></a><</td>'
+                                + '<td><a href="/Editar/notificaciones/'+data[i].IDSolicitud+'"><i class="material-icons">done</i></a></td>'
+                                + '<td><a href="/solicitudRechazadaAdmin/'+data[i].IDSolicitud+'"><i class="material-icons">shuffle</i></a></td> </tr>'
+                                + '<td id="desc'+i+'" hidden>'+data[i].actas[0].pivot.Descripcion+'</td> </tr>';
+                        } else { // Eliminar
                             content += '<tr><td>' + data[i].tipo.NombreTipo_Solicitud + '</td>'
                                     + '<td>' + data[i].user.Nombre + ' '+ data[i].user.PrimerApellido + ' ' + data[i].user.SegundoApellido + '</td>'
                                     + '<td>' + data[i].user.parroquia.NombreParroquia+ '</td>'
                                     + '<td><strong><em>' + data[i].estado.NombreEstado_Solicitud + '</em></strong></td>'
                                     + '<td><a class="desc" href="#" onClick = "description('+i+');"><i class="material-icons">description</i></a></td>'
-                                    + '<td><a class="desc" href="#" onClick = "description('+i+');" disabled><i class="material-icons">description</i></a></td>'
-                                    + '<td><a href="/solicitudAceptadaAdmin/'+data[i].IDSolicitud+'"><i class="material-icons">done</i></a></td>'
-                                    + '<td><a href="/solicitudRechazadaAdmin/'+data[i].IDSolicitud+'"><i class="material-icons">shuffle</i></a></td> </tr>'
-                                    + '<td id="desc'+i+'" hidden></td> </tr>';
-                        } else {
-                            content += '<tr><td>' + data[i].tipo.NombreTipo_Solicitud + '</td>'
-                                    + '<td>' + data[i].user.Nombre + ' '+ data[i].user.PrimerApellido + ' ' + data[i].user.SegundoApellido + '</td>'
-                                    + '<td>' + data[i].user.parroquia.NombreParroquia+ '</td>'
-                                    + '<td><strong><em>' + data[i].estado.NombreEstado_Solicitud + '</em></strong></td>'
-                                    + '<td><a class="desc" href="#" onClick = "description('+i+');"><i class="material-icons">description</i></a></td>'
-                                    + '<td><a class="desc" href="Detalle'+data[i].actas[0].IDPersona+'"><i class="material-icons">description</i></a></td>'
+                                    + '<td><a class="desc" href="/Detalle'+data[i].actas[0].IDPersona+'"><i class="material-icons">description</i></a></td>'
                                     + '<td><a href="/solicitudAceptadaAdmin/'+data[i].IDSolicitud+'"><i class="material-icons">done</i></a></td>'
                                     + '<td><a href="/solicitudRechazadaAdmin/'+data[i].IDSolicitud+'"><i class="material-icons">shuffle</i></a></td> </tr>'
                                     + '<td id="desc'+i+'" hidden>'+data[i].actas[0].pivot.Descripcion+'</td> </tr>';

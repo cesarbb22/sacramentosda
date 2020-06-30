@@ -199,7 +199,7 @@
                                 + segundoApellido + '</td><td>' + detalle + '</td><td>' + editar + '</td><td>' + eliminar + '</td></tr>');
 
 
-                            document.getElementById(idPersona + "Editar").setAttribute('href', window.location.origin + '/Editar' + idPersona);
+                            document.getElementById(idPersona + "Editar").setAttribute('href', window.location.origin + '/Editar/consulta/' + idPersona);
                             document.getElementById(idPersona + "Eliminar").setAttribute('href', window.location.origin + '/Eliminar' + idPersona);
                             document.getElementById(idPersona + "Detalle").setAttribute('href', window.location.origin + '/Detalle' + idPersona);
 

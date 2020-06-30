@@ -85,7 +85,7 @@ td, th {
         }
 
     window.onload = function(e){
-         setTimeout(function() {
+        setTimeout(function() {
             $("#reload").trigger('click');
         },1);
 
@@ -105,7 +105,7 @@ td, th {
                     var content = "<thead><tr><th>Tipo de Solicitud</th><th>Remitente</th><th>Parroquia</th><th>Estado</th><th>Detalles</th><th>Ver partida</th><th>Aceptar respuesta</th></tr></thead><tbody>"
                     for(i=0; i<data.length; i++){
 
-                        if (data[i].IDTipo_Solicitud == 3) {
+                        if (data[i].IDTipo_Solicitud == 3) { // nuevo usuario
                             content += '<tr><td>' + data[i].tipo.NombreTipo_Solicitud + '</td>'
                                     + '<td>' + data[i].user.Nombre + ' '+ data[i].user.PrimerApellido + ' ' + data[i].user.SegundoApellido + '</td>'
                                     + '<td>' + data[i].user.parroquia.NombreParroquia+ '</td>'
@@ -114,7 +114,7 @@ td, th {
                                     + '<td><a class="desc" href="#" disabled><i class="material-icons">description</i></a></td>'
                                     + '<td><a href="/aceptarSolicitud/'+data[i].IDSolicitud+'"><i class="material-icons">done</i></a></td>'
                                     + '<td id="desc'+i+'" hidden></td> </tr>';
-                        } else {
+                        } else if (data[i].IDTipo_Solicitud == 2) { //editar
                             content += '<tr><td>' + data[i].tipo.NombreTipo_Solicitud + '</td>'
                                     + '<td>' + data[i].user.Nombre + ' '+ data[i].user.PrimerApellido + ' ' + data[i].user.SegundoApellido + '</td>'
                                     + '<td>' + data[i].user.parroquia.NombreParroquia+ '</td>'
@@ -123,6 +123,14 @@ td, th {
                                     + '<td><a class="desc" href="DetalleUsuario/'+data[i].actas[0].IDPersona+'"><i class="material-icons">description</i></a></td>'
                                     + '<td><a href="/aceptarSolicitud/'+data[i].IDSolicitud+'"><i class="material-icons">done</i></a></td>'
                                     + '<td id="desc'+i+'" hidden>'+data[i].actas[0].pivot.Descripcion+'</td> </tr>';
+                        } else { // eliminar
+                            content += '<tr><td>' + data[i].tipo.NombreTipo_Solicitud + '</td>'
+                                + '<td>' + data[i].user.Nombre + ' '+ data[i].user.PrimerApellido + ' ' + data[i].user.SegundoApellido + '</td>'
+                                + '<td>' + data[i].user.parroquia.NombreParroquia+ '</td>'
+                                + '<td><strong><em>' + data[i].estado.NombreEstado_Solicitud + '</em></strong></td>'
+                                + '<td></td>'
+                                + '<td></td>'
+                                + '<td><a href="/aceptarSolicitud/'+data[i].IDSolicitud+'"><i class="material-icons">done</i></a></td>';
                         }
                     }
                     content += "</tbody>"

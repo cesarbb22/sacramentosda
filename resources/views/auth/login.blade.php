@@ -31,7 +31,7 @@
 
             <h3 class="center-align">Iniciar Sesión</h3>
           <br>
-          <form class="form-horizontal" role="form" method="POST" action="/loginn">
+          <form class="form-horizontal" role="form" method="POST" action="/login">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">

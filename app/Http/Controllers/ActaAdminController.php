@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
 use Validator;
 
 use App\Persona;
@@ -27,10 +29,19 @@ class ActaAdminController extends Controller
         return view('AdminViews.ConsultaActaAdmin', compact('personas'));
     }
 
-    public function EditarActa($id)
+    public function EditarActa($source, $id)
     {
         try {
-            $acta = Acta::where('IDPersona', $id)->first();
+            $acta = null;
+            $persona = null;
+            if ($source == 'notificaciones') {
+                $sol_acta = \App\Solicitud_Acta::find($id);
+                $acta = Acta::find($sol_acta->IDActa);
+                $persona = Persona::findOrFail($acta->persona->IDPersona);
+            } else {
+                $acta = Acta::where('IDPersona', $id)->first();
+                $persona = Persona::findOrFail($id);
+            }
             $parroquias = \App\Parroquia::all();
 
             $idBautismo = $acta->IDBautismo;
@@ -75,14 +86,15 @@ class ActaAdminController extends Controller
                 $UbicacionActaDefuncion = null;
             }
 
-            $laico = Laico::findOrFail($id);
+            $laico = Laico::findOrFail($persona->IDPersona);
 
-            return view('AdminViews.EditarActaAdmin', ['persona' => Persona::findOrFail($id), 'laico' => $laico,
+            return view('AdminViews.EditarActaAdmin', ['source' => $source , 'idSolicitud' => $id,'persona' => $persona, 'laico' => $laico,
                 'acta' => $acta, 'actaBautismo' => $actaBautismo, 'actaConfirma' => $actaConfirma, 'actaMatrimonio' => $actaMatrimonio,
                 'actaDefuncion' => $actaDefuncion, 'UbicacionActaBautismo' => $UbicacionActaBautismo, 'UbicacionActaConfirma' => $UbicacionActaConfirma,
                 'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion, 'parroquias' => $parroquias]);
 
         } catch (\Exception $e) {
+            Log::error('Ha ocurrido un error: ' . $e);
             return back()->with('msjMalo', "Ha ocurrido un error");
         }
     } // fin EditarActa
@@ -327,8 +339,17 @@ class ActaAdminController extends Controller
 
                 $acta->IDDefuncion = $actaDefuncion->IDDefuncion;
             }
-
             $acta->save();
+
+            // solicitud aceptada
+            if ($request->source == 'notificaciones') {
+                $solicitud = \App\Solicitud::find($request->idSolicitud);
+                $solicitud->IDEstado_Solicitud = 1;
+                $solicitud->save();
+
+                return Redirect::to('/notificacionesAdmin');
+            }
+
             return back()->with('msjBueno', "Se ha modificado el acta correctamente");
 
         } catch (\Exception $e) {
@@ -380,6 +401,7 @@ class ActaAdminController extends Controller
             }
 
             $acta->delete();
+            Laico::destroy($id);
             Persona::destroy($id);
             return back()->with('msjBueno', "Se ha eliminado el acta correctamente");
 

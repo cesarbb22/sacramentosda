@@ -53,7 +53,7 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 
     Route::post('/obtenerSolicitudes', 'CentroNotificaciones@obtenerSolicitudesAdmin')->middleware('auth');
 
-    Route::get('/Editar{id}',['as' => '/Editar', 'uses' => 'ActaAdminController@EditarActa'])->middleware('auth');
+    Route::get('/Editar/{source}/{id}', 'ActaAdminController@EditarActa')->middleware('auth');
 
     Route::get('/mantenimientoUsuarios', 'UserController@home')->middleware('auth');
 
@@ -67,12 +67,14 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 
     Route::post('/actualizarActa', 'ActaAdminController@actualizarActa');
 
+    Route::post('/actualizarActaNotificaciones', 'ActaAdminController@actualizarActaNotificaciones');
+
     Route::get('/Detalle{id}',['as' => '/Detalle', 'uses' => 'ActaAdminController@DetalleActa'])->middleware('auth');
 
     Route::post('/queryPersonas', 'consultaAdmin@query');
 
     Route::get('/notificacionesAdmin', function () {
-        return view('AdminViews.notificaciones');
+        return view('AdminViews.notificacionesAdmin');
     })->middleware('auth');
 
     Route::get('/cambiarContrasena', function () {
@@ -132,7 +134,7 @@ Route::post('/guardarPerfil', 'UserController@editarPerfilUser');
 
 // Authentication Routes...
 //Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('/loginn', 'Auth\LoginController@authenticate');
+Route::post('/login', 'Auth\LoginController@authenticate');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 // Registration Routes...

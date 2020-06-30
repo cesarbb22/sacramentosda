@@ -55,6 +55,8 @@
                 </div>
             @endif
 
+
+
             <form method="POST" action="/actualizarActa" autocomplete="off">
 
                 {{ csrf_field() }}
@@ -651,6 +653,10 @@
                 </div>
 
                 <input type="hidden" name="IDPersona" id="IDPersona" value="{{ $persona->IDPersona }}"/>
+
+                <input type="hidden" name="source" id="Source" value="{{ $source }}"/>
+
+                <input type="hidden" name="idSolicitud" id="Source" value="{{ $idSolicitud }}"/>
 
             </form>
         </div>

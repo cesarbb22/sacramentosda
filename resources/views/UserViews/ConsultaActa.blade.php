@@ -106,7 +106,7 @@ td, th {
                     <th>Primer apellido</th>
                     <th>Segundo apellido</th>
                     <th>Detalle</th>
-                    <th>Editar</th>
+                    <th>Solicitar edición</th>
                     <th>Eliminar</th>
                 </tr>
             </thead>
@@ -122,7 +122,7 @@ td, th {
       <form id="editarForm" class="col s12" method="POST">
           {{ csrf_field() }}
     <div class="modal-content">
-      <h4>Escriba el motivo y descripción de la solicitud, además de la información que considere necesaria</h4>
+      <h4>Describa el cambio que desea solicitar y el motivo. Además, agregue información que considere necesaria</h4>
           <div class="input-field col s12">
             <textarea id="textarea1" class="materialize-textarea" data-length="300" required></textarea>
           </div>
