@@ -124,6 +124,9 @@
     <script type="text/javascript">
 
         window.onload = function () {
+            $('.datepicker').on('mousedown',function(event){
+                event.preventDefault();
+            })
             $('.datepicker').pickadate({
                 format: 'dd/mm/yyyy',
                 monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
