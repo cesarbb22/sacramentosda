@@ -133,7 +133,7 @@ Route::post('/guardarContrasena', 'UserController@cambiarContrasena');
 Route::post('/guardarPerfil', 'UserController@editarPerfilUser');
 
 // Authentication Routes...
-Route::post('/login', 'Auth\LoginController@login');
+Route::post('/login', 'Auth\LoginController@authenticate');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 // Registration Routes...

@@ -44,6 +44,21 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
-        Auth::attempt(['Email' => $request['email'], 'password' => $request['password'] ]);
+        if(Auth::attempt(['Email' => $request['email'], 'password' => $request['password'] ])) {
+            if (Auth::user()->Activo == 0) {
+                Auth::logout();
+                $request->session()->flash('errorLogin', 'Su solicitud aún no ha sido aceptada!');
+                return Redirect::to('/login');
+            } else {
+                if(Auth::user()->puesto->IDPuesto == 1 || Auth::user()->puesto->IDPuesto == 2) {
+                    return Redirect::to('/ActasAdmin');
+                } else {
+                    return Redirect::to('/Actas');
+                }
+            }
+        } else {
+            $request->session()->flash('errorLogin', 'Correo o contraseña incorrectos!');
+            return Redirect::to('/login');
+        }
     }
 }
