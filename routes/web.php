@@ -104,8 +104,6 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function() 
 
     Route::get('/DetalleUsuario/{id}',['as' => '/DetalleUsuario', 'uses' => 'ActaUsuarioController@DetalleActa'])->middleware('auth');
 
-    Route::get('/editarPerfil', 'UserController@index')->middleware('auth');
-
     Route::post('/queryPersonasUsuario', 'consultaUsuario@query');
 
     Route::post('/crearActaUsuario', 'ActaUsuarioController@crearActa');
@@ -126,10 +124,9 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function() 
 
 });
 
-
+Route::get('/editarPerfil', 'UserController@index')->middleware('auth');
 
 Route::post('/guardarContrasena', 'UserController@cambiarContrasena');
-
 Route::post('/guardarPerfil', 'UserController@editarPerfilUser');
 
 // Authentication Routes...
