@@ -100,8 +100,6 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function() 
 
     Route::get('/Actas', 'ActaUsuarioController@homeUsuario')->middleware('auth');
 
-    Route::post('/pdf', 'GenerarPDF@generarPDF' );
-
     Route::get('/DetalleUsuario/{id}',['as' => '/DetalleUsuario', 'uses' => 'ActaUsuarioController@DetalleActa'])->middleware('auth');
 
     Route::post('/queryPersonasUsuario', 'consultaUsuario@query');
@@ -125,6 +123,7 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function() 
 });
 
 Route::get('/editarPerfil', 'UserController@index')->middleware('auth');
+Route::post('/pdf', 'GenerarPDF@generarPDF' )->middleware('auth');
 
 Route::post('/guardarContrasena', 'UserController@cambiarContrasena');
 Route::post('/guardarPerfil', 'UserController@editarPerfilUser');
