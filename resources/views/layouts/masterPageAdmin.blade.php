@@ -37,7 +37,7 @@
     <style>
 
         nav {
-            background-image: url("style/img/head3dorado.jpg");
+            background-image: url("/style/img/head3dorado.jpg");
             background-position: center center;
             background-repeat: no-repeat;
             background-size: 100% 70px;

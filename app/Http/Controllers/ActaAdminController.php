@@ -29,11 +29,12 @@ class ActaAdminController extends Controller
         return view('AdminViews.ConsultaActaAdmin', compact('personas'));
     }
 
-    public function EditarActa($source, $id)
+    public function EditarActa($id)
     {
         try {
             $acta = null;
             $persona = null;
+            $source = 'consulta';
             if ($source == 'notificaciones') {
                 $sol_acta = \App\Solicitud_Acta::find($id);
                 $acta = Acta::find($sol_acta->IDActa);

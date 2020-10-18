@@ -53,7 +53,7 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 
     Route::post('/obtenerSolicitudes', 'CentroNotificaciones@obtenerSolicitudesAdmin')->middleware('auth');
 
-    Route::get('/Editar/{source}/{id}', 'ActaAdminController@EditarActa')->middleware('auth');
+    Route::get('/Editar/{id}', 'ActaAdminController@EditarActa')->middleware('auth');
 
     Route::get('/mantenimientoUsuarios', 'UserController@home')->middleware('auth');
 
@@ -69,7 +69,7 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 
     Route::post('/actualizarActaNotificaciones', 'ActaAdminController@actualizarActaNotificaciones');
 
-    Route::get('/Detalle{id}',['as' => '/Detalle', 'uses' => 'ActaAdminController@DetalleActa'])->middleware('auth');
+    Route::get('/Detalle/{id}',['as' => '/Detalle', 'uses' => 'ActaAdminController@DetalleActa'])->middleware('auth');
 
     Route::post('/queryPersonas', 'consultaAdmin@query');
 
