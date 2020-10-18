@@ -159,7 +159,6 @@
                 </ul>
 
                 <ul class="">
-                    <li><a href="{{ url('notificaciones') }} ">Notificaciones</a></li>
                     <li><a href="{{ url('Actas') }} ">Partidas</a></li>
                     <!-- <li><a class="dropdown-button" data-constrainwidth="false" data-beloworigin="true" data-activates="dropdownActa">Actas<i class="material-icons right">arrow_drop_down</i></a></li> -->
                     <li><a href="{{ url('consulta') }}">Consultas</a></li>
