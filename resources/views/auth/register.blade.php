@@ -32,7 +32,7 @@
 
             <h3 class="center-align">Registrarse</h3>
           <br>
-          <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+          <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}" autocomplete="off">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -98,7 +98,9 @@
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">Correo electrónico *</label>
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="form-control validate" name="email" value="{{ old('email') }}" required
+                                       oninvalid="this.setCustomValidity('Correo electrónico con formato inválido')"
+                                       oninput="setCustomValidity('')">
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -112,7 +114,10 @@
                             <label for="cel" class="col-md-4 control-label">Número de celular:</label>
 
                             <div class="col-md-6">
-                                <input id="cel" type="text" class="form-control" name="numCel">
+                                <input id="cel" type="text" class="form-control validate" name="numCel"
+                                       pattern="^\d{8}$" minlength="8" maxlength="8"
+                                       oninvalid="this.setCustomValidity('Debe ingresar número de celular con 8 dígitos')"
+                                       oninput="setCustomValidity('')">
                             </div>
                         </div>
 

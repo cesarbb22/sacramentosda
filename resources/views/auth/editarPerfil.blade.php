@@ -12,7 +12,7 @@
           </div>
           <div class="col l2"></div><br><br><br><br><br>
     @endif
-    
+
     @if(session()->has('msjBueno'))
         <div class="col l2"></div>
           <div class="col s12 m8 l8">
@@ -22,14 +22,14 @@
           </div>
           <div class="col l2"></div><br><br><br><br><br>
     @endif
-    
+
          <div class="col m3 l3"></div>
           <div class="col s16 m3 l6">
         <div class="card-panel z-depth-5">
-            
+
             <h3 class="center-align">Editar información personal</h3>
                 <br>
-                
+
                 <div class="panel-body">
                     @if (session('status'))
                         <div class="alert alert-success">
@@ -39,7 +39,7 @@
 
                     <form class="form-horizontal" role="form" method="POST" action="/guardarPerfil">
                         {{ csrf_field() }}
-                        
+
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Nombre</label>
 
@@ -53,9 +53,9 @@
                                 @endif
                             </div>
                         </div>
-                        
-                        
-                        
+
+
+
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Primer Apellido</label>
 
@@ -69,7 +69,7 @@
                                 @endif
                             </div>
                         </div>
-                        
+
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Segundo Apellido</label>
 
@@ -83,7 +83,7 @@
                                 @endif
                             </div>
                         </div>
-                        
+
                          <div class="input-field">
                           <select name='parroquia' id="parroquia">
                             @foreach ($parroquias as $pa)
@@ -92,7 +92,7 @@
                           </select>
                           <label>Parroquia</label>
                         </div>
-                    
+
                         <div class="input-field">
                             <select name='idPuesto' id="idPuesto" readonly>
                                 <option value="{{ $puesto->IDPuesto }}">{{ $puesto->NombrePuesto }}</option>
@@ -103,7 +103,9 @@
                          <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label for="email" class="col-md-4 control-label">Correo electrónico</label>
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" autofocus>
+                                    <input id="email" type="email" class="form-control validate" name="email" value="{{ Auth::user()->email }}" autofocus
+                                           oninvalid="this.setCustomValidity('Correo electrónico con formato inválido')"
+                                           oninput="setCustomValidity('')">
                                     @if ($errors->has('email'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('email') }}</strong>
@@ -111,12 +113,15 @@
                                     @endif
                                 </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="cel" class="col-md-4 control-label">Número de celular</label>
 
                             <div class="col-md-6">
-                                <input id="cel" type="text" class="form-control" name="numCel" value="{{ Auth::user()->NumCelular }}">
+                                <input id="cel" type="text" class="form-control validate" name="numCel" value="{{ Auth::user()->NumCelular }}"
+                                       pattern="^\d{8}$" minlength="8" maxlength="8"
+                                       oninvalid="this.setCustomValidity('Debe ingresar número de celular con 8 dígitos')"
+                                       oninput="setCustomValidity('')">
                             </div>
                         </div>
 
@@ -130,19 +135,19 @@
             </div>
         </div>
     </div>
-    
+
     <script>
- 
+
       window.onload = function() {
-        
+
         $(document).ready(function(){
             $('#parroquia > option[value="{{ Auth::user()->IDParroquia }}"]').attr('selected', 'selected');
             $('#puesto > option[value="{{ Auth::user()->IDPuesto }}"]').attr('selected', 'selected');
             $('#rol > option[value="{{ Auth::user()->IDRol }}"]').attr('selected', 'selected');
         });
-        
+
          $('select').material_select();
-      
+
       }
 
     </script>
