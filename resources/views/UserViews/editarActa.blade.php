@@ -97,16 +97,16 @@
                     <div class="col s8">
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="nombreMadreEdit" name='nombreMadreEdit' type="text" class="validate"
-                                       value="{{ $laico->NombreMadre }} ">
-                                <label for="nombreMadreEdit">Nombre completo de la madre:</label>
+                                <input id="nombrePadreEdit" name='nombrePadreEdit' type="text" class="validate"
+                                       value="{{ $laico->NombrePadre }}">
+                                <label for="nombrePadreEdit">Nombre completo del padre:</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="nombrePadreEdit" name='nombrePadreEdit' type="text" class="validate"
-                                       value="{{ $laico->NombrePadre }}">
-                                <label for="nombrePadreEdit">Nombre completo del padre:</label>
+                                <input id="nombreMadreEdit" name='nombreMadreEdit' type="text" class="validate"
+                                       value="{{ $laico->NombreMadre }} ">
+                                <label for="nombreMadreEdit">Nombre completo de la madre:</label>
                             </div>
                         </div>
                     </div>

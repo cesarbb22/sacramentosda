@@ -117,7 +117,7 @@ class RegisterController extends Controller
         $solicitud->save();
 
         if($user->save()){
-            $request->session()->flash('justLogin', '¡Solicitud de registro enviada! Debe esperar que el administrador la acepte');
+            $request->session()->flash('justLogin', '¡Solicitud de registro enviada! Pronto será validada por el Archivo Diocesano.');
             return view('auth.login');
         } else{
             $request->session()->flash('errorRegister', '¡Ha ocurrido un error! Revise sus datos e intente nuevamente');

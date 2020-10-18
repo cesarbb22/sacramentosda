@@ -87,14 +87,14 @@
                     <div class="col s8">
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="nombreMadre" name='nombreMadre' type="text" class="validate" required>
-                                <label for="nombreMadre">Nombre completo de la madre:</label>
+                                <input id="nombrePadre" name='nombrePadre' type="text" class="validate">
+                                <label for="nombrePadre">Nombre completo del padre:</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="nombrePadre" name='nombrePadre' type="text" class="validate">
-                                <label for="nombrePadre">Nombre completo del padre:</label>
+                                <input id="nombreMadre" name='nombreMadre' type="text" class="validate" required>
+                                <label for="nombreMadre">Nombre completo de la madre:</label>
                             </div>
                         </div>
                     </div>

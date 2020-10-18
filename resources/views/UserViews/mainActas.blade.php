@@ -77,7 +77,8 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s4">
-                        <input id="nombre" name='nombre' type="text" class="validate" required>
+                        <input id="nombre" name='nombre' type="text" class="validate" required readonly
+                               onfocus="this.removeAttribute('readonly');"/>
                         <label for="nombree">Nombre:</label>
                     </div>
                     <div class="input-field col s4">
@@ -103,15 +104,14 @@
                     <div class="col s8">
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="nombreMadre" name='nombreMadre' type="text" class="validate" required
-                                       disabled>
-                                <label for="nombreMadre">Nombre completo de la madre:</label>
+                                <input id="nombrePadre" name='nombrePadre' type="text" class="validate" required disabled>
+                                <label for="nombrePadre">Nombre completo del padre:</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="nombrePadre" name='nombrePadre' type="text" class="validate" disabled>
-                                <label for="nombrePadre">Nombre completo del padre:</label>
+                                <input id="nombreMadre" name='nombreMadre' type="text" class="validate" disabled>
+                                <label for="nombreMadre">Nombre completo de la madre:</label>
                             </div>
                         </div>
                     </div>
@@ -227,6 +227,7 @@
 
 
                                 </div>
+                            </div>
                         </li>
 
                         <li>
@@ -302,6 +303,7 @@
 
 
                                 </div>
+                            </div>
                         </li>
 
                         <li>
@@ -371,6 +373,7 @@
                                     </div>
 
                                 </div>
+                            </div>
                         </li>
 
                         <li>

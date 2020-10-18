@@ -47,7 +47,7 @@ class LoginController extends Controller
         if(Auth::attempt(['Email' => $request['email'], 'password' => $request['password'] ])) {
             if (Auth::user()->Activo == 0) {
                 Auth::logout();
-                $request->session()->flash('errorLogin', 'Su solicitud aún no ha sido aceptada!');
+                $request->session()->flash('errorLogin', 'Su usuario se encuentra inactivo. Contacte al Archivo Diocesano.');
                 return Redirect::to('/login');
             } else {
                 if(Auth::user()->puesto->IDPuesto == 1 || Auth::user()->puesto->IDPuesto == 2) {
