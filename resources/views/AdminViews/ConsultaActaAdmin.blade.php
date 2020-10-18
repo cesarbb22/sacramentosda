@@ -74,15 +74,19 @@
                     <div class="col s12">
                         <label>Busqueda por rango de fechas:</label>
                         <div class="input-field col s12">
-                            <input id="fechaInicio" name="fechaInicio"
-                                   pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d"
-                                   class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa">
+                            <input id="fechaInicio" name='fechaInicio'
+                                   class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                   pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                   oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                   oninput="setCustomValidity('')">
                             <label for="fechaInicio">Desde:</label>
                         </div>
                         <div class="input-field col s12">
-                            <input id="fechaFin" name="fechaFin"
-                                   pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d"
-                                   class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa">
+                            <input id="fechaFin" name='fechaFin'
+                                   class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                   pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                   oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                   oninput="setCustomValidity('')">
                             <label for="fechaFin">Hasta:</label>
                         </div>
                     </div>
@@ -124,29 +128,9 @@
     <script type="text/javascript">
 
         window.onload = function () {
-            $('.datepicker').on('mousedown',function(event){
-                event.preventDefault();
-            })
-            $('.datepicker').pickadate({
-                format: 'dd/mm/yyyy',
-                monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-                monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-                weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-                weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
-                selectMonths: true,
-                selectYears: 300, // Puedes cambiarlo para mostrar más o menos años
-                today: 'Hoy',
-                clear: 'Limpiar',
-                close: 'Ok',
-                labelMonthNext: 'Siguiente mes',
-                labelMonthPrev: 'Mes anterior',
-                labelMonthSelect: 'Selecciona un mes',
-                labelYearSelect: 'Selecciona un año',
-                max: new Date(),
-                autoClose: true,
-                setDefaultDate: true,
-                defaultDate: new Date()
-            });
+            $(".datepicker").datepicker({ maxDate: new Date(), dateFormat: "dd/mm/yy", autoSize: true,
+                monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre" ]
+            }).val()
 
             $('select').material_select();
 

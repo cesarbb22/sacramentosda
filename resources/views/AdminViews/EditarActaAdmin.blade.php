@@ -139,8 +139,10 @@
                     </div>
                     <div class="input-field col s6">
                         <input id="fechaNacEdit" name='fechaNacEdit'
-                               pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d"
-                               class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa">
+                               class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" required size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                               pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                               oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                               oninput="setCustomValidity('')">
                     </div>
                 </div>
 
@@ -176,9 +178,11 @@
                                             <label for="lugarBautizo"> Bautizado en:</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="fechaBaut" name="fechaBautizo"
-                                                   pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d"
-                                                   class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa">
+                                            <input id="fechaBaut" name='fechaBautizo'
+                                                   class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" required size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                                   pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                   oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                                   oninput="setCustomValidity('')">
                                         </div>
                                     </div>
 
@@ -241,10 +245,11 @@
                                                 <label for="lugarBautizo"> Bautizado en:</label>
                                             </div>
                                             <div class="input-field col s6">
-                                                <input id="fechaBaut" name="fechaBautizo"
-                                                       pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d"
-                                                       class="datepicker" type="date"
-                                                       title="Formato de fecha: dd/mm/aaaa">
+                                                <input id="fechaBaut" name='fechaBautizo'
+                                                       class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" required size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                                       pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                       oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                                       oninput="setCustomValidity('')">
                                             </div>
                                         </div>
 
@@ -301,9 +306,11 @@
                                             <label for="lugarConfirma"> Confirmado en:</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="fechaConfir" name="fechaConfirma"
-                                                   pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d"
-                                                   class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa">
+                                            <input id="fechaConfir" name='fechaConfirma'
+                                                   class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" required size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                                   pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                   oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                                   oninput="setCustomValidity('')">
                                         </div>
                                     </div>
 
@@ -366,10 +373,11 @@
                                                 <label for="lugarConfirma"> Confirmado en:</label>
                                             </div>
                                             <div class="input-field col s6">
-                                                <input id="fechaConfir" name="fechaConfirma"
-                                                       pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d"
-                                                       class="datepicker" type="date"
-                                                       title="Formato de fecha: dd/mm/aaaa">
+                                                <input id="fechaConfir" name='fechaConfirma'
+                                                       class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" required size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                                       pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                       oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                                       oninput="setCustomValidity('')">
                                             </div>
                                         </div>
 
@@ -429,9 +437,11 @@
                                             <label for="lugarMatrimonio"> Matrimonio en:</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="fechaMatrimonio" name="fechaMatrimonio"
-                                                   pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d"
-                                                   class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa">
+                                            <input id="fechaMatrimonio" name='fechaMatrimonio'
+                                                   class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" required size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                                   pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                   oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                                   oninput="setCustomValidity('')">
                                         </div>
                                     </div>
 
@@ -490,10 +500,11 @@
                                                 <label for="lugarMatrimonio"> Matrimonio en:</label>
                                             </div>
                                             <div class="input-field col s6">
-                                                <input id="fechaMatrimonio" name="fechaMatrimonio"
-                                                       pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d"
-                                                       class="datepicker" type="date"
-                                                       title="Formato de fecha: dd/mm/aaaa">
+                                                <input id="fechaMatrimonio" name='fechaMatrimonio'
+                                                       class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" required size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                                       pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                       oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                                       oninput="setCustomValidity('')">
                                             </div>
                                         </div>
 
@@ -545,9 +556,11 @@
                                             <label for="lugarDefuncion"> Defunción en:</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="fechaDefuncion" name="fechaDefuncion"
-                                                   pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d"
-                                                   class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa">
+                                            <input id="fechaDefuncion" name='fechaDefuncion'
+                                                   class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" required size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                                   pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                   oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                                   oninput="setCustomValidity('')">
                                         </div>
                                     </div>
 
@@ -607,9 +620,11 @@
                                             <label for="lugarDefuncion"> Defunción en:</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="fechaDefuncion" name="fechaDefuncion"
-                                                   pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d"
-                                                   class="datepicker" type="date" title="Formato de fecha: dd/mm/aaaa">
+                                            <input id="fechaDefuncion" name='fechaDefuncion'
+                                                   class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" required size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                                   pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                   oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                                   oninput="setCustomValidity('')">
                                         </div>
                                     </div>
 
@@ -666,27 +681,9 @@
     <script>
 
         window.onload = function () {
-            $('.datepicker').on('mousedown',function(event){
-                event.preventDefault();
-            })
-            $('.datepicker').pickadate({
-                format: 'dd/mm/yyyy',
-                monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-                monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-                weekdaysFull: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-                weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
-                selectMonths: true,
-                selectYears: 300, // Puedes cambiarlo para mostrar más o menos años
-                today: 'Hoy',
-                clear: 'Limpiar',
-                close: 'Ok',
-                labelMonthNext: 'Siguiente mes',
-                labelMonthPrev: 'Mes anterior',
-                labelMonthSelect: 'Selecciona un mes',
-                labelYearSelect: 'Selecciona un año',
-                max: new Date(),
-                autoClose: true,
-            });
+            $(".datepicker").datepicker({ maxDate: new Date(), dateFormat: "dd/mm/yy", autoSize: true,
+                monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre" ]
+            }).val()
 
             $(document).ready(function () {
                 $('#parroquia > option[value="{{ $acta->IDParroquia }}"]').attr('selected', 'selected');
@@ -707,19 +704,19 @@
                 var actaDefuncion = {!! json_encode($actaDefuncion) !!};
 
                 if (laico != null) {
-                    $("#fechaNacEdit").pickadate("picker").set("select", laico.FechaNacimiento, {format: "yyyy-mm-dd H:m:s"}).trigger("change");
+                    $( "#fechaNacEdit" ).datepicker( "setDate", new Date(laico.FechaNacimiento) );
                 }
                 if (actaBautismo != null) {
-                    $("#fechaBaut").pickadate("picker").set("select", actaBautismo.FechaBautismo, {format: "yyyy-mm-dd H:m:s"}).trigger("change");
+                    $( "#fechaBaut" ).datepicker( "setDate", new Date(actaBautismo.FechaBautismo) );
                 }
                 if (actaConfirma != null) {
-                    $("#fechaConfir").pickadate("picker").set("select", actaConfirma.FechaConfirma, {format: "yyyy-mm-dd H:m:s"}).trigger("change");
+                    $( "#fechaConfir" ).datepicker( "setDate", new Date(actaConfirma.FechaConfirma) );
                 }
                 if (actaMatrimonio != null) {
-                    $("#fechaMatrimonio").pickadate("picker").set("select", actaMatrimonio.FechaMatrimonio, {format: "yyyy-mm-dd H:m:s"}).trigger("change");
+                    $( "#fechaMatrimonio" ).datepicker( "setDate", new Date(actaMatrimonio.FechaMatrimonio) );
                 }
                 if (actaDefuncion != null) {
-                    $("#fechaDefuncion").pickadate("picker").set("select", actaDefuncion.FechaDefuncion, {format: "yyyy-mm-dd H:m:s"}).trigger("change");
+                    $( "#fechaDefuncion" ).datepicker( "setDate", new Date(actaDefuncion.FechaDefuncion) );
                 }
             });
 
