@@ -20,7 +20,7 @@ Route::get('/login', function () {
 });
 
 Route::get('/contacto', function () {
-    return view('Contacto');
+    return view('UserViews.Contacto');
 });
 
 Route::get('/emailRecuperacion', function () {
@@ -34,6 +34,10 @@ Route::get('/registro', [
 
 
 Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function() {
+
+    Route::get('/contact', function () {
+        return view('AdminViews.ContactoAdmin');
+    });
 
     Route::get('/consultaAdmin', 'consultaAdmin@home')->middleware('auth');
 

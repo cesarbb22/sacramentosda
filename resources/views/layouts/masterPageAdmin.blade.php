@@ -187,7 +187,7 @@
         <div class="container center">
             <h5>
                 <ul>
-                    <li><a class="white-text" href="{{ url('contacto') }}">Contáctenos</a></li>
+                    <li><a class="white-text" href="{{ url('contact') }}">Contáctenos</a></li>
                 </ul>
             </h5>
         </div>
