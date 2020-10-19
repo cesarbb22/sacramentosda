@@ -48,10 +48,7 @@
                         </p>
                     </div>
                     <div class="input-field col s12">
-                        <input placeholder="Número de Cédula" id="numCed" type="text" class="validate" minlength="9"
-                               maxlength="9" required
-                               oninvalid="this.setCustomValidity('Debe ingresar cedula con el formato: 101230456')"
-                               oninput="setCustomValidity('')" name="numCed" disabled>
+                        <input placeholder="Número de Cédula" id="numCed" type="text" required name="numCed" disabled>
                     </div>
                 </div>
 
