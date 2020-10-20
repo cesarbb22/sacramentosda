@@ -11,13 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+Route::get('/', 'Auth\LoginController@login');
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+Route::get('/login', 'Auth\LoginController@login');
 
 Route::get('/contacto', function () {
     return view('UserViews.Contacto');
@@ -39,7 +35,7 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
         return view('AdminViews.ContactoAdmin');
     });
 
-    Route::get('/consultaAdmin', 'consultaAdmin@home')->middleware('auth');
+        Route::get('/consultaAdmin', 'consultaAdmin@home')->middleware('auth');
 
     Route::get('/solicitudRechazadaAdmin/{id}', 'CentroNotificaciones@rechazarSolicitud')->middleware('auth');
 
@@ -92,7 +88,7 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function() 
 
     Route::get('/consulta', 'consultaUsuario@home')->middleware('auth');
 
-    Route::post('/EditarUsuario',['as' => '/Editar', 'uses' => 'ActaUsuarioController@EditarActa'])->middleware('auth');
+    Route::get('/EditarUsuario/{id}',['as' => '/Editar', 'uses' => 'ActaUsuarioController@EditarActa'])->middleware('auth');
 
     Route::post('/EliminarUsuario',['as' => '/Eliminar', 'uses' => 'ActaUsuarioController@EliminarActa'])->middleware('auth');
 
