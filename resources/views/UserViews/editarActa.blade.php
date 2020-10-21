@@ -1,6 +1,16 @@
 @extends('layouts.masterPage')
 
 @section('content')
+
+    <style type="text/css">
+
+
+        .btn:focus, .btn-large:focus, .btn-floating:focus {
+            background-color: #af771f;
+        }
+
+    </style>
+
     <div id='n' class="row">
         @if(session()->has('msjMalo'))
             <div class="col l2"></div>
@@ -45,13 +55,14 @@
                 </div>
             @endif
 
-            <form method="POST" action="/actualizarActa" autocomplete="off">
+
+            <form method="POST" action="/actualizarActaSol" autocomplete="off">
 
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="input-field col s4">
                         <input id="numCedulaEdit" name='numCedulaEdit' type="text" class="validate"
-                               value="{{ $persona->Cedula }}" maxlength="9">
+                               value="{{ $persona->Cedula }}" minlength="9" maxlength="9">
                         <label for="numCedulaEdit">Número de cédula:</label>
                     </div>
 
@@ -67,12 +78,12 @@
 
                 <div class="row">
                     <div class="input-field col s4">
-                        <input id="nombreEdit" name='nombreEdit' type="text" class="validate"
+                        <input id="nombreEdit" name='nombreEdit' type="text" class="validate" required
                                value="{{ $persona->Nombre }}">
                         <label for="nombreEdit">Nombre:</label>
                     </div>
                     <div class="input-field col s4">
-                        <input id="apellido1Edit" name='apellido1Edit' type="text" class="validate"
+                        <input id="apellido1Edit" name='apellido1Edit' type="text" class="validate" required
                                value="{{ $persona->PrimerApellido }}">
                         <label for="apellido1Edit">Primer apellido:</label>
                     </div>
@@ -127,9 +138,8 @@
                     </div>
                     <div class="input-field col s6">
                         <input id="fechaNacEdit" name='fechaNacEdit'
-                               class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa"
-                               size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
-                               value="{{ $laico->FechaNacimiento }}"
+                               class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" size="10"
+                               placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
                                pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                oninput="setCustomValidity('')">
@@ -150,10 +160,10 @@
 
                     <ul class="collapsible" data-collapsible="accordion">
                         <li>
-                            <div class="collapsible-header waves-light waves-effect white-text">Partida de Bautismo</div>
+                            <div class="collapsible-header waves-light waves-effect white-text">Partida de Bautismo
+                            </div>
                             <div class="collapsible-body">
                                 @if($actaBautismo != null)
-
                                     <div class="row">
                                         <div class="input-field col s6"></div>
                                         <div class="input-field col s6">
@@ -168,13 +178,19 @@
                                             <label for="lugarBautizo"> Bautizado en:</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="fechaBaut" name='fechaBautizo'
-                                                   class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa"
-                                                   size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
-                                                   value="{{ $actaBautismo->FechaBautismo }}"
-                                                   pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
-                                                   oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
-                                                   oninput="setCustomValidity('')">
+                                            @if($isEditableArray[0])
+                                                <input id="fechaBaut" name='fechaBautizo'
+                                                       class="datepicker validate" type="text"
+                                                       title="Formato de fecha: dd/mm/aaaa" size="10"
+                                                       placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                                       pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                       oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                                       oninput="setCustomValidity('')">
+                                            @else
+                                                <input id="fechaBaut" name="fechaBautizo"
+                                                       pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                       class="" type="text" value="{{ $actaBautismo->FechaBautismo }}" readonly>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -238,8 +254,9 @@
                                             </div>
                                             <div class="input-field col s6">
                                                 <input id="fechaBaut" name='fechaBautizo'
-                                                       class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa"
-                                                       size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                                       class="datepicker validate" type="text"
+                                                       title="Formato de fecha: dd/mm/aaaa" size="10"
+                                                       placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
                                                        pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                                        oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                        oninput="setCustomValidity('')">
@@ -282,7 +299,8 @@
                         </li>
 
                         <li>
-                            <div class="collapsible-header waves-light waves-effect white-text">Partida de Confirma</div>
+                            <div class="collapsible-header waves-light waves-effect white-text">Partida de Confirma
+                            </div>
                             <div class="collapsible-body">
                                 @if($actaConfirma != null)
                                     <div class="row">
@@ -299,13 +317,19 @@
                                             <label for="lugarConfirma"> Confirmado en:</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="fechaConfir" name='fechaConfirma'
-                                                   class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa"
-                                                   size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
-                                                   value="{{ $actaConfirma -> FechaConfirma }}"
-                                                   pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
-                                                   oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
-                                                   oninput="setCustomValidity('')">
+                                            @if($isEditableArray[1])
+                                                <input id="fechaConfir" name='fechaConfirma'
+                                                       class="datepicker validate" type="text"
+                                                       title="Formato de fecha: dd/mm/aaaa" size="10"
+                                                       placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                                       pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                       oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                                       oninput="setCustomValidity('')">
+                                            @else
+                                                <input id="fechaConfir" name="fechaConfirma"
+                                                       pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d"
+                                                       class="" type="text" value="{{ $actaConfirma -> FechaConfirma }}" readonly>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -369,8 +393,9 @@
                                             </div>
                                             <div class="input-field col s6">
                                                 <input id="fechaConfir" name='fechaConfirma'
-                                                       class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa"
-                                                       size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                                       class="datepicker validate" type="text"
+                                                       title="Formato de fecha: dd/mm/aaaa" size="10"
+                                                       placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
                                                        pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                                        oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                        oninput="setCustomValidity('')">
@@ -416,7 +441,8 @@
                         </li>
 
                         <li>
-                            <div class="collapsible-header waves-light waves-effect white-text">Partida de Matrimonio</div>
+                            <div class="collapsible-header waves-light waves-effect white-text">Partida de Matrimonio
+                            </div>
                             <div class="collapsible-body">
                                 @if($actaMatrimonio != null)
                                     <div class="row">
@@ -433,13 +459,19 @@
                                             <label for="lugarMatrimonio"> Matrimonio en:</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="fechaMatrimonio" name='fechaMatrimonio'
-                                                   class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa"
-                                                   size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
-                                                   value="{{ $actaMatrimonio -> FechaMatrimonio }}"
-                                                   pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
-                                                   oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
-                                                   oninput="setCustomValidity('')">
+                                            @if($isEditableArray[2])
+                                                <input id="fechaMatrimonio" name='fechaMatrimonio'
+                                                       class="datepicker validate" type="text"
+                                                       title="Formato de fecha: dd/mm/aaaa" size="10"
+                                                       placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                                       pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                       oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                                       oninput="setCustomValidity('')">
+                                            @else
+                                                <input id="fechaMatrimonio" name="fechaMatrimonio"
+                                                       pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d"
+                                                       class="" type="text" value="{{ $actaMatrimonio -> FechaMatrimonio }}" readonly>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -499,8 +531,9 @@
                                             </div>
                                             <div class="input-field col s6">
                                                 <input id="fechaMatrimonio" name='fechaMatrimonio'
-                                                       class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa"
-                                                       size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                                       class="datepicker validate" type="text"
+                                                       title="Formato de fecha: dd/mm/aaaa" size="10"
+                                                       placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
                                                        pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                                        oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                        oninput="setCustomValidity('')">
@@ -538,7 +571,8 @@
                         </li>
 
                         <li>
-                            <div class="collapsible-header waves-light waves-effect white-text">Partida de Defunción</div>
+                            <div class="collapsible-header waves-light waves-effect white-text">Partida de Defunción
+                            </div>
                             <div class="collapsible-body">
                                 @if($actaDefuncion != null)
                                     <div class="row">
@@ -555,13 +589,19 @@
                                             <label for="lugarDefuncion"> Defunción en:</label>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input id="fechaDefuncion" name='fechaDefuncion'
-                                                   class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa"
-                                                   size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
-                                                   value="{{ $actaDefuncion -> FechaDefuncion }}"
-                                                   pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
-                                                   oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
-                                                   oninput="setCustomValidity('')">
+                                            @if($isEditableArray[3])
+                                                <input id="fechaDefuncion" name='fechaDefuncion'
+                                                       class="datepicker validate" type="text"
+                                                       title="Formato de fecha: dd/mm/aaaa" size="10"
+                                                       placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                                       pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                       oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                                       oninput="setCustomValidity('')">
+                                            @else
+                                                <input id="fechaDefuncion" name="fechaDefuncion"
+                                                       pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d"
+                                                       class="" type="text" value="{{ $actaDefuncion -> FechaDefuncion }}" readonly>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -622,8 +662,9 @@
                                         </div>
                                         <div class="input-field col s6">
                                             <input id="fechaDefuncion" name='fechaDefuncion'
-                                                   class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa"
-                                                   size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                                   class="datepicker validate" type="text"
+                                                   title="Formato de fecha: dd/mm/aaaa" size="10"
+                                                   placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
                                                    pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                                    oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                    oninput="setCustomValidity('')">
@@ -665,11 +706,15 @@
 
                 <div class="row">
                     <button id="guardarActa" class="waves-effect waves-light btn right" type="submit"><i
-                                class="material-icons left">save</i>Guardar
+                            class="material-icons left">save</i>Guardar
                     </button>
                 </div>
 
                 <input type="hidden" name="IDPersona" id="IDPersona" value="{{ $persona->IDPersona }}"/>
+
+                <input type="hidden" name="source" id="Source" value="{{ $source }}"/>
+
+                <input type="hidden" name="idSolicitud" id="Source" value="{{ $idSolicitud }}"/>
 
             </form>
         </div>
@@ -679,8 +724,9 @@
     <script>
 
         window.onload = function () {
-            $(".datepicker").datepicker({ maxDate: new Date(), dateFormat: "dd/mm/yy", autoSize: true,
-                monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre" ]
+            $(".datepicker").datepicker({
+                maxDate: new Date(), dateFormat: "dd/mm/yy", autoSize: true,
+                monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"]
             }).val()
 
             $(document).ready(function () {
@@ -700,21 +746,39 @@
                 var actaConfirma = {!! json_encode($actaConfirma) !!};
                 var actaMatrimonio = {!! json_encode($actaMatrimonio) !!};
                 var actaDefuncion = {!! json_encode($actaDefuncion) !!};
+                var isEditableArray = {!! json_encode($isEditableArray) !!};
 
                 if (laico != null) {
-                    $("#fechaNacEdit").pickadate("picker").set("select", laico.FechaNacimiento, {format: "yyyy-mm-dd H:m:s"}).trigger("change");
+                    $("#fechaNacEdit").datepicker("setDate", new Date(laico.FechaNacimiento));
                 }
                 if (actaBautismo != null) {
-                    $("#fechaBaut").pickadate("picker").set("select", actaBautismo.FechaBautismo, {format: "yyyy-mm-dd H:m:s"}).trigger("change");
+                    $("#fechaBaut").datepicker("setDate", new Date(actaBautismo.FechaBautismo));
                 }
                 if (actaConfirma != null) {
-                    $("#fechaConfir").pickadate("picker").set("select", actaConfirma.FechaConfirma, {format: "yyyy-mm-dd H:m:s"}).trigger("change");
+                    $("#fechaConfir").datepicker("setDate", new Date(actaConfirma.FechaConfirma));
                 }
                 if (actaMatrimonio != null) {
-                    $("#fechaMatrimonio").pickadate("picker").set("select", actaMatrimonio.FechaMatrimonio, {format: "yyyy-mm-dd H:m:s"}).trigger("change");
+                    $("#fechaMatrimonio").datepicker("setDate", new Date(actaMatrimonio.FechaMatrimonio));
                 }
                 if (actaDefuncion != null) {
-                    $("#fechaDefuncion").pickadate("picker").set("select", actaDefuncion.FechaDefuncion, {format: "yyyy-mm-dd H:m:s"}).trigger("change");
+                    $("#fechaDefuncion").datepicker("setDate", new Date(actaDefuncion.FechaDefuncion));
+                }
+
+                if (!isEditableArray[0]) {
+                    $("#lugarBautizo, #nombreMadrina, #nombrePadrino, #numLibroB, #numFolioB, #numAsientoB").prop("readonly", true);
+                    $("#lugarBautizo, #nombreMadrina, #nombrePadrino, #numLibroB, #numFolioB, #numAsientoB").removeClass("validate");
+                }
+                if (!isEditableArray[1]) {
+                    $("#lugarConfirma, #nombrePadrino1, #nombrePadrino2, #numLibroC, #numFolioC, #numAsientoC").prop("readonly", true);
+                    $("#lugarConfirma, #nombrePadrino1, #nombrePadrino2, #numLibroC, #numFolioC, #numAsientoC").removeClass("validate");
+                }
+                if (!isEditableArray[2]) {
+                    $("#lugarMatrimonio, #nombreConyuge, #numLibroM, #numFolioM, #numAsientoM").prop("readonly", true);
+                    $("#lugarMatrimonio, #nombreConyuge, #numLibroM, #numFolioM, #numAsientoM").removeClass("validate");
+                }
+                if (!isEditableArray[3]) {
+                    $("#lugarDefuncion, #causaDefuncion, #numLibroD, #numFolioD, #numAsientoD").prop("readonly", true);
+                    $("#lugarDefuncion, #causaDefuncion, #numLibroD, #numFolioD, #numAsientoD").removeClass("validate");
                 }
             });
 
@@ -735,37 +799,44 @@
             $("#checkBautismo").change(function () {
                 if ($("#checkBautismo").is(':checked')) {
                     $("#contentBautismo").css("display", "block");
+                    $("#fechaBaut").prop('required', true);
                 } else {
                     $("#contentBautismo").css("display", "none");
+                    $("#fechaBaut").prop('required', false);
                 }
             });
 
             $("#checkConfirma").change(function () {
                 if ($("#checkConfirma").is(':checked')) {
                     $("#contentConfirma").css("display", "block");
+                    $("#fechaConfir").prop('required', true);
                 } else {
                     $("#contentConfirma").css("display", "none");
+                    $("#fechaConfir").prop('required', false);
                 }
             });
 
             $("#checkMatrimonio").change(function () {
                 if ($("#checkMatrimonio").is(':checked')) {
                     $("#contentMatrimonio").css("display", "block");
+                    $("#fechaMatrimonio").prop('required', true);
                 } else {
                     $("#contentMatrimonio").css("display", "none");
+                    $("#fechaMatrimonio").prop('required', false);
                 }
             });
 
             $("#checkDefuncion").change(function () {
                 if ($("#checkDefuncion").is(':checked')) {
                     $("#contentDefuncion").css("display", "block");
+                    $("#fechaDefuncion").prop('required', true);
                 } else {
                     $("#contentDefuncion").css("display", "none");
+                    $("#fechaDefuncion").prop('required', false);
                 }
             });
 
             $('select').material_select();
-
         }
 
     </script>

@@ -69,7 +69,7 @@
                                 <option value="{{ $pa->IDParroquia }}">{{ $pa->NombreParroquia }}</option>
                             @endforeach
                         </select>
-                        <label>Seleccione la Parroquia:</label>
+                        <label>Parroquia:</label>
                     </div>
 
                     <div class="col s12">
@@ -117,7 +117,7 @@
                     <th>Primer apellido</th>
                     <th>Segundo apellido</th>
                     <th>Detalle</th>
-                    <th>Solicitar edición</th>
+                    <th>Editar</th>
                     <th>Eliminar</th>
                 </tr>
                 </thead>
@@ -273,7 +273,7 @@
                             var detalle = "<a id='" + idPersona + "Detalle'>" + iconDetalle + "</a>";
 
                             var iconEditar = "<i class='material-icons'>mode_edit</i>";
-                            var editar = "<a id='" + idPersona + "Editar' href='#' onClick='setIdEditar(" + idPersona + ");'>" + iconEditar + "</a>";
+                            var editar = "<a id='" + idPersona + "Editar'>" + iconEditar + "</a>";
 
                             var iconEliminar = "<i class='material-icons'>delete</i>";
                             var eliminar = "<a id='" + idPersona + "Eliminar' href='#' onClick='setIdEliminar(" + idPersona + ");'>" + iconEliminar + "</a>";
@@ -283,6 +283,7 @@
 
 
                             // document.getElementById(idPersona + "Eliminar").setAttribute('href', window.location.origin + '/EliminarUsuario/' + idPersona);
+                            document.getElementById(idPersona + "Editar").setAttribute('href', window.location.origin + '/EditarUsuario/' + idPersona);
                             document.getElementById(idPersona + "Detalle").setAttribute('href', window.location.origin + '/DetalleUsuario/' + idPersona);
 
                             //window.location.origin + '/EditarUsuario/' + idPersona

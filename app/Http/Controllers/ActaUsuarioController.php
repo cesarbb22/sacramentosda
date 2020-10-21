@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-use Auth;
 use App\Persona;
 use App\Solicitud;
 use App\Laico;
@@ -17,8 +17,6 @@ use App\ActaMatrimonio;
 use App\ActaDefuncion;
 use App\Parroquia;
 use App\Solicitud_Acta;
-
-use Illuminate\Support\Facades\Redirect;
 
 class ActaUsuarioController extends Controller
 {
@@ -189,26 +187,93 @@ class ActaUsuarioController extends Controller
     }
 
 
-    public function EditarActa(Request $request)
+    public function EditarActa($id)
     {
         try {
-            $acta = Acta::where('IDPersona', $request->idPersona)->first();
+            $acta = null;
+            $persona = null;
+            $source = 'consulta';
+            $isEditableArray = array(true,true,true,true);
+            $usuarioParroquia = Auth::user()->IDParroquia;
+            if ($source == 'notificaciones') {
+                $sol_acta = \App\Solicitud_Acta::find($id);
+                $acta = Acta::find($sol_acta->IDActa);
+                $persona = Persona::findOrFail($acta->persona->IDPersona);
+            } else {
+                $acta = Acta::where('IDPersona', $id)->first();
+                $persona = Persona::findOrFail($id);
+            }
+            $parroquias = \App\Parroquia::all();
 
-            $solicitud = new Solicitud;
-            $solicitud->IDUser = Auth::user()->IDUser;
-            $solicitud->IDTipo_Solicitud = 2;
-            $solicitud->IDEstado_Solicitud = 3;
+            $idBautismo = $acta->IDBautismo;
+            $idConfirma = $acta->IDConfirma;
+            $idMatrimonio = $acta->IDMatrimonio;
+            $idDefuncion = $acta->IDDefuncion;
 
-            $solicitud->save();
+            $actaBautismo = ActaBautizo::where('IDBautismo', $idBautismo)->first();
+            $actaConfirma = ActaConfirma::where('IDConfirma', $idConfirma)->first();
+            $actaMatrimonio = ActaMatrimonio::where('IDMatrimonio', $idMatrimonio)->first();
+            $actaDefuncion = ActaDefuncion::where('IDDefuncion', $idDefuncion)->first();
 
-            $solicitud_acta = new Solicitud_Acta;
-            $solicitud_acta->IDSolicitud = $solicitud->IDSolicitud;
-            $solicitud_acta->IDActa = $acta->IDActa;
-            $solicitud_acta->Descripcion = $request->descripcion;
+            # bautismo
+            $idUbicacionActaBau = null;
+            $UbicacionActaBautismo = null;
+            if ($idBautismo != null) {
+                $idUbicacionActaBau = $actaBautismo->IDUbicacionActaBau;
+                $UbicacionActaBautismo = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaBau)->first();
+                if ($actaBautismo->IDParroquiaRegistra != $usuarioParroquia) {
+                    $date = date('d/m/Y', strtotime($actaBautismo->FechaBautismo));
+                    $actaBautismo->FechaBautismo = $date;
+                    $isEditableArray[0] = false;
+                }
+            }
 
-            $solicitud_acta->save();
+            # confirma
+            $idUbicacionActaCon = null;
+            $UbicacionActaConfirma = null;
+            if ($idConfirma != null) {
+                $idUbicacionActaCon = $actaConfirma->IDUbicacionActaCon;
+                $UbicacionActaConfirma = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaCon)->first();
+                if ($actaConfirma->IDParroquiaRegistra != $usuarioParroquia) {
+                    $date = date('d/m/Y', strtotime($actaConfirma->FechaConfirma));
+                    $actaConfirma->FechaConfirma = $date;
+                    $isEditableArray[1] = false;
+                }
+            }
 
-            return back()->with('msjBueno', "Se envió la solicitud correctamente!");
+            # matrimonio
+            $idUbicacionActaMat = null;
+            $UbicacionActaMatrimonio = null;
+            if ($idMatrimonio != null) {
+                $idUbicacionActaMat = $actaMatrimonio->IDUbicacionActaMat;
+                $UbicacionActaMatrimonio = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaMat)->first();
+                if ($actaMatrimonio->IDParroquiaRegistra != $usuarioParroquia) {
+                    $date = date('d/m/Y', strtotime($actaMatrimonio->FechaMatrimonio));
+                    $actaMatrimonio->FechaMatrimonio = $date;
+                    $isEditableArray[2] = false;
+                }
+            }
+
+            # defuncion
+            $idUbicacionActaDef = null;
+            $UbicacionActaDefuncion = null;
+            if ($idDefuncion != null) {
+                $idUbicacionActaDef = $actaDefuncion->IDUbicacionActaDef;
+                $UbicacionActaDefuncion = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaDef)->first();
+                if ($actaDefuncion->IDParroquiaRegistra != $usuarioParroquia) {
+                    $date = date('d/m/Y', strtotime($actaDefuncion->FechaDefuncion));
+                    $actaDefuncion->FechaDefuncion = $date;
+                    $isEditableArray[3] = false;
+                }
+            }
+
+            $laico = Laico::findOrFail($persona->IDPersona);
+
+            return view('UserViews.editarActa', ['source' => $source , 'idSolicitud' => $id,'persona' => $persona, 'laico' => $laico,
+                'acta' => $acta, 'actaBautismo' => $actaBautismo, 'actaConfirma' => $actaConfirma, 'actaMatrimonio' => $actaMatrimonio,
+                'actaDefuncion' => $actaDefuncion, 'UbicacionActaBautismo' => $UbicacionActaBautismo, 'UbicacionActaConfirma' => $UbicacionActaConfirma,
+                'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion, 'parroquias' => $parroquias,
+                'isEditableArray' => $isEditableArray]);
         } catch (Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error. Intente nuevamente!");
         }
@@ -374,12 +439,6 @@ class ActaUsuarioController extends Controller
 
                     $acta->IDDefuncion = $actaDefuncion->IDDefuncion;
             }
-
-            $IDSolicitud = $request->IDSolicitud;
-            $solicitud = Solicitud::find($IDSolicitud);
-            $solicitud->IDEstado_Solicitud = 4;
-
-            $solicitud->save();
 
             $acta->save();
             return back()->with('msjBueno', "Se ha modificado la partida correctamente");

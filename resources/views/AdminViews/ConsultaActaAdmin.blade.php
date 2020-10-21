@@ -65,11 +65,10 @@
                                 <option value="{{ $pa->IDParroquia }}">{{ $pa->NombreParroquia }}</option>
                             @endforeach
                         </select>
-                        <label>Seleccione la Parroquia:</label>
+                        <label>Parroquia:</label>
                     </div>
 
                     <div class="col s12">
-                        <label>Busqueda por rango de fechas:</label>
                         <div class="input-field col s12">
                             <input id="fechaInicio" name='fechaInicio'
                                    class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
