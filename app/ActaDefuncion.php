@@ -10,7 +10,7 @@ class ActaDefuncion extends Model
 
     protected $primaryKey = 'IDDefuncion';
 
-    protected $fillable = array('LugarDefuncion','FechaDefuncion','CausaMuerte','IDUbicacionActaDef','IDUserRegistra','IDParroquiaRegistra');
+    protected $fillable = array( 'IDParroquiaDefuncion','LugarDefuncion','FechaDefuncion','CausaMuerte','IDUbicacionActaDef','IDUserRegistra','IDParroquiaRegistra');
 
     public $timestamps = true;
 
@@ -28,6 +28,10 @@ class ActaDefuncion extends Model
     }
 
     public function parroquia() {
+        return $this->hasOne('App\Parroquia', 'IDParroquia', 'IDParroquiaDefuncion');
+    }
+
+    public function parroquiaRegistra() {
         return $this->hasOne('App\Parroquia', 'IDParroquia', 'IDParroquiaRegistra');
     }
 }

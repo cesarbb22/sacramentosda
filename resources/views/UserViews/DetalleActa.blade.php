@@ -64,9 +64,6 @@
                     </div>
 
                     <div class="input-field col s8">
-                        <input id="parroquia" name='parroquia' type="text" value="{{ $parroquia->NombreParroquia }}"
-                               readonly>
-                        <label for="parroquia">Parroquia:</label>
                     </div>
                 </div>
 

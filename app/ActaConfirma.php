@@ -10,7 +10,7 @@ class ActaConfirma extends Model
 
     protected $primaryKey = 'IDConfirma';
 
-    protected $fillable = array( 'LugarConfirma','FechaConfirma','PadrinoCon1', 'PadrinoCon2','IDUbicacionActaCon','IDUserRegistra','IDParroquiaRegistra');
+    protected $fillable = array( 'IDParroquiaConfirma','LugarConfirma','FechaConfirma','PadrinoCon1', 'PadrinoCon2','IDUbicacionActaCon','IDUserRegistra','IDParroquiaRegistra');
 
     public $timestamps = true;
 
@@ -28,6 +28,10 @@ class ActaConfirma extends Model
     }
 
     public function parroquia() {
+        return $this->hasOne('App\Parroquia', 'IDParroquia', 'IDParroquiaConfirma');
+    }
+
+    public function parroquiaRegistra() {
         return $this->hasOne('App\Parroquia', 'IDParroquia', 'IDParroquiaRegistra');
     }
 }
