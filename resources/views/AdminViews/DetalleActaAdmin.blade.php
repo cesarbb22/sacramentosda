@@ -232,11 +232,6 @@
                             <label for="nombrePadrino1">Nombre completo del padrino o madrina:</label>
                         </div>
                         <div class="input-field col s8">
-                            <input id="nombrePadrino2" name="nombrePadrinoC2" type="text"
-                                   value="{{ $actaConfirma -> PadrinoCon2 }}" readonly>
-                            <label for="nombrePadrino2">Nombre completo del padrino o madrina:</label>
-                        </div>
-                        <div class="input-field col s8">
                             <label for="informacion">Esta Información consta en:</label>
                         </div>
                     </div>

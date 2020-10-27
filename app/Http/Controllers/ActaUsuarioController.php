@@ -126,7 +126,6 @@ class ActaUsuarioController extends Controller
                     }
                     $ActaConfirma->FechaConfirma = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaConfirma));
                     $ActaConfirma->PadrinoCon1 = $request->nombrePadrinoC1;
-                    $ActaConfirma->PadrinoCon2 = $request->nombrePadrinoC2;
                     $ActaConfirma->IDUbicacionActaCon = $UbicacionActaC->IDUbicacionActa;
                     $ActaConfirma->IDUserRegistra = Auth::user()->IDUser;
                     $ActaConfirma->IDParroquiaRegistra = Auth::user()->IDParroquia;
@@ -396,7 +395,6 @@ class ActaUsuarioController extends Controller
                     }
                     $actaConfirma->FechaConfirma = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaConfirma));
                     $actaConfirma->PadrinoCon1 = $request->nombrePadrinoC1;
-                    $actaConfirma->PadrinoCon2 = $request->nombrePadrinoC2;
                     $actaConfirma->save();
 
                     $idUbicacionActaCon = $actaConfirma->IDUbicacionActaCon;
@@ -421,7 +419,6 @@ class ActaUsuarioController extends Controller
                 }
                 $actaConfirma->FechaConfirma = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaConfirma));
                 $actaConfirma->PadrinoCon1 = $request->nombrePadrinoC1;
-                $actaConfirma->PadrinoCon2 = $request->nombrePadrinoC2;
                 $actaConfirma->IDUbicacionActaCon = $UbicacionActaConfirma->IDUbicacionActa;
                 $actaConfirma->IDUserRegistra = Auth::user()->IDUser;
                 $actaConfirma->IDParroquiaRegistra = Auth::user()->IDParroquia;

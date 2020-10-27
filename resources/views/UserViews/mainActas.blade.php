@@ -291,11 +291,6 @@
                                         <label for="nombrePadrino1">Nombre completo del padrino o madrina:</label>
                                     </div>
                                     <div class="input-field col s8">
-                                        <input id="nombrePadrino2" name="nombrePadrinoC2" type="text" class="validate"
-                                               disabled>
-                                        <label for="nombrePadrino2">Nombre completo del padrino o madrina:</label>
-                                    </div>
-                                    <div class="input-field col s8">
                                         <label for="informacion">Esta Información consta en:</label>
                                     </div>
                                 </div>
@@ -554,7 +549,6 @@
                     $("#lugarConfirma").prop('disabled', false);
                     $("#fechaConfir").prop('disabled', false);
                     $("#nombrePadrino1").prop('disabled', false);
-                    $("#nombrePadrino2").prop('disabled', false);
                     $("#numLibroC").prop('disabled', false);
                     $("#numFolioC").prop('disabled', false);
                     $("#numAsientoC").prop('disabled', false);
@@ -564,7 +558,6 @@
                     $("#lugarConfirma").prop('disabled', true);
                     $("#fechaConfir").prop('disabled', true);
                     $("#nombrePadrino1").prop('disabled', true);
-                    $("#nombrePadrino2").prop('disabled', true);
                     $("#numLibroC").prop('disabled', true);
                     $("#numFolioC").prop('disabled', true);
                     $("#numAsientoC").prop('disabled', true);

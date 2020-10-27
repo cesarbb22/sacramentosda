@@ -197,7 +197,7 @@
                                     <div class="row" id="lugarBautizoDiv">
                                         <div class="input-field col s6">
                                             <input id="lugarBautizo" name="lugarBautizo"
-                                                   value="{{ $actaBautismo->LugarBautismo }}" type="text" required>
+                                                   value="{{ $actaBautismo->LugarBautismo }}" type="text">
                                             <label for="lugarBautizo"> Bautizado en:</label>
                                         </div>
                                     </div>
@@ -278,8 +278,7 @@
 
                                         <div class="row" id="lugarBautizoDiv">
                                             <div class="input-field col s6">
-                                                <input id="lugarBautizo" name="lugarBautizo"type="text"
-                                                       class="validate" required>
+                                                <input id="lugarBautizo" name="lugarBautizo"type="text" class="validate">
                                                 <label for="lugarBautizo"> Bautizado en:</label>
                                             </div>
                                         </div>
@@ -362,7 +361,7 @@
 
                                     <div class="row" id="lugarConfirmaDiv">
                                         <div class="input-field col s6">
-                                            <input id="lugarConfirma" name="lugarConfirma" type="text" required
+                                            <input id="lugarConfirma" name="lugarConfirma" type="text"
                                                    value="{{ $actaConfirma -> LugarConfirma }}">
                                             <label for="lugarConfirma"> Confirmado en:</label>
                                         </div>
@@ -373,11 +372,6 @@
                                             <input id="nombrePadrino1" name="nombrePadrinoC1" type="text"
                                                    class="validate" value="{{ $actaConfirma -> PadrinoCon1 }}">
                                             <label for="nombrePadrino1">Nombre completo del padrino o madrina:</label>
-                                        </div>
-                                        <div class="input-field col s8">
-                                            <input id="nombrePadrino2" name="nombrePadrinoC2" type="text"
-                                                   class="validate" value="{{ $actaConfirma -> PadrinoCon2 }}">
-                                            <label for="nombrePadrino2">Nombre completo del padrino o madrina:</label>
                                         </div>
                                         <div class="input-field col s8">
                                             <label for="informacion">Esta Información consta en:</label>
@@ -458,12 +452,6 @@
                                                     madrina:</label>
                                             </div>
                                             <div class="input-field col s8">
-                                                <input id="nombrePadrino2" name="nombrePadrinoC2" type="text"
-                                                       class="validate">
-                                                <label for="nombrePadrino2">Nombre completo del padrino o
-                                                    madrina:</label>
-                                            </div>
-                                            <div class="input-field col s8">
                                                 <label for="informacion">Esta Información consta en:</label>
                                             </div>
                                         </div>
@@ -532,7 +520,7 @@
                                     <div class="row" id="lugarMatrimonioDiv">
                                         <div class="input-field col s6">
                                             <input id="lugarMatrimonio" name="lugarMatrimonio" type="text"
-                                                   required value="{{ $actaMatrimonio -> LugarMatrimonio }}">
+                                                    value="{{ $actaMatrimonio -> LugarMatrimonio }}">
                                             <label for="lugarMatrimonio"> Matrimonio en:</label>
                                         </div>
                                     </div>
@@ -689,7 +677,7 @@
                                     <div class="row" id="lugarDefuncionDiv">
                                         <div class="input-field col s6">
                                             <input id="lugarDefuncion" name="lugarDefuncion" type="text"
-                                                   required value="{{ $actaDefuncion -> LugarDefuncion }}">
+                                                    value="{{ $actaDefuncion -> LugarDefuncion }}">
                                             <label for="lugarDefuncion"> Defunción en:</label>
                                         </div>
                                     </div>
@@ -872,8 +860,8 @@
                     $("#lugarBautizoDiv").css("display", "none");
                 }
                 if (!isEditableArray[1]) {
-                    $("#lugarConfirma, #nombrePadrino1, #nombrePadrino2, #numLibroC, #numFolioC, #numAsientoC").prop("readonly", true);
-                    $("#lugarConfirma, #nombrePadrino1, #nombrePadrino2, #numLibroC, #numFolioC, #numAsientoC").removeClass("validate");
+                    $("#lugarConfirma, #nombrePadrino1, #numLibroC, #numFolioC, #numAsientoC").prop("readonly", true);
+                    $("#lugarConfirma, #nombrePadrino1, #numLibroC, #numFolioC, #numAsientoC").removeClass("validate");
                 } else {
                     $("#lugarConfirmaDiv").css("display", "none");
                 }
