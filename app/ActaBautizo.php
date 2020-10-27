@@ -9,7 +9,7 @@ class ActaBautizo extends Model
 
     protected $table ='ActaBautismo';
     protected $primaryKey = 'IDBautismo';
-    protected $fillable = array( 'IDParroquiaBautismo','LugarBautismo','FechaBautismo','PadrinoBau1', 'PadrinoBau2','IDUbicacionActaBau','IDUserRegistra','IDParroquiaRegistra' );
+    protected $fillable = array( 'IDParroquiaBautismo','LugarBautismo','FechaBautismo','PadrinoBau1', 'PadrinoBau2','IDUbicacionActaBau','NombreUserRegistra','IDParroquiaRegistra' );
     public $timestamps = true;
     protected $dateFormat = 'Y-m-d H:i:s';
 
@@ -17,10 +17,6 @@ class ActaBautizo extends Model
     public function acta()
     {
         return $this->belongsTo('App\Acta');
-    }
-
-    public function user() {
-        return $this->hasOne('App\User', 'IDUser', 'IDUserRegistra');
     }
 
     public function parroquia()

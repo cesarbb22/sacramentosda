@@ -10,7 +10,7 @@ class ActaDefuncion extends Model
 
     protected $primaryKey = 'IDDefuncion';
 
-    protected $fillable = array( 'IDParroquiaDefuncion','LugarDefuncion','FechaDefuncion','CausaMuerte','IDUbicacionActaDef','IDUserRegistra','IDParroquiaRegistra');
+    protected $fillable = array( 'IDParroquiaDefuncion','LugarDefuncion','FechaDefuncion','CausaMuerte','IDUbicacionActaDef','NombreUserRegistra','IDParroquiaRegistra');
 
     public $timestamps = true;
 
@@ -21,10 +21,6 @@ class ActaDefuncion extends Model
     public function acta()
     {
         return $this->belongsTo('App\Acta');
-    }
-
-    public function user() {
-        return $this->hasOne('App\User', 'IDUser', 'IDUserRegistra');
     }
 
     public function parroquia() {

@@ -10,7 +10,7 @@ class ActaConfirma extends Model
 
     protected $primaryKey = 'IDConfirma';
 
-    protected $fillable = array( 'IDParroquiaConfirma','LugarConfirma','FechaConfirma','PadrinoCon1','IDUbicacionActaCon','IDUserRegistra','IDParroquiaRegistra');
+    protected $fillable = array( 'IDParroquiaConfirma','LugarConfirma','FechaConfirma','PadrinoCon1','IDUbicacionActaCon','NombreUserRegistra','IDParroquiaRegistra');
 
     public $timestamps = true;
 
@@ -21,10 +21,6 @@ class ActaConfirma extends Model
     public function acta()
     {
         return $this->belongsTo('App\Acta');
-    }
-
-    public function user() {
-        return $this->hasOne('App\User', 'IDUser', 'IDUserRegistra');
     }
 
     public function parroquia() {

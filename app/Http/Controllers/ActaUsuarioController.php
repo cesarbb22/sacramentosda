@@ -101,7 +101,7 @@ class ActaUsuarioController extends Controller
                     $ActaBautizo->PadrinoBau1 = $request->nombreMadrinaB;
                     $ActaBautizo->PadrinoBau2 = $request->nombrePadrinoB;
                     $ActaBautizo->IDUbicacionActaBau = $UbicacionActaB->IDUbicacionActa;
-                    $ActaBautizo->IDUserRegistra = Auth::user()->IDUser;
+                    $ActaBautizo->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
                     $ActaBautizo->IDParroquiaRegistra = Auth::user()->IDParroquia;
                     $ActaBautizo->save();
 
@@ -127,7 +127,7 @@ class ActaUsuarioController extends Controller
                     $ActaConfirma->FechaConfirma = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaConfirma));
                     $ActaConfirma->PadrinoCon1 = $request->nombrePadrinoC1;
                     $ActaConfirma->IDUbicacionActaCon = $UbicacionActaC->IDUbicacionActa;
-                    $ActaConfirma->IDUserRegistra = Auth::user()->IDUser;
+                    $ActaConfirma->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
                     $ActaConfirma->IDParroquiaRegistra = Auth::user()->IDParroquia;
                     $ActaConfirma->save();
 
@@ -152,7 +152,7 @@ class ActaUsuarioController extends Controller
                     $ActaMatrimonio->FechaMatrimonio = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaMatrimonio));
                     $ActaMatrimonio->NombreConyugue = $request->nombreConyuge;
                     $ActaMatrimonio->IDUbicacionActaMat = $UbicacionActaM->IDUbicacionActa;
-                    $ActaMatrimonio->IDUserRegistra = Auth::user()->IDUser;
+                    $ActaMatrimonio->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
                     $ActaMatrimonio->IDParroquiaRegistra = Auth::user()->IDParroquia;
                     $ActaMatrimonio->save();
 
@@ -177,7 +177,7 @@ class ActaUsuarioController extends Controller
                     $ActaDefuncion->FechaDefuncion = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaDefuncion));
                     $ActaDefuncion->CausaMuerte = $request->causaDefuncion;
                     $ActaDefuncion->IDUbicacionActaDef = $UbicacionActaD->IDUbicacionActa;
-                    $ActaDefuncion->IDUserRegistra = Auth::user()->IDUser;
+                    $ActaDefuncion->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
                     $ActaDefuncion->IDParroquiaRegistra = Auth::user()->IDParroquia;
                     $ActaDefuncion->save();
 
@@ -376,7 +376,7 @@ class ActaUsuarioController extends Controller
                 $actaBautismo->PadrinoBau1 = $request->nombreMadrinaB;
                 $actaBautismo->PadrinoBau2 = $request->nombrePadrinoB;
                 $actaBautismo->IDUbicacionActaBau = $UbicacionActaBautismo->IDUbicacionActa;
-                $actaBautismo->IDUserRegistra = Auth::user()->IDUser;
+                $actaBautismo->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
                 $actaBautismo->IDParroquiaRegistra = Auth::user()->IDParroquia;
                 $actaBautismo->save();
 
@@ -420,7 +420,7 @@ class ActaUsuarioController extends Controller
                 $actaConfirma->FechaConfirma = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaConfirma));
                 $actaConfirma->PadrinoCon1 = $request->nombrePadrinoC1;
                 $actaConfirma->IDUbicacionActaCon = $UbicacionActaConfirma->IDUbicacionActa;
-                $actaConfirma->IDUserRegistra = Auth::user()->IDUser;
+                $actaConfirma->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
                 $actaConfirma->IDParroquiaRegistra = Auth::user()->IDParroquia;
                 $actaConfirma->save();
 
@@ -464,7 +464,7 @@ class ActaUsuarioController extends Controller
                 $actaMatrimonio->FechaMatrimonio = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaMatrimonio));
                 $actaMatrimonio->NombreConyugue = $request->nombreConyuge;
                 $actaMatrimonio->IDUbicacionActaMat = $UbicacionActaMatrimonio->IDUbicacionActa;
-                $actaMatrimonio->IDUserRegistra = Auth::user()->IDUser;
+                $actaMatrimonio->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
                 $actaMatrimonio->IDParroquiaRegistra = Auth::user()->IDParroquia;
                 $actaMatrimonio->save();
 
@@ -508,7 +508,7 @@ class ActaUsuarioController extends Controller
                 $actaDefuncion->FechaDefuncion = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaDefuncion));
                 $actaDefuncion->CausaMuerte = $request->causaDefuncion;
                 $actaDefuncion->IDUbicacionActaDef = $UbicacionActaDefuncion->IDUbicacionActa;
-                $actaDefuncion->IDUserRegistra = Auth::user()->IDUser;
+                $actaDefuncion->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
                 $actaDefuncion->IDParroquiaRegistra = Auth::user()->IDParroquia;
                 $actaDefuncion->save();
 
@@ -626,7 +626,6 @@ class ActaUsuarioController extends Controller
                 $solici = Solicitud::where('IDSolicitud', $s->IDSolicitud)->first();
                 if ($solici->IDEstado_Solicitud == 4) {
                     $solicitud = new Solicitud;
-                    $solicitud->IDUser = Auth::user()->IDUser;
                     $solicitud->IDTipo_Solicitud = 1;
                     $solicitud->IDEstado_Solicitud = 3;
 

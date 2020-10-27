@@ -8,7 +8,7 @@ class ActaMatrimonio extends Model
 {
     protected $table = 'ActaMatrimonio';
     protected $primaryKey = 'IDMatrimonio';
-    protected $fillable = array( 'IDParroquiaMatrimonio','LugarMatrimonio','FechaMatrimonio','NombreConyugue','IDUbicacionActaMat','IDUserRegistra','IDParroquiaRegistra');
+    protected $fillable = array( 'IDParroquiaMatrimonio','LugarMatrimonio','FechaMatrimonio','NombreConyugue','IDUbicacionActaMat','NombreUserRegistra','IDParroquiaRegistra');
     public $timestamps = true;
     protected $dateFormat = 'Y-m-d H:i:s';
 
@@ -17,10 +17,6 @@ class ActaMatrimonio extends Model
     public function acta()
     {
         return $this->belongsTo('App\Acta');
-    }
-
-    public function user() {
-        return $this->hasOne('App\User', 'IDUser', 'IDUserRegistra');
     }
 
     public function parroquia() {
