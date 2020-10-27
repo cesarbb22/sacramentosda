@@ -30,10 +30,8 @@ class ActaUsuarioController extends Controller
 
     public function crearActa(Request $request)
     {
-
         try {
             $Persona = new Persona;
-
             if ($request->has('nombrePadre')) {
 
                 $Persona->Cedula = $request->numCedula;
@@ -192,9 +190,7 @@ class ActaUsuarioController extends Controller
             }//fin if acta
 
             $Acta->IDPersona = $Persona->IDPersona;
-            $Acta->IDParroquia = $request->parroquia;
             $Acta->save();
-
 
             return back()->with('msjBueno', "Se agregó el acta correctamente");
 
@@ -335,7 +331,6 @@ class ActaUsuarioController extends Controller
 
             $acta = Acta::where('IDPersona', $id)->first();
             $acta->NotasMarginales = $request->notasMarginalesEdit;
-            $acta->IDParroquia = $request->parroquia;
             $idBautismo = $acta->IDBautismo;
             $idConfirma = $acta->IDConfirma;
             $idMatrimonio = $acta->IDMatrimonio;
@@ -536,19 +531,16 @@ class ActaUsuarioController extends Controller
     {
         try {
             $acta = Acta::where('IDPersona', $id)->first();
-            $parroquias = \App\Parroquia::all();
 
             $idBautismo = $acta->IDBautismo;
             $idConfirma = $acta->IDConfirma;
             $idMatrimonio = $acta->IDMatrimonio;
             $idDefuncion = $acta->IDDefuncion;
-            $idParroquia = $acta->IDParroquia;
 
             $actaBautismo = ActaBautizo::where('IDBautismo', $idBautismo)->first();
             $actaConfirma = ActaConfirma::where('IDConfirma', $idConfirma)->first();
             $actaMatrimonio = ActaMatrimonio::where('IDMatrimonio', $idMatrimonio)->first();
             $actaDefuncion = ActaDefuncion::where('IDDefuncion', $idDefuncion)->first();
-            $parroquia = Parroquia::where('IDParroquia', $idParroquia)->first();
             $laico = Laico::findOrFail($id);
 
             $date = $laico->FechaNacimiento;
@@ -619,7 +611,7 @@ class ActaUsuarioController extends Controller
             return view('UserViews.DetalleActa', ['persona' => Persona::findOrFail($id), 'laico' => $laico,
                 'acta' => $acta, 'actaBautismo' => $actaBautismo, 'actaConfirma' => $actaConfirma, 'actaMatrimonio' => $actaMatrimonio,
                 'actaDefuncion' => $actaDefuncion, 'UbicacionActaBautismo' => $UbicacionActaBautismo, 'UbicacionActaConfirma' => $UbicacionActaConfirma,
-                'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion, 'parroquia' => $parroquia, 'tipoHijo' => $tipoHijo]);
+                'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion, 'tipoHijo' => $tipoHijo]);
 
         } catch (Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error " + $e);

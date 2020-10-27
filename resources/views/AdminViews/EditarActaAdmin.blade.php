@@ -66,15 +66,6 @@
                                value="{{ $persona->Cedula }}" maxlength="9">
                         <label for="numCedulaEdit">Número de cédula:</label>
                     </div>
-
-                    <div class="input-field col s8">
-                        <select name='parroquia' id="parroquia">
-                            @foreach ($parroquias as $pa)
-                                <option value="{{ $pa->IDParroquia }}">{{ $pa->NombreParroquia }}</option>
-                            @endforeach
-                        </select>
-                        <label>Parroquia:</label>
-                    </div>
                 </div>
 
                 <div class="row">
@@ -173,9 +164,14 @@
 
                                     <div class="row">
                                         <div class="input-field col s6">
-                                            <input id="lugarBautizo" name="lugarBautizo" type="text" class="validate"
-                                                   value="{{ $actaBautismo->LugarBautismo }}">
-                                            <label for="lugarBautizo"> Bautizado en:</label>
+                                            <select id="parroquiaBautismo" name='parroquiaBautismo'>
+                                                @foreach ($parroquias as $pa)
+                                                    <option
+                                                        value="{{ $pa->IDParroquia }}">{{ $pa->NombreParroquia }}</option>
+                                                @endforeach
+                                                <option value="otro">Otro</option>
+                                            </select>
+                                            <label>Seleccione la Parroquia:</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <input id="fechaBaut" name='fechaBautizo'
@@ -183,6 +179,14 @@
                                                    pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                                    oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                    oninput="setCustomValidity('')">
+                                        </div>
+                                    </div>
+
+                                    <div class="row" id="lugarBautizoDiv">
+                                        <div class="input-field col s6">
+                                            <input id="lugarBautizo" name="lugarBautizo"
+                                                   value="{{ $actaBautismo->LugarBautismo }}" type="text" required>
+                                            <label for="lugarBautizo"> Bautizado en:</label>
                                         </div>
                                     </div>
 
@@ -240,9 +244,14 @@
 
                                         <div class="row">
                                             <div class="input-field col s6">
-                                                <input id="lugarBautizo" name="lugarBautizo" type="text"
-                                                       class="validate">
-                                                <label for="lugarBautizo"> Bautizado en:</label>
+                                                <select id="parroquiaBautismo" name='parroquiaBautismo'>
+                                                    @foreach ($parroquias as $pa)
+                                                        <option
+                                                            value="{{ $pa->IDParroquia }}">{{ $pa->NombreParroquia }}</option>
+                                                    @endforeach
+                                                    <option value="otro">Otro</option>
+                                                </select>
+                                                <label>Seleccione la Parroquia:</label>
                                             </div>
                                             <div class="input-field col s6">
                                                 <input id="fechaBaut" name='fechaBautizo'
@@ -250,6 +259,14 @@
                                                        pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                                        oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                        oninput="setCustomValidity('')">
+                                            </div>
+                                        </div>
+
+                                        <div class="row" id="lugarBautizoDiv">
+                                            <div class="input-field col s6">
+                                                <input id="lugarBautizo" name="lugarBautizo"type="text"
+                                                       class="validate">
+                                                <label for="lugarBautizo"> Bautizado en:</label>
                                             </div>
                                         </div>
 
@@ -301,9 +318,14 @@
 
                                     <div class="row">
                                         <div class="input-field col s6">
-                                            <input id="lugarConfirma" name="lugarConfirma" type="text" class="validate"
-                                                   value="{{ $actaConfirma -> LugarConfirma }}">
-                                            <label for="lugarConfirma"> Confirmado en:</label>
+                                            <select id="parroquiaConfirma" name='parroquiaConfirma'>
+                                                @foreach ($parroquias as $paConf)
+                                                    <option
+                                                        value="{{ $paConf->IDParroquia }}">{{ $paConf->NombreParroquia }}</option>
+                                                @endforeach
+                                                <option value="otro">Otro</option>
+                                            </select>
+                                            <label>Seleccione la Parroquia:</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <input id="fechaConfir" name='fechaConfirma'
@@ -311,6 +333,14 @@
                                                    pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                                    oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                    oninput="setCustomValidity('')">
+                                        </div>
+                                    </div>
+
+                                    <div class="row" id="lugarConfirmaDiv">
+                                        <div class="input-field col s6">
+                                            <input id="lugarConfirma" name="lugarConfirma" type="text" required
+                                                   value="{{ $actaConfirma -> LugarConfirma }}">
+                                            <label for="lugarConfirma"> Confirmado en:</label>
                                         </div>
                                     </div>
 
@@ -368,9 +398,14 @@
 
                                         <div class="row">
                                             <div class="input-field col s6">
-                                                <input id="lugarConfirma" name="lugarConfirma" type="text"
-                                                       class="validate">
-                                                <label for="lugarConfirma"> Confirmado en:</label>
+                                                <select id="parroquiaConfirma" name='parroquiaConfirma'>
+                                                    @foreach ($parroquias as $paConf)
+                                                        <option
+                                                            value="{{ $paConf->IDParroquia }}">{{ $paConf->NombreParroquia }}</option>
+                                                    @endforeach
+                                                    <option value="otro">Otro</option>
+                                                </select>
+                                                <label>Seleccione la Parroquia:</label>
                                             </div>
                                             <div class="input-field col s6">
                                                 <input id="fechaConfir" name='fechaConfirma'
@@ -378,6 +413,14 @@
                                                        pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                                        oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                        oninput="setCustomValidity('')">
+                                            </div>
+                                        </div>
+
+                                        <div class="row" id="lugarConfirmaDiv">
+                                            <div class="input-field col s6">
+                                                <input id="lugarConfirma" name="lugarConfirma" type="text"
+                                                       class="validate">
+                                                <label for="lugarConfirma"> Confirmado en:</label>
                                             </div>
                                         </div>
 
@@ -432,9 +475,14 @@
 
                                     <div class="row">
                                         <div class="input-field col s6">
-                                            <input id="lugarMatrimonio" name="lugarMatrimonio" type="text"
-                                                   class="validate" value="{{ $actaMatrimonio -> LugarMatrimonio }}">
-                                            <label for="lugarMatrimonio"> Matrimonio en:</label>
+                                            <select id="parroquiaMatrimonio" name='parroquiaMatrimonio'>
+                                                @foreach ($parroquias as $paMat)
+                                                    <option
+                                                        value="{{ $paMat->IDParroquia }}">{{ $paMat->NombreParroquia }}</option>
+                                                @endforeach
+                                                <option value="otro">Otro</option>
+                                            </select>
+                                            <label>Seleccione la Parroquia:</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <input id="fechaMatrimonio" name='fechaMatrimonio'
@@ -442,6 +490,14 @@
                                                    pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                                    oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                    oninput="setCustomValidity('')">
+                                        </div>
+                                    </div>
+
+                                    <div class="row" id="lugarMatrimonioDiv">
+                                        <div class="input-field col s6">
+                                            <input id="lugarMatrimonio" name="lugarMatrimonio" type="text"
+                                                   required value="{{ $actaMatrimonio -> LugarMatrimonio }}">
+                                            <label for="lugarMatrimonio"> Matrimonio en:</label>
                                         </div>
                                     </div>
 
@@ -495,9 +551,14 @@
 
                                         <div class="row">
                                             <div class="input-field col s6">
-                                                <input id="lugarMatrimonio" name="lugarMatrimonio" type="text"
-                                                       class="validate">
-                                                <label for="lugarMatrimonio"> Matrimonio en:</label>
+                                                <select id="parroquiaMatrimonio" name='parroquiaMatrimonio'>
+                                                    @foreach ($parroquias as $paMat)
+                                                        <option
+                                                            value="{{ $paMat->IDParroquia }}">{{ $paMat->NombreParroquia }}</option>
+                                                    @endforeach
+                                                    <option value="otro">Otro</option>
+                                                </select>
+                                                <label>Seleccione la Parroquia:</label>
                                             </div>
                                             <div class="input-field col s6">
                                                 <input id="fechaMatrimonio" name='fechaMatrimonio'
@@ -505,6 +566,14 @@
                                                        pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                                        oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                        oninput="setCustomValidity('')">
+                                            </div>
+                                        </div>
+
+                                        <div class="row" id="lugarMatrimonioDiv">
+                                            <div class="input-field col s6">
+                                                <input id="lugarMatrimonio" name="lugarMatrimonio" type="text"
+                                                       class="validate">
+                                                <label for="lugarMatrimonio"> Matrimonio en:</label>
                                             </div>
                                         </div>
 
@@ -551,9 +620,14 @@
 
                                     <div class="row">
                                         <div class="input-field col s6">
-                                            <input id="lugarDefuncion" name="lugarDefuncion" type="text"
-                                                   class="validate" value="{{ $actaDefuncion -> LugarDefuncion }}">
-                                            <label for="lugarDefuncion"> Defunción en:</label>
+                                            <select id="parroquiaDefuncion" name='parroquiaDefuncion'>
+                                                @foreach ($parroquias as $paDef)
+                                                    <option
+                                                        value="{{ $paDef->IDParroquia }}">{{ $paDef->NombreParroquia }}</option>
+                                                @endforeach
+                                                <option value="otro">Otro</option>
+                                            </select>
+                                            <label>Seleccione la Parroquia:</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <input id="fechaDefuncion" name='fechaDefuncion'
@@ -561,6 +635,14 @@
                                                    pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                                    oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                    oninput="setCustomValidity('')">
+                                        </div>
+                                    </div>
+
+                                    <div class="row" id="lugarDefuncionDiv">
+                                        <div class="input-field col s6">
+                                            <input id="lugarDefuncion" name="lugarDefuncion" type="text"
+                                                   required value="{{ $actaDefuncion -> LugarDefuncion }}">
+                                            <label for="lugarDefuncion"> Defunción en:</label>
                                         </div>
                                     </div>
 
@@ -615,9 +697,14 @@
 
                                     <div class="row">
                                         <div class="input-field col s6">
-                                            <input id="lugarDefuncion" name="lugarDefuncion" type="text"
-                                                   class="validate">
-                                            <label for="lugarDefuncion"> Defunción en:</label>
+                                            <select id="parroquiaDefuncion" name='parroquiaDefuncion'>
+                                                @foreach ($parroquias as $paDef)
+                                                    <option
+                                                        value="{{ $paDef->IDParroquia }}">{{ $paDef->NombreParroquia }}</option>
+                                                @endforeach
+                                                <option value="otro">Otro</option>
+                                            </select>
+                                            <label>Seleccione la Parroquia:</label>
                                         </div>
                                         <div class="input-field col s6">
                                             <input id="fechaDefuncion" name='fechaDefuncion'
@@ -625,6 +712,14 @@
                                                    pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                                    oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                    oninput="setCustomValidity('')">
+                                        </div>
+                                    </div>
+
+                                    <div class="row" id="lugarDefuncionDiv">
+                                        <div class="input-field col s6">
+                                            <input id="lugarDefuncion" name="lugarDefuncion" type="text"
+                                                   class="validate">
+                                            <label for="lugarDefuncion"> Defunción en:</label>
                                         </div>
                                     </div>
 
@@ -686,7 +781,6 @@
             }).val()
 
             $(document).ready(function () {
-                $('#parroquia > option[value="{{ $acta->IDParroquia }}"]').attr('selected', 'selected');
                 $("input[name=tipoHijo][value= {{ $laico->IDTipo_Hijo }} ]").prop('checked', true);
                 if ($("#tipoH2").is(':checked')) {
                     $("#nombrePadreEdit").prop('disabled', false);
@@ -696,6 +790,11 @@
                     $("#nombrePadreEdit").prop('disabled', true);
                     $("#nombreMadreEdit").prop('disabled', false);
                 }
+
+                $("#lugarBautizoDiv").css("display", "none");
+                $("#lugarConfirmaDiv").css("display", "none");
+                $("#lugarMatrimonioDiv").css("display", "none");
+                $("#lugarDefuncionDiv").css("display", "none");
 
                 var laico = {!! json_encode($laico) !!};
                 var actaBautismo = {!! json_encode($actaBautismo) !!};
@@ -717,6 +816,38 @@
                 }
                 if (actaDefuncion != null) {
                     $( "#fechaDefuncion" ).datepicker( "setDate", new Date(actaDefuncion.FechaDefuncion) );
+                }
+
+                if (actaBautismo != null && actaBautismo.IDParroquiaBautismo === null) {
+                    $('#parroquiaBautismo > option[value="otro"]').attr('selected', 'selected');
+                    $("#lugarBautizo").prop('required', true);
+                    $("#lugarBautizoDiv").css("display", "block");
+                } else if (actaBautismo != null) {
+                    $('#parroquiaBautismo > option[value="'+ actaBautismo.IDParroquiaBautismo +'"]').attr('selected', 'selected');
+                }
+
+                if (actaConfirma != null && actaConfirma.IDParroquiaConfirma === null) {
+                    $('#parroquiaConfirma > option[value="otro"]').attr('selected', 'selected');
+                    $("#lugarConfirma").prop('required', true);
+                    $("#lugarConfirmaDiv").css("display", "block");
+                } else if (actaConfirma != null) {
+                    $('#parroquiaConfirma > option[value="'+ actaConfirma.IDParroquiaConfirma +'"]').attr('selected', 'selected');
+                }
+
+                if (actaMatrimonio != null && actaMatrimonio.IDParroquiaMatrimonio === null) {
+                    $('#parroquiaMatrimonio > option[value="otro"]').attr('selected', 'selected');
+                    $("#lugarMatrimonio").prop('required', true);
+                    $("#lugarMatrimonioDiv").css("display", "block");
+                } else if (actaMatrimonio != null) {
+                    $('#parroquiaMatrimonio > option[value="'+ actaMatrimonio.IDParroquiaMatrimonio +'"]').attr('selected', 'selected');
+                }
+
+                if (actaDefuncion != null && actaDefuncion.IDParroquiaDefuncion === null) {
+                    $('#parroquiaDefuncion > option[value="otro"]').attr('selected', 'selected');
+                    $("#lugarDefuncion").prop('required', true);
+                    $("#lugarDefuncionDiv").css("display", "block");
+                } else if (actaDefuncion != null) {
+                    $('#parroquiaDefuncion > option[value="'+ actaDefuncion.IDParroquiaDefuncion +'"]').attr('selected', 'selected');
                 }
             });
 
@@ -771,6 +902,59 @@
                 } else {
                     $("#contentDefuncion").css("display", "none");
                     $("#fechaDefuncion").prop('required',false);
+                }
+            });
+
+
+            $("#parroquiaBautismo").change(function () {
+                var valor = $("#parroquiaBautismo").val();
+                if (valor === "otro") {
+                    $("#lugarBautizo").prop('required', true);
+                    $("#lugarBautizoDiv").css("display", "block");
+                    $("#lugarBautizo").val("");
+                } else {
+                    $("#lugarBautizo").prop('required', false);
+                    $("#lugarBautizoDiv").css("display", "none");
+                    $("#lugarBautizo").val("");
+                }
+            });
+
+            $("#parroquiaConfirma").change(function () {
+                var valor = $("#parroquiaConfirma").val();
+                if (valor === "otro") {
+                    $("#lugarConfirma").prop('required', true);
+                    $("#lugarConfirmaDiv").css("display", "block");
+                    $("#lugarConfirma").val("");
+                } else {
+                    $("#lugarConfirma").prop('required', false);
+                    $("#lugarConfirmaDiv").css("display", "none");
+                    $("#lugarConfirma").val("");
+                }
+            });
+
+            $("#parroquiaMatrimonio").change(function () {
+                var valor = $("#parroquiaMatrimonio").val();
+                if (valor === "otro") {
+                    $("#lugarMatrimonio").prop('required', true);
+                    $("#lugarMatrimonioDiv").css("display", "block");
+                    $("#lugarMatrimonio").val("");
+                } else {
+                    $("#lugarMatrimonio").prop('required', false);
+                    $("#lugarMatrimonioDiv").css("display", "none");
+                    $("#lugarMatrimonio").val("");
+                }
+            });
+
+            $("#parroquiaDefuncion").change(function () {
+                var valor = $("#parroquiaDefuncion").val();
+                if (valor === "otro") {
+                    $("#lugarDefuncion").prop('required', true);
+                    $("#lugarDefuncionDiv").css("display", "block");
+                    $("#lugarDefuncion").val("");
+                } else {
+                    $("#lugarDefuncion").prop('required', false);
+                    $("#lugarDefuncionDiv").css("display", "none");
+                    $("#lugarDefuncion").val("");
                 }
             });
 

@@ -256,9 +256,14 @@
 
                                         <div class="row">
                                             <div class="input-field col s6">
-                                                <input id="lugarBautizo" name="lugarBautizo" type="text"
-                                                       class="validate">
-                                                <label for="lugarBautizo"> Bautizado en:</label>
+                                                <select id="parroquiaBautismo" name='parroquiaBautismo'>
+                                                    @foreach ($parroquias as $pa)
+                                                        <option
+                                                            value="{{ $pa->IDParroquia }}">{{ $pa->NombreParroquia }}</option>
+                                                    @endforeach
+                                                    <option value="otro">Otro</option>
+                                                </select>
+                                                <label>Seleccione la Parroquia:</label>
                                             </div>
                                             <div class="input-field col s6">
                                                 <input id="fechaBaut" name='fechaBautizo'
@@ -268,6 +273,14 @@
                                                        pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                                        oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                        oninput="setCustomValidity('')">
+                                            </div>
+                                        </div>
+
+                                        <div class="row" id="lugarBautizoDiv">
+                                            <div class="input-field col s6">
+                                                <input id="lugarBautizo" name="lugarBautizo"type="text"
+                                                       class="validate" required>
+                                                <label for="lugarBautizo"> Bautizado en:</label>
                                             </div>
                                         </div>
 

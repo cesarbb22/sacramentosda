@@ -12,7 +12,7 @@ class Acta extends Model
 
     protected $primaryKey = 'IDActa';
 
-    protected $fillable = array('IDPersona', 'IDParroquia', 'IDBautismo', 'IDConfirma', 'IDMatrimonio','IDDefuncion', 'NotasMarginales');
+    protected $fillable = array('IDPersona', 'IDBautismo', 'IDConfirma', 'IDMatrimonio','IDDefuncion', 'NotasMarginales');
 
     public $timestamps = true;
 
@@ -25,9 +25,9 @@ class Acta extends Model
         return $this->hasOne('App\Persona', 'IDPersona', 'IDPersona');
     }
 
-    public function parroquia()
+    public function bautismo()
     {
-        return $this->hasOne('App\Parroquia', 'IDParroquia', 'IDParroquia');
+        return $this->hasOne('App\ActaBautizo', 'IDBautismo', 'IDBautismo');
     }
 
     public function confirma()
