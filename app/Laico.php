@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Laico extends Model
 {
 
-    protected $table = 'Laico';
+    protected $table = 'laico';
 
     protected $primaryKey = 'IDPersona';
 

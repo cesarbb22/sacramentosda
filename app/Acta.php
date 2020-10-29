@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Acta extends Model
 {
 
-    protected $table = 'Acta';
+    protected $table = 'acta';
 
     protected $primaryKey = 'IDActa';
 

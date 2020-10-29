@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ActaDefuncion extends Model
 {
-    protected $table = 'ActaDefuncion';
+    protected $table = 'actadefuncion';
 
     protected $primaryKey = 'IDDefuncion';
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Solicitud_Acta extends Model
 {
 
-    protected $table = 'Solicitud_Acta';
+    protected $table = 'solicitud_acta';
 
     protected $primaryKey = 'IDSolicitud';
 

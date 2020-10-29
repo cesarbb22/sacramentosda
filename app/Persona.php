@@ -11,7 +11,7 @@ class Persona extends Model
      *
      * @var string
      */
-    protected $table = 'Persona';
+    protected $table = 'persona';
 
     protected $primaryKey = 'IDPersona';
 

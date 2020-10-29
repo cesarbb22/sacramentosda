@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ActaBautizo extends Model
 {
 
-    protected $table ='ActaBautismo';
+    protected $table ='actabautismo';
     protected $primaryKey = 'IDBautismo';
     protected $fillable = array( 'IDParroquiaBautismo','LugarBautismo','FechaBautismo','PadrinoBau1', 'PadrinoBau2','NotasMarginales','IDUbicacionActaBau','NombreUserRegistra','IDParroquiaRegistra' );
     public $timestamps = true;

@@ -8,7 +8,7 @@ class UbicacionActa extends Model
 {
 
 
-    protected $table = 'UbicacionActa';
+    protected $table = 'ubicacionacta';
 
     protected $primaryKey = 'IDUbicacionActa';
 

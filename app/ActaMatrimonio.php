@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ActaMatrimonio extends Model
 {
-    protected $table = 'ActaMatrimonio';
+    protected $table = 'actamatrimonio';
     protected $primaryKey = 'IDMatrimonio';
     protected $fillable = array( 'IDParroquiaMatrimonio','LugarMatrimonio','FechaMatrimonio','NombreConyugue','NotasMarginales','IDUbicacionActaMat','NombreUserRegistra','IDParroquiaRegistra');
     public $timestamps = true;

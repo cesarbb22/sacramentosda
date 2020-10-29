@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Request extends Model
 {
 
-    protected $table = 'Solicitud';
+    protected $table = 'solicitud';
 
     protected $primaryKey = 'IDSolicitud';
 

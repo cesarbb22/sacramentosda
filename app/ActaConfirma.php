@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ActaConfirma extends Model
 {
-    protected $table = 'ActaConfirma';
+    protected $table = 'actaconfirma';
 
     protected $primaryKey = 'IDConfirma';
 
