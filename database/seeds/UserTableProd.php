@@ -11,7 +11,7 @@ class UserTableProd extends Seeder
      */
     public function run()
     {
-        DB::table('User')->insert([
+        DB::table('user')->insert([
             'Nombre' => 'Sixto Eduardo',
             'PrimerApellido' => 'Varela',
             'SegundoApellido' => 'Santamaria',
