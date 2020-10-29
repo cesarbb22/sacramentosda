@@ -140,14 +140,6 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="notasMarginalesEdit" name='notasMarginalesEdit' type="text" class="validate"
-                               value="{{ $acta->NotasMarginales }}">
-                        <label for="notasMarginalesEdit">Notas Marginales:</label>
-                    </div>
-                </div>
-
                 <div class="row"></div>
 
                 <div class="row">
@@ -235,6 +227,14 @@
                                             <label for="numAsientoB">Número de Asiento:</label>
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="notasMarginalesBauEdit" name='notasMarginalesBauEdit' type="text"
+                                                   value="{{ $actaBautismo->NotasMarginales }}">
+                                            <label for="notasMarginalesBauEdit">Notas Marginales:</label>
+                                        </div>
+                                    </div>
                                 @else
                                     <div class="row">
                                         <div class="input-field col s6">
@@ -278,7 +278,8 @@
 
                                         <div class="row" id="lugarBautizoDiv">
                                             <div class="input-field col s6">
-                                                <input id="lugarBautizo" name="lugarBautizo"type="text" class="validate">
+                                                <input id="lugarBautizo" name="lugarBautizo" type="text"
+                                                       class="validate">
                                                 <label for="lugarBautizo"> Bautizado en:</label>
                                             </div>
                                         </div>
@@ -312,6 +313,14 @@
                                                 <input id="numAsientoB" name="numAsientoB" type="number"
                                                        class="validate">
                                                 <label for="numAsientoB">Número de Asiento:</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <textarea id="notasMarginalesBau" name="notasMarginalesBauEdit"
+                                                          class="materialize-textarea"></textarea>
+                                                <label for="notasMarginalesBau">Notas Marginales:</label>
                                             </div>
                                         </div>
                                     </div>
@@ -395,6 +404,15 @@
                                             <label for="numAsientoC">Número de Asiento:</label>
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="notasMarginalesConfEdit" name='notasMarginalesConfEdit'
+                                                   type="text"
+                                                   value="{{ $actaConfirma->NotasMarginales }}">
+                                            <label for="notasMarginalesConfEdit">Notas Marginales:</label>
+                                        </div>
+                                    </div>
                                 @else
                                     <div class="row">
                                         <div class="input-field col s6">
@@ -471,6 +489,14 @@
                                                 <label for="numAsientoC">Número de Asiento:</label>
                                             </div>
                                         </div>
+
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <textarea id="notasMarginalesConf" name="notasMarginalesConfEdit"
+                                                          class="materialize-textarea"></textarea>
+                                                <label for="notasMarginalesConf">Notas Marginales:</label>
+                                            </div>
+                                        </div>
                                     </div>
                             @endif
 
@@ -520,7 +546,7 @@
                                     <div class="row" id="lugarMatrimonioDiv">
                                         <div class="input-field col s6">
                                             <input id="lugarMatrimonio" name="lugarMatrimonio" type="text"
-                                                    value="{{ $actaMatrimonio -> LugarMatrimonio }}">
+                                                   value="{{ $actaMatrimonio -> LugarMatrimonio }}">
                                             <label for="lugarMatrimonio"> Matrimonio en:</label>
                                         </div>
                                     </div>
@@ -554,6 +580,13 @@
                                         </div>
                                     </div>
 
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="notasMarginalesMatEdit" name='notasMarginalesMatEdit' type="text"
+                                                   value="{{ $actaMatrimonio->NotasMarginales }}">
+                                            <label for="notasMarginalesMatEdit">Notas Marginales:</label>
+                                        </div>
+                                    </div>
                                 @else
                                     <div class="row">
                                         <div class="input-field col s6">
@@ -629,6 +662,14 @@
                                                 <label for="numAsientoM">Número de Asiento:</label>
                                             </div>
                                         </div>
+
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <textarea id="notasMarginalesMat" name="notasMarginalesMatEdit"
+                                                          class="materialize-textarea"></textarea>
+                                                <label for="notasMarginalesMat">Notas Marginales:</label>
+                                            </div>
+                                        </div>
                                     </div>
                             @endif
                         </li>
@@ -677,7 +718,7 @@
                                     <div class="row" id="lugarDefuncionDiv">
                                         <div class="input-field col s6">
                                             <input id="lugarDefuncion" name="lugarDefuncion" type="text"
-                                                    value="{{ $actaDefuncion -> LugarDefuncion }}">
+                                                   value="{{ $actaDefuncion -> LugarDefuncion }}">
                                             <label for="lugarDefuncion"> Defunción en:</label>
                                         </div>
                                     </div>
@@ -708,6 +749,14 @@
                                             <input id="numAsientoD" name="numAsientoD" type="number" class="validate"
                                                    value="{{ $UbicacionActaDefuncion->Asiento }}">
                                             <label for="numAsientoD">Número de Asiento:</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="notasMarginalesDefEdit" name='notasMarginalesDefEdit' type="text"
+                                                   value="{{ $actaDefuncion->NotasMarginales }}">
+                                            <label for="notasMarginalesDefEdit">Notas Marginales:</label>
                                         </div>
                                     </div>
                             </div>
@@ -786,6 +835,14 @@
                                             <label for="numAsientoD">Número de Asiento:</label>
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <textarea id="notasMarginalesDef" name="notasMarginalesDefEdit"
+                                                      class="materialize-textarea"></textarea>
+                                            <label for="notasMarginalesDef">Notas Marginales:</label>
+                                        </div>
+                                    </div>
                                 </div>
                             @endif
                         </li>
@@ -801,9 +858,7 @@
                 </div>
 
                 <input type="hidden" name="IDPersona" id="IDPersona" value="{{ $persona->IDPersona }}"/>
-
                 <input type="hidden" name="source" id="Source" value="{{ $source }}"/>
-
                 <input type="hidden" name="idSolicitud" id="Source" value="{{ $idSolicitud }}"/>
 
             </form>
@@ -854,26 +909,30 @@
                 }
 
                 if (!isEditableArray[0]) {
-                    $("#parroquiaBautismo, #lugarBautizo, #nombreMadrina, #nombrePadrino, #numLibroB, #numFolioB, #numAsientoB").prop("readonly", true);
-                    $("#lugarBautizo, #nombreMadrina, #nombrePadrino, #numLibroB, #numFolioB, #numAsientoB").removeClass("validate");
+                    $("#lugarBautizo, #nombreMadrina, #nombrePadrino, #numLibroB, #numFolioB, #numAsientoB, #notasMarginalesBauEdit").prop("readonly", true);
+                    $("#lugarBautizo, #nombreMadrina, #nombrePadrino, #numLibroB, #numFolioB, #numAsientoB, #notasMarginalesBauEdit").removeClass("validate");
+                    $("#parroquiaBautismo").prop("disabled", true);
                 } else {
                     $("#lugarBautizoDiv").css("display", "none");
                 }
                 if (!isEditableArray[1]) {
-                    $("#lugarConfirma, #nombrePadrino1, #numLibroC, #numFolioC, #numAsientoC").prop("readonly", true);
-                    $("#lugarConfirma, #nombrePadrino1, #numLibroC, #numFolioC, #numAsientoC").removeClass("validate");
+                    $("#lugarConfirma, #nombrePadrino1, #numLibroC, #numFolioC, #numAsientoC, #notasMarginalesConfEdit").prop("readonly", true);
+                    $("#lugarConfirma, #nombrePadrino1, #numLibroC, #numFolioC, #numAsientoC, #notasMarginalesConfEdit").removeClass("validate");
+                    $("#parroquiaConfirma").prop("disabled", true);
                 } else {
                     $("#lugarConfirmaDiv").css("display", "none");
                 }
                 if (!isEditableArray[2]) {
-                    $("#lugarMatrimonio, #nombreConyuge, #numLibroM, #numFolioM, #numAsientoM").prop("readonly", true);
-                    $("#lugarMatrimonio, #nombreConyuge, #numLibroM, #numFolioM, #numAsientoM").removeClass("validate");
+                    $("#lugarMatrimonio, #nombreConyuge, #numLibroM, #numFolioM, #numAsientoM, #notasMarginalesMatEdit").prop("readonly", true);
+                    $("#lugarMatrimonio, #nombreConyuge, #numLibroM, #numFolioM, #numAsientoM, #notasMarginalesMatEdit").removeClass("validate");
+                    $("#parroquiaMatrimonio").prop("disabled", true);
                 } else {
                     $("#lugarMatrimonioDiv").css("display", "none");
                 }
                 if (!isEditableArray[3]) {
-                    $("#lugarDefuncion, #causaDefuncion, #numLibroD, #numFolioD, #numAsientoD").prop("readonly", true);
-                    $("#lugarDefuncion, #causaDefuncion, #numLibroD, #numFolioD, #numAsientoD").removeClass("validate");
+                    $("#lugarDefuncion, #causaDefuncion, #numLibroD, #numFolioD, #numAsientoD, #notasMarginalesDefEdit").prop("readonly", true);
+                    $("#lugarDefuncion, #causaDefuncion, #numLibroD, #numFolioD, #numAsientoD, #notasMarginalesDefEdit").removeClass("validate");
+                    $("#parroquiaDefuncion").prop("disabled", true);
                 } else {
                     $("#lugarDefuncionDiv").css("display", "none");
                 }
@@ -883,7 +942,8 @@
                     $("#lugarBautizo").prop('required', true);
                     $("#lugarBautizoDiv").css("display", "block");
                 } else if (actaBautismo != null) {
-                    $('#parroquiaBautismo > option[value="'+ actaBautismo.IDParroquiaBautismo +'"]').attr('selected', 'selected');
+                    $('#parroquiaBautismo > option[value="' + actaBautismo.IDParroquiaBautismo + '"]').attr('selected', 'selected');
+                    $("#lugarBautizoDiv").css("display", "none");
                 }
 
                 if (actaConfirma != null && actaConfirma.IDParroquiaConfirma === null) {
@@ -891,7 +951,8 @@
                     $("#lugarConfirma").prop('required', true);
                     $("#lugarConfirmaDiv").css("display", "block");
                 } else if (actaConfirma != null) {
-                    $('#parroquiaConfirma > option[value="'+ actaConfirma.IDParroquiaConfirma +'"]').attr('selected', 'selected');
+                    $('#parroquiaConfirma > option[value="' + actaConfirma.IDParroquiaConfirma + '"]').attr('selected', 'selected');
+                    $("#lugarConfirmaDiv").css("display", "none");
                 }
 
                 if (actaMatrimonio != null && actaMatrimonio.IDParroquiaMatrimonio === null) {
@@ -899,7 +960,8 @@
                     $("#lugarMatrimonio").prop('required', true);
                     $("#lugarMatrimonioDiv").css("display", "block");
                 } else if (actaMatrimonio != null) {
-                    $('#parroquiaMatrimonio > option[value="'+ actaMatrimonio.IDParroquiaMatrimonio +'"]').attr('selected', 'selected');
+                    $('#parroquiaMatrimonio > option[value="' + actaMatrimonio.IDParroquiaMatrimonio + '"]').attr('selected', 'selected');
+                    $("#lugarMatrimonioDiv").css("display", "none");
                 }
 
                 if (actaDefuncion != null && actaDefuncion.IDParroquiaDefuncion === null) {
@@ -907,7 +969,8 @@
                     $("#lugarDefuncion").prop('required', true);
                     $("#lugarDefuncionDiv").css("display", "block");
                 } else if (actaDefuncion != null) {
-                    $('#parroquiaDefuncion > option[value="'+ actaDefuncion.IDParroquiaDefuncion +'"]').attr('selected', 'selected');
+                    $('#parroquiaDefuncion > option[value="' + actaDefuncion.IDParroquiaDefuncion + '"]').attr('selected', 'selected');
+                    $("#lugarDefuncionDiv").css("display", "none");
                 }
             });
 

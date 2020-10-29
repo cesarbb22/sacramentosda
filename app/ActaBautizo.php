@@ -9,7 +9,7 @@ class ActaBautizo extends Model
 
     protected $table ='ActaBautismo';
     protected $primaryKey = 'IDBautismo';
-    protected $fillable = array( 'IDParroquiaBautismo','LugarBautismo','FechaBautismo','PadrinoBau1', 'PadrinoBau2','IDUbicacionActaBau','NombreUserRegistra','IDParroquiaRegistra' );
+    protected $fillable = array( 'IDParroquiaBautismo','LugarBautismo','FechaBautismo','PadrinoBau1', 'PadrinoBau2','NotasMarginales','IDUbicacionActaBau','NombreUserRegistra','IDParroquiaRegistra' );
     public $timestamps = true;
     protected $dateFormat = 'Y-m-d H:i:s';
 

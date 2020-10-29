@@ -61,7 +61,6 @@
                 <div class="row">
                     <div class="input-field col s4">
                         <input id="numCedula" name='numCedula' type="text" class="validate" minlength="9" maxlength="9"
-                               required
                                oninvalid="this.setCustomValidity('Debe ingresar cédula con el formato: 101230456')"
                                oninput="setCustomValidity('')">
                         <label for="numCedula">Número de cédula:</label>
@@ -71,16 +70,21 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s4">
-                        <input id="nombre" name='nombre' type="text" class="validate" required readonly
-                               onfocus="this.removeAttribute('readonly');"/>
+                        <input id="nombre" name='nombre' type="text" class="validate" required
+                               oninvalid="this.setCustomValidity('Debe ingresar el nombre')"
+                               oninput="setCustomValidity('')">
                         <label for="nombree">Nombre:</label>
                     </div>
                     <div class="input-field col s4">
-                        <input id="apellido1" name='apellido1' type="text" class="validate" required>
+                        <input id="apellido1" name='apellido1' type="text" class="validate" required
+                               oninvalid="this.setCustomValidity('Debe ingresar el primer apellido')"
+                               oninput="setCustomValidity('')">
                         <label for="apellido1">Primer apellido:</label>
                     </div>
                     <div class="input-field col s4">
-                        <input id="apellido2" name='apellido2' type="text" class="validate" required>
+                        <input id="apellido2" name='apellido2' type="text" class="validate" required
+                               oninvalid="this.setCustomValidity('Debe ingresar el segundo apellido')"
+                               oninput="setCustomValidity('')">
                         <label for="apellido2">Segundo apellido:</label>
                     </div>
                 </div>
@@ -133,18 +137,9 @@
                 </div>
 
 
-                <div class="row">
-                    <div class="input-field col s12">
-                        <textarea id="notasMarginales" name="notasMarginales" class="materialize-textarea"></textarea>
-                        <label for="notasMarginales">Notas Marginales:</label>
-                    </div>
-                </div>
-
-
                 <div class="row"></div>
 
                 <div class="row">
-
                     <ul class="collapsible" data-collapsible="accordion">
                         <li>
                             <div class="collapsible-header waves-light waves-effect white-text">Partida de Bautismo
@@ -229,8 +224,13 @@
                                                required disabled>
                                         <label for="numAsientoB">Número de Asiento:</label>
                                     </div>
+                                </div>
 
-
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="notasMarginalesBau" name="notasMarginalesBau" class="materialize-textarea" disabled></textarea>
+                                        <label for="notasMarginalesBau">Notas Marginales:</label>
+                                    </div>
                                 </div>
                             </div>
                         </li>
@@ -312,8 +312,13 @@
                                                required disabled>
                                         <label for="numAsientoC">Número de Asiento:</label>
                                     </div>
+                                </div>
 
-
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="notasMarginalesConf" name="notasMarginalesConf" class="materialize-textarea" disabled></textarea>
+                                        <label for="notasMarginalesConf">Notas Marginales:</label>
+                                    </div>
                                 </div>
                             </div>
                         </li>
@@ -395,7 +400,13 @@
                                                required disabled>
                                         <label for="numAsientoM">Número de Asiento:</label>
                                     </div>
+                                </div>
 
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="notasMarginalesMat" name="notasMarginalesMat" class="materialize-textarea" disabled></textarea>
+                                        <label for="notasMarginalesMat">Notas Marginales:</label>
+                                    </div>
                                 </div>
                             </div>
                         </li>
@@ -461,7 +472,6 @@
                                 </div>
 
                                 <div class="row">
-
                                     <div class="input-num col s4">
                                         <input id="numLibroD" name="numLibroD" type="number" class="validate" required
                                                disabled>
@@ -477,9 +487,14 @@
                                                required disabled>
                                         <label for="numAsientoD">Número de Asiento:</label>
                                     </div>
-
                                 </div>
 
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="notasMarginalesDef" name="notasMarginalesDef" class="materialize-textarea" disabled></textarea>
+                                        <label for="notasMarginalesDef">Notas Marginales:</label>
+                                    </div>
+                                </div>
                             </div>
                         </li>
                     </ul>
@@ -529,6 +544,7 @@
                     $("#numLibroB").prop('disabled', false);
                     $("#numFolioB").prop('disabled', false);
                     $("#numAsientoB").prop('disabled', false);
+                    $("#notasMarginalesBau").prop('disabled', false);
                 } else {
                     $("#parroquiaBautismo").prop('disabled', true);
                     $("#lugarBautizo").val("");
@@ -539,6 +555,7 @@
                     $("#numLibroB").prop('disabled', true);
                     $("#numFolioB").prop('disabled', true);
                     $("#numAsientoB").prop('disabled', true);
+                    $("#notasMarginalesBau").prop('disabled', true);
                 }
                 $('select').material_select();
             });
@@ -552,6 +569,7 @@
                     $("#numLibroC").prop('disabled', false);
                     $("#numFolioC").prop('disabled', false);
                     $("#numAsientoC").prop('disabled', false);
+                    $("#notasMarginalesConf").prop('disabled', false);
                 } else {
                     $("#parroquiaConfirma").prop('disabled', true);
                     $("#lugarConfirma").val("");
@@ -561,6 +579,7 @@
                     $("#numLibroC").prop('disabled', true);
                     $("#numFolioC").prop('disabled', true);
                     $("#numAsientoC").prop('disabled', true);
+                    $("#notasMarginalesConf").prop('disabled', true);
                 }
                 $('select').material_select();
             });
@@ -574,6 +593,7 @@
                     $("#numLibroM").prop('disabled', false);
                     $("#numFolioM").prop('disabled', false);
                     $("#numAsientoM").prop('disabled', false);
+                    $("#notasMarginalesMat").prop('disabled', false);
                 } else {
                     $("#parroquiaMatrimonio").prop('disabled', true);
                     $("#lugarMatrimonio").val("");
@@ -583,6 +603,7 @@
                     $("#numLibroM").prop('disabled', true);
                     $("#numFolioM").prop('disabled', true);
                     $("#numAsientoM").prop('disabled', true);
+                    $("#notasMarginalesMat").prop('disabled', true);
                 }
                 $('select').material_select();
             });
@@ -596,6 +617,7 @@
                     $("#numLibroD").prop('disabled', false);
                     $("#numFolioD").prop('disabled', false);
                     $("#numAsientoD").prop('disabled', false);
+                    $("#notasMarginalesDef").prop('disabled', false);
                 } else {
                     $("#parroquiaDefuncion").prop('disabled', true);
                     $("#lugarDefuncion").val("");
@@ -605,6 +627,7 @@
                     $("#numLibroD").prop('disabled', true);
                     $("#numFolioD").prop('disabled', true);
                     $("#numAsientoD").prop('disabled', true);
+                    $("#notasMarginalesDef").prop('disabled', true);
                 }
                 $('select').material_select();
             });

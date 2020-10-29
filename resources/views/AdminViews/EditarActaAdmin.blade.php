@@ -137,18 +137,9 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="notasMarginalesEdit" name='notasMarginalesEdit' type="text" class="validate"
-                               value="{{ $acta->NotasMarginales }}">
-                        <label for="notasMarginalesEdit">Notas Marginales:</label>
-                    </div>
-                </div>
-
                 <div class="row"></div>
 
                 <div class="row">
-
                     <ul class="collapsible" data-collapsible="accordion">
                         <li>
                             <div class="collapsible-header waves-light waves-effect white-text">Partida de Bautismo</div>
@@ -221,6 +212,14 @@
                                             <input id="numAsientoB" name="numAsientoB" type="number" class="validate"
                                                    value="{{ $UbicacionActaBautismo->Asiento }}">
                                             <label for="numAsientoB">Número de Asiento:</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="notasMarginalesBauEdit" name='notasMarginalesBauEdit' type="text"
+                                                   value="{{ $actaBautismo->NotasMarginales }}">
+                                            <label for="notasMarginalesBauEdit">Notas Marginales:</label>
                                         </div>
                                     </div>
                                 @else
@@ -301,6 +300,13 @@
                                                 <label for="numAsientoB">Número de Asiento:</label>
                                             </div>
                                         </div>
+
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <textarea id="notasMarginalesBau" name="notasMarginalesBauEdit" class="materialize-textarea"></textarea>
+                                                <label for="notasMarginalesBau">Notas Marginales:</label>
+                                            </div>
+                                        </div>
                                     </div>
                             @endif
                         </li>
@@ -370,6 +376,14 @@
                                             <input id="numAsientoC" name="numAsientoC" type="number" class="validate"
                                                    value="{{ $UbicacionActaConfirma->Asiento }}">
                                             <label for="numAsientoC">Número de Asiento:</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="notasMarginalesConfEdit" name='notasMarginalesConfEdit' type="text"
+                                                   value="{{ $actaConfirma->NotasMarginales }}">
+                                            <label for="notasMarginalesConfEdit">Notas Marginales:</label>
                                         </div>
                                     </div>
                                 @else
@@ -446,6 +460,13 @@
                                                 <label for="numAsientoC">Número de Asiento:</label>
                                             </div>
                                         </div>
+
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <textarea id="notasMarginalesConf" name="notasMarginalesConfEdit" class="materialize-textarea"></textarea>
+                                                <label for="notasMarginalesConf">Notas Marginales:</label>
+                                            </div>
+                                        </div>
                                     </div>
                             @endif
 
@@ -519,6 +540,13 @@
                                         </div>
                                     </div>
 
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="notasMarginalesMatEdit" name='notasMarginalesMatEdit' type="text"
+                                                   value="{{ $actaMatrimonio->NotasMarginales }}">
+                                            <label for="notasMarginalesMatEdit">Notas Marginales:</label>
+                                        </div>
+                                    </div>
                                 @else
                                     <div class="row">
                                         <div class="input-field col s6">
@@ -592,6 +620,13 @@
                                                 <label for="numAsientoM">Número de Asiento:</label>
                                             </div>
                                         </div>
+
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <textarea id="notasMarginalesMat" name="notasMarginalesMatEdit" class="materialize-textarea"></textarea>
+                                                <label for="notasMarginalesMat">Notas Marginales:</label>
+                                            </div>
+                                        </div>
                                     </div>
                             @endif
                         </li>
@@ -661,6 +696,14 @@
                                             <input id="numAsientoD" name="numAsientoD" type="number" class="validate"
                                                    value="{{ $UbicacionActaDefuncion->Asiento }}">
                                             <label for="numAsientoD">Número de Asiento:</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input id="notasMarginalesDefEdit" name='notasMarginalesDefEdit' type="text"
+                                                   value="{{ $actaDefuncion->NotasMarginales }}">
+                                            <label for="notasMarginalesDefEdit">Notas Marginales:</label>
                                         </div>
                                     </div>
                             </div>
@@ -735,6 +778,14 @@
                                         <div class="input-num col s4">
                                             <input id="numAsientoD" name="numAsientoD" type="number" class="validate">
                                             <label for="numAsientoD">Número de Asiento:</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <textarea id="notasMarginalesDef" name="notasMarginalesDefEdit"
+                                                      class="materialize-textarea"></textarea>
+                                            <label for="notasMarginalesDef">Notas Marginales:</label>
                                         </div>
                                     </div>
                                 </div>

@@ -23,31 +23,31 @@
         @endif
 
         <div class="col s12 m4 l2"></div>
-        <div class=" col s12 m4 l8 card-panel z-depth-5">
 
-            <div class="row">
-                <div class="col s12 m3 l3"></div>
-                <div class="col s12 m6 l6"><h4 class="center-align">Detalle de Partida</h4></div>
-                <div class="col s12 m3 l3"></div>
-            </div>
+        <form method="POST" role='form' action="{{ url('/pdf') }}">
+            {{ csrf_field() }}
+            <div class=" col s12 m4 l8 card-panel z-depth-5">
 
-            @if (count($errors) > 0)
                 <div class="row">
-                    <div class="col s12">
-                        <div class="card-panel red">
-                            <ul class='white-text'>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
+                    <div class="col s12 m3 l3"></div>
+                    <div class="col s12 m6 l6"><h4 class="center-align">Detalle de Partida</h4></div>
+                    <div class="col s12 m3 l3"></div>
+                </div>
+
+                @if (count($errors) > 0)
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="card-panel red">
+                                <ul class='white-text'>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endif
+                @endif
 
-            <form method="POST" role='form' action="{{ url('/pdf') }}">
-
-                {{ csrf_field() }}
                 <div class="row">
                     <div class="input-field col s4">
                         <input id="numCedulaEdit" name='numCedulaEdit' type="text" value="{{ $persona->Cedula }}"
@@ -77,7 +77,7 @@
                 <div class="row">
                     <div class="input-field col s4">
                         <input name='tipoHijo' type="text" id="tipoH1" value="{{ $tipoHijo }}" readonly/>
-                        <input name='tipoHijoValue' type="hidden" id="tipoH" value="{{ $laico->IDTipo_Hijo }}" />
+                        <input name='tipoHijoValue' type="hidden" id="tipoH" value="{{ $laico->IDTipo_Hijo }}"/>
                         <label for="tipoH1">Tipo hijo:</label>
                     </div>
                     <div class="col s8">
@@ -119,20 +119,10 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="notasMarginalesEdit" name='notasMarginalesEdit' type="text"
-                               value="{{ $acta->NotasMarginales }}" readonly>
-                        <label for="notasMarginalesEdit">Notas Marginales:</label>
-                    </div>
-                </div>
-
                 <div class="row"></div>
 
                 <div class="row">
-
                     <div class="collapsible-header waves-light waves-effect white-text">Partida de Bautismo</div>
-
                     @if($actaBautismo != null)
 
                         <div class="row">
@@ -187,6 +177,14 @@
                                 <input id="numAsientoB" name="numAsientoB" type="number"
                                        value="{{ $UbicacionActaBautismo->Asiento }}" readonly>
                                 <label for="numAsientoB">Número de Asiento:</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="notasMarginalesBauEdit" name='notasMarginalesBauEdit' type="text"
+                                       value="{{ $actaBautismo->NotasMarginales }}" readonly>
+                                <label for="notasMarginalesBauEdit">Notas Marginales:</label>
                             </div>
                         </div>
                     @else
@@ -253,6 +251,14 @@
                             <label for="numAsientoC">Número de Asiento:</label>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="notasMarginalesConfEdit" name='notasMarginalesConfEdit' type="text"
+                                   value="{{ $actaConfirma->NotasMarginales }}" readonly>
+                            <label for="notasMarginalesConfEdit">Notas Marginales:</label>
+                        </div>
+                    </div>
                 @else
                     <div class="row">
                         <div class="input-field col s6">
@@ -317,6 +323,13 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="notasMarginalesMatEdit" name='notasMarginalesMatEdit' type="text"
+                                   value="{{ $actaMatrimonio->NotasMarginales }}" readonly>
+                            <label for="notasMarginalesMatEdit">Notas Marginales:</label>
+                        </div>
+                    </div>
                 @else
                     <div class="row">
                         <div class="input-field col s6">
@@ -380,32 +393,38 @@
                             <label for="numAsientoD">Número de Asiento:</label>
                         </div>
                     </div>
-        </div>
 
-        @else
-            <div class="row">
-                <div class="input-field col s6">
-                    <p>No cuenta con esta partida</p>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="notasMarginalesDefEdit" name='notasMarginalesDefEdit' type="text"
+                                   value="{{ $actaDefuncion->NotasMarginales }}" readonly>
+                            <label for="notasMarginalesDefEdit">Notas Marginales:</label>
+                        </div>
+                    </div>
+
+                @else
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <p>No cuenta con esta partida</p>
+                        </div>
+
+                    </div>
+                @endif
+
+
+                <div class="row"><br><br></div>
+
+                <div class="row">
+                    <button id="Descargar" class="waves-effect waves-light btn right" type="submit"><i
+                            class="material-icons left">file_download</i>Descargar PDF
+                    </button>
                 </div>
-
             </div>
-        @endif
 
-
-        <div class="row"></br></br></div>
-
-        <div class="row">
-            <button id="Descargar" class="waves-effect waves-light btn right" type="submit"><i
-                        class="material-icons left">file_download</i>Descargar PDF
-            </button>
-        </div>
-
-        <input type="hidden" name="IDPersona" id="IDPersona" value="{{ $persona->IDPersona }}"/>
-    </div>
-    </form>
+            <input type="hidden" name="IDPersona" id="IDPersona" value="{{ $persona->IDPersona }}"/>
+        </form>
     </div>
     <div class="col s12 m4 l2"></div>
-    </div>
 
     <script>
 

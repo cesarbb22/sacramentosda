@@ -12,7 +12,7 @@ class Acta extends Model
 
     protected $primaryKey = 'IDActa';
 
-    protected $fillable = array('IDPersona', 'IDBautismo', 'IDConfirma', 'IDMatrimonio','IDDefuncion', 'NotasMarginales');
+    protected $fillable = array('IDPersona', 'IDBautismo', 'IDConfirma', 'IDMatrimonio','IDDefuncion');
 
     public $timestamps = true;
 

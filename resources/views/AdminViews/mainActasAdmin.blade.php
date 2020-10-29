@@ -54,7 +54,6 @@
                 <div class="row">
                     <div class="input-field col s4">
                         <input id="numCedula" name='numCedula' type="text" class="validate" minlength="9" maxlength="9"
-                               required
                                oninvalid="this.setCustomValidity('Debe ingresar cédula con el formato: 101230456')"
                                oninput="setCustomValidity('')">
                         <label for="numCedula">Número de cédula:</label>
@@ -62,15 +61,21 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s4">
-                        <input id="nombre" name='nombre' type="text" class="validate" required>
+                        <input id="nombre" name='nombre' type="text" class="validate" required
+                               oninvalid="this.setCustomValidity('Debe ingresar el nombre')"
+                               oninput="setCustomValidity('')">
                         <label for="nombree">Nombre:</label>
                     </div>
                     <div class="input-field col s4">
-                        <input id="apellido1" name='apellido1' type="text" class="validate" required>
+                        <input id="apellido1" name='apellido1' type="text" class="validate" required
+                               oninvalid="this.setCustomValidity('Debe ingresar el primer apellido')"
+                               oninput="setCustomValidity('')">
                         <label for="apellido1">Primer apellido:</label>
                     </div>
                     <div class="input-field col s4">
-                        <input id="apellido2" name='apellido2' type="text" class="validate" required>
+                        <input id="apellido2" name='apellido2' type="text" class="validate" required
+                               oninvalid="this.setCustomValidity('Debe ingresar el segundo apellido')"
+                               oninput="setCustomValidity('')">
                         <label for="apellido2">Segundo apellido:</label>
                     </div>
                 </div>
@@ -122,18 +127,9 @@
                 </div>
 
 
-                <div class="row">
-                    <div class="input-field col s12">
-                        <textarea id="notasMarginales" name="notasMarginales" class="materialize-textarea"></textarea>
-                        <label for="notasMarginales">Notas Marginales:</label>
-                    </div>
-                </div>
-
-
                 <div class="row"></div>
 
                 <div class="row">
-
                     <ul class="collapsible" data-collapsible="accordion">
                         <li>
                             <div class="collapsible-header waves-light waves-effect white-text">Partida de Bautismo
@@ -143,8 +139,8 @@
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <p>
-                                            <input type="checkbox" id="checkB"/>
-                                            <label for="checkB">Agregar Bautismo</label>
+                                            <input type="checkbox" id="checkBautizo" name="checkBautizo"/>
+                                            <label for="checkBautizo">Agregar Bautismo</label>
                                         </p>
                                     </div>
                                 </div>
@@ -216,9 +212,15 @@
                                                required disabled>
                                         <label for="numAsientoB">Número de Asiento:</label>
                                     </div>
-
-
                                 </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="notasMarginalesBau" name="notasMarginalesBau" class="materialize-textarea" disabled></textarea>
+                                        <label for="notasMarginalesBau">Notas Marginales:</label>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
 
                         <li>
@@ -229,8 +231,8 @@
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <p>
-                                            <input type="checkbox" id="checkC"/>
-                                            <label for="checkC">Agregar Confirma</label>
+                                            <input type="checkbox" id="checkConfirma" name="checkConfirma"/>
+                                            <label for="checkConfirma">Agregar Confirma</label>
                                         </p>
                                     </div>
                                 </div>
@@ -297,9 +299,15 @@
                                                required disabled>
                                         <label for="numAsientoC">Número de Asiento:</label>
                                     </div>
-
-
                                 </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="notasMarginalesConf" name="notasMarginalesConf" class="materialize-textarea" disabled></textarea>
+                                        <label for="notasMarginalesConf">Notas Marginales:</label>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
 
                         <li>
@@ -310,8 +318,8 @@
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <p>
-                                            <input type="checkbox" id="checkM"/>
-                                            <label for="checkM">Agregar Matrimonio</label>
+                                            <input type="checkbox" id="checkMatrimonio" name="checkMatrimonio"/>
+                                            <label for="checkMatrimonio">Agregar Matrimonio</label>
                                         </p>
                                     </div>
                                 </div>
@@ -378,8 +386,15 @@
                                                required disabled>
                                         <label for="numAsientoM">Número de Asiento:</label>
                                     </div>
-
                                 </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="notasMarginalesMat" name="notasMarginalesMat" class="materialize-textarea" disabled></textarea>
+                                        <label for="notasMarginalesMat">Notas Marginales:</label>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
 
                         <li>
@@ -390,8 +405,8 @@
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <p>
-                                            <input type="checkbox" id="checkD"/>
-                                            <label for="checkD">Agregar Defunción</label>
+                                            <input type="checkbox" id="checkDefuncion" name="checkDefuncion"/>
+                                            <label for="checkDefuncion">Agregar Defunción</label>
                                         </p>
                                     </div>
                                 </div>
@@ -458,9 +473,14 @@
                                                required disabled>
                                         <label for="numAsientoD">Número de Asiento:</label>
                                     </div>
-
                                 </div>
 
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="notasMarginalesDef" name="notasMarginalesDef" class="materialize-textarea" disabled></textarea>
+                                        <label for="notasMarginalesDef">Notas Marginales:</label>
+                                    </div>
+                                </div>
                             </div>
                         </li>
                     </ul>
@@ -500,8 +520,8 @@
                 }
             });
 
-            $("#checkB").change(function () {
-                if ($("#checkB").is(':checked')) {
+            $("#checkBautizo").change(function () {
+                if ($("#checkBautizo").is(':checked')) {
                     $("#parroquiaBautismo").prop('disabled', false);
                     $("#lugarBautizo").prop('disabled', false);
                     $("#fechaBaut").prop('disabled', false);
@@ -510,6 +530,7 @@
                     $("#numLibroB").prop('disabled', false);
                     $("#numFolioB").prop('disabled', false);
                     $("#numAsientoB").prop('disabled', false);
+                    $("#notasMarginalesBau").prop('disabled', false);
                 } else {
                     $("#parroquiaBautismo").prop('disabled', true);
                     $("#lugarBautizo").val("");
@@ -520,12 +541,13 @@
                     $("#numLibroB").prop('disabled', true);
                     $("#numFolioB").prop('disabled', true);
                     $("#numAsientoB").prop('disabled', true);
+                    $("#notasMarginalesBau").prop('disabled', true);
                 }
                 $('select').material_select();
             });
 
-            $("#checkC").change(function () {
-                if ($("#checkC").is(':checked')) {
+            $("#checkConfirma").change(function () {
+                if ($("#checkConfirma").is(':checked')) {
                     $("#parroquiaConfirma").prop('disabled', false);
                     $("#lugarConfirma").prop('disabled', false);
                     $("#fechaConfir").prop('disabled', false);
@@ -533,6 +555,7 @@
                     $("#numLibroC").prop('disabled', false);
                     $("#numFolioC").prop('disabled', false);
                     $("#numAsientoC").prop('disabled', false);
+                    $("#notasMarginalesConf").prop('disabled', false);
                 } else {
                     $("#parroquiaConfirma").prop('disabled', true);
                     $("#lugarConfirma").val("");
@@ -542,12 +565,13 @@
                     $("#numLibroC").prop('disabled', true);
                     $("#numFolioC").prop('disabled', true);
                     $("#numAsientoC").prop('disabled', true);
+                    $("#notasMarginalesConf").prop('disabled', true);
                 }
                 $('select').material_select();
             });
 
-            $("#checkM").change(function () {
-                if ($("#checkM").is(':checked')) {
+            $("#checkMatrimonio").change(function () {
+                if ($("#checkMatrimonio").is(':checked')) {
                     $("#parroquiaMatrimonio").prop('disabled', false);
                     $("#lugarMatrimonio").prop('disabled', false);
                     $("#fechaMatrimonio").prop('disabled', false);
@@ -555,6 +579,7 @@
                     $("#numLibroM").prop('disabled', false);
                     $("#numFolioM").prop('disabled', false);
                     $("#numAsientoM").prop('disabled', false);
+                    $("#notasMarginalesMat").prop('disabled', false);
                 } else {
                     $("#parroquiaMatrimonio").prop('disabled', true);
                     $("#lugarMatrimonio").val("");
@@ -564,12 +589,13 @@
                     $("#numLibroM").prop('disabled', true);
                     $("#numFolioM").prop('disabled', true);
                     $("#numAsientoM").prop('disabled', true);
+                    $("#notasMarginalesMat").prop('disabled', true);
                 }
                 $('select').material_select();
             });
 
-            $("#checkD").change(function () {
-                if ($("#checkD").is(':checked')) {
+            $("#checkDefuncion").change(function () {
+                if ($("#checkDefuncion").is(':checked')) {
                     $("#parroquiaDefuncion").prop('disabled', false);
                     $("#lugarDefuncion").prop('disabled', false);
                     $("#fechaDefuncion").prop('disabled', false);
@@ -577,6 +603,7 @@
                     $("#numLibroD").prop('disabled', false);
                     $("#numFolioD").prop('disabled', false);
                     $("#numAsientoD").prop('disabled', false);
+                    $("#notasMarginalesDef").prop('disabled', false);
                 } else {
                     $("#parroquiaDefuncion").prop('disabled', true);
                     $("#lugarDefuncion").val("");
@@ -586,6 +613,7 @@
                     $("#numLibroD").prop('disabled', true);
                     $("#numFolioD").prop('disabled', true);
                     $("#numAsientoD").prop('disabled', true);
+                    $("#notasMarginalesDef").prop('disabled', true);
                 }
                 $('select').material_select();
             });
