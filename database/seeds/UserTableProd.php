@@ -12,15 +12,15 @@ class UserTableProd extends Seeder
     public function run()
     {
         DB::table('User')->insert([
-            'Nombre' => 'Cesar',
-            'PrimerApellido' => 'Bolaños',
-            'SegundoApellido' => 'Brenes',
-            'Email' => 'cesar.bolanos@ucrso.info',
+            'Nombre' => 'Sixto Eduardo',
+            'PrimerApellido' => 'Varela',
+            'SegundoApellido' => 'Santamaria',
+            'Email' => 'archivocuriaalajuela@hotmail.com',
             'IDParroquia' => 1,
-            'NumCelular' => '87524891',
+            'NumCelular' => '',
             'IDPuesto' => 1,
             'Activo' => 1,
-            'password' => bcrypt('cesarcesar'),
+            'password' => bcrypt('canciller'),
         ]);
     }
 }
