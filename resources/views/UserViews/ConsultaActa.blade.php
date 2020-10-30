@@ -121,12 +121,11 @@
                 <thead>
                 <tr>
                     <th>Cédula</th>
-                    <th>Nombre</th>
-                    <th>Primer apellido</th>
-                    <th>Segundo apellido</th>
+                    <th>Nombre Completo</th>
+                    <th>Lugar de Bautismo</th>
+                    <th>Fecha de Nacimiento</th>
                     <th>Detalle</th>
                     <th>Editar</th>
-                    <th>Eliminar</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -293,31 +292,41 @@
                             var primerApellido = data[i].persona.PrimerApellido;
                             var segundoApellido = data[i].persona.SegundoApellido;
 
+                            var lugarBautismo = null;
+                            if (data[i].bautismo !== null && data[i].bautismo.IDParroquiaBautismo !== null) {
+                                lugarBautismo = $("#parroquia").find(":selected").text();
+                            } else {
+                                lugarBautismo = data[i].bautismo.LugarBautismo;
+                            }
+
+                            var fechaNacimiento = formatDateToString(data[i].persona.laico.FechaNacimiento);
+
                             var iconDetalle = "<i class='material-icons'>description</i>";
                             var detalle = "<a id='" + idPersona + "Detalle'>" + iconDetalle + "</a>";
 
                             var iconEditar = "<i class='material-icons'>mode_edit</i>";
                             var editar = "<a id='" + idPersona + "Editar'>" + iconEditar + "</a>";
 
-                            var iconEliminar = "<i class='material-icons'>delete</i>";
-                            var eliminar = "<a id='" + idPersona + "Eliminar' href='#' onClick='setIdEliminar(" + idPersona + ");'>" + iconEliminar + "</a>";
-
-                            $('#tablaConsulta tbody').append('<tr><td>' + cedula + '</td><td>' + nombre + '</td><td>' + primerApellido + '</td><td>'
-                                + segundoApellido + '</td><td>' + detalle + '</td><td>' + editar + '</td><td>' + eliminar + '</td><td id hidden>' + idPersona + '</td></tr>');
+                            $('#tablaConsulta tbody').append('<tr><td>' + cedula + '</td><td>' + nombre + ' ' + primerApellido + ' ' + segundoApellido + '</td>' +
+                                '<td>' + lugarBautismo + '</td><td>' + fechaNacimiento + '</td><td>' + detalle + '</td><td>' + editar + '</td><td id hidden>' + idPersona + '</td></tr>');
 
 
-                            // document.getElementById(idPersona + "Eliminar").setAttribute('href', window.location.origin + '/EliminarUsuario/' + idPersona);
+
                             document.getElementById(idPersona + "Editar").setAttribute('href', window.location.origin + '/EditarUsuario/' + idPersona);
                             document.getElementById(idPersona + "Detalle").setAttribute('href', window.location.origin + '/DetalleUsuario/' + idPersona);
-
-                            //window.location.origin + '/EditarUsuario/' + idPersona
-
-
                         }
                     }
                 });
             });
         };
+
+        function formatDateToString(dateString)
+        {
+            var yyyy = dateString.slice(0, 4);
+            var mm = dateString.slice(5, 7);
+            var dd = dateString.slice(8, 10);
+            return dd + '/' + mm + '/' + yyyy;
+        }
     </script>
 
 @endsection
