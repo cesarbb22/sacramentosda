@@ -87,7 +87,7 @@ class RegisterController extends Controller
             $request->session()->flash('errorEmail', '¡El email ya se encuentra registrado! Revise sus datos e intente nuevamente');
 
             $parroquias = \App\Parroquia::all();
-            $puesto = \App\Puesto::all();
+            $puesto = \App\Puesto::where('IDPuesto', '>', 2)->get();
             return view('auth.register', ['parroquias' => $parroquias, 'puesto' => $puesto]);
         }
 

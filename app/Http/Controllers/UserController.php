@@ -154,7 +154,11 @@ class UserController extends Controller
                 $request->session()->flash('errorEmail', '¡El email ya se encuentra registrado! Revise sus datos e intente nuevamente');
 
                 $parroquias = \App\Parroquia::all();
-                $puesto = \App\Puesto::all();
+                if (Auth::user()->IDPuesto == 1) {
+                    $puesto = \App\Puesto::where('IDPuesto', '!=', 1)->get();
+                } else {
+                    $puesto = \App\Puesto::where('IDPuesto', '>', 2)->get();
+                }
                 return view('AdminViews.AgregarUsuarioAdmin', ['parroquias' => $parroquias, 'puesto' => $puesto]);
             }
 

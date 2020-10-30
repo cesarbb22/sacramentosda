@@ -70,7 +70,7 @@
                             @endforeach
                             <option value="otro">Otro</option>
                         </select>
-                        <label>Parroquia:</label>
+                        <label>Parroquia Bautismo:</label>
                     </div>
 
                     <div class="row" id="lugarDiv">
@@ -88,7 +88,7 @@
                                    pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                    oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                    oninput="setCustomValidity('')">
-                            <label for="fechaInicio">Desde:</label>
+                            <label for="fechaInicio">Fecha Nacimiento (Desde):</label>
                         </div>
                         <div class="input-field col s12">
                             <input id="fechaFin" name='fechaFin'
@@ -97,7 +97,7 @@
                                    pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                    oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                    oninput="setCustomValidity('')">
-                            <label for="fechaFin">Hasta:</label>
+                            <label for="fechaFin">Fecha Nacimiento (Hasta):</label>
                         </div>
                     </div>
 
