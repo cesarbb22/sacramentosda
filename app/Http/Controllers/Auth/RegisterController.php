@@ -74,7 +74,7 @@ class RegisterController extends Controller
 
     public function index() {
         $parroquias = \App\Parroquia::all();
-        $puesto = \App\Puesto::where('IDPuesto', '!=', 1)->get();
+        $puesto = \App\Puesto::where('IDPuesto', '>', 2)->get();
         return view('auth.register', ['parroquias' => $parroquias, 'puesto' => $puesto]);
     }
 

@@ -35,7 +35,7 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
         return view('AdminViews.ContactoAdmin');
     });
 
-        Route::get('/consultaAdmin', 'consultaAdmin@home')->middleware('auth');
+    Route::get('/consultaAdmin', 'consultaAdmin@home')->middleware('auth');
 
     Route::get('/solicitudRechazadaAdmin/{id}', 'CentroNotificaciones@rechazarSolicitud')->middleware('auth');
 
@@ -61,7 +61,7 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 
     Route::post('/crearUsuario', 'UserController@agregarUsuario');
 
-    Route::get('/EditarUsuario{id}',['as' => '/EditarUsuario', 'uses' => 'UserController@mostrarUsuario'])->middleware('auth');
+    Route::get('/Editar/Usuario/{id}',['as' => '/Editar/Usuario/{id}', 'uses' => 'UserController@mostrarUsuario'])->middleware('auth');
 
     Route::get('/EliminarUsuario{id}',['as' => '/EliminarUsuario', 'uses' => 'UserController@EliminarUsuario'])->middleware('auth');
 

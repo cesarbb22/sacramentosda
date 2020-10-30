@@ -11,31 +11,46 @@ use App\User;
 
 use Validator;
 
-class UserController extends Controller {
+class UserController extends Controller
+{
 
-    public function index() {
-        $parroquias = \App\Parroquia::all();
+    public function index()
+    {
         $puesto = \App\Puesto::where('IDPuesto', '=', Auth::user()->IDPuesto)->first();
         if ($puesto->IDPuesto == 1 || $puesto->IDPuesto == 2) {
+            $parroquias = \App\Parroquia::all();
             return view('auth.editarPerfil', ['parroquias' => $parroquias, 'puesto' => $puesto]);
         } else {
+            $parroquias = \App\Parroquia::where('IDParroquia', '=', Auth::user()->IDParroquia)->get();
             return view('auth.editarPerfilUser', ['parroquias' => $parroquias, 'puesto' => $puesto]);
         }
     }
 
-    public function index2() {
+    public function index2()
+    {
         $parroquias = \App\Parroquia::all();
-        $puesto = \App\Puesto::where('IDPuesto', '!=', 1)->get();
+        if (Auth::user()->IDPuesto == 1) {
+            $puesto = \App\Puesto::where('IDPuesto', '!=', 1)->get();
+        } else {
+            $puesto = \App\Puesto::where('IDPuesto', '>', 2)->get();
+        }
         return view('AdminViews.AgregarUsuarioAdmin', ['parroquias' => $parroquias, 'puesto' => $puesto]);
     }
 
-    public function home() {
-        $usuarios = \App\User::where([['IDUser', '!=', Auth::user()->IDUser], ['IDUser', '!=', 1]])->get();
-
-        return view('AdminViews.MantenimientoUsuario', ['usuarios'=> $usuarios]);
+    public function home()
+    {
+        if (Auth::user()->IDPuesto == 1) {
+            $usuarios = \App\User::with('puesto')
+                ->where([['IDUser', '!=', Auth::user()->IDUser], ['IDPuesto', '!=', 1]])->get();
+        } else {
+            $usuarios = \App\User::with('puesto')
+                ->where([['IDUser', '!=', Auth::user()->IDUser], ['IDPuesto', '>', 2]])->get();
+        }
+        return view('AdminViews.MantenimientoUsuario', ['usuarios' => $usuarios]);
     }
 
-    public function cambiarContrasena(Request $request) {
+    public function cambiarContrasena(Request $request)
+    {
 
         $rules = [
             'mypassword' => 'required',
@@ -51,13 +66,13 @@ class UserController extends Controller {
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return back()->withErrors($validator);
         } else {
-            if(Hash::check($request->mypassword, Auth::user()->password)) {
+            if (Hash::check($request->mypassword, Auth::user()->password)) {
                 $user = new User;
                 $user->where('Email', '=', Auth::user()->email)
-                     ->update(['password' => bcrypt($request->password)]);
+                    ->update(['password' => bcrypt($request->password)]);
                 return back()->with('msjBueno', "Se ha cambiado correctamente la contraseña");
             } else {
                 return back()->with('msjMalo', "Ha ocurrido un error al cambiar la contraseña");
@@ -65,30 +80,33 @@ class UserController extends Controller {
         }
     }
 
-    public function editarPerfilUser(Request $request) {
+    public function editarPerfilUser(Request $request)
+    {
         try {
             $user = new User;
             $user->where('IDUser', '=', Auth::user()->IDUser)
-                 ->update(['Nombre' => $request->name, 'PrimerApellido' => $request->pApellido, 'SegundoApellido' => $request->sApellido, 'Email' => $request->email, 'IDParroquia' => $request->parroquia, 'NumCelular' => $request->numCel]);
+                ->update(['Nombre' => $request->name, 'PrimerApellido' => $request->pApellido, 'SegundoApellido' => $request->sApellido, 'Email' => $request->email, 'IDParroquia' => $request->parroquia, 'NumCelular' => $request->numCel]);
             return back()->with('msjBueno', "Se ha guardado correctamente la información");
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error al editar la información");
         }
     }
 
 
-    public function EliminarUsuario($id) {
+    public function EliminarUsuario($id)
+    {
         try {
             User::destroy($id);
             return back()->with('msjBueno', "Se ha eliminado el usuario correctamente");
             return Redirect::to('/mantenimientoUsuarios');
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error al eliminar el usuario");
             return Redirect::to('/mantenimientoUsuarios');
         }
     }
 
-    public function editarUsuarioAdmin(Request $request) {
+    public function editarUsuarioAdmin(Request $request)
+    {
         try {
             $id = $_POST['IDUser'];
 
@@ -104,25 +122,31 @@ class UserController extends Controller {
             if ($request->activoCheck == "on") {
                 $user->Activo = 1;
             }
-            $user -> save();
+            $user->save();
 
             return back()->with('msjBueno', "Se ha guardado correctamente la información");
             return Redirect::to('/ActasAdmin');
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             Log::error($e);
             return back()->with('msjMalo', "Ha ocurrido un error al editar la información");
             return Redirect::to('/ActasAdmin');
         }
     }
 
-    public function mostrarUsuario($id) {
-        $usuario = User::where('IDUser', $id) -> first();
+    public function mostrarUsuario($id)
+    {
+        $usuario = User::where('IDUser', $id)->first();
         $parroquias = \App\Parroquia::all();
-        $puesto = \App\Puesto::where('IDPuesto', '!=', 1)->get();
-        return view('AdminViews.EditarUsuariosAdmin', ['usuario'=> $usuario, 'parroquias' => $parroquias, 'puesto' => $puesto]);
+        if (Auth::user()->IDPuesto == 1) {
+            $puesto = \App\Puesto::where('IDPuesto', '!=', 1)->get();
+        } else {
+            $puesto = \App\Puesto::where('IDPuesto', '>', 2)->get();
+        }
+        return view('AdminViews.EditarUsuariosAdmin', ['usuario' => $usuario, 'parroquias' => $parroquias, 'puesto' => $puesto]);
     }
 
-    public function agregarUsuario(Request $request) {
+    public function agregarUsuario(Request $request)
+    {
         try {
             $email = \App\User::where('email', $request->email)->first();
 
@@ -152,7 +176,7 @@ class UserController extends Controller {
             $user->save();
 
             return back()->with('msjBueno', "Se ha creado correctamente el usuario");
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error al ingresar el usuario");
         }
     }

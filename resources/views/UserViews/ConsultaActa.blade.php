@@ -63,13 +63,21 @@
                     </div>
 
                     <div class="input-field col s12">
-                        <select name="parroquia" id="parroquias">
+                        <select name="parroquia" id="parroquia">
                             <option value="">---</option>
                             @foreach ($parroquias as $pa)
                                 <option value="{{ $pa->IDParroquia }}">{{ $pa->NombreParroquia }}</option>
                             @endforeach
+                            <option value="otro">Otro</option>
                         </select>
                         <label>Parroquia:</label>
+                    </div>
+
+                    <div class="row" id="lugarDiv">
+                        <div class="input-field col s12">
+                            <input id="lugar" name="lugar" type="text" required>
+                            <label for="lugar"> Bautizado en:</label>
+                        </div>
                     </div>
 
                     <div class="col s12">
@@ -214,6 +222,22 @@
                 }
             });
 
+            $("#lugarDiv").css("display", "none");
+            $("#lugar").prop('disabled', true);
+            $("#parroquia").change(function () {
+                var valor = $("#parroquia").val();
+                if (valor === "otro") {
+                    $("#lugar").prop('required', true);
+                    $("#lugar").prop('disabled', false);
+                    $("#lugarDiv").css("display", "block");
+                    $("#lugar").val("");
+                } else {
+                    $("#lugar").prop('required', false);
+                    $("#lugar").prop('disabled', true);
+                    $("#lugarDiv").css("display", "none");
+                    $("#lugar").val("");
+                }
+            });
 
             $('#editarForm').on('submit', function (e) {
                 e.preventDefault();

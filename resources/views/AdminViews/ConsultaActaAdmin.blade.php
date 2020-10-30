@@ -34,7 +34,7 @@
 
         <div class="col s12 m4 l3 card-panel z-depth-2">
 
-            <form id="queryForm" method="POST">
+            <form id="queryForm" method="POST" autocomplete="off">
                 {{ csrf_field() }}
 
                 <div class="row align-center"><h5>Criterios de búsqueda</h5></div>
@@ -59,13 +59,21 @@
                     </div>
 
                     <div class="input-field col s12">
-                        <select name="parroquia" id="parroquias">
+                        <select name="parroquia" id="parroquia">
                             <option value="">---</option>
                             @foreach ($parroquias as $pa)
                                 <option value="{{ $pa->IDParroquia }}">{{ $pa->NombreParroquia }}</option>
                             @endforeach
+                            <option value="otro">Otro</option>
                         </select>
-                        <label>Parroquia:</label>
+                        <label>Parroquia Bautismo:</label>
+                    </div>
+
+                    <div class="row" id="lugarDiv">
+                        <div class="input-field col s12">
+                            <input id="lugar" name="lugar" type="text" required>
+                            <label for="lugar"> Bautizado en:</label>
+                        </div>
                     </div>
 
                     <div class="col s12">
@@ -75,7 +83,7 @@
                                    pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                    oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                    oninput="setCustomValidity('')">
-                            <label for="fechaInicio">Desde:</label>
+                            <label for="fechaInicio">Fecha Nacimiento (Desde):</label>
                         </div>
                         <div class="input-field col s12">
                             <input id="fechaFin" name='fechaFin'
@@ -83,7 +91,7 @@
                                    pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                    oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                    oninput="setCustomValidity('')">
-                            <label for="fechaFin">Hasta:</label>
+                            <label for="fechaFin">Fecha Nacimiento (Hasta):</label>
                         </div>
                     </div>
 
@@ -148,6 +156,23 @@
                     $("#fechaFin").prop('disabled', false);
 
                     $('select').material_select();
+                }
+            });
+
+            $("#lugarDiv").css("display", "none");
+            $("#lugar").prop('disabled', true);
+            $("#parroquia").change(function () {
+                var valor = $("#parroquia").val();
+                if (valor === "otro") {
+                    $("#lugar").prop('required', true);
+                    $("#lugar").prop('disabled', false);
+                    $("#lugarDiv").css("display", "block");
+                    $("#lugar").val("");
+                } else {
+                    $("#lugar").prop('required', false);
+                    $("#lugar").prop('disabled', true);
+                    $("#lugarDiv").css("display", "none");
+                    $("#lugar").val("");
                 }
             });
 

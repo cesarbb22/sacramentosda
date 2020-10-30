@@ -85,6 +85,7 @@ class ActaAdminController extends Controller
             //------------------------------------------------------------------------------
             $Acta = new Acta;
 
+            $CURIA_DIOCESANA_PARROQUIA = -1; //curia diocesana
 
             if ($request->has('checkBautizo') || $request->has('checkConfirma') || $request->has('checkMatrimonio') || $request->has('checkDefuncion')) {
 
@@ -112,7 +113,7 @@ class ActaAdminController extends Controller
                     $ActaBautizo->NotasMarginales = $request->notasMarginalesBau;
                     $ActaBautizo->IDUbicacionActaBau = $UbicacionActaB->IDUbicacionActa;
                     $ActaBautizo->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
-                    $ActaBautizo->IDParroquiaRegistra = Auth::user()->IDParroquia;
+                    $ActaBautizo->IDParroquiaRegistra = $CURIA_DIOCESANA_PARROQUIA;
                     $ActaBautizo->save();
 
                     $Acta->IDBautismo = $ActaBautizo->IDBautismo;
@@ -139,7 +140,7 @@ class ActaAdminController extends Controller
                     $ActaConfirma->NotasMarginales = $request->notasMarginalesConf;
                     $ActaConfirma->IDUbicacionActaCon = $UbicacionActaC->IDUbicacionActa;
                     $ActaConfirma->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
-                    $ActaConfirma->IDParroquiaRegistra = Auth::user()->IDParroquia;
+                    $ActaConfirma->IDParroquiaRegistra = $CURIA_DIOCESANA_PARROQUIA;
                     $ActaConfirma->save();
 
                     $Acta->IDConfirma = $ActaConfirma->IDConfirma;
@@ -165,7 +166,7 @@ class ActaAdminController extends Controller
                     $ActaMatrimonio->NotasMarginales = $request->notasMarginalesMat;
                     $ActaMatrimonio->IDUbicacionActaMat = $UbicacionActaM->IDUbicacionActa;
                     $ActaMatrimonio->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
-                    $ActaMatrimonio->IDParroquiaRegistra = Auth::user()->IDParroquia;
+                    $ActaMatrimonio->IDParroquiaRegistra = $CURIA_DIOCESANA_PARROQUIA;
                     $ActaMatrimonio->save();
 
                     $Acta->IDMatrimonio = $ActaMatrimonio->IDMatrimonio;
@@ -190,7 +191,7 @@ class ActaAdminController extends Controller
                     $ActaDefuncion->NotasMarginales = $request->notasMarginalesDef;
                     $ActaDefuncion->IDUbicacionActaDef = $UbicacionActaD->IDUbicacionActa;
                     $ActaDefuncion->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
-                    $ActaDefuncion->IDParroquiaRegistra = Auth::user()->IDParroquia;
+                    $ActaDefuncion->IDParroquiaRegistra = $CURIA_DIOCESANA_PARROQUIA;
                     $ActaDefuncion->save();
 
                     $Acta->IDDefuncion = $ActaDefuncion->IDDefuncion;
