@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => '¡Correo electrónico o contraseña incorrecta!',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed'   => 'Estas credenciales no coinciden con nuestros registros.',
+    'throttle' => 'Demasiados intentos de acceso. Por favor intente nuevamente en :seconds segundos.',
 
 ];
