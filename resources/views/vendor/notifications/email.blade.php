@@ -12,7 +12,7 @@
 
 {{-- Intro Lines --}}
 @foreach ($introLines as $line)
-{{ $line }}aaaaaaaaaaaa
+{{ $line }}
 
 @endforeach
 
@@ -37,15 +37,15 @@
 
 {{-- Outro Lines --}}
 @foreach ($outroLines as $line)
-{{ $line }}bbbbbbbb
+{{ $line }}
 
 @endforeach
 
 {{-- Salutation --}}
 @if (! empty($salutation))
-{{ $salutation }}cccccccccccc
+{{ $salutation }}
 @else
-Saludos,<br>Diócesis de Alajuela<br>Gestión de Sacramentos
+Saludos,<br>Dios te bendiga.
 @endif
 
 {{-- Subcopy --}}

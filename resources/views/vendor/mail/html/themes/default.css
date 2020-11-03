@@ -7,7 +7,7 @@ body, body *:not(html):not(style):not(br):not(tr):not(code) {
 
 body {
     background-color: #f5f8fa;
-    color: #74787E;
+    color: #51081C;
     height: 100%;
     hyphens: auto;
     line-height: 1.4;
@@ -105,11 +105,12 @@ img {
 .header {
     padding: 25px 0;
     text-align: center;
+    background-color: #51081C;
 }
 
 .header a {
-    color: #bbbfc3;
-    font-size: 19px;
+    color: #ffffff;
+    font-size: 24px;
     font-weight: bold;
     text-decoration: none;
     text-shadow: 0 1px 0 white;
@@ -157,14 +158,15 @@ img {
     margin: 0 auto;
     padding: 0;
     text-align: center;
-    width: 570px;
+    width: 100%;
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
-    -premailer-width: 570px;
+    -premailer-width: 100%;
+    background-color: #51081C;
 }
 
 .footer p {
-    color: #AEAEAE;
+    color: #ffffff;
     font-size: 12px;
     text-align: center;
 }
@@ -185,7 +187,7 @@ img {
 }
 
 .table td {
-    color: #74787E;
+    color: #51081C;
     font-size: 15px;
     line-height: 18px;
     padding: 10px 0;
@@ -210,9 +212,14 @@ img {
 .button {
     border-radius: 3px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
+    background-color: #51081C;
     color: #FFF;
     display: inline-block;
     text-decoration: none;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 2rem;
+    text-transform: uppercase;
     -webkit-text-size-adjust: none;
 }
 
