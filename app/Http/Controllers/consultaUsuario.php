@@ -25,7 +25,7 @@ class consultaUsuario extends Controller
 
             $acta = Acta::with('persona', 'bautismo', 'persona.laico')
                 ->whereHas('persona', function (Builder $query) use ($cedula) {
-                    $query->where('Persona.Cedula', 'like', '%'.$cedula.'%');
+                    $query->where('persona.Cedula', 'like', '%'.$cedula.'%');
                 })
                 ->get();
 
@@ -45,26 +45,26 @@ class consultaUsuario extends Controller
                     $parroquia = $request->parroquia;
                     $acta = Acta::with('persona', 'bautismo', 'persona.laico')
                         ->whereHas('persona', function (Builder $query) use ($nombre) {
-                            $query->whereRaw('concat(Persona.Nombre," ",Persona.PrimerApellido," ",Persona.SegundoApellido) like "%'.$nombre.'%"');
+                            $query->whereRaw('concat(persona.Nombre," ",persona.PrimerApellido," ",persona.SegundoApellido) like "%'.$nombre.'%"');
                         })
                         ->whereHas('bautismo', function (Builder $query) use ($parroquia) {
-                            $query->where('ActaBautismo.IDParroquiaBautismo', $parroquia); // side note: operator '=' is default, so can be ommited
+                            $query->where('actaBautismo.IDParroquiaBautismo', $parroquia); // side note: operator '=' is default, so can be ommited
                         })
                         ->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
-                            $query->whereBetween('Laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
+                            $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
                         })
                         ->get();
                 } else {
                     $lugar = $request->lugar;
                     $acta = Acta::with('persona', 'bautismo', 'persona.laico')
                         ->whereHas('persona', function (Builder $query) use ($nombre) {
-                            $query->whereRaw('concat(Persona.Nombre," ",Persona.PrimerApellido," ",Persona.SegundoApellido) like "%'.$nombre.'%"');
+                            $query->whereRaw('concat(persona.Nombre," ",persona.PrimerApellido," ",persona.SegundoApellido) like "%'.$nombre.'%"');
                         })
                         ->whereHas('bautismo', function (Builder $query) use ($lugar) {
-                            $query->where('ActaBautismo.LugarBautismo', 'like', '%'.$lugar.'%');
+                            $query->where('actaBautismo.LugarBautismo', 'like', '%'.$lugar.'%');
                         })
                         ->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
-                            $query->whereBetween('Laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
+                            $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
                         })
                         ->get();
                 }
@@ -78,20 +78,20 @@ class consultaUsuario extends Controller
                         $parroquia = $request->parroquia;
                         $acta = Acta::with('persona', 'bautismo', 'persona.laico')
                             ->whereHas('persona', function (Builder $query) use ($nombre) {
-                                $query->whereRaw('concat(Persona.Nombre," ",Persona.PrimerApellido," ",Persona.SegundoApellido) like "%'.$nombre.'%"');
+                                $query->whereRaw('concat(persona.Nombre," ",persona.PrimerApellido," ",persona.SegundoApellido) like "%'.$nombre.'%"');
                             })
                             ->whereHas('bautismo', function (Builder $query) use ($parroquia) {
-                                $query->where('ActaBautismo.IDParroquiaBautismo', $parroquia); // side note: operator '=' is default, so can be ommited
+                                $query->where('actaBautismo.IDParroquiaBautismo', $parroquia); // side note: operator '=' is default, so can be ommited
                             })
                             ->get();
                     } else {
                         $lugar = $request->lugar;
                         $acta = Acta::with('persona', 'bautismo', 'persona.laico')
                             ->whereHas('persona', function (Builder $query) use ($nombre) {
-                                $query->whereRaw('concat(Persona.Nombre," ",Persona.PrimerApellido," ",Persona.SegundoApellido) like "%'.$nombre.'%"');
+                                $query->whereRaw('concat(persona.Nombre," ",persona.PrimerApellido," ",persona.SegundoApellido) like "%'.$nombre.'%"');
                             })
                             ->whereHas('bautismo', function (Builder $query) use ($lugar) {
-                                $query->where('ActaBautismo.LugarBautismo', 'like', '%'.$lugar.'%');
+                                $query->where('actaBautismo.LugarBautismo', 'like', '%'.$lugar.'%');
                             })
                             ->get();
                     }
@@ -111,20 +111,20 @@ class consultaUsuario extends Controller
                             $parroquia = $request->parroquia;
                             $acta = Acta::with('persona', 'bautismo', 'persona.laico')
                                 ->whereHas('bautismo', function (Builder $query) use ($parroquia) {
-                                    $query->where('ActaBautismo.IDParroquiaBautismo', $parroquia); // side note: operator '=' is default, so can be ommited
+                                    $query->where('actaBautismo.IDParroquiaBautismo', $parroquia); // side note: operator '=' is default, so can be ommited
                                 })
                                 ->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
-                                    $query->whereBetween('Laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
+                                    $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
                                 })
                                 ->get();
                         } else {
                             $lugar = $request->lugar;
                             $acta = Acta::with('persona', 'bautismo', 'persona.laico')
                                 ->whereHas('bautismo', function (Builder $query) use ($lugar) {
-                                    $query->where('ActaBautismo.LugarBautismo', 'like', '%'.$lugar.'%');
+                                    $query->where('actaBautismo.LugarBautismo', 'like', '%'.$lugar.'%');
                                 })
                                 ->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
-                                    $query->whereBetween('Laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
+                                    $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
                                 })
                                 ->get();
                         }
@@ -143,10 +143,10 @@ class consultaUsuario extends Controller
 
                             $acta = Acta::with('persona', 'bautismo', 'persona.laico')
                                 ->whereHas('persona', function (Builder $query) use ($nombre) {
-                                    $query->whereRaw('concat(Persona.Nombre," ",Persona.PrimerApellido," ",Persona.SegundoApellido) like "%'.$nombre.'%"');
+                                    $query->whereRaw('concat(persona.Nombre," ",persona.PrimerApellido," ",persona.SegundoApellido) like "%'.$nombre.'%"');
                                 })
                                 ->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
-                                    $query->whereBetween('Laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
+                                    $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
                                 })
                                 ->get();
 
@@ -157,7 +157,7 @@ class consultaUsuario extends Controller
 
                                 $acta = Acta::with('persona', 'bautismo', 'persona.laico')
                                     ->whereHas('persona', function (Builder $query) use ($nombre) {
-                                        $query->whereRaw('concat(Persona.Nombre," ",Persona.PrimerApellido," ",Persona.SegundoApellido) like "%'.$nombre.'%"');
+                                        $query->whereRaw('concat(persona.Nombre," ",persona.PrimerApellido," ",persona.SegundoApellido) like "%'.$nombre.'%"');
                                     })
                                     ->get();
 
@@ -168,14 +168,14 @@ class consultaUsuario extends Controller
                                         $parroquia = $request->parroquia;
                                         $acta = Acta::with(['persona', 'bautismo', 'persona.laico'])
                                             ->whereHas('bautismo', function (Builder $query) use ($parroquia) {
-                                                $query->where('ActaBautismo.IDParroquiaBautismo', $parroquia);
+                                                $query->where('actaBautismo.IDParroquiaBautismo', $parroquia);
                                             })
                                             ->get();
                                     } else {
                                         $lugar = $request->lugar;
                                         $acta = Acta::with(['persona', 'bautismo', 'persona.laico'])
                                             ->whereHas('bautismo', function (Builder $query) use ($lugar) {
-                                                $query->where('ActaBautismo.LugarBautismo', 'like', '%'.$lugar.'%');
+                                                $query->where('actaBautismo.LugarBautismo', 'like', '%'.$lugar.'%');
                                             })
                                             ->get();
                                     }
@@ -193,7 +193,7 @@ class consultaUsuario extends Controller
 
                                         $acta = Acta::with('persona', 'bautismo', 'persona.laico')
                                             ->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
-                                                $query->whereBetween('Laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
+                                                $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
                                             })
                                             ->get();
 
