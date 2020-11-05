@@ -204,7 +204,7 @@
                 if ($("#buscCed").is(':checked')) {
                     $("#numCed").prop('disabled', false);
                     $("#nombre").prop('disabled', true);
-                    $("#parroquias").prop('disabled', true);
+                    $("#parroquia").prop('disabled', true);
                     $("#fechaInicio").prop('disabled', true);
                     $("#fechaFin").prop('disabled', true);
 
@@ -213,7 +213,7 @@
                     $('#queryForm').trigger("reset");
                     $("#numCed").prop('disabled', true);
                     $("#nombre").prop('disabled', false);
-                    $("#parroquias").prop('disabled', false);
+                    $("#parroquia").prop('disabled', false);
                     $("#fechaInicio").prop('disabled', false);
                     $("#fechaFin").prop('disabled', false);
 
@@ -295,7 +295,7 @@
                             var lugarBautismo = null;
                             if (data[i].bautismo !== null && data[i].bautismo.IDParroquiaBautismo !== null) {
                                 lugarBautismo = $("#parroquia").find(":selected").text();
-                            } else {
+                            } else if (data[i].bautismo !== null) {
                                 lugarBautismo = data[i].bautismo.LugarBautismo;
                             }
 
