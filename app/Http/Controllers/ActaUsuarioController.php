@@ -48,8 +48,11 @@ class ActaUsuarioController extends Controller
                 $Laico->NombreMadre = $request->nombreMadre;
                 $Laico->NombrePadre = $request->nombrePadre;
                 $Laico->LugarNacimiento = $request->lugarNac;
-                $Laico->FechaNacimiento = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaNac));
-
+                if ($request->fechaNac != "") {
+                    $Laico->FechaNacimiento = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaNac));
+                } else {
+                    $Laico->FechaNacimiento = null;
+                }
                 $Laico->save();
             } else {
 
@@ -67,8 +70,11 @@ class ActaUsuarioController extends Controller
                 $Laico->IDTipo_Hijo = 1;
                 $Laico->NombreMadre = $request->nombreMadre;
                 $Laico->LugarNacimiento = $request->lugarNac;
-                $Laico->FechaNacimiento = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaNac));
-
+                if ($request->fechaNac != "") {
+                    $Laico->FechaNacimiento = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaNac));
+                } else {
+                    $Laico->FechaNacimiento = null;
+                }
 
                 $Laico->save();
             }
@@ -97,7 +103,9 @@ class ActaUsuarioController extends Controller
                     } else {
                         $ActaBautizo->IDParroquiaBautismo = $request->parroquiaBautismo;
                     }
-                    $ActaBautizo->FechaBautismo = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaBautizo));
+                    if ($request->fechaBautizo != "") {
+                        $ActaBautizo->FechaBautismo = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaBautizo));
+                    }
                     $ActaBautizo->PadrinoBau1 = $request->nombreMadrinaB;
                     $ActaBautizo->PadrinoBau2 = $request->nombrePadrinoB;
                     $ActaBautizo->NotasMarginales = $request->notasMarginalesBau;
@@ -125,6 +133,9 @@ class ActaUsuarioController extends Controller
                     } else {
                         $ActaConfirma->IDParroquiaConfirma = $request->parroquiaConfirma;
                     }
+                    if ($request->fechaConfirma != "") {
+                        $ActaConfirma->FechaConfirma = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaConfirma));
+                    }
                     $ActaConfirma->FechaConfirma = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaConfirma));
                     $ActaConfirma->PadrinoCon1 = $request->nombrePadrinoC1;
                     $ActaConfirma->NotasMarginales = $request->notasMarginalesConf;
@@ -151,6 +162,9 @@ class ActaUsuarioController extends Controller
                     } else {
                         $ActaMatrimonio->IDParroquiaMatrimonio = $request->parroquiaMatrimonio;
                     }
+                    if ($request->fechaMatrimonio != "") {
+                        $ActaMatrimonio->FechaMatrimonio = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaMatrimonio));
+                    }
                     $ActaMatrimonio->FechaMatrimonio = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaMatrimonio));
                     $ActaMatrimonio->NombreConyugue = $request->nombreConyuge;
                     $ActaMatrimonio->NotasMarginales = $request->notasMarginalesMat;
@@ -175,6 +189,9 @@ class ActaUsuarioController extends Controller
                         $ActaDefuncion->LugarDefuncion = $request->lugarDefuncion;
                     } else {
                         $ActaDefuncion->IDParroquiaDefuncion = $request->parroquiaDefuncion;
+                    }
+                    if ($request->fechaDefuncion != "") {
+                        $ActaDefuncion->FechaDefuncion = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaDefuncion));
                     }
                     $ActaDefuncion->LugarDefuncion = $request->lugarDefuncion;
                     $ActaDefuncion->FechaDefuncion = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaDefuncion));
@@ -326,7 +343,11 @@ class ActaUsuarioController extends Controller
             $laico->NombreMadre = $request->nombreMadreEdit;
             $laico->NombrePadre = $request->nombrePadreEdit;
             $laico->LugarNacimiento = $request->lugarNacEdit;
-            $laico->FechaNacimiento = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaNacEdit));
+            if ($request->fechaNacEdit != "") {
+                $laico->FechaNacimiento = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaNacEdit));
+            } else {
+                $laico->FechaNacimiento = null;
+            }
             $laico->save();
 
             $acta = Acta::where('IDPersona', $id)->first();
@@ -347,8 +368,11 @@ class ActaUsuarioController extends Controller
                         $actaBautismo->IDParroquiaBautismo = null;
                         $actaBautismo->LugarBautismo = $request->lugarBautizo;
                     }
-                    $actaBautismo->FechaBautismo = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaBautizo));
-                    $actaBautismo->PadrinoBau1 = $request->nombreMadrinaB;
+                    if ($request->fechaBautizo != "") {
+                        $actaBautismo->FechaBautismo = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaBautizo));
+                    } else {
+                        $actaBautismo->FechaBautismo = null;
+                    }                    $actaBautismo->PadrinoBau1 = $request->nombreMadrinaB;
                     $actaBautismo->PadrinoBau2 = $request->nombrePadrinoB;
                     $actaBautismo->NotasMarginales = $request->notasMarginalesBauEdit;
                     $actaBautismo->save();
@@ -360,7 +384,7 @@ class ActaUsuarioController extends Controller
                     $UbicacionActaBautismo->Asiento = $request->numAsientoB;
                     $UbicacionActaBautismo->save();
                 }
-            } else if ($request->has('fechaBautizo')) {
+            } else if ($request->has('parroquiaBautismo') or $request->has('lugarBautizo')) {
                 $UbicacionActaBautismo = new UbicacionActa;
                 $UbicacionActaBautismo->Libro = $request->numLibroB;
                 $UbicacionActaBautismo->Folio = $request->numFolioB;
@@ -373,7 +397,11 @@ class ActaUsuarioController extends Controller
                 } else {
                     $actaBautismo->LugarBautismo = $request->lugarBautizo;
                 }
-                $actaBautismo->FechaBautismo = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaBautizo));
+                if ($request->fechaBautizo != "") {
+                    $actaBautismo->FechaBautismo = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaBautizo));
+                } else {
+                    $actaBautismo->FechaBautismo = null;
+                }
                 $actaBautismo->PadrinoBau1 = $request->nombreMadrinaB;
                 $actaBautismo->PadrinoBau2 = $request->nombrePadrinoB;
                 $actaBautismo->NotasMarginales = $request->notasMarginalesBauEdit;
@@ -395,7 +423,11 @@ class ActaUsuarioController extends Controller
                         $actaConfirma->IDParroquiaConfirma = null;
                         $actaConfirma->LugarConfirma = $request->lugarConfirma;
                     }
-                    $actaConfirma->FechaConfirma = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaConfirma));
+                    if ($request->fechaConfirma != "") {
+                        $actaConfirma->FechaConfirma = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaConfirma));
+                    } else {
+                        $actaConfirma->FechaConfirma = null;
+                    }
                     $actaConfirma->PadrinoCon1 = $request->nombrePadrinoC1;
                     $actaConfirma->NotasMarginales = $request->notasMarginalesConfEdit;
                     $actaConfirma->save();
@@ -407,7 +439,7 @@ class ActaUsuarioController extends Controller
                     $UbicacionActaConfirma->Asiento = $request->numAsientoC;
                     $UbicacionActaConfirma->save();
                 }
-            } else if ($request->has('fechaConfirma') && $request->fechaConfirma != null) {
+            } else if ($request->has('parroquiaConfirma') or $request->has('lugarConfirma')) {
                 $UbicacionActaConfirma = new UbicacionActa;
                 $UbicacionActaConfirma->Libro = $request->numLibroC;
                 $UbicacionActaConfirma->Folio = $request->numFolioC;
@@ -420,7 +452,11 @@ class ActaUsuarioController extends Controller
                 } else {
                     $actaConfirma->LugarConfirma = $request->lugarConfirma;
                 }
-                $actaConfirma->FechaConfirma = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaConfirma));
+                if ($request->fechaConfirma != "") {
+                    $actaConfirma->FechaConfirma = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaConfirma));
+                } else {
+                    $actaConfirma->FechaConfirma = null;
+                }
                 $actaConfirma->PadrinoCon1 = $request->nombrePadrinoC1;
                 $actaConfirma->NotasMarginales = $request->notasMarginalesConfEdit;
                 $actaConfirma->IDUbicacionActaCon = $UbicacionActaConfirma->IDUbicacionActa;
@@ -441,7 +477,11 @@ class ActaUsuarioController extends Controller
                         $actaMatrimonio->IDParroquiaMatrimonio = null;
                         $actaMatrimonio->LugarMatrimonio = $request->lugarMatrimonio;
                     }
-                    $actaMatrimonio->FechaMatrimonio = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaMatrimonio));
+                    if ($request->fechaMatrimonio != "") {
+                        $actaMatrimonio->FechaMatrimonio = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaMatrimonio));
+                    } else {
+                        $actaMatrimonio->FechaMatrimonio = null;
+                    }
                     $actaMatrimonio->NombreConyugue = $request->nombreConyuge;
                     $actaMatrimonio->NotasMarginales = $request->notasMarginalesMatEdit;
                     $actaMatrimonio->save();
@@ -453,7 +493,7 @@ class ActaUsuarioController extends Controller
                     $UbicacionActaMatrimonio->Asiento = $request->numAsientoM;
                     $UbicacionActaMatrimonio->save();
                 }
-            } else if ($request->has('fechaMatrimonio') && $request->fechaMatrimonio != null) {
+            } else if ($request->has('fechaMatrimonio') or $request->has('lugarMatrimonio')) {
                 $UbicacionActaMatrimonio = new UbicacionActa;
                 $UbicacionActaMatrimonio->Libro = $request->numLibroM;
                 $UbicacionActaMatrimonio->Folio = $request->numFolioM;
@@ -466,7 +506,11 @@ class ActaUsuarioController extends Controller
                 } else {
                     $actaMatrimonio->LugarMatrimonio = $request->lugarMatrimonio;
                 }
-                $actaMatrimonio->FechaMatrimonio = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaMatrimonio));
+                if ($request->fechaMatrimonio != "") {
+                    $actaMatrimonio->FechaMatrimonio = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaMatrimonio));
+                } else {
+                    $actaMatrimonio->FechaMatrimonio = null;
+                }
                 $actaMatrimonio->NombreConyugue = $request->nombreConyuge;
                 $actaMatrimonio->NotasMarginales = $request->notasMarginalesMatEdit;
                 $actaMatrimonio->IDUbicacionActaMat = $UbicacionActaMatrimonio->IDUbicacionActa;
@@ -487,7 +531,11 @@ class ActaUsuarioController extends Controller
                         $actaDefuncion->IDParroquiaDefuncion = null;
                         $actaDefuncion->LugarDefuncion = $request->lugarDefuncion;
                     }
-                    $actaDefuncion->FechaDefuncion = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaDefuncion));
+                    if ($request->fechaDefuncion != "") {
+                        $actaDefuncion->FechaDefuncion = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaDefuncion));
+                    } else {
+                        $actaDefuncion->FechaDefuncion = null;
+                    }
                     $actaDefuncion->CausaMuerte = $request->causaDefuncion;
                     $actaDefuncion->NotasMarginales = $request->notasMarginalesDefEdit;
                     $actaDefuncion->save();
@@ -499,7 +547,7 @@ class ActaUsuarioController extends Controller
                     $UbicacionActaDefuncion->Asiento = $request->numAsientoD;
                     $UbicacionActaDefuncion->save();
                 }
-            } else if ($request->has('fechaDefuncion') && $request->fechaDefuncion != null) {
+            } else if ($request->has('fechaDefuncion') or $request->has('lugarDefuncion')) {
                 $UbicacionActaDefuncion = new UbicacionActa;
                 $UbicacionActaDefuncion->Libro = $request->numLibroD;
                 $UbicacionActaDefuncion->Folio = $request->numFolioD;
@@ -512,7 +560,11 @@ class ActaUsuarioController extends Controller
                 } else {
                     $actaDefuncion->LugarDefuncion = $request->lugarDefuncion;
                 }
-                $actaDefuncion->FechaDefuncion = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaDefuncion));
+                if ($request->fechaDefuncion != "") {
+                    $actaDefuncion->FechaDefuncion = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaDefuncion));
+                } else {
+                    $actaDefuncion->FechaDefuncion = null;
+                }
                 $actaDefuncion->CausaMuerte = $request->causaDefuncion;
                 $actaDefuncion->NotasMarginales = $request->notasMarginalesDefEdit;
                 $actaDefuncion->IDUbicacionActaDef = $UbicacionActaDefuncion->IDUbicacionActa;

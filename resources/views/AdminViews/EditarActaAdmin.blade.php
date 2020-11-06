@@ -842,19 +842,19 @@
                 var actaMatrimonio = {!! json_encode($actaMatrimonio) !!};
                 var actaDefuncion = {!! json_encode($actaDefuncion) !!};
 
-                if (laico != null) {
+                if (laico != null && laico.FechaNacimiento != null) {
                     $( "#fechaNacEdit" ).datepicker( "setDate", new Date(laico.FechaNacimiento) );
                 }
-                if (actaBautismo != null) {
+                if (actaBautismo != null && actaBautismo.FechaBautismo) {
                     $( "#fechaBaut" ).datepicker( "setDate", new Date(actaBautismo.FechaBautismo) );
                 }
-                if (actaConfirma != null) {
+                if (actaConfirma != null && actaConfirma.FechaConfirma) {
                     $( "#fechaConfir" ).datepicker( "setDate", new Date(actaConfirma.FechaConfirma) );
                 }
-                if (actaMatrimonio != null) {
+                if (actaMatrimonio != null && actaMatrimonio.FechaMatrimonio) {
                     $( "#fechaMatrimonio" ).datepicker( "setDate", new Date(actaMatrimonio.FechaMatrimonio) );
                 }
-                if (actaDefuncion != null) {
+                if (actaDefuncion != null && actaDefuncion.FechaDefuncion) {
                     $( "#fechaDefuncion" ).datepicker( "setDate", new Date(actaDefuncion.FechaDefuncion) );
                 }
 
@@ -908,40 +908,32 @@
             $("#checkBautismo").change(function () {
                 if ($("#checkBautismo").is(':checked')) {
                     $("#contentBautismo").css("display", "block");
-                    $("#fechaBaut").prop('required',true);
                 } else {
                     $("#contentBautismo").css("display", "none");
-                    $("#fechaBaut").prop('required',false);
                 }
             });
 
             $("#checkConfirma").change(function () {
                 if ($("#checkConfirma").is(':checked')) {
                     $("#contentConfirma").css("display", "block");
-                    $("#fechaConfir").prop('required',true);
                 } else {
                     $("#contentConfirma").css("display", "none");
-                    $("#fechaConfir").prop('required',false);
                 }
             });
 
             $("#checkMatrimonio").change(function () {
                 if ($("#checkMatrimonio").is(':checked')) {
                     $("#contentMatrimonio").css("display", "block");
-                    $("#fechaMatrimonio").prop('required',true);
                 } else {
                     $("#contentMatrimonio").css("display", "none");
-                    $("#fechaMatrimonio").prop('required',false);
                 }
             });
 
             $("#checkDefuncion").change(function () {
                 if ($("#checkDefuncion").is(':checked')) {
                     $("#contentDefuncion").css("display", "block");
-                    $("#fechaDefuncion").prop('required',true);
                 } else {
                     $("#contentDefuncion").css("display", "none");
-                    $("#fechaDefuncion").prop('required',false);
                 }
             });
 
