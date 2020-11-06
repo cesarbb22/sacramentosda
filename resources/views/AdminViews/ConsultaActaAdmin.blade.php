@@ -195,14 +195,17 @@
                             var primerApellido = data[i].persona.PrimerApellido;
                             var segundoApellido = data[i].persona.SegundoApellido;
 
-                            var lugarBautismo = null;
-                            if (data[i].bautismo !== null && data[i].bautismo.IDParroquiaBautismo !== null) {
-                                lugarBautismo = $("#parroquia").find(":selected").text();
+                            var lugarBautismo = "---";
+                            if (data[i].bautismo !== null && data[i].bautismo.parroquia !== null) {
+                                lugarBautismo = data[i].bautismo.parroquia.NombreParroquia;
                             } else if (data[i].bautismo !== null) {
                                 lugarBautismo = data[i].bautismo.LugarBautismo;
                             }
 
-                            var fechaNacimiento = formatDateToString(data[i].persona.laico.FechaNacimiento);
+                            var fechaNacimiento = '---';
+                            if (data[i].persona.laico.FechaNacimiento !== null) {
+                                fechaNacimiento = formatDateToString(data[i].persona.laico.FechaNacimiento);
+                            }
 
                             var iconDetalle = "<i class='material-icons'>description</i>";
                             var detalle = "<a id='" + idPersona + "Detalle'>" + iconDetalle + "</a>";

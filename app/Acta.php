@@ -47,6 +47,6 @@ class Acta extends Model
 
     public function solicitud()
     {
-        return $this->belongsToMany('App\Solicitud', 'Solicitud_Acta', 'IDActa', 'IDSolicitud');
+        return $this->belongsToMany('App\Solicitud', 'solicitud_acta', 'IDActa', 'IDSolicitud');
     }
 }

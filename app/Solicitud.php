@@ -21,7 +21,7 @@ class Solicitud extends Model
 
     public function actas()
     {
-        return $this->belongsToMany('App\Acta', 'Solicitud_Acta', 'IDSolicitud', 'IDActa')->withPivot('Descripcion');;
+        return $this->belongsToMany('App\Acta', 'solicitud_acta', 'IDSolicitud', 'IDActa')->withPivot('Descripcion');;
     }
 
     public function user()

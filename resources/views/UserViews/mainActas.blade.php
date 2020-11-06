@@ -210,18 +210,18 @@
                                 <div class="row">
 
                                     <div class="input-num col s4">
-                                        <input id="numLibroB" name="numLibroB" type="number" class="validate" required
+                                        <input id="numLibroB" name="numLibroB" type="number" class="validate"
                                                disabled>
                                         <label for="numLibroB">Número de Libro:</label>
                                     </div>
                                     <div class="input-num col s4">
-                                        <input id="numFolioB" name="numFolioB" type="number" class="validate" required
+                                        <input id="numFolioB" name="numFolioB" type="number" class="validate"
                                                disabled>
                                         <label for="numFolioB">Número de Folio:</label>
                                     </div>
                                     <div class="input-num col s4">
                                         <input id="numAsientoB" name="numAsientoB" type="number" class="validate"
-                                               required disabled>
+                                               disabled>
                                         <label for="numAsientoB">Número de Asiento:</label>
                                     </div>
                                 </div>
@@ -298,18 +298,18 @@
                                 <div class="row">
 
                                     <div class="input-num col s4">
-                                        <input id="numLibroC" name="numLibroC" type="number" class="validate" required
+                                        <input id="numLibroC" name="numLibroC" type="number" class="validate"
                                                disabled>
                                         <label for="numLibroC">Número de Libro:</label>
                                     </div>
                                     <div class="input-num col s4">
-                                        <input id="numFolioC" name="numFolioC" type="number" class="validate" required
+                                        <input id="numFolioC" name="numFolioC" type="number" class="validate"
                                                disabled>
                                         <label for="numFolioC">Número de Folio:</label>
                                     </div>
                                     <div class="input-num col s4">
                                         <input id="numAsientoC" name="numAsientoC" type="number" class="validate"
-                                               required disabled>
+                                               disabled>
                                         <label for="numAsientoC">Número de Asiento:</label>
                                     </div>
                                 </div>
@@ -386,18 +386,18 @@
                                 <div class="row">
 
                                     <div class="input-num col s4">
-                                        <input id="numLibroM" name="numLibroM" type="number" class="validate" required
+                                        <input id="numLibroM" name="numLibroM" type="number" class="validate"
                                                disabled>
                                         <label for="numLibroM">Número de Libro:</label>
                                     </div>
                                     <div class="input-num col s4">
-                                        <input id="numFolioM" name="numFolioM" type="number" class="validate" required
+                                        <input id="numFolioM" name="numFolioM" type="number" class="validate"
                                                disabled>
                                         <label for="numFolioM">Número de Folio:</label>
                                     </div>
                                     <div class="input-num col s4">
                                         <input id="numAsientoM" name="numAsientoM" type="number" class="validate"
-                                               required disabled>
+                                               disabled>
                                         <label for="numAsientoM">Número de Asiento:</label>
                                     </div>
                                 </div>
@@ -473,18 +473,18 @@
 
                                 <div class="row">
                                     <div class="input-num col s4">
-                                        <input id="numLibroD" name="numLibroD" type="number" class="validate" required
+                                        <input id="numLibroD" name="numLibroD" type="number" class="validate"
                                                disabled>
                                         <label for="numLibroD">Número de Libro:</label>
                                     </div>
                                     <div class="input-num col s4">
-                                        <input id="numFolioD" name="numFolioD" type="number" class="validate" required
+                                        <input id="numFolioD" name="numFolioD" type="number" class="validate"
                                                disabled>
                                         <label for="numFolioD">Número de Folio:</label>
                                     </div>
                                     <div class="input-num col s4">
                                         <input id="numAsientoD" name="numAsientoD" type="number" class="validate"
-                                               required disabled>
+                                               disabled>
                                         <label for="numAsientoD">Número de Asiento:</label>
                                     </div>
                                 </div>
