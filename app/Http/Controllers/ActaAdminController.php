@@ -118,8 +118,11 @@ class ActaAdminController extends Controller
                     if ($request->fechaBautizo != "") {
                         $ActaBautizo->FechaBautismo = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaBautizo));
                     }
+                    $ActaBautizo->AbuelosPaternos = $request->nombreAbuelosPaternos;
+                    $ActaBautizo->AbuelosMaternos = $request->nombreAbuelosMaternos;
                     $ActaBautizo->PadrinoBau1 = $request->nombreMadrinaB;
                     $ActaBautizo->PadrinoBau2 = $request->nombrePadrinoB;
+                    $ActaBautizo->SacerdoteBautiza = $request->nombreSacerdoteBau;
                     $ActaBautizo->NotasMarginales = $request->notasMarginalesBau;
                     $ActaBautizo->IDUbicacionActaBau = $UbicacionActaB->IDUbicacionActa;
                     $ActaBautizo->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
@@ -359,8 +362,11 @@ class ActaAdminController extends Controller
                 } else {
                     $actaBautismo->FechaBautismo = null;
                 }
+                $actaBautismo->AbuelosPaternos = $request->nombreAbuelosPaternos;
+                $actaBautismo->AbuelosMaternos = $request->nombreAbuelosMaternos;
                 $actaBautismo->PadrinoBau1 = $request->nombreMadrinaB;
                 $actaBautismo->PadrinoBau2 = $request->nombrePadrinoB;
+                $actaBautismo->SacerdoteBautiza = $request->nombreSacerdoteBau;
                 $actaBautismo->NotasMarginales = $request->notasMarginalesBauEdit;
                 $actaBautismo->save();
 
@@ -388,8 +394,11 @@ class ActaAdminController extends Controller
                 } else {
                     $actaBautismo->FechaBautismo = null;
                 }
+                $actaBautismo->AbuelosPaternos = $request->nombreAbuelosPaternos;
+                $actaBautismo->AbuelosMaternos = $request->nombreAbuelosMaternos;
                 $actaBautismo->PadrinoBau1 = $request->nombreMadrinaB;
                 $actaBautismo->PadrinoBau2 = $request->nombrePadrinoB;
+                $actaBautismo->SacerdoteBautiza = $request->nombreSacerdoteBau;
                 $actaBautismo->NotasMarginales = $request->notasMarginalesBauEdit;
                 $actaBautismo->IDUbicacionActaBau = $UbicacionActaBautismo->IDUbicacionActa;
                 $actaBautismo->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;

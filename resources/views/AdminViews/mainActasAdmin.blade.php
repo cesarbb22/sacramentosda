@@ -94,13 +94,13 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <input id="nombrePadre" name='nombrePadre' type="text" class="validate" required disabled>
-                                <label for="nombrePadre">Nombre completo del padre:</label>
+                                <label for="nombrePadre">Nombre del padre:</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
                                 <input id="nombreMadre" name='nombreMadre' type="text" class="validate" disabled>
-                                <label for="nombreMadre">Nombre completo de la madre:</label>
+                                <label for="nombreMadre">Nombre de la madre:</label>
                             </div>
                         </div>
                     </div>
@@ -182,17 +182,35 @@
 
                                 <div class="row">
                                     <div class="input-field col s8">
+                                        <input id="nombreAbuelosPaternos" name="nombreAbuelosPaternos" type="text" class="validate"
+                                               required disabled>
+                                        <label for="nombreAbuelosPaternos">Nombre de abuelos paternos:</label>
+                                    </div>
+                                    <div class="input-field col s8">
+                                        <input id="nombreAbuelosMaternos" name="nombreAbuelosMaternos" type="text" class="validate"
+                                               required disabled>
+                                        <label for="nombreAbuelosMaternos">Nombre de abuelos maternos:</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s8">
                                         <input id="nombreMadrina" name="nombreMadrinaB" type="text" class="validate"
                                                required disabled>
-                                        <label for="nombreMadrina">Nombre completo de la madrina:</label>
+                                        <label for="nombreMadrina">Nombre de la madrina:</label>
                                     </div>
                                     <div class="input-field col s8">
                                         <input id="nombrePadrino" name="nombrePadrinoB" type="text" class="validate"
                                                required disabled>
-                                        <label for="nombrePadrino">Nombre completo del padrino:</label>
+                                        <label for="nombrePadrino">Nombre del padrino:</label>
                                     </div>
                                     <div class="input-field col s8">
-                                        <label for="informacion">Esta Información consta en:</label>
+                                        <input id="nombreSacerdoteBau" name="nombreSacerdoteBau" type="text" class="validate"
+                                               required disabled>
+                                        <label for="nombreSacerdoteBau">Nombre de sacerdote que bautiza:</label>
+                                    </div>
+                                    <div class="input-field col s8">
+                                        <label for="informacion">Esta información consta en:</label>
                                     </div>
                                 </div>
 
@@ -275,10 +293,10 @@
                                     <div class="input-field col s8">
                                         <input id="nombrePadrino1" name="nombrePadrinoC1" type="text" class="validate"
                                                required disabled>
-                                        <label for="nombrePadrino1">Nombre completo del padrino o madrina:</label>
+                                        <label for="nombrePadrino1">Nombre del padrino o madrina:</label>
                                     </div>
                                     <div class="input-field col s8">
-                                        <label for="informacion">Esta Información consta en:</label>
+                                        <label for="informacion">Esta información consta en:</label>
                                     </div>
                                 </div>
 
@@ -362,10 +380,10 @@
                                     <div class="input-field col s8">
                                         <input id="nombreConyuge" name="nombreConyuge" type="text" class="validate"
                                                required disabled>
-                                        <label for="nombreConyuge">Nombre completo del cónyuge:</label>
+                                        <label for="nombreConyuge">Nombre del cónyuge:</label>
                                     </div>
                                     <div class="input-field col s8">
-                                        <label for="informacion">Esta Información consta en:</label>
+                                        <label for="informacion">Esta información consta en:</label>
                                     </div>
                                 </div>
 
@@ -452,7 +470,7 @@
                                         <label for="causaDefuncion">Causa de la muerte:</label>
                                     </div>
                                     <div class="input-field col s8">
-                                        <label for="informacion">Esta Información consta en:</label>
+                                        <label for="informacion">Esta información consta en:</label>
                                     </div>
                                 </div>
 
@@ -525,8 +543,11 @@
                     $("#parroquiaBautismo").prop('disabled', false);
                     $("#lugarBautizo").prop('disabled', false);
                     $("#fechaBaut").prop('disabled', false);
+                    $("#nombreAbuelosPaternos").prop('disabled', false);
+                    $("#nombreAbuelosMaternos").prop('disabled', false);
                     $("#nombreMadrina").prop('disabled', false);
                     $("#nombrePadrino").prop('disabled', false);
+                    $("#nombreSacerdoteBau").prop('disabled', false);
                     $("#numLibroB").prop('disabled', false);
                     $("#numFolioB").prop('disabled', false);
                     $("#numAsientoB").prop('disabled', false);
@@ -536,8 +557,11 @@
                     $("#lugarBautizo").val("");
                     $("#lugarBautizo").prop('disabled', true);
                     $("#fechaBaut").prop('disabled', true);
+                    $("#nombreAbuelosPaternos").prop('disabled', true);
+                    $("#nombreAbuelosMaternos").prop('disabled', true);
                     $("#nombreMadrina").prop('disabled', true);
                     $("#nombrePadrino").prop('disabled', true);
+                    $("#nombreSacerdoteBau").prop('disabled', true);
                     $("#numLibroB").prop('disabled', true);
                     $("#numFolioB").prop('disabled', true);
                     $("#numAsientoB").prop('disabled', true);

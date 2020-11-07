@@ -40,7 +40,7 @@
             <div class="row">
                 <div class="input-field col s4">
                  <input id="nombre" name='nombre' type="text" class="validate" required>
-                  <label for="nombree">Nombre completo del solicitante:</label>
+                  <label for="nombree">Nombre del solicitante:</label>
                  </div>
 
                 <div class="input-field col s3">

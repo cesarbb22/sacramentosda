@@ -49,7 +49,7 @@
             <table id='tablaConsulta' class="bordered centered">
                 <thead>
                 <tr>
-                    <th>Nombre Completo</th>
+                    <th>Nombre</th>
                     <th>Puesto</th>
                     <th>Email</th>
                     <th>Editar</th>

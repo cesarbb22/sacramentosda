@@ -96,14 +96,14 @@
                             <div class="input-field col s12">
                                 <input id="nombrePadreEdit" name='nombrePadreEdit' type="text"
                                        value="{{ $laico->NombrePadre }}" readonly>
-                                <label for="nombrePadreEdit">Nombre completo del padre:</label>
+                                <label for="nombrePadreEdit">Nombre del padre:</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
                                 <input id="nombreMadreEdit" name='nombreMadreEdit' type="text"
                                        value="{{ $laico->NombreMadre }} " readonly>
-                                <label for="nombreMadreEdit">Nombre completo de la madre:</label>
+                                <label for="nombreMadreEdit">Nombre de la madre:</label>
                             </div>
                         </div>
                     </div>
@@ -161,17 +161,35 @@
 
                         <div class="row">
                             <div class="input-field col s8">
+                                <input id="nombreAbuelosPaternos" name="nombreAbuelosPaternos" type="text"
+                                       value="{{ $actaBautismo->AbuelosPaternos }}" readonly>
+                                <label for="nombreAbuelosPaternos">Nombre de abuelos paternos:</label>
+                            </div>
+                            <div class="input-field col s8">
+                                <input id="nombreAbuelosMaternos" name="nombreAbuelosMaternos" type="text"
+                                       value="{{ $actaBautismo->AbuelosMaternos }}" readonly>
+                                <label for="nombreAbuelosMaternos">Nombre de abuelos maternos:</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s8">
                                 <input id="nombreMadrina" name="nombreMadrinaB" type="text"
                                        value="{{ $actaBautismo->PadrinoBau1 }}" readonly>
-                                <label for="nombreMadrina">Nombre completo de la madrina:</label>
+                                <label for="nombreMadrina">Nombre de la madrina:</label>
                             </div>
                             <div class="input-field col s8">
                                 <input id="nombrePadrino" name="nombrePadrinoB" type="text"
                                        value="{{ $actaBautismo->PadrinoBau2 }}" readonly>
-                                <label for="nombrePadrino">Nombre completo del padrino:</label>
+                                <label for="nombrePadrino">Nombre del padrino:</label>
                             </div>
                             <div class="input-field col s8">
-                                <label for="informacion">Esta Información consta en:</label>
+                                <input id="nombreSacerdoteBau" name="nombreSacerdoteBau" type="text"
+                                       value="{{ $actaBautismo->SacerdoteBautiza }}" readonly>
+                                <label for="nombreSacerdoteBau">Nombre de sacerdote que bautiza:</label>
+                            </div>
+                            <div class="input-field col s8">
+                                <label for="informacion">Esta información consta en:</label>
                             </div>
                         </div>
 
@@ -240,10 +258,10 @@
                         <div class="input-field col s8">
                             <input id="nombrePadrino1" name="nombrePadrinoC1" type="text"
                                    value="{{ $actaConfirma -> PadrinoCon1 }}" readonly>
-                            <label for="nombrePadrino1">Nombre completo del padrino o madrina:</label>
+                            <label for="nombrePadrino1">Nombre del padrino o madrina:</label>
                         </div>
                         <div class="input-field col s8">
-                            <label for="informacion">Esta Información consta en:</label>
+                            <label for="informacion">Esta información consta en:</label>
                         </div>
                     </div>
 
@@ -311,10 +329,10 @@
                         <div class="input-field col s8">
                             <input id="nombreConyuge" name="nombreConyuge" type="text"
                                    value="{{ $actaMatrimonio -> NombreConyugue }}" readonly>
-                            <label for="nombreConyuge">Nombre completo del cónyuge:</label>
+                            <label for="nombreConyuge">Nombre del cónyuge:</label>
                         </div>
                         <div class="input-field col s8">
-                            <label for="informacion">Esta Información consta en:</label>
+                            <label for="informacion">Esta información consta en:</label>
                         </div>
                     </div>
 
@@ -385,7 +403,7 @@
                             <label for="causaDefuncion">Causa de la muerte:</label>
                         </div>
                         <div class="input-field col s8">
-                            <label for="informacion">Esta Información consta en:</label>
+                            <label for="informacion">Esta información consta en:</label>
                         </div>
                     </div>
 

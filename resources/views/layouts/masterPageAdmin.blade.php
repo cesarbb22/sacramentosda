@@ -20,7 +20,7 @@
           media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{{ asset('css/masterPage.css') }}"/>
 
-    <title>Diócesis de Alajuela</title>
+    <title>Gestión de Sacramentos | Diócesis de Alajuela</title>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="_token" content="{!! csrf_token() !!}"/>

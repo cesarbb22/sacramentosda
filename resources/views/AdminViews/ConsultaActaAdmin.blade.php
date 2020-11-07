@@ -115,7 +115,7 @@
                 <thead>
                 <tr>
                     <th>Cédula</th>
-                    <th>Nombre Completo</th>
+                    <th>Nombre</th>
                     <th>Lugar de Bautismo</th>
                     <th>Fecha de Nacimiento</th>
                     <th>Detalle</th>
