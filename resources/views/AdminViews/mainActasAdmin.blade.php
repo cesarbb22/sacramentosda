@@ -175,7 +175,7 @@
                                 <div class="row" id="lugarBautizoDiv">
                                     <div class="input-field col s6">
                                         <input id="lugarBautizo" name="lugarBautizo" type="text" class=""
-                                               required disabled>
+                                               disabled>
                                         <label for="lugarBautizo"> Bautizado en:</label>
                                     </div>
                                 </div>

@@ -246,7 +246,7 @@
                                             <p>No cuenta con esta partida</p>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input type="checkbox" id="checkBautismo"/>
+                                            <input type="checkbox" id="checkBautismo" name="checkBautismo"/>
                                             <label for="checkBautismo">Agregar Bautismo</label>
                                         </div>
                                     </div>
@@ -428,7 +428,7 @@
                                             <p>No cuenta con esta partida</p>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input type="checkbox" id="checkConfirma"/>
+                                            <input type="checkbox" id="checkConfirma" name="checkConfirma"/>
                                             <label for="checkConfirma">Agregar Confirma</label>
                                         </div>
                                     </div>
@@ -589,7 +589,7 @@
                                             <p>No cuenta con esta partida</p>
                                         </div>
                                         <div class="input-field col s6">
-                                            <input type="checkbox" id="checkMatrimonio"/>
+                                            <input type="checkbox" id="checkMatrimonio" name="checkMatrimonio"/>
                                             <label for="checkMatrimonio">Agregar Matrimonio</label>
                                         </div>
                                     </div>
@@ -750,7 +750,7 @@
                                         <p>No cuenta con esta partida</p>
                                     </div>
                                     <div class="input-field col s6">
-                                        <input type="checkbox" id="checkDefuncion"/>
+                                        <input type="checkbox" id="checkDefuncion" name="checkDefuncion"/>
                                         <label for="checkDefuncion">Agregar Defunción</label>
                                     </div>
                                 </div>

@@ -391,7 +391,7 @@ class ActaUsuarioController extends Controller
                     $UbicacionActaBautismo->Asiento = $request->numAsientoB;
                     $UbicacionActaBautismo->save();
                 }
-            } else if ($request->has('parroquiaBautismo') or $request->has('lugarBautizo')) {
+            } else if ($request->has('checkBautismo')) {
                 $UbicacionActaBautismo = new UbicacionActa;
                 $UbicacionActaBautismo->Libro = $request->numLibroB;
                 $UbicacionActaBautismo->Folio = $request->numFolioB;
@@ -449,7 +449,7 @@ class ActaUsuarioController extends Controller
                     $UbicacionActaConfirma->Asiento = $request->numAsientoC;
                     $UbicacionActaConfirma->save();
                 }
-            } else if ($request->has('parroquiaConfirma') or $request->has('lugarConfirma')) {
+            } else if ($request->has('checkConfirma')) {
                 $UbicacionActaConfirma = new UbicacionActa;
                 $UbicacionActaConfirma->Libro = $request->numLibroC;
                 $UbicacionActaConfirma->Folio = $request->numFolioC;
@@ -503,7 +503,7 @@ class ActaUsuarioController extends Controller
                     $UbicacionActaMatrimonio->Asiento = $request->numAsientoM;
                     $UbicacionActaMatrimonio->save();
                 }
-            } else if ($request->has('fechaMatrimonio') or $request->has('lugarMatrimonio')) {
+            } else if ($request->has('checkMatrimonio')) {
                 $UbicacionActaMatrimonio = new UbicacionActa;
                 $UbicacionActaMatrimonio->Libro = $request->numLibroM;
                 $UbicacionActaMatrimonio->Folio = $request->numFolioM;
@@ -557,7 +557,7 @@ class ActaUsuarioController extends Controller
                     $UbicacionActaDefuncion->Asiento = $request->numAsientoD;
                     $UbicacionActaDefuncion->save();
                 }
-            } else if ($request->has('fechaDefuncion') or $request->has('lugarDefuncion')) {
+            } else if ($request->has('checkDefuncion')) {
                 $UbicacionActaDefuncion = new UbicacionActa;
                 $UbicacionActaDefuncion->Libro = $request->numLibroD;
                 $UbicacionActaDefuncion->Folio = $request->numFolioD;
