@@ -186,14 +186,13 @@
                     success: function (data) {
                         $("#tablaConsulta td").parent().remove();
 
-                        console.log(data);
                         var len = data.length;
                         for (var i = 0; i < len; i++) {
-                            var idPersona = data[i].IDPersona;
-                            var cedula = data[i].persona.Cedula;
-                            var nombre = data[i].persona.Nombre;
-                            var primerApellido = data[i].persona.PrimerApellido;
-                            var segundoApellido = data[i].persona.SegundoApellido;
+                            idPersona = data[i].IDPersona;
+                            cedula = data[i].persona.Cedula != null ? data[i].persona.Cedula : "---";
+                            nombre = data[i].persona.Nombre != null ? data[i].persona.Nombre : "";
+                            primerApellido = data[i].persona.PrimerApellido != null ? data[i].persona.PrimerApellido : "";
+                            segundoApellido = data[i].persona.SegundoApellido != null ? data[i].persona.SegundoApellido : "";
 
                             var lugarBautismo = "---";
                             if (data[i].bautismo !== null && data[i].bautismo.parroquia !== null) {
