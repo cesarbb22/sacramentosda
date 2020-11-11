@@ -284,7 +284,7 @@
                                 <div class="row" id="lugarConfirmaDiv">
                                     <div class="input-field col s6">
                                         <input id="lugarConfirma" name="lugarConfirma" type="text" class=""
-                                               required disabled>
+                                               disabled>
                                         <label for="lugarConfirma"> Confirmado en:</label>
                                     </div>
                                 </div>
@@ -371,7 +371,7 @@
                                 <div class="row" id="lugarMatrimonioDiv">
                                     <div class="input-field col s6">
                                         <input id="lugarMatrimonio" name="lugarMatrimonio" type="text" class=""
-                                               required disabled>
+                                               disabled>
                                         <label for="lugarMatrimonio"> Matrimonio en:</label>
                                     </div>
                                 </div>
@@ -458,7 +458,7 @@
                                 <div class="row" id="lugarDefuncionDiv">
                                     <div class="input-field col s6">
                                         <input id="lugarDefuncion" name="lugarDefuncion" type="text" class=""
-                                               required disabled>
+                                               disabled>
                                         <label for="lugarDefuncion"> Defunción en:</label>
                                     </div>
                                 </div>
