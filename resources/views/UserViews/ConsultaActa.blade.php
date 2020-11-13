@@ -131,6 +131,11 @@
                 <tbody>
                 </tbody>
             </table>
+
+            <div style="text-align: center">
+                <ul class="pagination">
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -273,35 +278,43 @@
                 });
             });
 
+            $(document).on('click', '.pagination a', function (event) {
+                event.preventDefault();
+                var page = $(this).attr('href').split('page=')[1];
+                getData(page);
+            });
 
             $('#queryForm').on('submit', function (e) {
                 e.preventDefault();
+                getData(1);
+            });
 
+            function getData(page) {
                 $.ajax({
                     type: "POST",
-                    url: "/queryPersonasUsuario",
+                    url: "/queryPersonasUsuario?page=" + page,
                     data: $("#queryForm").serialize(), // serializes the form's elements.
                     success: function (data) {
                         $("#tablaConsulta td").parent().remove();
 
-                        var len = data.length;
+                        var len = data.data.length;
                         for (var i = 0; i < len; i++) {
-                            idPersona = data[i].IDPersona;
-                            cedula = data[i].persona.Cedula != null ? data[i].persona.Cedula : "---";
-                            nombre = data[i].persona.Nombre != null ? data[i].persona.Nombre : "";
-                            primerApellido = data[i].persona.PrimerApellido != null ? data[i].persona.PrimerApellido : "";
-                            segundoApellido = data[i].persona.SegundoApellido != null ? data[i].persona.SegundoApellido : "";
+                            idPersona = data.data[i].IDPersona;
+                            cedula = data.data[i].persona.Cedula != null ? data.data[i].persona.Cedula : "---";
+                            nombre = data.data[i].persona.Nombre != null ? data.data[i].persona.Nombre : "";
+                            primerApellido = data.data[i].persona.PrimerApellido != null ? data.data[i].persona.PrimerApellido : "";
+                            segundoApellido = data.data[i].persona.SegundoApellido != null ? data.data[i].persona.SegundoApellido : "";
 
                             var lugarBautismo = "---";
-                            if (data[i].bautismo !== null && data[i].bautismo.parroquia !== null) {
-                                lugarBautismo = data[i].bautismo.parroquia.NombreParroquia;
-                            } else if (data[i].bautismo !== null) {
-                                lugarBautismo = data[i].bautismo.LugarBautismo;
+                            if (data.data[i].bautismo !== null && data.data[i].bautismo.parroquia !== null) {
+                                lugarBautismo = data.data[i].bautismo.parroquia.NombreParroquia;
+                            } else if (data.data[i].bautismo !== null) {
+                                lugarBautismo = data.data[i].bautismo.LugarBautismo;
                             }
 
                             var fechaNacimiento = '---';
-                            if (data[i].persona.laico.FechaNacimiento !== null) {
-                                fechaNacimiento = formatDateToString(data[i].persona.laico.FechaNacimiento);
+                            if (data.data[i].persona.laico.FechaNacimiento !== null) {
+                                fechaNacimiento = formatDateToString(data.data[i].persona.laico.FechaNacimiento);
                             }
 
                             var iconDetalle = "<i class='material-icons'>description</i>";
@@ -318,9 +331,32 @@
                             document.getElementById(idPersona + "Editar").setAttribute('href', window.location.origin + '/EditarUsuario/' + idPersona);
                             document.getElementById(idPersona + "Detalle").setAttribute('href', window.location.origin + '/DetalleUsuario/' + idPersona);
                         }
+
+                        // pagination
+                        var from = data.from;
+                        var last = data.last_page;
+                        $(".pagination").empty();
+                        if (from == data.current_page) {
+                            $(".pagination").append("<li class='disabled'><a href='#!'><i class='material-icons'>chevron_left</i></a></li>");
+                        } else {
+                            $(".pagination").append("<li class='waves-effect'><a href='"+ data.prev_page_url +"'><i class='material-icons'>chevron_left</i></a></li>");
+                        }
+                        for (var i = 1; i <= last; i++) {
+
+                            if (i == data.current_page) {
+                                $(".pagination").append("<li class='active'><a href='http://127.0.0.1:8000/queryPersonas?page="+ i +"'>"+ i +"</a></li>");
+                            } else {
+                                $(".pagination").append("<li class='waves-effect'><a href='http://127.0.0.1:8000/queryPersonas?page="+ i +"'>"+ i +"</a></li>");
+                            }
+                        }
+                        if (last == data.current_page) {
+                            $(".pagination").append("<li class='disabled'><a href='#!'><i class='material-icons'>chevron_right</i></a></li>");
+                        } else {
+                            $(".pagination").append("<li class='waves-effect'><a href='"+ data.next_page_url +"'><i class='material-icons'>chevron_right</i></a></li>");
+                        }
                     }
                 });
-            });
+            }
         };
 
         function formatDateToString(dateString)

@@ -12,8 +12,9 @@ class consultaAdmin extends Controller
     public function home() {
         $parroquias = \App\Parroquia::all();
         $personas = \App\Persona::All();
+        $acta = Acta::paginate(0);
 
-        return view('AdminViews.ConsultaActaAdmin', ['parroquias'=> $parroquias, 'personas'=> $personas]);
+        return view('AdminViews.ConsultaActaAdmin', ['parroquias'=> $parroquias, 'personas'=> $personas, 'acta'=> $acta]);
     }
 
     public function query(Request $request) {
@@ -23,17 +24,17 @@ class consultaAdmin extends Controller
                     ->whereHas('persona', function (Builder $query) use ($cedula) {
                         $query->where('persona.Cedula', 'like', '%'.$cedula.'%');
                     })
-                    ->get();
-                return $acta;
+                    ->paginate(11);
+            return $acta;
         } else {
             if ($request->nombre != '' && $request->parroquia != '' && $request->fechaInicio != '') {
                 $nombre = $request->nombre;
-                $fechaInicio = date('Y-m-d', strtotime($request->fechaInicio));
+                $fechaInicio = date('Y-d-m', strtotime($request->fechaInicio));
                 $fechaFin = $request->fechaFin;
                 if ($fechaFin == '') {
                     $fechaFin = date('Y-m-d');
                 } else {
-                    $fechaFin = date('Y-m-d', strtotime($request->fechaFin));
+                    $fechaFin = date('Y-d-m', strtotime($request->fechaFin));
                 }
 
                 if ($request->parroquia != 'otro') {
@@ -48,7 +49,7 @@ class consultaAdmin extends Controller
                         ->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
                             $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
                         })
-                        ->get();
+                        ->paginate(11);
                 } else {
                     $lugar = $request->lugar;
                     $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia')
@@ -61,7 +62,7 @@ class consultaAdmin extends Controller
                         ->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
                             $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
                         })
-                        ->get();
+                        ->paginate(11);
                 }
 
                 return $acta;
@@ -78,7 +79,7 @@ class consultaAdmin extends Controller
                             ->whereHas('bautismo', function (Builder $query) use ($parroquia) {
                                 $query->where('actabautismo.IDParroquiaBautismo', $parroquia); // side note: operator '=' is default, so can be ommited
                             })
-                            ->get();
+                            ->paginate(11);
                     } else {
                         $lugar = $request->lugar;
                         $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia')
@@ -88,18 +89,18 @@ class consultaAdmin extends Controller
                             ->whereHas('bautismo', function (Builder $query) use ($lugar) {
                                 $query->where('actabautismo.LugarBautismo', 'like', '%'.$lugar.'%');
                             })
-                            ->get();
+                            ->paginate(11);
                     }
 
                     return $acta;
                 } else {
                     if ($request->parroquia != '' && $request->fechaInicio != '') {
-                        $fechaInicio = date('Y-m-d', strtotime($request->fechaInicio));
+                        $fechaInicio = date('Y-d-m', strtotime($request->fechaInicio));
                         $fechaFin = $request->fechaFin;
                         if ($fechaFin == '') {
                             $fechaFin = date('Y-m-d');
                         } else {
-                            $fechaFin = date('Y-m-d', strtotime($request->fechaFin));
+                            $fechaFin = date('Y-d-m', strtotime($request->fechaFin));
                         }
 
                         if ($request->parroquia != 'otro') {
@@ -111,7 +112,7 @@ class consultaAdmin extends Controller
                                 ->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
                                     $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
                                 })
-                                ->get();
+                                ->paginate(11);
                         } else {
                             $lugar = $request->lugar;
                             $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia')
@@ -121,19 +122,19 @@ class consultaAdmin extends Controller
                                 ->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
                                     $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
                                 })
-                                ->get();
+                                ->paginate(11);
                         }
 
                         return $acta;
                     } else {
                         if ($request->nombre != '' && $request->fechaInicio != '') {
                             $nombre = $request->nombre;
-                            $fechaInicio = date('Y-m-d', strtotime($request->fechaInicio));
+                            $fechaInicio = date('Y-d-m', strtotime($request->fechaInicio));
                             $fechaFin = $request->fechaFin;
                             if ($fechaFin == '') {
                                 $fechaFin = date('Y-m-d');
                             } else {
-                                $fechaFin = date('Y-m-d', strtotime($request->fechaFin));
+                                $fechaFin = date('Y-d-m', strtotime($request->fechaFin));
                             }
 
                             $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia')
@@ -143,7 +144,7 @@ class consultaAdmin extends Controller
                                 ->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
                                     $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
                                 })
-                                ->get();
+                                ->paginate(11);
 
                             return $acta;
                         } else {
@@ -154,7 +155,7 @@ class consultaAdmin extends Controller
                                     ->whereHas('persona', function (Builder $query) use ($nombre) {
                                         $query->whereRaw('concat(persona.Nombre," ",persona.PrimerApellido," ",persona.SegundoApellido) like "%'.$nombre.'%"');
                                     })
-                                ->get();
+                                ->paginate(11);
 
                                 return $acta;
                             } else {
@@ -165,32 +166,32 @@ class consultaAdmin extends Controller
                                             ->whereHas('bautismo', function (Builder $query) use ($parroquia) {
                                                 $query->where('actabautismo.IDParroquiaBautismo', $parroquia);
                                             })
-                                            ->get();
+                                            ->paginate(11);
                                     } else {
                                         $lugar = $request->lugar;
                                         $acta = Acta::with(['persona', 'persona.laico', 'bautismo', 'bautismo.parroquia'])
                                             ->whereHas('bautismo', function (Builder $query) use ($lugar) {
                                                 $query->where('actabautismo.LugarBautismo', 'like', '%'.$lugar.'%');
                                             })
-                                            ->get();
+                                            ->paginate(11);
                                     }
 
                                     return $acta;
                                 } else {
                                     if ($request->fechaInicio != '') {
-                                        $fechaInicio = date('Y-m-d', strtotime($request->fechaInicio));
+                                        $fechaInicio = date('Y-d-m', strtotime($request->fechaInicio));
                                         $fechaFin = $request->fechaFin;
                                         if ($fechaFin == '') {
                                             $fechaFin = date('Y-m-d');
                                         } else {
-                                            $fechaFin = date('Y-m-d', strtotime($request->fechaFin));
+                                            $fechaFin = date('Y-d-m', strtotime($request->fechaFin));
                                         }
 
                                         $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia')
                                             ->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
-                                                $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
+                                                $query->whereBetween('laico.FechaNacimiento', array($fechaInicio, $fechaFin)); // side note: operator '=' is default, so can be ommited
                                             })
-                                            ->get();
+                                            ->paginate(11);
 
                                         return $acta;
                                     }
