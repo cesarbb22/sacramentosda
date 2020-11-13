@@ -83,11 +83,11 @@
                     <div class="input-field col s4">
                         <p>
                             <input name='tipoHijo' type="radio" id="tipoH1"/>
-                            <label for="tipoH1">Hijo Natural</label>
+                            <label for="tipoH1">Hijo no reconocido</label>
                         </p>
                         <p>
                             <input name='tipoHijo' type="radio" id="tipoH2"/>
-                            <label for="tipoH2">Hijo Legítimo</label>
+                            <label for="tipoH2">Hijo legítimo</label>
                         </p>
                     </div>
                     <div class="col s8">

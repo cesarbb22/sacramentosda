@@ -33,9 +33,9 @@
         <label for="persona"><b>Se encuentra la información de: </b>{{  $personaNom}} {{    $personaAp1 }} {{  $personaAp2 }}</label>   <br/>
         <label for="cedula"> <b>Cédula de identidad: </b>  {{  $numCedulaEdit}}</label><br/>
           @if($tipoHijo == 1 )
-          <label for="Hij(o)1"><b> Hij(o): </b> Natural </label>
+          <label for="Hij(o)1"><b> Hij(o): </b> no reconocido </label>
           @else
-           <label for="Hij(o)2"><b> Hij(o): </b>Legítimo </label>
+           <label for="Hij(o)2"><b> Hij(o): </b>legítimo </label>
           @endif
         <label for="de"> <b>de: </b>{{  $personamadre }} {{    $personaPadre}}</label>  <br/>
         <label for="Nacido"> <b>Nacido en: </b> {{ $nacidolugar }}  </label> <br/>

@@ -614,9 +614,9 @@ class ActaUsuarioController extends Controller
             $laico->FechaNacimiento = $this->formatDateToString($date);
 
             if ($laico->IDTipo_Hijo == 1) {
-                $tipoHijo = "Natural";
+                $tipoHijo = "no reconocido";
             } else {
-                $tipoHijo = "Legítimo";
+                $tipoHijo = "legítimo";
             }
 
             if ($idBautismo != null) {
