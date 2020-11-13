@@ -183,12 +183,16 @@
                                 <div class="row">
                                     <div class="input-field col s8">
                                         <input id="nombreAbuelosPaternos" name="nombreAbuelosPaternos" type="text" class="validate"
-                                               required disabled>
+                                               required disabled
+                                               oninvalid="this.setCustomValidity('Campo requerido')"
+                                               oninput="setCustomValidity('')">
                                         <label for="nombreAbuelosPaternos">Nombre de abuelos paternos:</label>
                                     </div>
                                     <div class="input-field col s8">
                                         <input id="nombreAbuelosMaternos" name="nombreAbuelosMaternos" type="text" class="validate"
-                                               required disabled>
+                                               required disabled
+                                               oninvalid="this.setCustomValidity('Campo requerido')"
+                                               oninput="setCustomValidity('')">
                                         <label for="nombreAbuelosMaternos">Nombre de abuelos maternos:</label>
                                     </div>
                                 </div>
@@ -196,17 +200,23 @@
                                 <div class="row">
                                     <div class="input-field col s8">
                                         <input id="nombreMadrina" name="nombreMadrinaB" type="text" class="validate"
-                                               required disabled>
+                                               required disabled
+                                               oninvalid="this.setCustomValidity('Campo requerido')"
+                                               oninput="setCustomValidity('')">
                                         <label for="nombreMadrina">Nombre de la madrina:</label>
                                     </div>
                                     <div class="input-field col s8">
                                         <input id="nombrePadrino" name="nombrePadrinoB" type="text" class="validate"
-                                               required disabled>
+                                               required disabled
+                                               oninvalid="this.setCustomValidity('Campo requerido')"
+                                               oninput="setCustomValidity('')">
                                         <label for="nombrePadrino">Nombre del padrino:</label>
                                     </div>
                                     <div class="input-field col s8">
                                         <input id="nombreSacerdoteBau" name="nombreSacerdoteBau" type="text" class="validate"
-                                               required disabled>
+                                               required disabled
+                                               oninvalid="this.setCustomValidity('Campo requerido')"
+                                               oninput="setCustomValidity('')">
                                         <label for="nombreSacerdoteBau">Nombre de sacerdote que bautiza:</label>
                                     </div>
                                     <div class="input-field col s8">
@@ -292,7 +302,9 @@
                                 <div class="row">
                                     <div class="input-field col s8">
                                         <input id="nombrePadrino1" name="nombrePadrinoC1" type="text" class="validate"
-                                               required disabled>
+                                               required disabled
+                                               oninvalid="this.setCustomValidity('Campo requerido')"
+                                               oninput="setCustomValidity('')">
                                         <label for="nombrePadrino1">Nombre del padrino o madrina:</label>
                                     </div>
                                     <div class="input-field col s8">
@@ -379,7 +391,9 @@
                                 <div class="row">
                                     <div class="input-field col s8">
                                         <input id="nombreConyuge" name="nombreConyuge" type="text" class="validate"
-                                               required disabled>
+                                               required disabled
+                                               oninvalid="this.setCustomValidity('Campo requerido')"
+                                               oninput="setCustomValidity('')">
                                         <label for="nombreConyuge">Nombre del cónyuge:</label>
                                     </div>
                                     <div class="input-field col s8">
@@ -466,7 +480,9 @@
                                 <div class="row">
                                     <div class="input-field col s8">
                                         <input id="causaDefuncion" name="causaDefuncion" type="text" class="validate"
-                                               required disabled>
+                                               required disabled
+                                               oninvalid="this.setCustomValidity('Campo requerido')"
+                                               oninput="setCustomValidity('')">
                                         <label for="causaDefuncion">Causa de la muerte:</label>
                                     </div>
                                     <div class="input-field col s8">
