@@ -471,11 +471,9 @@
     </div>
 
     <script>
-
         function closeModal() {
             $('.modal').modal('close');
             $('#codigo').val('');
-
         }
 
         window.onload = function () {
