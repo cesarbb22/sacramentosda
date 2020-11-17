@@ -25,13 +25,15 @@ class GenerarPDF extends Controller
         $fecNacFormatted = $fechaNac->format('d') . ' de ' . $mesNac . ' de ' . $fechaNac->format('Y');
 
         // fecha bautismo
-        $fechaBau = Carbon::parse($acta->bautismo->FechaBautismo);
-        $mesBau = $meses[($fechaBau->format('n')) - 1];
-        $fecBauFormatted = $fechaBau->format('d') . ' de ' . $mesBau . ' de ' . $fechaBau->format('Y');
+        if ($acta->bautismo != null) {
+            $fechaBau = Carbon::parse($acta->bautismo->FechaBautismo);
+            $mesBau = $meses[($fechaBau->format('n')) - 1];
+            $fecBauFormatted = $fechaBau->format('d') . ' de ' . $mesBau . ' de ' . $fechaBau->format('Y');
+        }
 
         // fecha confirma
         $fecConfFormatted = null;
-        if ($acta->confirma->FechaConfirma != null) {
+        if ($acta->confirma != null && $acta->confirma->FechaConfirma != null) {
             $fechaConf = Carbon::parse($acta->confirma->FechaConfirma);
             $mesConf = $meses[($fechaConf->format('n')) - 1];
             $fecConfFormatted = $fechaConf->format('d') . ' de ' . $mesConf . ' de ' . $fechaConf->format('Y');
@@ -39,7 +41,7 @@ class GenerarPDF extends Controller
 
         // fecha matrimonio
         $fecMatFormatted = null;
-        if ($acta->matrimonio->FechaMatrimonio != null) {
+        if ($acta->matrimonio != null && $acta->matrimonio->FechaMatrimonio != null) {
             $fechaMat = Carbon::parse($acta->matrimonio->FechaMatrimonio);
             $mesMat = $meses[($fechaMat->format('n')) - 1];
             $fecMatFormatted = $fechaMat->format('d') . ' de ' . $mesMat . ' de ' . $fechaMat->format('Y');

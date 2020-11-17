@@ -58,59 +58,91 @@
                     <tr>
                         <td class="izq-texto"><strong>Bautismo:</strong></td>
                         <td>el {{ $fecBau }}</td>
-                        @if($acta->bautismo->IDParroquiaBautismo != null)
+                        @if($acta->bautismo != null && $acta->bautismo->IDParroquiaBautismo != null)
                             <td>en la Parroquia {{ $acta->bautismo->parroquia->NombreParroquia }}</td>
-                        @else
+                        @elseif($acta->bautismo != null)
                             <td>en {{ $acta->bautismo->LugarBautismo }}</td>
                         @endif
                     </tr>
                     <tr>
                         <td></td>
-                        <td colspan="2">Padrino: {{ $acta->bautismo->PadrinoBau2 }}</td>
+                        @if($acta->bautismo != null)
+                            <td colspan="2">Padrino: {{ $acta->bautismo->PadrinoBau2 }}</td>
+                        @else
+                            <td></td>
+                        @endif
                     </tr>
                     <tr class="tr-padding">
                         <td></td>
-                        <td colspan="2">Madrina: {{ $acta->bautismo->PadrinoBau1 }}</td>
-                    </tr>
-
-                    <tr class="tr-padding">
-                        <td class="izq-texto"><strong>Confirmación:</strong></td>
-                        @if($acta->confirma->FechaConfirma == null)
-                            <td>NO CONSTA FECHA</td>
+                        @if($acta->bautismo != null)
+                            <td colspan="2">Madrina: {{ $acta->bautismo->PadrinoBau1 }}</td>
                         @else
-                            <td>el {{ $fecConf }}</td>
-                        @endif
-
-                        @if($acta->confirma->IDParroquiaConfirma != null)
-                            <td>en la Parroquia {{ $acta->confirma->parroquia->NombreParroquia }}</td>
-                        @else
-                            <td>en {{ $acta->confirma->LugarConfirma }}</td>
+                            <td></td>
                         @endif
                     </tr>
 
-                    <tr>
-                        <td class="izq-texto"><strong>Matrimonio:</strong></td>
-                        @if($acta->matrimonio->FechaMatrimonio == null)
-                            <td>NO CONSTA FECHA</td>
-                        @else
-                            <td>el {{ $fecMat }}</td>
-                        @endif
+                    @if($acta->confirma != null)
+                        <tr class="tr-padding">
+                            <td class="izq-texto"><strong>Confirmación:</strong></td>
+                            @if($acta->confirma->FechaConfirma == null)
+                                <td>NO CONSTA FECHA</td>
+                            @else
+                                <td>el {{ $fecConf }}</td>
+                            @endif
 
-                        @if($acta->matrimonio->IDParroquiaMatrimonio != null)
-                            <td>en la Parroquia {{ $acta->matrimonio->parroquia->NombreParroquia }}</td>
-                        @else
-                            <td>en {{ $acta->matrimonio->LugarMatrimonio }}</td>
-                        @endif
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td colspan="2">con {{ $acta->matrimonio->NombreConyugue }}</td>
-                    </tr>
+                            @if($acta->confirma->IDParroquiaConfirma != null)
+                                <td>en la Parroquia {{ $acta->confirma->parroquia->NombreParroquia }}</td>
+                            @elseif($acta->confirma != null)
+                                <td>en {{ $acta->confirma->LugarConfirma }}</td>
+                            @endif
+                        </tr>
+                    @else
+                        <tr class="tr-padding">
+                            <td class="izq-texto"><strong>Confirmación:</strong></td>
+                            <td>NO CONSTA</td>
+                        </tr>
+                    @endif
+
+                    @if($acta->matrimonio != null)
+                        <tr>
+                            <td class="izq-texto"><strong>Matrimonio:</strong></td>
+                            @if($acta->matrimonio->FechaMatrimonio == null)
+                                <td>NO CONSTA FECHA</td>
+                            @else
+                                <td>el {{ $fecMat }}</td>
+                            @endif
+
+                            @if($acta->matrimonio->IDParroquiaMatrimonio != null)
+                                <td>en la Parroquia {{ $acta->matrimonio->parroquia->NombreParroquia }}</td>
+                            @elseif($acta->matrimonio != null)
+                                <td>en {{ $acta->matrimonio->LugarMatrimonio }}</td>
+                            @endif
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td colspan="2">con {{ $acta->matrimonio->NombreConyugue }}</td>
+                        </tr>
+                    @else
+                        <tr>
+                            <td class="izq-texto"><strong>Matrimonio:</strong></td>
+                            <td>NO CONSTA</td>
+                        </tr>
+                        <tr>
+                        </tr>
+                    @endif
                 </table>
             </div>
 
             <div class="observacionesDiv">
-                <p class="izq-texto">Notas Marginales: {{ $acta->bautismo->NotasMarginales . ' ' . $acta->confirma->NotasMarginales . ' ' . $acta->matrimonio->NotasMarginales }}</p>
+                @if($acta->confirma != null && $acta->matrimonio == null)
+                    <p class="izq-texto">Notas Marginales: {{ $acta->bautismo->NotasMarginales . ' ' . $acta->confirma->NotasMarginales }}</p>
+                @elseif($acta->confirma == null && $acta->matrimonio != null)
+                    <p class="izq-texto">Notas Marginales: {{ $acta->bautismo->NotasMarginales . ' ' . $acta->matrimonio->NotasMarginales }}</p>
+                @elseif($acta->confirma == null && $acta->matrimonio == null)
+                    <p class="izq-texto">Notas Marginales: {{ $acta->bautismo->NotasMarginales }}</p>
+                @elseif($acta->confirma != null && $acta->matrimonio != null)
+                    <p class="izq-texto">Notas Marginales: {{ $acta->bautismo->NotasMarginales . ' ' . $acta->confirma->NotasMarginales . ' ' . $acta->matrimonio->NotasMarginales }}</p>
+                @endif
             </div>
 
             <div class="registrosDiv centrar-texto">
@@ -132,8 +164,14 @@
             </div>
 
             <div class="extiendeDiv centrar-texto">
-                <p>Se extiende la presente solicitud del interesado, dado en la Parroquia <strong>{{ Auth::user()->parroquia->NombreParroquia }}</strong>
-                 el {{ $fecHoy }}</p>
+
+                @if(Auth::user()->IDPuesto == 1 || Auth::user()->IDPuesto == 2)
+                    <p>Se extiende la presente solicitud del interesado, dado en la <strong>Curia Diocesana de Alajuela</strong>
+                        el {{ $fecHoy }}</p>
+                @else
+                    <p>Se extiende la presente solicitud del interesado, dado en la Parroquia <strong>{{ Auth::user()->parroquia->NombreParroquia }}</strong>
+                        el {{ $fecHoy }}</p>
+                @endif
             </div>
 
             <div class="firmaDiv centrar-texto">
