@@ -62,7 +62,9 @@
                 <div class="row">
                     <div class="input-field col s4">
                         <input id="numCedulaEdit" name='numCedulaEdit' type="text" class="validate"
-                               value="{{ $persona->Cedula }}" minlength="9" maxlength="9">
+                               value="{{ $persona->Cedula }}" minlength="9" maxlength="9"
+                               oninvalid="this.setCustomValidity('Debe ingresar cédula con el formato: 101230456')"
+                               oninput="setCustomValidity('')" pattern="^[0-9]{9}$">
                         <label for="numCedulaEdit">Número de cédula:</label>
                     </div>
 
@@ -82,7 +84,7 @@
                         <label for="apellido1Edit">Primer apellido:</label>
                     </div>
                     <div class="input-field col s4">
-                        <input id="apellido2Edit" name='apellido2Edit' type="text" class="validate"
+                        <input id="apellido2Edit" name='apellido2Edit' type="text"
                                value="{{ $persona->SegundoApellido }}">
                         <label for="apellido2Edit">Segundo apellido:</label>
                     </div>
@@ -133,7 +135,7 @@
                     <div class="input-field col s6">
                         <input id="fechaNacEdit" name='fechaNacEdit'
                                class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" size="10"
-                               placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                               placeholder="dd/mm/aaaa" minlength="10" maxlength="10" required
                                pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                oninput="setCustomValidity('')">
@@ -172,7 +174,7 @@
                                             @if($isEditableArray[0])
                                                 <input id="fechaBaut" name='fechaBautizo'
                                                        class="datepicker validate" type="text"
-                                                       title="Formato de fecha: dd/mm/aaaa" size="10"
+                                                       title="Formato de fecha: dd/mm/aaaa" size="10" required
                                                        placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
                                                        pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                                        oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
@@ -222,7 +224,7 @@
                                         <div class="input-field col s8">
                                             <input id="nombrePadrino" name="nombrePadrinoB" type="text" class="validate"
                                                    value="{{ $actaBautismo->PadrinoBau2 }}" required
-                                            oninvalid="this.setCustomValidity('Campo requerido')"
+                                                   oninvalid="this.setCustomValidity('Campo requerido')"
                                                    oninput="setCustomValidity('')">
                                             <label for="nombrePadrino">Nombre del padrino:</label>
                                         </div>
@@ -241,17 +243,23 @@
                                     <div class="row">
                                         <div class="input-num col s4">
                                             <input id="numLibroB" name="numLibroB" type="number" class="validate"
-                                                   value="{{ $UbicacionActaBautismo->Libro }}">
+                                                   value="{{ $UbicacionActaBautismo->Libro }}" required
+                                                   oninvalid="this.setCustomValidity('Campo requerido')"
+                                                   oninput="setCustomValidity('')">
                                             <label for="numLibroB">Número de Libro:</label>
                                         </div>
                                         <div class="input-num col s4">
                                             <input id="numFolioB" name="numFolioB" type="number" class="validate"
-                                                   value="{{ $UbicacionActaBautismo->Folio }}">
+                                                   value="{{ $UbicacionActaBautismo->Folio }}" required
+                                                   oninvalid="this.setCustomValidity('Campo requerido')"
+                                                   oninput="setCustomValidity('')">
                                             <label for="numFolioB">Número de Folio:</label>
                                         </div>
                                         <div class="input-num col s4">
                                             <input id="numAsientoB" name="numAsientoB" type="number" class="validate"
-                                                   value="{{ $UbicacionActaBautismo->Asiento }}">
+                                                   value="{{ $UbicacionActaBautismo->Asiento }}" required
+                                                   oninvalid="this.setCustomValidity('Campo requerido')"
+                                                   oninput="setCustomValidity('')">
                                             <label for="numAsientoB">Número de Asiento:</label>
                                         </div>
                                     </div>
@@ -294,7 +302,7 @@
                                                 <label>Seleccione la Parroquia:</label>
                                             </div>
                                             <div class="input-field col s6">
-                                                <input id="fechaBaut" name='fechaBautizo'
+                                                <input id="fechaBaut" name='fechaBautizo' required disabled
                                                        class="datepicker validate" type="text"
                                                        title="Formato de fecha: dd/mm/aaaa" size="10"
                                                        placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
@@ -315,14 +323,14 @@
                                         <div class="row">
                                             <div class="input-field col s8">
                                                 <input id="nombreAbuelosPaternos" name="nombreAbuelosPaternos" type="text"
-                                                       class="validate" required
+                                                       class="validate" required disabled
                                                 oninvalid="this.setCustomValidity('Campo requerido')"
                                                    oninput="setCustomValidity('')">
                                                 <label for="nombreAbuelosPaternos">Nombre de abuelos paternos</label>
                                             </div>
                                             <div class="input-field col s8">
                                                 <input id="nombreAbuelosMaternos" name="nombreAbuelosMaternos" type="text"
-                                                       class="validate" required
+                                                       class="validate" required disabled
                                                 oninvalid="this.setCustomValidity('Campo requerido')"
                                                    oninput="setCustomValidity('')">
                                                 <label for="nombreAbuelosMaternos">Nombre de abuelos maternos</label>
@@ -332,21 +340,21 @@
                                         <div class="row">
                                             <div class="input-field col s8">
                                                 <input id="nombreMadrina" name="nombreMadrinaB" type="text"
-                                                       class="validate" required
+                                                       class="validate" required disabled
                                                 oninvalid="this.setCustomValidity('Campo requerido')"
                                                    oninput="setCustomValidity('')">
                                                 <label for="nombreMadrina">Nombre de la madrina:</label>
                                             </div>
                                             <div class="input-field col s8">
                                                 <input id="nombrePadrino" name="nombrePadrinoB" type="text"
-                                                       class="validate" required
+                                                       class="validate" required disabled
                                                 oninvalid="this.setCustomValidity('Campo requerido')"
                                                    oninput="setCustomValidity('')">
                                                 <label for="nombrePadrino">Nombre del padrino:</label>
                                             </div>
                                             <div class="input-field col s8">
                                                 <input id="nombreSacerdoteBau" name="nombreSacerdoteBau" type="text"
-                                                       class="validate" required
+                                                       class="validate" required disabled
                                                 oninvalid="this.setCustomValidity('Campo requerido')"
                                                    oninput="setCustomValidity('')">
                                                 <label for="nombreSacerdoteBau">Nombre de sacerdote que bautiza:</label>
@@ -358,16 +366,24 @@
 
                                         <div class="row">
                                             <div class="input-num col s4">
-                                                <input id="numLibroB" name="numLibroB" type="number" class="validate">
+                                                <input id="numLibroB" name="numLibroB" type="number"
+                                                       class="validate" required disabled
+                                                       oninvalid="this.setCustomValidity('Campo requerido')"
+                                                       oninput="setCustomValidity('')">
                                                 <label for="numLibroB">Número de Libro:</label>
                                             </div>
                                             <div class="input-num col s4">
-                                                <input id="numFolioB" name="numFolioB" type="number" class="validate">
+                                                <input id="numFolioB" name="numFolioB" type="number"
+                                                       class="validate" required disabled
+                                                       oninvalid="this.setCustomValidity('Campo requerido')"
+                                                       oninput="setCustomValidity('')">
                                                 <label for="numFolioB">Número de Folio:</label>
                                             </div>
                                             <div class="input-num col s4">
                                                 <input id="numAsientoB" name="numAsientoB" type="number"
-                                                       class="validate">
+                                                       class="validate" required disabled
+                                                       oninvalid="this.setCustomValidity('Campo requerido')"
+                                                       oninput="setCustomValidity('')">
                                                 <label for="numAsientoB">Número de Asiento:</label>
                                             </div>
                                         </div>
@@ -523,7 +539,7 @@
                                         <div class="row">
                                             <div class="input-field col s8">
                                                 <input id="nombrePadrino1" name="nombrePadrinoC1" type="text"
-                                                       class="validate"
+                                                       class="validate" required disabled
                                                 oninvalid="this.setCustomValidity('Campo requerido')"
                                                    oninput="setCustomValidity('')">
                                                 <label for="nombrePadrino1">Nombre del padrino o
@@ -606,9 +622,7 @@
                                     <div class="row" id="lugarMatrimonioDiv">
                                         <div class="input-field col s6">
                                             <input id="lugarMatrimonio" name="lugarMatrimonio" type="text"
-                                                   value="{{ $actaMatrimonio -> LugarMatrimonio }}" required
-                                            oninvalid="this.setCustomValidity('Campo requerido')"
-                                                   oninput="setCustomValidity('')">
+                                                   value="{{ $actaMatrimonio -> LugarMatrimonio }}">
                                             <label for="lugarMatrimonio"> Matrimonio en:</label>
                                         </div>
                                     </div>
@@ -616,7 +630,9 @@
                                     <div class="row">
                                         <div class="input-field col s8">
                                             <input id="nombreConyuge" name="nombreConyuge" type="text" class="validate"
-                                                   value="{{ $actaMatrimonio -> NombreConyugue }}">
+                                                   value="{{ $actaMatrimonio -> NombreConyugue }}" required
+                                                   oninvalid="this.setCustomValidity('Campo requerido')"
+                                                   oninput="setCustomValidity('')">
                                             <label for="nombreConyuge">Nombre del cónyuge:</label>
                                         </div>
                                         <div class="input-field col s8">
@@ -701,9 +717,9 @@
                                         <div class="row">
                                             <div class="input-field col s8">
                                                 <input id="nombreConyuge" name="nombreConyuge" type="text"
-                                                       class="validate"
-                                                oninvalid="this.setCustomValidity('Campo requerido')"
-                                                   oninput="setCustomValidity('')">
+                                                       class="validate" required disabled
+                                                       oninvalid="this.setCustomValidity('Campo requerido')"
+                                                       oninput="setCustomValidity('')">
                                                 <label for="nombreConyuge">Nombre del cónyuge:</label>
                                             </div>
                                             <div class="input-field col s8">
@@ -791,7 +807,7 @@
                                         <div class="input-field col s8">
                                             <input id="causaDefuncion" name="causaDefuncion" type="text"
                                                    class="validate" value="{{ $actaDefuncion -> CausaMuerte }}" required
-                                            oninvalid="this.setCustomValidity('Campo requerido')"
+                                                   oninvalid="this.setCustomValidity('Campo requerido')"
                                                    oninput="setCustomValidity('')">
                                             <label for="causaDefuncion">Causa de la muerte:</label>
                                         </div>
@@ -879,7 +895,7 @@
                                     <div class="row">
                                         <div class="input-field col s8">
                                             <input id="causaDefuncion" name="causaDefuncion" type="text"
-                                                   class="validate"
+                                                   class="validate" required disabled
                                                    oninvalid="this.setCustomValidity('Campo requerido')"
                                                    oninput="setCustomValidity('')">
                                             <label for="causaDefuncion">Causa de la muerte:</label>
@@ -979,6 +995,7 @@
                 if (!isEditableArray[0]) {
                     $("#lugarBautizo, #nombreAbuelosPaternos, #nombreAbuelosMaternos, #nombreMadrina, #nombrePadrino, #nombreSacerdoteBau, #numLibroB, #numFolioB, #numAsientoB, #notasMarginalesBauEdit").prop("readonly", true);
                     $("#lugarBautizo, #nombreAbuelosPaternos, #nombreAbuelosMaternos, #nombreMadrina, #nombrePadrino, #nombreSacerdoteBau, #numLibroB, #numFolioB, #numAsientoB, #notasMarginalesBauEdit").removeClass("validate");
+                    $("#nombreAbuelosPaternos, #nombreAbuelosMaternos, #nombreMadrina, #nombrePadrino, #nombreSacerdoteBau, #numLibroB, #numFolioB, #numAsientoB").prop("required", false);
                     $("#parroquiaBautismo").prop("disabled", true);
                 } else {
                     $("#lugarBautizoDiv").css("display", "none");
@@ -986,6 +1003,7 @@
                 if (!isEditableArray[1]) {
                     $("#lugarConfirma, #nombrePadrino1, #numLibroC, #numFolioC, #numAsientoC, #notasMarginalesConfEdit").prop("readonly", true);
                     $("#lugarConfirma, #nombrePadrino1, #numLibroC, #numFolioC, #numAsientoC, #notasMarginalesConfEdit").removeClass("validate");
+                    $("#nombrePadrino1").prop("required", false);
                     $("#parroquiaConfirma").prop("disabled", true);
                 } else {
                     $("#lugarConfirmaDiv").css("display", "none");
@@ -993,6 +1011,7 @@
                 if (!isEditableArray[2]) {
                     $("#lugarMatrimonio, #nombreConyuge, #numLibroM, #numFolioM, #numAsientoM, #notasMarginalesMatEdit").prop("readonly", true);
                     $("#lugarMatrimonio, #nombreConyuge, #numLibroM, #numFolioM, #numAsientoM, #notasMarginalesMatEdit").removeClass("validate");
+                    $("#nombreConyuge").prop("required", false);
                     $("#parroquiaMatrimonio").prop("disabled", true);
                 } else {
                     $("#lugarMatrimonioDiv").css("display", "none");
@@ -1000,6 +1019,7 @@
                 if (!isEditableArray[3]) {
                     $("#lugarDefuncion, #causaDefuncion, #numLibroD, #numFolioD, #numAsientoD, #notasMarginalesDefEdit").prop("readonly", true);
                     $("#lugarDefuncion, #causaDefuncion, #numLibroD, #numFolioD, #numAsientoD, #notasMarginalesDefEdit").removeClass("validate");
+                    $("#causaDefuncion").prop("required", false);
                     $("#parroquiaDefuncion").prop("disabled", true);
                 } else {
                     $("#lugarDefuncionDiv").css("display", "none");
@@ -1059,39 +1079,35 @@
             $("#checkBautismo").change(function () {
                 if ($("#checkBautismo").is(':checked')) {
                     $("#contentBautismo").css("display", "block");
-                    $("#nombreAbuelosPaternos").prop('required', true);
-                    $("#nombreAbuelosMaternos").prop('required', true);
-                    $("#nombreMadrina").prop('required', true);
-                    $("#nombrePadrino").prop('required', true);
-                    $("#nombreSacerdoteBau").prop('required', true);
+                    $("#fechaBaut").prop('disabled', false);
                     $("#nombreAbuelosPaternos").prop('disabled', false);
                     $("#nombreAbuelosMaternos").prop('disabled', false);
                     $("#nombreMadrina").prop('disabled', false);
                     $("#nombrePadrino").prop('disabled', false);
                     $("#nombreSacerdoteBau").prop('disabled', false);
+                    $("#numLibroB").prop('disabled', false);
+                    $("#numAsientoB").prop('disabled', false);
+                    $("#numFolioB").prop('disabled', false);
                 } else {
                     $("#contentBautismo").css("display", "none");
-                    $("#nombreAbuelosPaternos").prop('required', false);
-                    $("#nombreAbuelosMaternos").prop('required', false);
-                    $("#nombreMadrina").prop('required', false);
-                    $("#nombrePadrino").prop('required', false);
-                    $("#nombreSacerdoteBau").prop('required', false);
+                    $("#fechaBaut").prop('disabled', true);
                     $("#nombreAbuelosPaternos").prop('disabled', true);
                     $("#nombreAbuelosMaternos").prop('disabled', true);
                     $("#nombreMadrina").prop('disabled', true);
                     $("#nombrePadrino").prop('disabled', true);
                     $("#nombreSacerdoteBau").prop('disabled', true);
+                    $("#numLibroB").prop('disabled', true);
+                    $("#numAsientoB").prop('disabled', true);
+                    $("#numFolioB").prop('disabled', true);
                 }
             });
 
             $("#checkConfirma").change(function () {
                 if ($("#checkConfirma").is(':checked')) {
                     $("#contentConfirma").css("display", "block");
-                    $("#nombrePadrino1").prop('required', true);
                     $("#nombrePadrino1").prop('disabled', false);
                 } else {
                     $("#contentConfirma").css("display", "none");
-                    $("#nombrePadrino1").prop('required', false);
                     $("#nombrePadrino1").prop('disabled', true);
                 }
             });
@@ -1099,11 +1115,9 @@
             $("#checkMatrimonio").change(function () {
                 if ($("#checkMatrimonio").is(':checked')) {
                     $("#contentMatrimonio").css("display", "block");
-                    $("#nombreConyuge").prop('required', true);
                     $("#nombreConyuge").prop('disabled', false);
                 } else {
                     $("#contentMatrimonio").css("display", "none");
-                    $("#nombreConyuge").prop('required', false);
                     $("#nombreConyuge").prop('disabled', true);
                 }
             });
@@ -1111,11 +1125,9 @@
             $("#checkDefuncion").change(function () {
                 if ($("#checkDefuncion").is(':checked')) {
                     $("#contentDefuncion").css("display", "block");
-                    $("#causaDefuncion").prop('required', true);
                     $("#causaDefuncion").prop('disabled', false);
                 } else {
                     $("#contentDefuncion").css("display", "none");
-                    $("#causaDefuncion").prop('required', false);
                     $("#causaDefuncion").prop('disabled', true);
                 }
             });

@@ -5,113 +5,154 @@
     <head>
         <title>Certificado Sacramentos Recibidos <title>
             <link rel="stylesheet" href="css/pdf.css" type="text/css" />
-
     </head>
     <body>
-        <div class = "divimagdioce">
-            <img src="style/img/dioce3.PNG"></img>
-        </div>
-        <div class= "divtitulo">
-            <h4>Archivo Histórico de la Curia de Alajuela  <br/> Constancia de Sacramentos Recibidos </h4>
-        </div>
-        <div class = "divimagcuria">
-        <img src="style/img/curia3.PNG"></img>
+        <div id="watermark">
+            <img src="style/img/logo-100.png" height="100%" width="100%">
         </div>
 
 
         <div class="container">
-        <div class ="divParrafo">
-        <p>El suscrito Pbro.Sixto Edo. Varela Santamaría, Canciller de la Curia Diocesana de Alajuela; <br/>
-        Certifica que en los libros sacramentales custodiados en el Archivo Histórico se encuentra la siguiente información:</p>
-        </div>
+            <div id="codigoDiv">
+                {{ $codigo }}
+            </div>
 
+            <div id="encabezadoDiv" class="centrar-texto">
+                <div id="tituloDiv">
+                    <h2 id="titulo">LA DIÓCESIS DE ALAJUELA, HACE CONSTAR QUE:</h2>
+                </div>
+                <div>
+                    <h2 id="nombrePersona"><strong>{{ $acta->persona->Nombre . ' ' . $acta->persona->PrimerApellido . ' ' . $acta->persona->SegundoApellido }}</strong></h2>
 
-
-
-        <div class= "Divpersona" >
-        <label for="idParroqui"><b> En la Parroquia de: </b>   {{ Auth::user()->parroquia->NombreParroquia }}</label>  <br/>
-        <label for="persona"><b>Se encuentra la información de: </b>{{  $personaNom}} {{    $personaAp1 }} {{  $personaAp2 }}</label>   <br/>
-        <label for="cedula"> <b>Cédula de identidad: </b>  {{  $numCedulaEdit}}</label><br/>
-          @if($tipoHijo == 1 )
-          <label for="Hij(o)1"><b> Hij(o): </b> no reconocido </label>
-          @else
-           <label for="Hij(o)2"><b> Hij(o): </b>legítimo </label>
-          @endif
-        <label for="de"> <b>de: </b>{{  $personamadre }} {{    $personaPadre}}</label>  <br/>
-        <label for="Nacido"> <b>Nacido en: </b> {{ $nacidolugar }}  </label> <br/>
-        <label for="día"><b>El día: </b> {{ $fechaNacEdit }}  </label><br/>
-
-        </div>
-        @if($lugarBautizado != null )
-        <div class="DivBautizo" >
-
-            <label for="BAUTIZADO"><b>BAUTIZADO EN: </b>  {{ $lugarBautizado }}</label> <br/>
-             <label for="díaB"><b>El día: </b> {{ $fechaBau}}</label><br/>
-            <label for="Padrinos"><b>Padrinos: </b> {{  $nombreMadrinaB }} {{  $nombrePadrinoB}} </label> <br/>
-            <label for="InfoB"><b>Esta Información consta en el Libro: </b> {{  $numLibroB }}</label><label for="FolioB">   <b>Folio: </b> {{  $numFolioB}}</label><label for="AsientoB">     <b>Asiento: </b>  {{   $numAsientoB}}</label><br/>
-        </div>
-           @else
-                    <div class="Nobautizo">
-                  <label for="BAUTIZADO"><b>BAUTIZADO EN: </b>  No cuenta con esta partida</label> <br/>
-
+                    <div>
+                        @if($acta->persona->Cedula == null)
+                            <span class="">Ced. NO CONSTA</span>
+                        @else
+                            <span class="">Ced. {{ $acta->persona->Cedula }}</span>
+                        @endif
+                        <span class="spanMargin">Nació el: <strong>{{ $fecNac }}</strong></span>
+                            @if($acta->persona->laico->LugarNacimiento == null)
+                                <span class="spanMargin">en: <strong>NO CONSTA</strong></span>
+                            @else
+                                <span class="spanMargin">en: <strong>{{ $acta->persona->laico->LugarNacimiento }}</strong></span>
+                            @endif
                     </div>
+                    <div>
+                        @if($acta->persona->laico->IDTipo_Hijo == 1)
+                            <span>Hijo de: <strong>{{ $acta->persona->laico->NombreMadre }}</strong></span>
+                        @else
+                            <span>Hijo de: <strong>{{ $acta->persona->laico->NombrePadre . ' y ' . $acta->persona->laico->NombreMadre }}</strong></span>
+                        @endif
+                    </div>
+                    <div>
+                        <span class="">Abuelos paternos: {{ $acta->bautismo->AbuelosPaternos }}</span>
+                        <span class="spanMargin">Abuelos maternos: {{ $acta->bautismo->AbuelosMaternos }}</span>
+                    </div>
+                </div>
+            </div>
 
-                @endif
 
-         @if($lugarConfirma != null )
-        <div class = "DivConfirma" >
-            <label><b>CONFIRMADO EN: </b>{{  $lugarConfirma}}</label><br/>
-            <label><b>El día: </b>{{  $fechaConfirma}}</label><br/>
-            <label><b>Padrinos: </b> {{  $nombrePadrinoC1}} {{  $nombrePadrinoC2}}</label><br/>
-            <label><b>Esta Información consta en el Libro: </b> {{ $numLibroC}}</label> <label>   <b>Folio: </b {{  $numFolioC}}</label> <label>   <b>Asiento: </b>{{  $numAsientoC}}</label><br/>
+            <div class="sacramentosDiv centrar-texto">
+                <h4 class="titulo-sacramentos"><strong>HA RECIBIDO LOS SACRAMENTOS DE:</strong></h4>
+                <table class="tabla-sacramentos" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td class="izq-texto"><strong>Bautismo:</strong></td>
+                        <td>el {{ $fecBau }}</td>
+                        @if($acta->bautismo->IDParroquiaBautismo != null)
+                            <td>en la Parroquia {{ $acta->bautismo->parroquia->NombreParroquia }}</td>
+                        @else
+                            <td>en {{ $acta->bautismo->LugarBautismo }}</td>
+                        @endif
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="2">Padrino: {{ $acta->bautismo->PadrinoBau2 }}</td>
+                    </tr>
+                    <tr class="tr-padding">
+                        <td></td>
+                        <td colspan="2">Madrina: {{ $acta->bautismo->PadrinoBau1 }}</td>
+                    </tr>
+
+                    <tr class="tr-padding">
+                        <td class="izq-texto"><strong>Confirmación:</strong></td>
+                        @if($acta->confirma->FechaConfirma == null)
+                            <td>NO CONSTA FECHA</td>
+                        @else
+                            <td>el {{ $fecConf }}</td>
+                        @endif
+
+                        @if($acta->confirma->IDParroquiaConfirma != null)
+                            <td>en la Parroquia {{ $acta->confirma->parroquia->NombreParroquia }}</td>
+                        @else
+                            <td>en {{ $acta->confirma->LugarConfirma }}</td>
+                        @endif
+                    </tr>
+
+                    <tr>
+                        <td class="izq-texto"><strong>Matrimonio:</strong></td>
+                        @if($acta->matrimonio->FechaMatrimonio == null)
+                            <td>NO CONSTA FECHA</td>
+                        @else
+                            <td>el {{ $fecMat }}</td>
+                        @endif
+
+                        @if($acta->matrimonio->IDParroquiaMatrimonio != null)
+                            <td>en la Parroquia {{ $acta->matrimonio->parroquia->NombreParroquia }}</td>
+                        @else
+                            <td>en {{ $acta->matrimonio->LugarMatrimonio }}</td>
+                        @endif
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="2">con {{ $acta->matrimonio->NombreConyugue }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="observacionesDiv">
+                <p class="izq-texto">Notas Marginales: {{ $acta->bautismo->NotasMarginales . ' ' . $acta->confirma->NotasMarginales . ' ' . $acta->matrimonio->NotasMarginales }}</p>
+            </div>
+
+            <div class="registrosDiv centrar-texto">
+                <table class="tabla-registros">
+                    <tr>
+                        <td colspan="6">Según registros de libros bautismales de esta parroquia:</td>
+                    </tr>
+                    <tr>
+                        <td class="centrar-texto">Libro</td>
+                        <td><strong>{{ $acta->bautismo->ubicacionActa->Libro }}</strong></td>
+
+                        <td class="centrar-texto">Folio</td>
+                        <td><strong>{{ $acta->bautismo->ubicacionActa->Folio }}</strong></td>
+
+                        <td class="centrar-texto">Asiento</td>
+                        <td><strong>{{ $acta->bautismo->ubicacionActa->Asiento }}</strong></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="extiendeDiv centrar-texto">
+                <p>Se extiende la presente solicitud del interesado, dado en la Parroquia <strong>{{ Auth::user()->parroquia->NombreParroquia }}</strong>
+                 el {{ $fecHoy }}</p>
+            </div>
+
+            <div class="firmaDiv centrar-texto">
+                <table class="tabla-firma">
+                    <tr>
+                        <td>__________________________</td>
+                    </tr>
+                    <tr class="centrar-texto">
+                        <td>Cura párroco o vicario</td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        @else
-                <div class="Noconfirma">
-                  <label><b>CONFIRMADO EN: </b>  No cuenta con esta partida</label> <br/>
-                </div>
 
-                @endif
 
-        @if($lugarMatrimonio != null )
-        <div class= "DivMatrimonio" >
-            <label><b>MATRIMONIO EN: </b>{{ $lugarMatrimonio}}</label> <br/>
-            <label><b>Con: </b>{{  $nombreConyuge}} </label><br/>
-            <label><b>El día: </b>{{  $fechaMatrimonio}}</label><br/>
-            <label><b>Esta Información consta en el Libro: </b>{{  $numLibroM}} </label> <label>  <b>Folio: </b> {{  $numFolioM}}</label> <label>    <b>Asiento: </b>{{  $numAsientoM}}</label><br/>
+
+        <div id="footer">
+            <img src="style/img/plantilla-footer.png" height="100%" width="100%">
         </div>
-         @else
-                <div class="NoMatrimonio">
-                 <label><b>MATRIMONIO EN: </b> No cuenta con esta partida</label> <br/>
-                </div>
-
-         @endif
-
-        @if($lugarDefuncion != null )
-        <div class= "divdefun" >
-            <label for="DEFUNCION"><b>DEFUNCIÓN EN: </b>  {{  $lugarDefuncion}}</label> <br/>
-            <label for="díaD"><b>El día: </b> {{  $fechaDefuncion}}</label><br/>
-            <label><b>A causa de: </b> {{  $causaDefuncion}}</label><br/>
-            <label><b>Esta Información consta en el Libro: </b> {{ $numLibroD}}</label> <label>   <b>Folio: </b> {{  $numFolioD}}</label> <label>   <b>Asiento: </b>{{ $numAsientoD}}</label><br/>
-        </div
-         @else
-                <div class="NoDefuncion">
-               <label for="DEFUNCION"><b>DEFUNCIÓN EN: </b> No cuenta con esta partida</label> <br/>
-                </div>
-
-         @endif
-         @if($notasMarginalesEdit != null )
-        <div class="divNotas" >
-            <label for="notasMarginales"><b>Notas Marginales: </b>  {{ $notasMarginalesEdit}}</label><br/>
-
-        </div>
-          @else
-                <div class="NoNotas">
-               <label for="notasMarginales"><b>Notas Marginales: </b> No cuenta con ninguna nota</label> <br/>
-                </div>
-
-         @endif
-
-       </div>
     </body>
 </html>
 

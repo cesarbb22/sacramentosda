@@ -1,143 +1,130 @@
-h4{
-    text-align: center;
-  
-      font: oblique bold 120% cursive;
-    font-size:18pt; 
-}
-h6{
-    text-align: center;
-     font-family:verdana,arial; 
-    font-size:18pt;  
-}
-p{
-    text-align: center;
-     font-family:verdana,arial; 
-    
-    
+@page { margin: 0in; }
+body {
+    background: url("style/img/plantilla-header.png");
+    background-position: top left;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
-div.Divpersona{
-    font-family:verdana,arial; 
-    margin: 15px;
-     font-size:13pt;
+#watermark {
+    position: fixed;
+
+    bottom:   6.5cm;
+    left:     0.5cm;
+
+    width:    20cm;
+    height:   14cm;
+
+    z-index:  -1000;
+
+    opacity: 0.05;
 }
 
-div.DivBautizo{
-    font-family:verdana,arial; 
-    margin: 10px;
-       font-size:13pt;
-}
-div.Nobautizo{
-    font-family:verdana,arial; 
-    margin: 10px;
-    font-size:13pt;
-}
-
-div.DivConfirma{
-    font-family:verdana,arial; 
-    margin: 10px;
-       font-size:13pt;
-}
-div.Noconfirma{
-     font-family:verdana,arial; 
-     margin: 10px;
-     font-size:13pt;
-}
-
-div.DivMatrimonio{
-    font-family:verdana,arial; 
-    margin: 10px;
-       font-size:13pt;
-}
-div.NoMatrimonio{
-   font-family:verdana,arial; 
-    margin: 10px;
-  font-size:13pt;
-}
-
-div.divdefun{
-    font-family:verdana,arial; 
-    margin: 10px; 
-       font-size:13pt;
-}
-div.NoDefuncion{
-        font-family:verdana,arial; 
-    margin: 10px; 
-       font-size:13pt;
-}
-div.divNotas{
-    font-family:verdana,arial; 
-    margin: 10px; 
-       font-size:13pt;
-}
-div.NoNotas{
-    font-family:verdana,arial; 
-    margin: 10px; 
-       font-size:13pt;
-}
-
-div.divimagdioce{
-	visibility: visible;
-	animation-duration: 1000ms;
-	animation-delay: 300ms;
-	animation-name: fadeIn;
-	padding: 25px 0;
-	width: 15%;
-	float: left;
-	position: relative;
-	min-height: 1px;
-	padding-right: 1px;
-	padding-left: 0px;
-	text-align: center;
-	background: #fff;
-	font-family: 'Lato', sans-serif;
-	font-weight: 300;
-	font-size: 14px;
-	line-height: 22px;
-	color: #000;
-
-	box-sizing: border-box;
-
-}
-div.divtitulo{
-  visibility: visible;
-	animation-duration: 1000ms;
-	animation-delay: 300ms;
-	animation-name: fadeIn;
-	padding: 25px 0;
-	width: 70%;
-	float: left;
-	position: relative;
-	min-height: 1px;
-	padding-right: 1px;
-	padding-left: 0 px;
-	text-align: center;
-	background: #fff;
-	font-weight: 300;
-	line-height: 22px;
-	color: #000;
-	box-sizing: border-box;
-}
-div.divimagcuria{
-    	
-	padding: 28px 0;
-	width: 15%;
-	float: left;
-	
-	min-height: 1px;
-	padding-right: 0px;
-	padding-left: 1px;
-	text-align: center;
-	background: #fff;
-	font-family: 'Lato', sans-serif;
-	font-weight: 300;
-	font-size: 14px;
-	line-height: 22px;
-	
-
-}
 div.container{
+    padding: 145px 5px 15px 20px
+}
 
-padding: 170px 5px 15px 20px
+.centrar-texto {
+    text-align: center;
+}
+
+.izq-texto {
+    text-align: left;
+}
+
+.der-texto {
+    text-align: right;
+}
+
+#codigoDiv {
+    text-align: right;
+    padding-right: 60px;
+}
+
+#encabezadoDiv {
+    padding-top: 15px;
+}
+
+#tituloDiv {
+    marging-bottom: 20px;
+}
+
+#titulo {
+    font-weight: 10;
+}
+
+#nombrePersona {
+    text-transform: uppercase;
+}
+
+.spanMargin {
+    margin-left: 25px;
+}
+
+.sacramentosDiv {
+    margin-top: 20px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+.titulo-sacramentos {
+    padding-bottom: 0px;
+    margin-bottom: 10px;
+}
+
+.tabla-sacramentos {
+    text-align: left;
+    padding-top: 0px;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table.tabla-sacramentos tr td {
+    padding: 0px 10px 5px 10px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+
+}
+
+.tr-padding td {
+    padding-bottom: 30px !important;
+}
+
+.observacionesDiv {
+    margin-left: 100px;
+    margin-top: 10px;
+}
+
+.registrosDiv {
+    margin-top: 50px;
+}
+
+.tabla-registros {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.extiendeDiv {
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.firmaDiv {
+    margin-top: 100px;
+}
+
+.tabla-firma {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#footer {
+    z-index:  -1000;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
 

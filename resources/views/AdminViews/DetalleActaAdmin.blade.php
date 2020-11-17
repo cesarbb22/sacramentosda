@@ -24,7 +24,7 @@
 
         <div class="col s12 m4 l2"></div>
 
-        <form method="POST" role='form' action="{{ url('/pdf') }}">
+        <form id="detalleForm" method="POST" role='form'>
             {{ csrf_field() }}
             <div class=" col s12 m4 l8 card-panel z-depth-5">
 
@@ -433,8 +433,8 @@
                 <div class="row"><br><br></div>
 
                 <div class="row">
-                    <button id="Descargar" class="waves-effect waves-light btn right" type="submit"><i
-                            class="material-icons left">file_download</i>Descargar PDF
+                    <button id="Descargar" class="waves-effect waves-light btn right modal-trigger" data-target="modalPDF"><i
+                            class="material-icons left">file_download</i>Generar PDF
                     </button>
                 </div>
             </div>
@@ -444,11 +444,86 @@
     </div>
     <div class="col s12 m4 l2"></div>
 
+
+    <!-- Modal Structure -->
+    <div id="modalPDF" class="modal">
+        <form id="pdfForm" method="POST" action="/pdf">
+            {{ csrf_field() }}
+            <div class="modal-content">
+                <h4>Ingrese el código de referencia:</h4>
+                <div class="input-field">
+                    <input id="codigo" name="codigo" placeholder="Código de referencia" required
+                           oninvalid="this.setCustomValidity('Campo requerido')"
+                           oninput="setCustomValidity('')">
+                </div>
+                <div class="input-field">
+                    <input id="idActa" name="idActa" value="{{ $acta->IDActa }}" type="text" hidden>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="modalCancelBtn" onclick="closeModal();" class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
+                <button id="modalDescargarBtn" type="submit" class="modal-action waves-effect waves-green btn-flat ">Descargar</button>
+            </div>
+            <div id="loadingDiv" class="progress">
+                <div class="indeterminate"></div>
+            </div>
+        </form>
+    </div>
+
     <script>
 
+        function closeModal() {
+            $('.modal').modal('close');
+            $('#codigo').val('');
+
+        }
+
         window.onload = function () {
+            $('#loadingDiv').hide();
+
+            $('#detalleForm').on('submit', function (e) {
+                e.preventDefault();
+            });
+
+            $('#pdfForm').on('submit', function (e) {
+                e.preventDefault();
+
+                $('#modalCancelBtn').attr('disabled', true);
+                $('#modalDescargarBtn').attr('disabled', true);
+                $('#loadingDiv').show();
+
+                var formData = new FormData();
+                formData.append("codigo", $('#codigo').val());
+                formData.append("idActa", $('#idActa').val());
+                formData.append("_token", "{{ csrf_token() }}");
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/pdf');
+                xhr.responseType = 'arraybuffer';
+                xhr.onload = function (e) {
+                    if (this.status == 200) {
+                        var blob = new Blob([this.response], {type: "application/pdf"});
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = $('#codigo').val() + ".pdf";
+                        link.click();
+
+                        $('#modalCancelBtn').attr('disabled', false);
+                        $('#modalDescargarBtn').attr('disabled', false);
+                        $('#loadingDiv').hide();
+                        $('#codigo').val('');
+                        $('.modal').modal('close');
+                    }
+                };
+                xhr.send(formData);
+            });
+
 
             $(document).ready(function () {
+                $('.modal').modal({
+                    dismissible: false
+                });
+
                 $('#parroquia > option[value="{{ $acta->IDParroquia }}"]').attr('selected', 'selected');
                 $("input[name=tipoHijo][value= {{ $laico->IDTipo_Hijo }} ]").prop('checked', true);
             });

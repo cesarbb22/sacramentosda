@@ -24,7 +24,13 @@ class ActaBautizo extends Model
         return $this->hasOne('App\Parroquia', 'IDParroquia', 'IDParroquiaBautismo');
     }
 
-    public function parroquiaRegistra() {
+    public function ubicacionActa()
+    {
+        return $this->hasOne('App\UbicacionActa', 'IDUbicacionActa', 'IDUbicacionActaBau');
+    }
+
+    public function parroquiaRegistra()
+    {
         return $this->hasOne('App\Parroquia', 'IDParroquia', 'IDParroquiaRegistra');
     }
 }

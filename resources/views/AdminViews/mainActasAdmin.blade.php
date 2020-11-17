@@ -55,7 +55,7 @@
                     <div class="input-field col s4">
                         <input id="numCedula" name='numCedula' type="text" class="validate" minlength="9" maxlength="9"
                                oninvalid="this.setCustomValidity('Debe ingresar cédula con el formato: 101230456')"
-                               oninput="setCustomValidity('')">
+                               oninput="setCustomValidity('')" pattern="^[0-9]{9}$">
                         <label for="numCedula">Número de cédula:</label>
                     </div>
                 </div>
@@ -73,9 +73,7 @@
                         <label for="apellido1">Primer apellido:</label>
                     </div>
                     <div class="input-field col s4">
-                        <input id="apellido2" name='apellido2' type="text" class="validate" required
-                               oninvalid="this.setCustomValidity('Debe ingresar el segundo apellido')"
-                               oninput="setCustomValidity('')">
+                        <input id="apellido2" name='apellido2' type="text">
                         <label for="apellido2">Segundo apellido:</label>
                     </div>
                 </div>
@@ -114,7 +112,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <input id="lugarNac" name='lugarNac' type="text" class="validate" required>
+                        <input id="lugarNac" name='lugarNac' type="text">
                         <label for="LugarNac">Lugar de nacimiento:</label>
                     </div>
                     <div class="input-field col s6">
@@ -165,7 +163,7 @@
                                     </div>
                                     <div class="input-field col s6">
                                         <input id="fechaBaut" name='fechaBautizo'
-                                               class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" disabled size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                               class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" disabled size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10" required
                                                pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
                                                oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                oninput="setCustomValidity('')">
@@ -227,17 +225,17 @@
                                 <div class="row">
                                     <div class="input-num col s4">
                                         <input id="numLibroB" name="numLibroB" type="number" class="validate"
-                                               disabled>
+                                               disabled required>
                                         <label for="numLibroB">Número de Libro:</label>
                                     </div>
                                     <div class="input-num col s4">
                                         <input id="numFolioB" name="numFolioB" type="number" class="validate"
-                                               disabled>
+                                               disabled required>
                                         <label for="numFolioB">Número de Folio:</label>
                                     </div>
                                     <div class="input-num col s4">
                                         <input id="numAsientoB" name="numAsientoB" type="number" class="validate"
-                                               disabled>
+                                               disabled required>
                                         <label for="numAsientoB">Número de Asiento:</label>
                                     </div>
                                 </div>
