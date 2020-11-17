@@ -51,7 +51,7 @@ class GenerarPDF extends Controller
         $fecHoyFormatted = null;
         $fechaHoy = Carbon::now();
         $mesHoy = $meses[($fechaHoy->format('n')) - 1];
-        $fecHoyFormatted = $fechaHoy->format('d') - 1 . ' de ' . $mesHoy . ' de ' . $fechaHoy->format('Y');
+        $fecHoyFormatted = $fechaHoy->format('d') . ' de ' . $mesHoy . ' de ' . $fechaHoy->format('Y');
 
         $pdf = \PDF::loadView('PDF.PdfCertificado', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac'=> $fecNacFormatted, 'fecBau'=> $fecBauFormatted
         , 'fecConf'=> $fecConfFormatted, 'fecMat'=> $fecMatFormatted, 'fecHoy'=> $fecHoyFormatted]);
