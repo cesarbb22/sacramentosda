@@ -104,7 +104,7 @@
                     @endif
 
                     @if($acta->matrimonio != null)
-                        <tr>
+                        <tr class="mat-altura">
                             <td class="izq-texto"><strong>Matrimonio:</strong></td>
                             @if($acta->matrimonio->FechaMatrimonio == null)
                                 <td>NO CONSTA FECHA</td>
@@ -118,7 +118,7 @@
                                 <td>en {{ $acta->matrimonio->LugarMatrimonio }}</td>
                             @endif
                         </tr>
-                        <tr>
+                        <tr class="mat-altura">
                             <td></td>
                             <td colspan="2">con {{ $acta->matrimonio->NombreConyugue }}</td>
                         </tr>
@@ -164,7 +164,6 @@
             </div>
 
             <div class="extiendeDiv centrar-texto">
-
                 @if(Auth::user()->IDPuesto == 1 || Auth::user()->IDPuesto == 2)
                     <p>Se extiende la presente solicitud del interesado, dado en la <strong>Curia Diocesana de Alajuela</strong>
                         el {{ $fecHoy }}</p>

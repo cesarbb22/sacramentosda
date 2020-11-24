@@ -91,6 +91,10 @@ table.tabla-sacramentos tr td {
     padding-bottom: 30px !important;
 }
 
+.mat-altura {
+    height: 100px;
+}
+
 .observacionesDiv {
     margin-left: 100px;
     margin-top: 10px;
