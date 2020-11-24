@@ -138,14 +138,14 @@
 
           <ul class="collapsible" data-collapsible="accordion">
               <li>
-                <div class="collapsible-header waves-light waves-effect white-text">Partida de Bautismo</div>
+                <div class="collapsible-header waves-light waves-effect white-text">Partida de Bautizo</div>
                 <div class="collapsible-body">
                     @if($actaBautismo != null)
 
                     <div class="row">
                         <div class="input-field col s6"></div>
                         <div class="input-field col s6">
-                          <label>Fecha de Bautismo:</label>
+                          <label>Fecha de Bautizo:</label>
                         </div>
                     </div>
 
@@ -194,7 +194,7 @@
                       </div>
                       <div class="input-field col s6">
                         <input type="checkbox" id="checkBautismo"/>
-                        <label for="checkBautismo">Agregar Bautismo</label>
+                        <label for="checkBautismo">Agregar Bautizo</label>
                       </div>
                     </div>
 
@@ -202,7 +202,7 @@
                     <div class="row">
                       <div class="input-field col s6"></div>
                         <div class="input-field col s6">
-                          <label>Fecha de Bautismo:</label>
+                          <label>Fecha de Bautizo:</label>
                         </div>
                     </div>
 

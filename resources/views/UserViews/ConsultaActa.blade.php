@@ -70,7 +70,7 @@
                             @endforeach
                             <option value="otro">Otro</option>
                         </select>
-                        <label>Parroquia Bautismo:</label>
+                        <label>Parroquia Bautizo:</label>
                     </div>
 
                     <div class="row" id="lugarDiv">
@@ -122,7 +122,7 @@
                 <tr>
                     <th>Cédula</th>
                     <th>Nombre</th>
-                    <th>Lugar de Bautismo</th>
+                    <th>Lugar de Bautizo</th>
                     <th>Fecha de Nacimiento</th>
                     <th>Detalle</th>
                     <th>Editar</th>

@@ -56,7 +56,7 @@
                 <h4 class="titulo-sacramentos"><strong>HA RECIBIDO LOS SACRAMENTOS DE:</strong></h4>
                 <table class="tabla-sacramentos" cellspacing="0" cellpadding="0">
                     <tr>
-                        <td class="izq-texto"><strong>Bautismo:</strong></td>
+                        <td class="izq-texto"><strong>Bautizo:</strong></td>
                         <td>el {{ $fecBau }}</td>
                         @if($acta->bautismo != null && $acta->bautismo->IDParroquiaBautismo != null)
                             <td>en la Parroquia {{ $acta->bautismo->parroquia->NombreParroquia }}</td>

@@ -134,14 +134,14 @@
 
                 <div class="row">
 
-                    <div class="collapsible-header waves-light waves-effect white-text">Partida de Bautismo</div>
+                    <div class="collapsible-header waves-light waves-effect white-text">Partida de Bautizo</div>
 
                     @if($actaBautismo != null)
 
                         <div class="row">
                             <div class="input-field col s6"></div>
                             <div class="input-field col s6">
-                                <label>Fecha de Bautismo:</label>
+                                <label>Fecha de Bautizo:</label>
                             </div>
                         </div>
 
