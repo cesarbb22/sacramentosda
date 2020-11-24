@@ -17,6 +17,7 @@ use App\ActaMatrimonio;
 use App\ActaDefuncion;
 use App\Parroquia;
 use App\Solicitud_Acta;
+use Illuminate\Support\Facades\Log;
 
 class ActaUsuarioController extends Controller
 {
@@ -588,7 +589,8 @@ class ActaUsuarioController extends Controller
             $acta->save();
             return back()->with('msjBueno', "Se ha modificado la partida correctamente");
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
+            Log::error('Ha ocurrido un error: ' . $e);
             return back()->with('msjMalo', "Ha ocurrido un error al modificar la partida");
         }
     }//Fin actualizar acta

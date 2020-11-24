@@ -574,11 +574,11 @@ class ActaAdminController extends Controller
                 return Redirect::to('/notificacionesAdmin');
             }
 
-            return back()->with('msjBueno', "Se ha modificado el acta correctamente");
+            return back()->with('msjBueno', "Se ha modificado la partida correctamente");
 
         } catch (\Exception $e) {
             Log::error('Ha ocurrido un error: ' . $e);
-            return back()->with('msjMalo', "Ha ocurrido un error al modificar el acta.");
+            return back()->with('msjMalo', "Ha ocurrido un error al modificar la partida.");
         }
     } // fin actualizarActa
 
