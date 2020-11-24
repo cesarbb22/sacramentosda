@@ -179,7 +179,7 @@
                         <td>__________________________</td>
                     </tr>
                     <tr class="centrar-texto">
-                        <td>Cura párroco o vicario</td>
+                        <td>Cura Párroco o Vicario Parroquial</td>
                     </tr>
                 </table>
             </div>
