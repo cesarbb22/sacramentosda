@@ -434,7 +434,7 @@
 
                 <div class="row">
                     <button id="Descargar" class="waves-effect waves-light btn right modal-trigger" data-target="modalPDF"><i
-                            class="material-icons left">file_download</i>Generar PDF
+                            class="material-icons left">file_download</i>Descargar Constancia
                     </button>
                 </div>
             </div>
