@@ -220,7 +220,7 @@ class ActaAdminController extends Controller
             $Acta->IDPersona = $Persona->IDPersona;
             $Acta->save();
 
-            return back()->with('msjBueno', "Se agregó el acta correctamente");
+            return back()->with('msjBueno', "Se agregó la partida correctamente");
 
         } catch (Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error. Intente nuevamente!");
