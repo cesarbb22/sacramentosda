@@ -146,7 +146,7 @@
 
                 <div class="row">
 
-                    <ul class="collapsible" data-collapsible="accordion">
+                    <ul class="collapsible" data-collapsible="expandable">
                         <li>
                             <div class="collapsible-header waves-light waves-effect white-text">Partida de Bautizo
                             </div>
@@ -958,6 +958,10 @@
                 monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"]
             }).val()
 
+            $('.collapsible').collapsible({
+                accordion: false
+            }).val();
+
             $(document).ready(function () {
                 $("input[name=tipoHijo][value= {{ $laico->IDTipo_Hijo }} ]").prop('checked', true);
                 if ($("#tipoH2").is(':checked')) {
@@ -975,6 +979,19 @@
                 var actaMatrimonio = {!! json_encode($actaMatrimonio) !!};
                 var actaDefuncion = {!! json_encode($actaDefuncion) !!};
                 var isEditableArray = {!! json_encode($isEditableArray) !!};
+
+                if (actaBautismo != null && actaBautismo.AbuelosPaternos != null) {
+                    $('.collapsible').collapsible('open', 0);
+                }
+                if (actaConfirma != null && actaConfirma.PadrinoCon1 != null) {
+                    $('.collapsible').collapsible('open', 1);
+                }
+                if (actaMatrimonio != null && actaMatrimonio.NombreConyugue != null) {
+                    $('.collapsible').collapsible('open', 2);
+                }
+                if (actaDefuncion != null && actaDefuncion.CausaMuerte != null) {
+                    $('.collapsible').collapsible('open', 3);
+                }
 
                 if (laico != null && laico.FechaNacimiento) {
                     $("#fechaNacEdit").datepicker("setDate", new Date(laico.FechaNacimiento));
