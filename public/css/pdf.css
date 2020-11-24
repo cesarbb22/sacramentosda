@@ -20,8 +20,12 @@ body {
     opacity: 0.05;
 }
 
-div.container{
+div.container {
     padding: 145px 5px 15px 20px
+}
+
+.texto-capitalize {
+    text-transform: capitalize;
 }
 
 .centrar-texto {

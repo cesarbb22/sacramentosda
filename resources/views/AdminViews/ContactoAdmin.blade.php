@@ -31,9 +31,9 @@
                         </div>
                     </div>
                     <div class="col s8 cuadro">
-                            <div class="col s12">-   archivocuriaalajuela@hotmail.com</div>
-                            <div class="col s12">-   Tel: 2433-6005 ext 3</div>
-                            <div class="col s12">-   WA: 6106-0262</div>
+                        <div class="col s12"><strong>Correo electrónico: </strong>   archivocuriaalajuela@hotmail.com</div>
+                        <div class="col s12"><strong>Tel:</strong> 2433-6005 ext 3</div>
+                        <div class="col s12"><strong>WA:</strong> 6106-0262</div>
                     </div>
                 </div>
             </div>

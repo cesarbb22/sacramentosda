@@ -22,7 +22,7 @@
                     <h2 id="titulo">LA DIÓCESIS DE ALAJUELA, HACE CONSTAR QUE:</h2>
                 </div>
                 <div>
-                    <h2 id="nombrePersona"><strong>{{ $acta->persona->Nombre . ' ' . $acta->persona->PrimerApellido . ' ' . $acta->persona->SegundoApellido }}</strong></h2>
+                    <h2 id="nombrePersona"><span class="texto-capitalize"><strong>{{ $acta->persona->Nombre . ' ' . $acta->persona->PrimerApellido . ' ' . $acta->persona->SegundoApellido }}</strong></span></h2>
 
                     <div>
                         @if($acta->persona->Cedula == null)
@@ -34,19 +34,19 @@
                             @if($acta->persona->laico->LugarNacimiento == null)
                                 <span class="spanMargin">en: <strong>NO CONSTA</strong></span>
                             @else
-                                <span class="spanMargin">en: <strong>{{ $acta->persona->laico->LugarNacimiento }}</strong></span>
+                                <span class="spanMargin">en: <span class="texto-capitalize"><strong>{{ $acta->persona->laico->LugarNacimiento }}</strong></span></span>
                             @endif
                     </div>
                     <div>
                         @if($acta->persona->laico->IDTipo_Hijo == 1)
-                            <span>Hijo de: <strong>{{ $acta->persona->laico->NombreMadre }}</strong></span>
+                            <span>Hijo de: <span class="texto-capitalize"><strong>{{ $acta->persona->laico->NombreMadre }}</strong></span></span>
                         @else
-                            <span>Hijo de: <strong>{{ $acta->persona->laico->NombrePadre . ' y ' . $acta->persona->laico->NombreMadre }}</strong></span>
+                            <span>Hijo de: <span class="texto-capitalize"><strong>{{ $acta->persona->laico->NombrePadre . ' y ' . $acta->persona->laico->NombreMadre }}</strong></span></span>
                         @endif
                     </div>
                     <div>
-                        <span class="">Abuelos paternos: {{ $acta->bautismo->AbuelosPaternos }}</span>
-                        <span class="spanMargin">Abuelos maternos: {{ $acta->bautismo->AbuelosMaternos }}</span>
+                        <span class="">Abuelos paternos: <span class="texto-capitalize">{{ $acta->bautismo->AbuelosPaternos }}</span></span>
+                        <span class="spanMargin">Abuelos maternos: <span class="texto-capitalize">{{ $acta->bautismo->AbuelosMaternos }}</span></span>
                     </div>
                 </div>
             </div>
@@ -61,13 +61,13 @@
                         @if($acta->bautismo != null && $acta->bautismo->IDParroquiaBautismo != null)
                             <td>en la Parroquia {{ $acta->bautismo->parroquia->NombreParroquia }}</td>
                         @elseif($acta->bautismo != null)
-                            <td>en {{ $acta->bautismo->LugarBautismo }}</td>
+                            <td>en <span class="texto-capitalize">{{ $acta->bautismo->LugarBautismo }}</span></td>
                         @endif
                     </tr>
                     <tr>
                         <td></td>
                         @if($acta->bautismo != null)
-                            <td colspan="2">Padrino: {{ $acta->bautismo->PadrinoBau2 }}</td>
+                            <td colspan="2">Padrino: <span class="texto-capitalize">{{ $acta->bautismo->PadrinoBau2 }}</span></td>
                         @else
                             <td></td>
                         @endif
@@ -75,7 +75,7 @@
                     <tr class="tr-padding">
                         <td></td>
                         @if($acta->bautismo != null)
-                            <td colspan="2">Madrina: {{ $acta->bautismo->PadrinoBau1 }}</td>
+                            <td colspan="2">Madrina: <span class="texto-capitalize">{{ $acta->bautismo->PadrinoBau1 }}</span></td>
                         @else
                             <td></td>
                         @endif
@@ -93,7 +93,7 @@
                             @if($acta->confirma->IDParroquiaConfirma != null)
                                 <td>en la Parroquia {{ $acta->confirma->parroquia->NombreParroquia }}</td>
                             @elseif($acta->confirma != null)
-                                <td>en {{ $acta->confirma->LugarConfirma }}</td>
+                                <td>en <span class="texto-capitalize">{{ $acta->confirma->LugarConfirma }}</span></td>
                             @endif
                         </tr>
                     @else
@@ -115,12 +115,12 @@
                             @if($acta->matrimonio->IDParroquiaMatrimonio != null)
                                 <td>en la Parroquia {{ $acta->matrimonio->parroquia->NombreParroquia }}</td>
                             @elseif($acta->matrimonio != null)
-                                <td>en {{ $acta->matrimonio->LugarMatrimonio }}</td>
+                                <td>en <span class="texto-capitalize">{{ $acta->matrimonio->LugarMatrimonio }}</span></td>
                             @endif
                         </tr>
                         <tr class="mat-altura">
                             <td></td>
-                            <td colspan="2">con {{ $acta->matrimonio->NombreConyugue }}</td>
+                            <td colspan="2">con <span class="texto-capitalize">{{ $acta->matrimonio->NombreConyugue }}</span></td>
                         </tr>
                     @else
                         <tr>
