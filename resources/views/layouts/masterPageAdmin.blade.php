@@ -206,6 +206,29 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
         integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
         crossorigin="anonymous"></script>
+
+<script>
+    var timeout;
+    var url =  '/login'; // route path;
+    document.onmousemove = function(){
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+                var redirect = $.ajax({
+                    cache: false,
+                    url: url,
+                    type: "GET",
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        window.location.href = url;
+                    }
+                });
+        }, 60000*60);
+    };
+</script>
 </body>
 
 </html>
