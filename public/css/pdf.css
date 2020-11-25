@@ -25,6 +25,7 @@ div.container {
 }
 
 .texto-capitalize {
+    text-transform: lowercase;
     text-transform: capitalize;
 }
 

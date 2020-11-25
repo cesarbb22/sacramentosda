@@ -22,7 +22,7 @@
                     <h2 id="titulo">LA DIÓCESIS DE ALAJUELA, HACE CONSTAR QUE:</h2>
                 </div>
                 <div>
-                    <h2 id="nombrePersona"><span class="texto-capitalize"><strong>{{ $acta->persona->Nombre . ' ' . $acta->persona->PrimerApellido . ' ' . $acta->persona->SegundoApellido }}</strong></span></h2>
+                    <h2 id="nombrePersona"><strong>{{ $acta->persona->Nombre . ' ' . $acta->persona->PrimerApellido . ' ' . $acta->persona->SegundoApellido }}</strong></h2>
 
                     <div>
                         @if($acta->persona->Cedula == null)
