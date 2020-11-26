@@ -163,7 +163,7 @@
 
             <div class="extiendeDiv centrar-texto">
                 @if(Auth::user()->IDPuesto == 1 || Auth::user()->IDPuesto == 2)
-                    <p>Se extiende la presente solicitud del interesado, dado en la <strong>Curia Diocesana de Alajuela</strong>
+                    <p>Se extiende la presente solicitud para efectos {{ $motivo }}, dado en la <strong>Curia Diocesana de Alajuela</strong>
                         el {{ $fecHoy }}</p>
                 @else
                     <p>Se extiende la presente solicitud del interesado, dado en la Parroquia <strong>{{ Auth::user()->parroquia->NombreParroquia }}</strong>

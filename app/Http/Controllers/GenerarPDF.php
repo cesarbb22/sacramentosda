@@ -24,6 +24,32 @@ class GenerarPDF extends Controller
             $parroquiaRegistraBau = 'parroquia ' . $parroquia->NombreParroquia;
         }
 
+        $motivo = '';
+        switch ($request->motivo) {
+            case '1':
+                $motivo = 'Personales';
+                break;
+            case '2':
+                $motivo = 'de Padrino de Bautizo';
+                break;
+            case '3':
+                $motivo = 'de Madrina de Bautizo';
+                break;
+            case '4':
+                $motivo = 'de Padrino de Confirma';
+                break;
+            case '5':
+                $motivo = 'de Madrina de Confirma';
+                break;
+            case '6':
+                $motivo = 'de Matrimonio';
+                break;
+            case '7':
+                $motivo = 'de Segundas Nupcias';
+                break;
+        }
+
+
         $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
 
         // fecha nacimiento
@@ -61,7 +87,7 @@ class GenerarPDF extends Controller
         $fecHoyFormatted = $fechaHoy->format('d') . ' de ' . $mesHoy . ' de ' . $fechaHoy->format('Y');
 
         $pdf = \PDF::loadView('PDF.PdfCertificado', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac'=> $fecNacFormatted, 'fecBau'=> $fecBauFormatted
-        , 'parroquiaRegistraBau'=>$parroquiaRegistraBau, 'fecConf'=> $fecConfFormatted, 'fecMat'=> $fecMatFormatted, 'fecHoy'=> $fecHoyFormatted]);
+        , 'parroquiaRegistraBau'=>$parroquiaRegistraBau, 'fecConf'=> $fecConfFormatted, 'fecMat'=> $fecMatFormatted, 'motivo'=>$motivo, 'fecHoy'=> $fecHoyFormatted]);
 
         return $pdf->download('Certificado.pdf');
     }
