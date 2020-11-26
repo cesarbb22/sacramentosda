@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Parroquia;
 use Illuminate\Http\Request;
 use App\Acta;
 use Carbon\Carbon;
@@ -16,6 +17,12 @@ class GenerarPDF extends Controller
         $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia', 'bautismo.ubicacionActa', 'confirma', 'confirma.parroquia', 'matrimonio', 'matrimonio.parroquia')
             ->where('IDActa', $request->idActa)
             ->first();
+
+        $parroquiaRegistraBau = 'Curia Diocesana de Alajuela';
+        if($acta->bautismo->IDParroquiaRegistra != -1) {
+            $parroquia = Parroquia::where('IDParroquia', $acta->bautismo->IDParroquiaRegistra)->first();
+            $parroquiaRegistraBau = 'parroquia ' . $parroquia->NombreParroquia;
+        }
 
         $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
 
@@ -54,7 +61,7 @@ class GenerarPDF extends Controller
         $fecHoyFormatted = $fechaHoy->format('d') . ' de ' . $mesHoy . ' de ' . $fechaHoy->format('Y');
 
         $pdf = \PDF::loadView('PDF.PdfCertificado', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac'=> $fecNacFormatted, 'fecBau'=> $fecBauFormatted
-        , 'fecConf'=> $fecConfFormatted, 'fecMat'=> $fecMatFormatted, 'fecHoy'=> $fecHoyFormatted]);
+        , 'parroquiaRegistraBau'=>$parroquiaRegistraBau, 'fecConf'=> $fecConfFormatted, 'fecMat'=> $fecMatFormatted, 'fecHoy'=> $fecHoyFormatted]);
 
         return $pdf->download('Certificado.pdf');
     }

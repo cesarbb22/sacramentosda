@@ -114,6 +114,10 @@ table.tabla-sacramentos tr td {
     margin-right: auto;
 }
 
+.tabla-registros td {
+    padding-right: 10px;
+}
+
 .extiendeDiv {
     margin-top: 50px;
     margin-left: 50px;

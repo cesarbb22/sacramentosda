@@ -146,10 +146,8 @@
             </div>
 
             <div class="registrosDiv centrar-texto">
+                Según registros de libros bautismales de la {{ $parroquiaRegistraBau }}:
                 <table class="tabla-registros">
-                    <tr>
-                        <td colspan="6">Según registros de libros bautismales de esta parroquia:</td>
-                    </tr>
                     <tr>
                         <td class="centrar-texto">Libro</td>
                         <td><strong>{{ $acta->bautismo->ubicacionActa->Libro }}</strong></td>
