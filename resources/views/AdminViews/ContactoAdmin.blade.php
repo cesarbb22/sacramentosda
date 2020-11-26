@@ -27,13 +27,13 @@
                 <div class="row">
                     <div class="col s4 centrar">
                         <div class="row centrar">
-                            <h5>Contactenos</h5>
+                            <h5>Contáctenos</h5>
                         </div>
                     </div>
                     <div class="col s8 cuadro">
-                        <div class="col s12"><strong>Correo electrónico: </strong>   archivocuriaalajuela@hotmail.com</div>
-                        <div class="col s12"><strong>Tel:</strong> 2433-6005 ext 3</div>
-                        <div class="col s12"><strong>WA:</strong> 6106-0262</div>
+                        <div class="col s12"><strong>Correo electrónico: </strong>   adasacramentos@gmail.com</div>
+                        <div class="col s12"><strong>Teléfono:</strong> 2433-6005 ext 3</div>
+                        <div class="col s12"><strong>Whatsapp:</strong> 6106-0262</div>
                     </div>
                 </div>
             </div>
