@@ -710,6 +710,20 @@
                 }
             });
 
+
+            // Fecha Nacimiento autocompletado
+            $("#fechaNac").keypress(function (e) {
+                e.preventDefault();
+                var fecNac = $('#fechaNac').val();
+                if (fecNac.length <= 9) {
+                    fecNac = fecNac + e.key;
+                    if (fecNac.length === 2 || fecNac.length === 5) {
+                        fecNac = fecNac + '/';
+                    }
+                    $('#fechaNac').val(fecNac);
+                }
+            });
+
             $('select').material_select();
 
         }
