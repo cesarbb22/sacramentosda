@@ -447,7 +447,7 @@
                 <div class="row"><br><br></div>
 
                 <div class="row">
-                    <button id="Descargar" class="waves-effect waves-light btn right modal-trigger" data-target="modalPDF"><i
+                    <button id="Descargar" class="waves-effect waves-light btn right modal-trigger" data-target="modalPDFDetalle"><i
                             class="material-icons left">file_download</i>Descargar Constancia
                     </button>
                 </div>
@@ -460,7 +460,7 @@
 
 
     <!-- Modal Structure -->
-    <div id="modalPDF" class="modal">
+    <div id="modalPDFDetalle" class="modal modal-fixed-footer">
         <form id="pdfForm" method="POST" action="/pdf">
             {{ csrf_field() }}
             <div class="modal-content">
@@ -469,6 +469,20 @@
                     <input id="codigo" name="codigo" placeholder="Código de referencia" required
                            oninvalid="this.setCustomValidity('Campo requerido')"
                            oninput="setCustomValidity('')">
+                </div>
+                <br>
+                <div class="input-field">
+                    <select name="motivo" id="motivo" required>
+                        <option value="0" selected>--</option>
+                        <option value="1">Personales</option>
+                        <option value="2">Padrino de Bautizo</option>
+                        <option value="3">Madrina de Bautizo</option>
+                        <option value="4">Padrino de Confirma</option>
+                        <option value="5">Madrina de Confirma</option>
+                        <option value="6">Matrimonio</option>
+                        <option value="7">Segundas Nupcias</option>
+                    </select>
+                    <label>Seleccione el motivo de la constancia:</label>
                 </div>
                 <div class="input-field">
                     <input id="idActa" name="idActa" value="{{ $acta->IDActa }}" type="text" hidden>
@@ -500,12 +514,17 @@
             $('#pdfForm').on('submit', function (e) {
                 e.preventDefault();
 
+                if ($('#motivo').val() == '0') {
+                    return;
+                }
+
                 $('#modalCancelBtn').attr('disabled', true);
                 $('#modalDescargarBtn').attr('disabled', true);
                 $('#loadingDiv').show();
 
                 var formData = new FormData();
                 formData.append("codigo", $('#codigo').val());
+                formData.append("motivo", $('#motivo').val());
                 formData.append("idActa", $('#idActa').val());
                 formData.append("_token", "{{ csrf_token() }}");
 

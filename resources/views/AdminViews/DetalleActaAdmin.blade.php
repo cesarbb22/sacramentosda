@@ -458,7 +458,6 @@
                 </div>
                 <br>
                 <div class="input-field">
-
                     <select name="motivo" id="motivo" required>
                         <option value="0" selected>--</option>
                         <option value="1">Personales</option>
