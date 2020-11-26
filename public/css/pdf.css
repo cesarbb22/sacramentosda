@@ -126,6 +126,8 @@ table.tabla-sacramentos tr td {
 
 .firmaDiv {
     margin-top: 70px;
+    position: fixed;
+    bottom: 150px;
 }
 
 .tabla-firma {
