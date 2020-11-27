@@ -49,7 +49,7 @@
                     </div>
                     <div class="input-field col s12">
                         <input placeholder="Número de Cédula" id="numCed" type="text" required name="numCed" disabled
-                               class="validate" maxlength="9" pattern="^[0-9]{9}$">
+                               class="validate" maxlength="9">
                     </div>
                 </div>
 
