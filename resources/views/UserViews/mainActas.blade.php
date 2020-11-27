@@ -62,7 +62,7 @@
                     <div class="input-field col s4">
                         <input id="numCedula" name='numCedula' type="text" class="validate" minlength="9" maxlength="9"
                                oninvalid="this.setCustomValidity('Debe ingresar cédula con el formato: 101230456')"
-                               oninput="setCustomValidity('')"  pattern="^[0-9]{9}$">
+                               oninput="setCustomValidity('')" pattern="^[0-9]{9}$">
                         <label for="numCedula">Número de cédula:</label>
                     </div>
                     <div class="input-field col s8">

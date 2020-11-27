@@ -32,6 +32,11 @@ class ActaUsuarioController extends Controller
     public function crearActa(Request $request)
     {
         try {
+            $persona = \App\Persona::where('Cedula', $request->numCedul)->first();
+            if ($persona != null) {
+                return back()->with('msjMalo', "El número de cédula ingresado ya se encuentra registrado");
+            }
+
             $Persona = new Persona;
             if ($request->has('nombrePadre')) {
 

@@ -27,25 +27,25 @@ class GenerarPDF extends Controller
         $motivo = '';
         switch ($request->motivo) {
             case '1':
-                $motivo = 'Personales';
+                $motivo = 'personales';
                 break;
             case '2':
-                $motivo = 'de Padrino de Bautizo';
+                $motivo = 'padrino de bautizo';
                 break;
             case '3':
-                $motivo = 'de Madrina de Bautizo';
+                $motivo = 'madrina de bautizo';
                 break;
             case '4':
-                $motivo = 'de Padrino de Confirma';
+                $motivo = 'padrino de confirma';
                 break;
             case '5':
-                $motivo = 'de Madrina de Confirma';
+                $motivo = 'madrina de confirma';
                 break;
             case '6':
-                $motivo = 'de Matrimonio';
+                $motivo = 'matrimonio';
                 break;
             case '7':
-                $motivo = 'de Segundas Nupcias';
+                $motivo = 'segundas nupcias';
                 break;
         }
 

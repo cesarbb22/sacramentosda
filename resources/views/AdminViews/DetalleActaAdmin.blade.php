@@ -450,7 +450,9 @@
         <form id="pdfForm" method="POST" action="/pdf">
             {{ csrf_field() }}
             <div class="modal-content">
-                <h4>Ingrese el código de referencia:</h4>
+                <div>
+                    <h4>Descargar Constancia</h4>
+                </div>
                 <div class="input-field">
                     <input id="codigo" name="codigo" placeholder="Código de referencia" required
                            oninvalid="this.setCustomValidity('Campo requerido')"

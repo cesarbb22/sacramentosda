@@ -148,17 +148,14 @@
     </div>
 
     <div class="observacionesDiv">
-        @if($acta->confirma != null && $acta->matrimonio == null)
-            <p class="izq-texto">Notas
-                Marginales: {{ $acta->bautismo->NotasMarginales . ' ' . $acta->confirma->NotasMarginales }}</p>
-        @elseif($acta->confirma == null && $acta->matrimonio != null)
-            <p class="izq-texto">Notas
-                Marginales: {{ $acta->bautismo->NotasMarginales . ' ' . $acta->matrimonio->NotasMarginales }}</p>
-        @elseif($acta->confirma == null && $acta->matrimonio == null)
-            <p class="izq-texto">Notas Marginales: {{ $acta->bautismo->NotasMarginales }}</p>
-        @elseif($acta->confirma != null && $acta->matrimonio != null)
-            <p class="izq-texto">Notas
-                Marginales: {{ $acta->bautismo->NotasMarginales . ' ' . $acta->confirma->NotasMarginales . ' ' . $acta->matrimonio->NotasMarginales }}</p>
+        @if($acta->bautismo != null)
+            @if($acta->bautismo->NotasMarginales == null || $acta->bautismo->NotasMarginales == '')
+                <p class="izq-texto">Notas
+                    Marginales: NO CONSTA</p>
+            @else
+                <p class="izq-texto">Notas
+                    Marginales: {{ $acta->bautismo->NotasMarginales }}</p>
+            @endif
         @endif
     </div>
 
@@ -180,13 +177,25 @@
 
     <div class="extiendeDiv centrar-texto">
         @if(Auth::user()->IDPuesto == 1 || Auth::user()->IDPuesto == 2)
-            <p>Se extiende la presente solicitud para efectos {{ $motivo }}, dado en la <strong>Curia Diocesana de
-                    Alajuela</strong>
-                el {{ $fecHoy }}</p>
+            @if($motivo == 'personales')
+                <p>Se extiende la presente solicitud para efectos <strong>{{ $motivo }}</strong>, dado en la <strong>Curia Diocesana de
+                        Alajuela</strong>
+                    el {{ $fecHoy }}</p>
+            @else
+                <p>Se extiende la presente solicitud para efectos de <strong>{{ $motivo }}</strong>, dado en la <strong>Curia Diocesana de
+                        Alajuela</strong>
+                    el {{ $fecHoy }}</p>
+            @endif
         @else
-            <p>Se extiende la presente solicitud del interesado, dado en la Parroquia
-                <strong>{{ Auth::user()->parroquia->NombreParroquia }}</strong>
-                el {{ $fecHoy }}</p>
+            @if($motivo == 'personales')
+                <p>Se extiende la presente solicitud para efectos <strong>{{ $motivo }}</strong>, dado en la Parroquia
+                    <strong>{{ Auth::user()->parroquia->NombreParroquia }}</strong>
+                    el {{ $fecHoy }}</p>
+            @else
+                <p>Se extiende la presente solicitud para efectos de <strong>{{ $motivo }}</strong>, dado en la Parroquia
+                    <strong>{{ Auth::user()->parroquia->NombreParroquia }}</strong>
+                    el {{ $fecHoy }}</p>
+            @endif
         @endif
     </div>
 
