@@ -39,11 +39,6 @@ class ActaUsuarioController extends Controller
                 }
             }
 
-            $persona = \App\Persona::where('Cedula', $request->numCedula)->first();
-            if ($persona != null) {
-                return back()->with('msjMalo', "El número de cédula ingresado ya se encuentra registrado");
-            }
-
             $Persona = new Persona;
             if ($request->has('nombrePadre')) {
 
