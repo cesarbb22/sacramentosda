@@ -259,7 +259,14 @@ class ActaUsuarioController extends Controller
             # bautismo
             $idUbicacionActaBau = null;
             $UbicacionActaBautismo = null;
+            $nomParroquiaBauRegistra = null;
             if ($idBautismo != null) {
+                if ($actaBautismo->IDParroquiaRegistra != -1) {
+                    $parroquiaBauRegistra = Parroquia::find($actaBautismo->IDParroquiaRegistra);
+                    $nomParroquiaBauRegistra = $parroquiaBauRegistra->NombreParroquia;
+                } else {
+                    $nomParroquiaBauRegistra = 'Curia Diocesana de Alajuela';
+                }
                 $idUbicacionActaBau = $actaBautismo->IDUbicacionActaBau;
                 $UbicacionActaBautismo = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaBau)->first();
                 if ($actaBautismo->IDParroquiaRegistra != $usuarioParroquia) {
@@ -276,7 +283,14 @@ class ActaUsuarioController extends Controller
             # confirma
             $idUbicacionActaCon = null;
             $UbicacionActaConfirma = null;
+            $nomParroquiaConfRegistra = null;
             if ($idConfirma != null) {
+                if ($actaConfirma->IDParroquiaRegistra != -1) {
+                    $parroquiaConfRegistra = Parroquia::find($actaConfirma->IDParroquiaRegistra);
+                    $nomParroquiaConfRegistra = $parroquiaConfRegistra->NombreParroquia;
+                } else {
+                    $nomParroquiaConfRegistra = 'Curia Diocesana de Alajuela';
+                }
                 $idUbicacionActaCon = $actaConfirma->IDUbicacionActaCon;
                 $UbicacionActaConfirma = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaCon)->first();
                 if ($actaConfirma->IDParroquiaRegistra != $usuarioParroquia) {
@@ -293,7 +307,14 @@ class ActaUsuarioController extends Controller
             # matrimonio
             $idUbicacionActaMat = null;
             $UbicacionActaMatrimonio = null;
+            $nomParroquiaMatRegistra = null;
             if ($idMatrimonio != null) {
+                if ($actaMatrimonio->IDParroquiaRegistra != -1) {
+                    $parroquiaMatRegistra = Parroquia::find($actaMatrimonio->IDParroquiaRegistra);
+                    $nomParroquiaMatRegistra = $parroquiaMatRegistra->NombreParroquia;
+                } else {
+                    $nomParroquiaMatRegistra = 'Curia Diocesana de Alajuela';
+                }
                 $idUbicacionActaMat = $actaMatrimonio->IDUbicacionActaMat;
                 $UbicacionActaMatrimonio = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaMat)->first();
                 if ($actaMatrimonio->IDParroquiaRegistra != $usuarioParroquia) {
@@ -310,7 +331,14 @@ class ActaUsuarioController extends Controller
             # defuncion
             $idUbicacionActaDef = null;
             $UbicacionActaDefuncion = null;
+            $nomParroquiaDefRegistra = null;
             if ($idDefuncion != null) {
+                if ($actaDefuncion->IDParroquiaRegistra != -1) {
+                    $parroquiaDefRegistra = Parroquia::find($actaDefuncion->IDParroquiaRegistra);
+                    $nomParroquiaDefRegistra = $parroquiaDefRegistra->NombreParroquia;
+                } else {
+                    $nomParroquiaDefRegistra = 'Curia Diocesana de Alajuela';
+                }
                 $idUbicacionActaDef = $actaDefuncion->IDUbicacionActaDef;
                 $UbicacionActaDefuncion = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaDef)->first();
                 if ($actaDefuncion->IDParroquiaRegistra != $usuarioParroquia) {
@@ -330,7 +358,9 @@ class ActaUsuarioController extends Controller
                 'acta' => $acta, 'actaBautismo' => $actaBautismo, 'actaConfirma' => $actaConfirma, 'actaMatrimonio' => $actaMatrimonio,
                 'actaDefuncion' => $actaDefuncion, 'UbicacionActaBautismo' => $UbicacionActaBautismo, 'UbicacionActaConfirma' => $UbicacionActaConfirma,
                 'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion, 'parroquias' => $parroquias,
-                'isEditableArray' => $isEditableArray, 'parroquiaUser' => Auth::user()->IDParroquia]);
+                'isEditableArray' => $isEditableArray, 'parroquiaUser' => Auth::user()->IDParroquia, 'nomParroquiaBauRegistra'=>$nomParroquiaBauRegistra,
+                'nomParroquiaConfRegistra'=>$nomParroquiaConfRegistra, 'nomParroquiaMatRegistra'=>$nomParroquiaMatRegistra,
+                'nomParroquiaDefRegistra'=>$nomParroquiaDefRegistra]);
         } catch (Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error. Intente nuevamente!");
         }
@@ -628,7 +658,14 @@ class ActaUsuarioController extends Controller
                 $tipoHijo = "legítimo";
             }
 
+            $nomParroquiaBauRegistra = null;
             if ($idBautismo != null) {
+                if ($actaBautismo->IDParroquiaRegistra != -1) {
+                    $parroquiaBauRegistra = Parroquia::find($actaBautismo->IDParroquiaRegistra);
+                    $nomParroquiaBauRegistra = $parroquiaBauRegistra->NombreParroquia;
+                } else {
+                    $nomParroquiaBauRegistra = 'Curia Diocesana de Alajuela';
+                }
                 $idUbicacionActaBau = $actaBautismo->IDUbicacionActaBau;
                 $date = $actaBautismo->FechaBautismo;
                 $actaBautismo->FechaBautismo = $this->formatDatetoString($date);
@@ -642,7 +679,14 @@ class ActaUsuarioController extends Controller
                 $UbicacionActaBautismo = null;
             }
 
+            $nomParroquiaConfRegistra = null;
             if ($idConfirma != null) {
+                if ($actaConfirma->IDParroquiaRegistra != -1) {
+                    $parroquiaConfRegistra = Parroquia::find($actaConfirma->IDParroquiaRegistra);
+                    $nomParroquiaConfRegistra = $parroquiaConfRegistra->NombreParroquia;
+                } else {
+                    $nomParroquiaConfRegistra = 'Curia Diocesana de Alajuela';
+                }
                 $idUbicacionActaCon = $actaConfirma->IDUbicacionActaCon;
                 $date = $actaConfirma->FechaConfirma;
                 $actaConfirma->FechaConfirma = $this->formatDatetoString($date);
@@ -656,7 +700,14 @@ class ActaUsuarioController extends Controller
                 $UbicacionActaConfirma = null;
             }
 
+            $nomParroquiaMatRegistra = null;
             if ($idMatrimonio != null) {
+                if ($actaMatrimonio->IDParroquiaRegistra != -1) {
+                    $parroquiaMatRegistra = Parroquia::find($actaMatrimonio->IDParroquiaRegistra);
+                    $nomParroquiaMatRegistra = $parroquiaMatRegistra->NombreParroquia;
+                } else {
+                    $nomParroquiaMatRegistra = 'Curia Diocesana de Alajuela';
+                }
                 $idUbicacionActaMat = $actaMatrimonio->IDUbicacionActaMat;
                 $date = $actaMatrimonio->FechaMatrimonio;
                 $actaMatrimonio->FechaMatrimonio = $this->formatDatetoString($date);
@@ -670,7 +721,14 @@ class ActaUsuarioController extends Controller
                 $UbicacionActaMatrimonio = null;
             }
 
+            $nomParroquiaDefRegistra = null;
             if ($idDefuncion != null) {
+                if ($actaDefuncion->IDParroquiaRegistra != -1) {
+                    $parroquiaDefRegistra = Parroquia::find($actaDefuncion->IDParroquiaRegistra);
+                    $nomParroquiaDefRegistra = $parroquiaDefRegistra->NombreParroquia;
+                } else {
+                    $nomParroquiaDefRegistra = 'Curia Diocesana de Alajuela';
+                }
                 $idUbicacionActaDef = $actaDefuncion->IDUbicacionActaDef;
                 $date = $actaDefuncion->FechaDefuncion;
                 $actaDefuncion->FechaDefuncion = $this->formatDatetoString($date);
@@ -687,7 +745,9 @@ class ActaUsuarioController extends Controller
             return view('UserViews.DetalleActa', ['persona' => Persona::findOrFail($id), 'laico' => $laico,
                 'acta' => $acta, 'actaBautismo' => $actaBautismo, 'actaConfirma' => $actaConfirma, 'actaMatrimonio' => $actaMatrimonio,
                 'actaDefuncion' => $actaDefuncion, 'UbicacionActaBautismo' => $UbicacionActaBautismo, 'UbicacionActaConfirma' => $UbicacionActaConfirma,
-                'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion, 'tipoHijo' => $tipoHijo]);
+                'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion, 'tipoHijo' => $tipoHijo,
+                'nomParroquiaBauRegistra'=>$nomParroquiaBauRegistra, 'nomParroquiaConfRegistra'=>$nomParroquiaConfRegistra,
+                'nomParroquiaMatRegistra'=>$nomParroquiaMatRegistra, 'nomParroquiaDefRegistra'=>$nomParroquiaDefRegistra]);
 
         } catch (Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error " + $e);

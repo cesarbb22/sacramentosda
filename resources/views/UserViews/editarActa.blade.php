@@ -271,6 +271,10 @@
                                             <label for="notasMarginalesBauEdit">Notas Marginales:</label>
                                         </div>
                                     </div>
+
+                                    <div class="div-creado-por">
+                                        <span class="p-creado-por">Creado por: {{ $nomParroquiaBauRegistra }}</span>
+                                    </div>
                                 @else
                                     <div class="row">
                                         <div class="input-field col s6">
@@ -487,6 +491,10 @@
                                             <label for="notasMarginalesConfEdit">Notas Marginales:</label>
                                         </div>
                                     </div>
+
+                                    <div class="div-creado-por">
+                                        <span class="p-creado-por">Creado por: {{ $nomParroquiaConfRegistra }}</span>
+                                    </div>
                                 @else
                                     <div class="row">
                                         <div class="input-field col s6">
@@ -665,6 +673,10 @@
                                             <label for="notasMarginalesMatEdit">Notas Marginales:</label>
                                         </div>
                                     </div>
+
+                                    <div class="div-creado-por">
+                                        <span class="p-creado-por">Creado por: {{ $nomParroquiaMatRegistra }}</span>
+                                    </div>
                                 @else
                                     <div class="row">
                                         <div class="input-field col s6">
@@ -840,6 +852,10 @@
                                                    value="{{ $actaDefuncion->NotasMarginales }}">
                                             <label for="notasMarginalesDefEdit">Notas Marginales:</label>
                                         </div>
+                                    </div>
+
+                                    <div class="div-creado-por">
+                                        <span class="p-creado-por">Creado por: {{ $nomParroquiaDefRegistra }}</span>
                                     </div>
                             </div>
 

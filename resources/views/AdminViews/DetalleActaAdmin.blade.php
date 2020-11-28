@@ -205,6 +205,11 @@
                                 <label for="notasMarginalesBauEdit">Notas Marginales:</label>
                             </div>
                         </div>
+
+                        <div class="div-creado-por">
+                            <span class="p-creado-por">Creado por: {{ $nomParroquiaBauRegistra }}</span>
+                        </div>
+                        <br>
                     @else
                         <div class="row">
                             <div class="input-field col s6">
@@ -277,6 +282,11 @@
                             <label for="notasMarginalesConfEdit">Notas Marginales:</label>
                         </div>
                     </div>
+
+                    <div class="div-creado-por">
+                        <span class="p-creado-por">Creado por: {{ $nomParroquiaConfRegistra }}</span>
+                    </div>
+                    <br>
                 @else
                     <div class="row">
                         <div class="input-field col s6">
@@ -348,6 +358,11 @@
                             <label for="notasMarginalesMatEdit">Notas Marginales:</label>
                         </div>
                     </div>
+
+                    <div class="div-creado-por">
+                        <span class="p-creado-por">Creado por: {{ $nomParroquiaMatRegistra }}</span>
+                    </div>
+                    <br>
                 @else
                     <div class="row">
                         <div class="input-field col s6">
@@ -420,6 +435,10 @@
                         </div>
                     </div>
 
+                    <div class="div-creado-por">
+                        <span class="p-creado-por">Creado por: {{ $nomParroquiaDefRegistra }}</span>
+                    </div>
+                    <br>
                 @else
                     <div class="row">
                         <div class="input-field col s6">
@@ -453,24 +472,30 @@
                 <div>
                     <h4>Descargar Constancia</h4>
                 </div>
-                <div class="input-field">
-                    <input id="codigo" name="codigo" placeholder="Código de referencia" required
-                           oninvalid="this.setCustomValidity('Campo requerido')"
-                           oninput="setCustomValidity('')">
+                <br>
+                <div class="row">
+                    <div class="input-field">
+                        <input id="codigo" name="codigo" type="text" required
+                               oninvalid="this.setCustomValidity('Campo requerido')"
+                               oninput="setCustomValidity('')">
+                        <label for="codigo">Código de referencia</label>
+                    </div>
                 </div>
                 <br>
-                <div class="input-field">
-                    <select name="motivo" id="motivo" required>
-                        <option value="0" selected>--</option>
-                        <option value="1">Personales</option>
-                        <option value="2">Padrino de Bautizo</option>
-                        <option value="3">Madrina de Bautizo</option>
-                        <option value="4">Padrino de Confirma</option>
-                        <option value="5">Madrina de Confirma</option>
-                        <option value="6">Matrimonio</option>
-                        <option value="7">Segundas Nupcias</option>
-                    </select>
-                    <label>Seleccione el motivo de la constancia:</label>
+                <div class="row">
+                    <div class="input-field">
+                        <select name="motivo" id="motivo" required>
+                            <option value="0" selected>--</option>
+                            <option value="1">Personales</option>
+                            <option value="2">Padrino de Bautizo</option>
+                            <option value="3">Madrina de Bautizo</option>
+                            <option value="4">Padrino de Confirma</option>
+                            <option value="5">Madrina de Confirma</option>
+                            <option value="6">Matrimonio</option>
+                            <option value="7">Segundas Nupcias</option>
+                        </select>
+                        <label>Seleccione el motivo de la constancia:</label>
+                    </div>
                 </div>
                 <div class="input-field">
                     <input id="idActa" name="idActa" value="{{ $acta->IDActa }}" type="text" hidden>

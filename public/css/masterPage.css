@@ -85,3 +85,11 @@ input:not([type]):focus:not([readonly]) + label, input[type=text]:focus:not([rea
 .picker__nav--next:hover {
     background-color: #51081C;
 }
+
+.div-creado-por {
+    text-align: right;
+}
+
+.p-creado-por {
+    color: #babdb2;
+}
