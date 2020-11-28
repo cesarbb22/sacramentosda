@@ -65,7 +65,7 @@
                         <div class="form-group">
                             <div class="col-md-12 col-md-offset-4">
                                 <button type="submit" class="waves-effect waves-light btn">
-                                    Login
+                                    Entrar
                                 </button>
 
                                 <a class="btn-link right" href="{{ url('emailRecuperacion') }}">
