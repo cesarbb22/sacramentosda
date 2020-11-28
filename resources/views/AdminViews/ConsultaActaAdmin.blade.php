@@ -119,6 +119,7 @@
                     <th>Cédula</th>
                     <th>Nombre</th>
                     <th>Lugar de Bautizo</th>
+                    <th>Fecha de Bautizo</th>
                     <th>Fecha de Nacimiento</th>
                     <th>Detalle</th>
                     <th>Editar</th>
@@ -223,6 +224,11 @@
                                 fechaNacimiento = formatDateToString(data.data[i].persona.laico.FechaNacimiento);
                             }
 
+                            var fechaBautismo = '---';
+                            if (data.data[i].bautismo !== null && data.data[i].bautismo.FechaBautismo !== null) {
+                                fechaBautismo = formatDateToString(data.data[i].bautismo.FechaBautismo);
+                            }
+
                             var iconDetalle = "<i class='material-icons'>description</i>";
                             var detalle = "<a id='" + idPersona + "Detalle'>" + iconDetalle + "</a>";
 
@@ -233,7 +239,8 @@
                             var eliminar = "<a id='" + idPersona + "Eliminar'>" + iconEliminar + "</a>";
 
                             $('#tablaConsulta tbody').append('<tr><td>' + cedula + '</td><td>' + nombre + ' ' + primerApellido + ' ' + segundoApellido + '</td>' +
-                                '<td>' + lugarBautismo + '</td><td>' + fechaNacimiento + '</td><td>' + detalle + '</td><td>' + editar + '</td><td>' + eliminar + '</td><td id hidden>' + idPersona + '</td></tr>');
+                                '<td>' + lugarBautismo + '</td><td>' + fechaBautismo + '</td><td>' + fechaNacimiento + '</td><td>' + detalle + '</td><td>' + editar +
+                                '</td><td>' + eliminar + '</td><td id hidden>' + idPersona + '</td></tr>');
 
 
                             document.getElementById(idPersona + "Editar").setAttribute('href', window.location.origin + '/Editar/' + idPersona);
