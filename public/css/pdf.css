@@ -129,6 +129,13 @@ table.tabla-sacramentos tr td {
     bottom: 150px;
 }
 
+.no-margin-padding {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
 .tabla-firma {
     margin-left: auto;
     margin-right: auto;

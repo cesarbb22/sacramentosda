@@ -990,6 +990,20 @@
                 } else if (actaDefuncion != null) {
                     $('#parroquiaDefuncion > option[value="'+ actaDefuncion.IDParroquiaDefuncion +'"]').attr('selected', 'selected');
                 }
+
+                // poner la parroquia del usuario cuando el acta no ha sido creada
+                if (actaBautismo == null) {
+                    $('#parroquiaBautismo > option[value="{{ $parroquiaUser }}"]').attr('selected', 'selected');
+                }
+                if (actaConfirma == null) {
+                    $('#parroquiaConfirma > option[value="{{ $parroquiaUser }}"]').attr('selected', 'selected');
+                }
+                if (actaMatrimonio == null) {
+                    $('#parroquiaMatrimonio > option[value="{{ $parroquiaUser }}"]').attr('selected', 'selected');
+                }
+                if (actaDefuncion == null) {
+                    $('#parroquiaDefuncion > option[value="{{ $parroquiaUser }}"]').attr('selected', 'selected');
+                }
             });
 
             $("#tipoH2").change(function () {

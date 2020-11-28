@@ -537,6 +537,11 @@
                 monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre" ]
             }).val()
 
+            $('#parroquiaBautismo > option[value="{{ $parroquiaUser }}"]').attr('selected', 'selected');
+            $('#parroquiaConfirma > option[value="{{ $parroquiaUser }}"]').attr('selected', 'selected');
+            $('#parroquiaMatrimonio > option[value="{{ $parroquiaUser }}"]').attr('selected', 'selected');
+            $('#parroquiaDefuncion > option[value="{{ $parroquiaUser }}"]').attr('selected', 'selected');
+
             $("#tipoH2").change(function () {
                 if ($("#tipoH2").is(':checked')) {
                     $("#nombrePadre").prop('disabled', false);

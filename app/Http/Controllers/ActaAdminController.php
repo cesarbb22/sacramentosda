@@ -33,7 +33,7 @@ class ActaAdminController extends Controller
     public function home()
     {
         $parroquias = \App\Parroquia::all();
-        return view('AdminViews.mainActasAdmin', ['parroquias' => $parroquias]);
+        return view('AdminViews.mainActasAdmin', ['parroquias' => $parroquias, 'parroquiaUser' => Auth::user()->IDParroquia]);
     }
 
 
@@ -314,7 +314,8 @@ class ActaAdminController extends Controller
             return view('AdminViews.EditarActaAdmin', ['source' => $source, 'idSolicitud' => $id, 'persona' => $persona, 'laico' => $laico,
                 'acta' => $acta, 'actaBautismo' => $actaBautismo, 'actaConfirma' => $actaConfirma, 'actaMatrimonio' => $actaMatrimonio,
                 'actaDefuncion' => $actaDefuncion, 'UbicacionActaBautismo' => $UbicacionActaBautismo, 'UbicacionActaConfirma' => $UbicacionActaConfirma,
-                'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion, 'parroquias' => $parroquias]);
+                'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion, 'parroquias' => $parroquias,
+                'parroquiaUser' => Auth::user()->IDParroquia]);
 
         } catch (\Exception $e) {
             Log::error('Ha ocurrido un error: ' . $e);

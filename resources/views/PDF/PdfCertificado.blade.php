@@ -199,16 +199,32 @@
         @endif
     </div>
 
-    <div class="firmaDiv centrar-texto">
-        <table class="tabla-firma">
-            <tr>
-                <td>__________________________</td>
-            </tr>
-            <tr class="centrar-texto">
-                <td>Cura Párroco o Vicario Parroquial</td>
-            </tr>
-        </table>
-    </div>
+    @if(Auth::user()->IDPuesto == 1 || Auth::user()->IDPuesto == 2)
+        <div class="firmaDiv centrar-texto">
+            <table class="tabla-firma">
+                <tr>
+                    <td>________________________________</td>
+                </tr>
+                <tr class="centrar-texto">
+                    <td>
+                        <p class="no-margin-padding">Pbro. Lic. Sixto Varela Santamaría</p>
+                        <p class="no-margin-padding">Canciller</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    @else
+        <div class="firmaDiv centrar-texto">
+            <table class="tabla-firma">
+                <tr>
+                    <td>__________________________</td>
+                </tr>
+                <tr class="centrar-texto">
+                    <td>Cura Párroco o Vicario Parroquial</td>
+                </tr>
+            </table>
+        </div>
+    @endif
 </div>
 
 

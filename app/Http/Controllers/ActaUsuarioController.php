@@ -25,7 +25,7 @@ class ActaUsuarioController extends Controller
     public function homeUsuario()
     {
         $parroquias = \App\Parroquia::all();
-        return view('UserViews.mainActas', ['parroquias' => $parroquias]);
+        return view('UserViews.mainActas', ['parroquias' => $parroquias, 'parroquiaUser' => Auth::user()->IDParroquia]);
     }
 
 
@@ -330,7 +330,7 @@ class ActaUsuarioController extends Controller
                 'acta' => $acta, 'actaBautismo' => $actaBautismo, 'actaConfirma' => $actaConfirma, 'actaMatrimonio' => $actaMatrimonio,
                 'actaDefuncion' => $actaDefuncion, 'UbicacionActaBautismo' => $UbicacionActaBautismo, 'UbicacionActaConfirma' => $UbicacionActaConfirma,
                 'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion, 'parroquias' => $parroquias,
-                'isEditableArray' => $isEditableArray]);
+                'isEditableArray' => $isEditableArray, 'parroquiaUser' => Auth::user()->IDParroquia]);
         } catch (Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error. Intente nuevamente!");
         }
