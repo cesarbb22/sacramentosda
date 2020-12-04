@@ -50,14 +50,13 @@
                             class="texto-capitalize"><strong>{{ $acta->persona->laico->NombreMadre }}</strong></span></span>
                 @else
                     <span>Hijo de: <span
-                            class="texto-capitalize"><strong>{{ $acta->persona->laico->NombrePadre . ' y ' . $acta->persona->laico->NombreMadre }}</strong></span></span>
+                            class="texto-capitalize"><strong>{{ $acta->persona->laico->NombrePadre }}</strong></span>  y  <span
+                            class="texto-capitalize"><strong>{{ $acta->persona->laico->NombreMadre }}</strong></span></span>
                 @endif
             </div>
             <div>
-                <span class="">Abuelos paternos: <span
-                        class="texto-capitalize">{{ $acta->bautismo->AbuelosPaternos }}</span></span>
-                <span class="spanMargin">Abuelos maternos: <span
-                        class="texto-capitalize">{{ $acta->bautismo->AbuelosMaternos }}</span></span>
+                <span class="">Abuelos paternos: {{ str_replace([' Y '], [' y '], ucwords(strtolower($acta->bautismo->AbuelosPaternos))) }}</span>
+                <span class="spanMargin">Abuelos maternos: {{ str_replace([' Y '], [' y '], ucwords(strtolower($acta->bautismo->AbuelosMaternos))) }}</span>
             </div>
         </div>
     </div>
