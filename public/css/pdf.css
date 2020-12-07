@@ -95,6 +95,15 @@ table.tabla-sacramentos tr td {
     padding-bottom: 30px !important;
 }
 
+.sacramento-info-div p {
+    padding: 0px;
+    margin: 7px;
+}
+
+.sacramento-info-div {
+    padding-left: 100px;
+}
+
 .mat-altura {
     height: 100px;
 }

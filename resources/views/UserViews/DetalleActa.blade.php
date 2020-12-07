@@ -220,7 +220,7 @@
                         </div>
 
                         <div class="div-creado-por">
-                            <span class="p-creado-por">Creado por: {{ $nomParroquiaBauRegistra }}</span>
+                            <span class="p-creado-por">Creada por: {{ $nomParroquiaBauRegistra }}</span>
                         </div>
                         <br>
                     @else
@@ -297,7 +297,7 @@
                     </div>
 
                     <div class="div-creado-por">
-                        <span class="p-creado-por">Creado por: {{ $nomParroquiaConfRegistra }}</span>
+                        <span class="p-creado-por">Creada por: {{ $nomParroquiaConfRegistra }}</span>
                     </div>
                     <br>
                 @else
@@ -373,7 +373,7 @@
                     </div>
 
                     <div class="div-creado-por">
-                        <span class="p-creado-por">Creado por: {{ $nomParroquiaMatRegistra }}</span>
+                        <span class="p-creado-por">Creada por: {{ $nomParroquiaMatRegistra }}</span>
                     </div>
                     <br>
                 @else
@@ -449,7 +449,7 @@
                     </div>
 
                     <div class="div-creado-por">
-                        <span class="p-creado-por">Creado por: {{ $nomParroquiaDefRegistra }}</span>
+                        <span class="p-creado-por">Creada por: {{ $nomParroquiaDefRegistra }}</span>
                     </div>
                     <br>
 

@@ -21,7 +21,7 @@
         <div class="col m3 l3"></div>
         <div class="col s16 m3 l6">
             <div class="card-panel z-depth-5">
-                <h3 class="center-align">Curia Diocesana de Alajuela</h3>
+                <h3 class="center-align">Archivo Diocesano de Alajuela</h3>
                 <br><br>
                 <div class="panel-body">
                     <div class="row">

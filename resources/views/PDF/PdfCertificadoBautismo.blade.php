@@ -63,87 +63,20 @@
 
 
     <div class="sacramentosDiv centrar-texto">
-        <h4 class="titulo-sacramentos"><strong>HA RECIBIDO LOS SACRAMENTOS DE:</strong></h4>
-        <table class="tabla-sacramentos" cellspacing="0" cellpadding="0">
-            <tr>
-                <td class="izq-texto"><strong>Bautizo:</strong></td>
-                <td>el {{ $fecBau }}</td>
-                @if($acta->bautismo != null && $acta->bautismo->IDParroquiaBautismo != null)
-                    <td>en la Parroquia {{ $acta->bautismo->parroquia->NombreParroquia }}</td>
-                @elseif($acta->bautismo != null)
-                    <td>en <span class="texto-capitalize">{{ $acta->bautismo->LugarBautismo }}</span></td>
-                @endif
-            </tr>
-            <tr>
-                <td></td>
-                @if($acta->bautismo != null)
-                    <td colspan="2">Padrino: <span class="texto-capitalize">{{ $acta->bautismo->PadrinoBau2 }}</span>
-                    </td>
-                @else
-                    <td></td>
-                @endif
-            </tr>
-            <tr class="tr-padding">
-                <td></td>
-                @if($acta->bautismo != null)
-                    <td colspan="2">Madrina: <span class="texto-capitalize">{{ $acta->bautismo->PadrinoBau1 }}</span>
-                    </td>
-                @else
-                    <td></td>
-                @endif
-            </tr>
+        <h4 class="titulo-sacramentos"><strong>HA RECIBIDO EL SACRAMENTO DE</strong></h4>
+        <h2>BAUTISMO</h2>
+    </div>
 
-            @if($acta->confirma != null)
-                <tr class="tr-padding">
-                    <td class="izq-texto"><strong>Confirmación:</strong></td>
-                    @if($acta->confirma->FechaConfirma == null)
-                        <td>NO CONSTA FECHA</td>
-                    @else
-                        <td>el {{ $fecConf }}</td>
-                    @endif
-
-                    @if($acta->confirma->IDParroquiaConfirma != null)
-                        <td>en la Parroquia {{ $acta->confirma->parroquia->NombreParroquia }}</td>
-                    @elseif($acta->confirma != null)
-                        <td>en <span class="texto-capitalize">{{ $acta->confirma->LugarConfirma }}</span></td>
-                    @endif
-                </tr>
-            @else
-                <tr class="tr-padding">
-                    <td class="izq-texto"><strong>Confirmación:</strong></td>
-                    <td>NO CONSTA</td>
-                </tr>
-            @endif
-
-            @if($acta->matrimonio != null)
-                <tr class="mat-altura">
-                    <td class="izq-texto"><strong>Matrimonio:</strong></td>
-                    @if($acta->matrimonio->FechaMatrimonio == null)
-                        <td>NO CONSTA FECHA</td>
-                    @else
-                        <td>el {{ $fecMat }}</td>
-                    @endif
-
-                    @if($acta->matrimonio->IDParroquiaMatrimonio != null)
-                        <td>en la Parroquia {{ $acta->matrimonio->parroquia->NombreParroquia }}</td>
-                    @elseif($acta->matrimonio != null)
-                        <td>en <span class="texto-capitalize">{{ $acta->matrimonio->LugarMatrimonio }}</span></td>
-                    @endif
-                </tr>
-                <tr class="mat-altura">
-                    <td></td>
-                    <td colspan="2">con <span class="texto-capitalize">{{ $acta->matrimonio->NombreConyugue }}</span>
-                    </td>
-                </tr>
-            @else
-                <tr>
-                    <td class="izq-texto"><strong>Matrimonio:</strong></td>
-                    <td>NO CONSTA</td>
-                </tr>
-                <tr>
-                </tr>
-            @endif
-        </table>
+    <div class="row sacramento-info-div">
+        <p>El día: <strong>{{ $fecBau }}</strong></p>
+        @if($acta->bautismo != null && $acta->bautismo->IDParroquiaBautismo != null)
+            <p>En la Parroquia <strong>{{ $acta->bautismo->parroquia->NombreParroquia }}</strong></p>
+        @elseif($acta->bautismo != null)
+            <p>En <span class="texto-capitalize"><strong>{{ $acta->bautismo->LugarBautismo }}</strong></span></p>
+        @endif
+        <p>Padrino: <strong>{{ $acta->bautismo->PadrinoBau2 }}</strong></p>
+        <p>Madrina: <strong>{{ $acta->bautismo->PadrinoBau1 }}</strong></p>
+        <p>Sacerdote que bautiza: <strong>{{ $acta->bautismo->SacerdoteBautiza  }}</strong></p>
     </div>
 
     <div class="observacionesDiv">

@@ -265,7 +265,7 @@ class ActaUsuarioController extends Controller
                     $parroquiaBauRegistra = Parroquia::find($actaBautismo->IDParroquiaRegistra);
                     $nomParroquiaBauRegistra = $parroquiaBauRegistra->NombreParroquia;
                 } else {
-                    $nomParroquiaBauRegistra = 'Curia Diocesana de Alajuela';
+                    $nomParroquiaBauRegistra = 'Archivo Diocesano de Alajuela';
                 }
                 $idUbicacionActaBau = $actaBautismo->IDUbicacionActaBau;
                 $UbicacionActaBautismo = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaBau)->first();
@@ -289,7 +289,7 @@ class ActaUsuarioController extends Controller
                     $parroquiaConfRegistra = Parroquia::find($actaConfirma->IDParroquiaRegistra);
                     $nomParroquiaConfRegistra = $parroquiaConfRegistra->NombreParroquia;
                 } else {
-                    $nomParroquiaConfRegistra = 'Curia Diocesana de Alajuela';
+                    $nomParroquiaConfRegistra = 'Archivo Diocesano de Alajuela';
                 }
                 $idUbicacionActaCon = $actaConfirma->IDUbicacionActaCon;
                 $UbicacionActaConfirma = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaCon)->first();
@@ -313,7 +313,7 @@ class ActaUsuarioController extends Controller
                     $parroquiaMatRegistra = Parroquia::find($actaMatrimonio->IDParroquiaRegistra);
                     $nomParroquiaMatRegistra = $parroquiaMatRegistra->NombreParroquia;
                 } else {
-                    $nomParroquiaMatRegistra = 'Curia Diocesana de Alajuela';
+                    $nomParroquiaMatRegistra = 'Archivo Diocesano de Alajuela';
                 }
                 $idUbicacionActaMat = $actaMatrimonio->IDUbicacionActaMat;
                 $UbicacionActaMatrimonio = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaMat)->first();
@@ -337,7 +337,7 @@ class ActaUsuarioController extends Controller
                     $parroquiaDefRegistra = Parroquia::find($actaDefuncion->IDParroquiaRegistra);
                     $nomParroquiaDefRegistra = $parroquiaDefRegistra->NombreParroquia;
                 } else {
-                    $nomParroquiaDefRegistra = 'Curia Diocesana de Alajuela';
+                    $nomParroquiaDefRegistra = 'Archivo Diocesano de Alajuela';
                 }
                 $idUbicacionActaDef = $actaDefuncion->IDUbicacionActaDef;
                 $UbicacionActaDefuncion = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaDef)->first();
@@ -664,7 +664,7 @@ class ActaUsuarioController extends Controller
                     $parroquiaBauRegistra = Parroquia::find($actaBautismo->IDParroquiaRegistra);
                     $nomParroquiaBauRegistra = $parroquiaBauRegistra->NombreParroquia;
                 } else {
-                    $nomParroquiaBauRegistra = 'Curia Diocesana de Alajuela';
+                    $nomParroquiaBauRegistra = 'Archivo Diocesano de Alajuela';
                 }
                 $idUbicacionActaBau = $actaBautismo->IDUbicacionActaBau;
                 $date = $actaBautismo->FechaBautismo;
@@ -685,7 +685,7 @@ class ActaUsuarioController extends Controller
                     $parroquiaConfRegistra = Parroquia::find($actaConfirma->IDParroquiaRegistra);
                     $nomParroquiaConfRegistra = $parroquiaConfRegistra->NombreParroquia;
                 } else {
-                    $nomParroquiaConfRegistra = 'Curia Diocesana de Alajuela';
+                    $nomParroquiaConfRegistra = 'Archivo Diocesano de Alajuela';
                 }
                 $idUbicacionActaCon = $actaConfirma->IDUbicacionActaCon;
                 $date = $actaConfirma->FechaConfirma;
@@ -706,7 +706,7 @@ class ActaUsuarioController extends Controller
                     $parroquiaMatRegistra = Parroquia::find($actaMatrimonio->IDParroquiaRegistra);
                     $nomParroquiaMatRegistra = $parroquiaMatRegistra->NombreParroquia;
                 } else {
-                    $nomParroquiaMatRegistra = 'Curia Diocesana de Alajuela';
+                    $nomParroquiaMatRegistra = 'Archivo Diocesano de Alajuela';
                 }
                 $idUbicacionActaMat = $actaMatrimonio->IDUbicacionActaMat;
                 $date = $actaMatrimonio->FechaMatrimonio;
@@ -727,7 +727,7 @@ class ActaUsuarioController extends Controller
                     $parroquiaDefRegistra = Parroquia::find($actaDefuncion->IDParroquiaRegistra);
                     $nomParroquiaDefRegistra = $parroquiaDefRegistra->NombreParroquia;
                 } else {
-                    $nomParroquiaDefRegistra = 'Curia Diocesana de Alajuela';
+                    $nomParroquiaDefRegistra = 'Archivo Diocesano de Alajuela';
                 }
                 $idUbicacionActaDef = $actaDefuncion->IDUbicacionActaDef;
                 $date = $actaDefuncion->FechaDefuncion;

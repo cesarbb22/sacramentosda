@@ -27,6 +27,11 @@ class ActaConfirma extends Model
         return $this->hasOne('App\Parroquia', 'IDParroquia', 'IDParroquiaConfirma');
     }
 
+    public function ubicacionActa()
+    {
+        return $this->hasOne('App\UbicacionActa', 'IDUbicacionActa', 'IDUbicacionActaCon');
+    }
+
     public function parroquiaRegistra() {
         return $this->hasOne('App\Parroquia', 'IDParroquia', 'IDParroquiaRegistra');
     }
