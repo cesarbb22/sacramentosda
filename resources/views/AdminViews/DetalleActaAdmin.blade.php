@@ -659,8 +659,9 @@
                         <select name="motivo" id="motivoMatrimonio" required>
                             <option value="0" selected>--</option>
                             <option value="1">Personales</option>
-                            <option value="2">Matrimonio</option>
-                            <option value="3">Segundas Nupcias</option>
+                            <option value="2">Registro Civil</option>
+                            <option value="3">Nulidad Matrimonial</option>
+                            <option value="4">Segundas Nupcias</option>
                         </select>
                         <label>Seleccione el motivo de la constancia:</label>
                     </div>

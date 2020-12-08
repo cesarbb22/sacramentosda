@@ -219,9 +219,12 @@ class GenerarPDF extends Controller
                 $motivo = 'personales';
                 break;
             case '2':
-                $motivo = 'matrimonio';
+                $motivo = 'registro civil';
                 break;
             case '3':
+                $motivo = 'nulidad matrimonial';
+                break;
+            case '4':
                 $motivo = 'segundas nupcias';
                 break;
         }
