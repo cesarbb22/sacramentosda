@@ -126,7 +126,7 @@
     </div>
 
     @if(Auth::user()->IDPuesto == 1 || Auth::user()->IDPuesto == 2)
-        <div class="firmaDiv centrar-texto">
+        <div class="firmaDivSubida centrar-texto">
             <table class="tabla-firma">
                 <tr>
                     <td>________________________________</td>
@@ -140,7 +140,7 @@
             </table>
         </div>
     @else
-        <div class="firmaDiv centrar-texto">
+        <div class="firmaDivSubida centrar-texto">
             <table class="tabla-firma">
                 <tr>
                     <td>__________________________</td>

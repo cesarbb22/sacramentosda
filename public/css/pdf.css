@@ -155,6 +155,12 @@ table.tabla-sacramentos tr td {
     bottom: 150px;
 }
 
+.firmaDivSubida {
+    margin-top: 70px;
+    position: fixed;
+    bottom: 200px;
+}
+
 .no-margin-padding {
     margin-top: 0;
     margin-bottom: 0;
