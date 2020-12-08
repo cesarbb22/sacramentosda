@@ -223,6 +223,13 @@
                             <span class="p-creado-por">Creada por: {{ $nomParroquiaBauRegistra }}</span>
                         </div>
                         <br>
+                        <div class="row" style="text-align: left">
+                            <button id="Descargar" class="waves-effect waves-light btn left modal-trigger"
+                                    data-target="modalPDFDetalleBautismo"><i
+                                    class="material-icons left">file_download</i>Descargar Constancia
+                            </button>
+                        </div>
+                        <br>
                     @else
                         <div class="row">
                             <div class="input-field col s6">
@@ -298,6 +305,13 @@
 
                     <div class="div-creado-por">
                         <span class="p-creado-por">Creada por: {{ $nomParroquiaConfRegistra }}</span>
+                    </div>
+                    <br>
+                    <div class="row" style="text-align: left">
+                        <button id="Descargar" class="waves-effect waves-light btn left modal-trigger"
+                                data-target="modalPDFDetalleConfirma"><i
+                                class="material-icons left">file_download</i>Descargar Constancia
+                        </button>
                     </div>
                     <br>
                 @else
@@ -376,6 +390,13 @@
                         <span class="p-creado-por">Creada por: {{ $nomParroquiaMatRegistra }}</span>
                     </div>
                     <br>
+                    <div class="row" style="text-align: left">
+                        <button id="Descargar" class="waves-effect waves-light btn left modal-trigger"
+                                data-target="modalPDFDetalleMatrimonio"><i
+                                class="material-icons left">file_download</i>Descargar Constancia
+                        </button>
+                    </div>
+                    <br>
                 @else
                     <div class="row">
                         <div class="input-field col s6">
@@ -452,7 +473,13 @@
                         <span class="p-creado-por">Creada por: {{ $nomParroquiaDefRegistra }}</span>
                     </div>
                     <br>
-
+                    <div class="row" style="text-align: left">
+                        <button id="Descargar" class="waves-effect waves-light btn left modal-trigger"
+                                data-target="modalPDFDetalleDefuncion"><i
+                                class="material-icons left">file_download</i>Descargar Constancia
+                        </button>
+                    </div>
+                    <br>
                 @else
                     <div class="row">
                         <div class="input-field col s6">
@@ -463,7 +490,8 @@
                 @endif
 
 
-                <div class="row"><br><br></div>
+                <div class="row"><br>
+                    <hr><br></div>
 
                 <div class="row">
                     <button id="Descargar" class="waves-effect waves-light btn right modal-trigger" data-target="modalPDFDetalle"><i
@@ -477,8 +505,7 @@
     </div>
     <div class="col s12 m4 l2"></div>
 
-
-    <!-- Modal Structure -->
+    <!-- Modal Structure Sacramentos Recibidos -->
     <div id="modalPDFDetalle" class="modal modal-fixed-footer">
         <form id="pdfForm" method="POST" action="/pdf">
             {{ csrf_field() }}
@@ -486,34 +513,225 @@
                 <div>
                     <h4>Descargar Constancia</h4>
                 </div>
-                <div class="input-field">
-                    <input id="codigo" name="codigo" placeholder="Código de referencia" required
-                           oninvalid="this.setCustomValidity('Campo requerido')"
-                           oninput="setCustomValidity('')">
+                <br>
+                <div class="row">
+                    <div class="input-field">
+                        <input id="codigo" name="codigo" type="text" required
+                               oninvalid="this.setCustomValidity('Campo requerido')"
+                               oninput="setCustomValidity('')">
+                        <label for="codigo">Código de referencia</label>
+                    </div>
                 </div>
                 <br>
-                <div class="input-field">
-                    <select name="motivo" id="motivo" required>
-                        <option value="0" selected>--</option>
-                        <option value="1">Personales</option>
-                        <option value="2">Padrino de Bautizo</option>
-                        <option value="3">Madrina de Bautizo</option>
-                        <option value="4">Padrino de Confirma</option>
-                        <option value="5">Madrina de Confirma</option>
-                        <option value="6">Matrimonio</option>
-                        <option value="7">Segundas Nupcias</option>
-                    </select>
-                    <label>Seleccione el motivo de la constancia:</label>
+                <div class="row">
+                    <div class="input-field">
+                        <select name="motivo" id="motivo" required>
+                            <option value="0" selected>--</option>
+                            <option value="1">Personales</option>
+                            <option value="2">Padrino de Bautizo</option>
+                            <option value="3">Madrina de Bautizo</option>
+                            <option value="4">Padrino de Confirma</option>
+                            <option value="5">Madrina de Confirma</option>
+                            <option value="6">Matrimonio</option>
+                            <option value="7">Segundas Nupcias</option>
+                        </select>
+                        <label>Seleccione el motivo de la constancia:</label>
+                    </div>
                 </div>
                 <div class="input-field">
                     <input id="idActa" name="idActa" value="{{ $acta->IDActa }}" type="text" hidden>
                 </div>
             </div>
             <div class="modal-footer">
-                <a id="modalCancelBtn" onclick="closeModal();" class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
-                <button id="modalDescargarBtn" type="submit" class="modal-action waves-effect waves-green btn-flat ">Descargar</button>
+                <a id="modalCancelBtn" onclick="closeModal();"
+                   class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
+                <button id="modalDescargarBtn" type="submit" class="modal-action waves-effect waves-green btn-flat ">
+                    Descargar
+                </button>
             </div>
             <div id="loadingDiv" class="progress">
+                <div class="indeterminate"></div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal Structure Bautismo -->
+    <div id="modalPDFDetalleBautismo" class="modal modal-fixed-footer">
+        <form id="pdfFormBautismo" method="POST" action="/pdf">
+            {{ csrf_field() }}
+            <div class="modal-content">
+                <div>
+                    <h4>Descargar Constancia</h4>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="input-field">
+                        <input id="codigoBautismo" name="codigo" type="text" required
+                               oninvalid="this.setCustomValidity('Campo requerido')"
+                               oninput="setCustomValidity('')">
+                        <label for="codigo">Código de referencia</label>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="input-field">
+                        <select name="motivo" id="motivoBautismo" required>
+                            <option value="0" selected>--</option>
+                            <option value="1">Personales</option>
+                            <option value="2">Padrino de Bautizo</option>
+                            <option value="3">Madrina de Bautizo</option>
+                        </select>
+                        <label>Seleccione el motivo de la constancia:</label>
+                    </div>
+                </div>
+                <div class="input-field">
+                    <input id="idActaBautismo" name="idActa" value="{{ $acta->IDActa }}" type="text" hidden>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="modalCancelBtnBautismo" onclick="closeModal();"
+                   class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
+                <button id="modalDescargarBtnBautismo" type="submit" class="modal-action waves-effect waves-green btn-flat ">
+                    Descargar
+                </button>
+            </div>
+            <div id="loadingDivBautismo" class="progress">
+                <div class="indeterminate"></div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal Structure Confirma -->
+    <div id="modalPDFDetalleConfirma" class="modal modal-fixed-footer">
+        <form id="pdfFormConfirma" method="POST" action="/pdf">
+            {{ csrf_field() }}
+            <div class="modal-content">
+                <div>
+                    <h4>Descargar Constancia</h4>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="input-field">
+                        <input id="codigoConfirma" name="codigo" type="text" required
+                               oninvalid="this.setCustomValidity('Campo requerido')"
+                               oninput="setCustomValidity('')">
+                        <label for="codigo">Código de referencia</label>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="input-field">
+                        <select name="motivo" id="motivoConfirma" required>
+                            <option value="0" selected>--</option>
+                            <option value="1">Personales</option>
+                            <option value="2">Padrino de Confirma</option>
+                            <option value="3">Madrina de Confirma</option>
+                        </select>
+                        <label>Seleccione el motivo de la constancia:</label>
+                    </div>
+                </div>
+                <div class="input-field">
+                    <input id="idActaConfirma" name="idActa" value="{{ $acta->IDActa }}" type="text" hidden>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="modalCancelBtnConfirma" onclick="closeModal();"
+                   class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
+                <button id="modalDescargarBtnConfirma" type="submit" class="modal-action waves-effect waves-green btn-flat ">
+                    Descargar
+                </button>
+            </div>
+            <div id="loadingDivConfirma" class="progress">
+                <div class="indeterminate"></div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal Structure Matrimonio -->
+    <div id="modalPDFDetalleMatrimonio" class="modal modal-fixed-footer">
+        <form id="pdfFormMatrimonio" method="POST" action="/pdf">
+            {{ csrf_field() }}
+            <div class="modal-content">
+                <div>
+                    <h4>Descargar Constancia</h4>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="input-field">
+                        <input id="codigoMatrimonio" name="codigo" type="text" required
+                               oninvalid="this.setCustomValidity('Campo requerido')"
+                               oninput="setCustomValidity('')">
+                        <label for="codigo">Código de referencia</label>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="input-field">
+                        <select name="motivo" id="motivoMatrimonio" required>
+                            <option value="0" selected>--</option>
+                            <option value="1">Personales</option>
+                            <option value="2">Matrimonio</option>
+                            <option value="3">Segundas Nupcias</option>
+                        </select>
+                        <label>Seleccione el motivo de la constancia:</label>
+                    </div>
+                </div>
+                <div class="input-field">
+                    <input id="idActaMatrimonio" name="idActa" value="{{ $acta->IDActa }}" type="text" hidden>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="modalCancelBtnMatrimonio" onclick="closeModal();"
+                   class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
+                <button id="modalDescargarBtnMatrimonio" type="submit" class="modal-action waves-effect waves-green btn-flat ">
+                    Descargar
+                </button>
+            </div>
+            <div id="loadingDivMatrimonio" class="progress">
+                <div class="indeterminate"></div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal Structure Defuncion -->
+    <div id="modalPDFDetalleDefuncion" class="modal modal-fixed-footer">
+        <form id="pdfFormDefuncion" method="POST" action="/pdf">
+            {{ csrf_field() }}
+            <div class="modal-content">
+                <div>
+                    <h4>Descargar Constancia</h4>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="input-field">
+                        <input id="codigoDefuncion" name="codigo" type="text" required
+                               oninvalid="this.setCustomValidity('Campo requerido')"
+                               oninput="setCustomValidity('')">
+                        <label for="codigo">Código de referencia</label>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="input-field">
+                        <select name="motivo" id="motivoDefuncion" required>
+                            <option value="0" selected>--</option>
+                            <option value="1">Personales</option>
+                        </select>
+                        <label>Seleccione el motivo de la constancia:</label>
+                    </div>
+                </div>
+                <div class="input-field">
+                    <input id="idActaDefuncion" name="idActa" value="{{ $acta->IDActa }}" type="text" hidden>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="modalCancelBtnDefuncion" onclick="closeModal();"
+                   class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
+                <button id="modalDescargarBtnDefuncion" type="submit" class="modal-action waves-effect waves-green btn-flat ">
+                    Descargar
+                </button>
+            </div>
+            <div id="loadingDivDefuncion" class="progress">
                 <div class="indeterminate"></div>
             </div>
         </form>
@@ -523,15 +741,24 @@
         function closeModal() {
             $('.modal').modal('close');
             $('#codigo').val('');
+            $('#codigoBautismo').val('');
+            $('#codigoConfirma').val('');
+            $('#codigoMatrimonio').val('');
+            $('#codigoDefuncion').val('');
         }
 
         window.onload = function () {
             $('#loadingDiv').hide();
+            $('#loadingDivBautismo').hide();
+            $('#loadingDivConfirma').hide();
+            $('#loadingDivMatrimonio').hide();
+            $('#loadingDivDefuncion').hide();
 
             $('#detalleForm').on('submit', function (e) {
                 e.preventDefault();
             });
 
+            // PDF Sacramentos Recibidos
             $('#pdfForm').on('submit', function (e) {
                 e.preventDefault();
 
@@ -564,6 +791,162 @@
                         $('#modalDescargarBtn').attr('disabled', false);
                         $('#loadingDiv').hide();
                         $('#codigo').val('');
+                        $('.modal').modal('close');
+                    }
+                };
+                xhr.send(formData);
+            });
+
+            // PDF Bautismo
+            $('#pdfFormBautismo').on('submit', function (e) {
+                e.preventDefault();
+
+                if ($('#motivoBautismo').val() == '0') {
+                    return;
+                }
+
+                $('#modalCancelBtnBautismo').attr('disabled', true);
+                $('#modalDescargarBtnBautismo').attr('disabled', true);
+                $('#loadingDivBautismo').show();
+
+                var formData = new FormData();
+                formData.append("codigo", $('#codigoBautismo').val());
+                formData.append("motivo", $('#motivoBautismo').val());
+                formData.append("idActa", $('#idActaBautismo').val());
+                formData.append("_token", "{{ csrf_token() }}");
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/pdfBautismo');
+                xhr.responseType = 'arraybuffer';
+                xhr.onload = function (e) {
+                    if (this.status == 200) {
+                        var blob = new Blob([this.response], {type: "application/pdf"});
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = $('#codigoBautismo').val() + ".pdf";
+                        link.click();
+
+                        $('#modalCancelBtnBautismo').attr('disabled', false);
+                        $('#modalDescargarBtnBautismo').attr('disabled', false);
+                        $('#loadingDivBautismo').hide();
+                        $('#codigoBautismo').val('');
+                        $('.modal').modal('close');
+                    }
+                };
+                xhr.send(formData);
+            });
+
+            // PDF Confirma
+            $('#pdfFormConfirma').on('submit', function (e) {
+                e.preventDefault();
+
+                if ($('#motivoConfirma').val() == '0') {
+                    return;
+                }
+
+                $('#modalCancelBtnConfirma').attr('disabled', true);
+                $('#modalDescargarBtnConfirma').attr('disabled', true);
+                $('#loadingDivConfirma').show();
+
+                var formData = new FormData();
+                formData.append("codigo", $('#codigoConfirma').val());
+                formData.append("motivo", $('#motivoConfirma').val());
+                formData.append("idActa", $('#idActaConfirma').val());
+                formData.append("_token", "{{ csrf_token() }}");
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/pdfConfirma');
+                xhr.responseType = 'arraybuffer';
+                xhr.onload = function (e) {
+                    if (this.status == 200) {
+                        var blob = new Blob([this.response], {type: "application/pdf"});
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = $('#codigoConfirma').val() + ".pdf";
+                        link.click();
+
+                        $('#modalCancelBtnConfirma').attr('disabled', false);
+                        $('#modalDescargarBtnConfirma').attr('disabled', false);
+                        $('#loadingDivConfirma').hide();
+                        $('#codigoConfirma').val('');
+                        $('.modal').modal('close');
+                    }
+                };
+                xhr.send(formData);
+            });
+
+            // PDF Matrimonio
+            $('#pdfFormMatrimonio').on('submit', function (e) {
+                e.preventDefault();
+
+                if ($('#motivoMatrimonio').val() == '0') {
+                    return;
+                }
+
+                $('#modalCancelBtnMatrimonio').attr('disabled', true);
+                $('#modalDescargarBtnMatrimonio').attr('disabled', true);
+                $('#loadingDivMatrimonio').show();
+
+                var formData = new FormData();
+                formData.append("codigo", $('#codigoMatrimonio').val());
+                formData.append("motivo", $('#motivoMatrimonio').val());
+                formData.append("idActa", $('#idActaMatrimonio').val());
+                formData.append("_token", "{{ csrf_token() }}");
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/pdfMatrimonio');
+                xhr.responseType = 'arraybuffer';
+                xhr.onload = function (e) {
+                    if (this.status == 200) {
+                        var blob = new Blob([this.response], {type: "application/pdf"});
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = $('#codigoMatrimonio').val() + ".pdf";
+                        link.click();
+
+                        $('#modalCancelBtnMatrimonio').attr('disabled', false);
+                        $('#modalDescargarBtnMatrimonio').attr('disabled', false);
+                        $('#loadingDivMatrimonio').hide();
+                        $('#codigoMatrimonio').val('');
+                        $('.modal').modal('close');
+                    }
+                };
+                xhr.send(formData);
+            });
+
+            // PDF Defuncion
+            $('#pdfFormDefuncion').on('submit', function (e) {
+                e.preventDefault();
+
+                if ($('#motivoDefuncion').val() == '0') {
+                    return;
+                }
+
+                $('#modalCancelBtnDefuncion').attr('disabled', true);
+                $('#modalDescargarBtnDefuncion').attr('disabled', true);
+                $('#loadingDivDefuncion').show();
+
+                var formData = new FormData();
+                formData.append("codigo", $('#codigoDefuncion').val());
+                formData.append("motivo", $('#motivoDefuncion').val());
+                formData.append("idActa", $('#idActaDefuncion').val());
+                formData.append("_token", "{{ csrf_token() }}");
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/pdfDefuncion');
+                xhr.responseType = 'arraybuffer';
+                xhr.onload = function (e) {
+                    if (this.status == 200) {
+                        var blob = new Blob([this.response], {type: "application/pdf"});
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = $('#codigoDefuncion').val() + ".pdf";
+                        link.click();
+
+                        $('#modalCancelBtnDefuncion').attr('disabled', false);
+                        $('#modalDescargarBtnDefuncion').attr('disabled', false);
+                        $('#loadingDivDefuncion').hide();
+                        $('#codigoDefuncion').val('');
                         $('.modal').modal('close');
                     }
                 };

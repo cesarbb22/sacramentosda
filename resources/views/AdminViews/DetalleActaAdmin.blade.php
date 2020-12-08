@@ -379,7 +379,7 @@
                     <br>
                     <div class="row" style="text-align: left">
                         <button id="Descargar" class="waves-effect waves-light btn left modal-trigger"
-                                data-target="modalPDFDetalleMatrimonio" disabled><i
+                                data-target="modalPDFDetalleMatrimonio"><i
                                 class="material-icons left">file_download</i>Descargar Constancia
                         </button>
                     </div>
@@ -462,7 +462,7 @@
                     <br>
                     <div class="row" style="text-align: left">
                         <button id="Descargar" class="waves-effect waves-light btn left modal-trigger"
-                                data-target="modalPDFDetalleDefuncion" disabled><i
+                                data-target="modalPDFDetalleDefuncion"><i
                                 class="material-icons left">file_download</i>Descargar Constancia
                         </button>
                     </div>
@@ -660,6 +660,7 @@
                             <option value="0" selected>--</option>
                             <option value="1">Personales</option>
                             <option value="2">Matrimonio</option>
+                            <option value="3">Segundas Nupcias</option>
                         </select>
                         <label>Seleccione el motivo de la constancia:</label>
                     </div>

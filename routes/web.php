@@ -127,6 +127,7 @@ Route::post('/pdf', 'GenerarPDF@generarPDF' )->middleware('auth');
 Route::post('/pdfBautismo', 'GenerarPDF@generarPDFBautismo' )->middleware('auth');
 Route::post('/pdfConfirma', 'GenerarPDF@generarPDFConfirma' )->middleware('auth');
 Route::post('/pdfMatrimonio', 'GenerarPDF@generarPDFMatrimonio' )->middleware('auth');
+Route::post('/pdfDefuncion', 'GenerarPDF@generarPDFDefuncion' )->middleware('auth');
 
 Route::post('/guardarContrasena', 'UserController@cambiarContrasena');
 Route::post('/guardarPerfil', 'UserController@editarPerfilUser');

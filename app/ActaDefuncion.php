@@ -27,6 +27,11 @@ class ActaDefuncion extends Model
         return $this->hasOne('App\Parroquia', 'IDParroquia', 'IDParroquiaDefuncion');
     }
 
+    public function ubicacionActa()
+    {
+        return $this->hasOne('App\UbicacionActa', 'IDUbicacionActa', 'IDUbicacionActaDef');
+    }
+
     public function parroquiaRegistra() {
         return $this->hasOne('App\Parroquia', 'IDParroquia', 'IDParroquiaRegistra');
     }
