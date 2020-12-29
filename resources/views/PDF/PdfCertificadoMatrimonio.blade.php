@@ -23,7 +23,8 @@
 
     <div id="encabezadoDiv" class="centrar-texto">
         <div id="tituloDiv">
-            <h2 id="titulo">LA DIÓCESIS DE ALAJUELA, HACE CONSTAR QUE:</h2>
+            <h2 id="titulo no-margin-padding">LA DIÓCESIS DE ALAJUELA</h2>
+            <h3 id="titulo no-margin-padding">HACE CONSTAR QUE:</h3>
         </div>
         <br><br>
         <div>

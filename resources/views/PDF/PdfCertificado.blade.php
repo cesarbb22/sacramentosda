@@ -23,7 +23,8 @@
 
     <div id="encabezadoDiv" class="centrar-texto">
         <div id="tituloDiv">
-            <h2 id="titulo">LA DIÓCESIS DE ALAJUELA, HACE CONSTAR QUE:</h2>
+            <h2 id="titulo no-margin-padding">LA DIÓCESIS DE ALAJUELA</h2>
+            <h3 id="titulo no-margin-padding">HACE CONSTAR QUE:</h3>
         </div>
         <div>
             <h2 id="nombrePersona">
@@ -31,11 +32,6 @@
             </h2>
 
             <div>
-                @if($acta->persona->Cedula == null)
-                    <span class="">Ced. NO CONSTA</span>
-                @else
-                    <span class="">Ced. {{ $acta->persona->Cedula }}</span>
-                @endif
                 <span class="spanMargin">Nació el: <strong>{{ $fecNac }}</strong></span>
                 @if($acta->persona->laico->LugarNacimiento == null)
                     <span class="spanMargin">en: <strong>NO CONSTA</strong></span>
@@ -53,10 +49,6 @@
                             class="texto-capitalize"><strong>{{ $acta->persona->laico->NombrePadre }}</strong></span>  y  <span
                             class="texto-capitalize"><strong>{{ $acta->persona->laico->NombreMadre }}</strong></span></span>
                 @endif
-            </div>
-            <div>
-                <span class="">Abuelos paternos: {{ str_replace([' Y '], [' y '], ucwords(strtolower($acta->bautismo->AbuelosPaternos))) }}</span>
-                <span class="spanMargin">Abuelos maternos: {{ str_replace([' Y '], [' y '], ucwords(strtolower($acta->bautismo->AbuelosMaternos))) }}</span>
             </div>
         </div>
     </div>

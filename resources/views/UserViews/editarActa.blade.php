@@ -136,7 +136,7 @@
                         <input id="fechaNacEdit" name='fechaNacEdit'
                                class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" size="10"
                                placeholder="dd/mm/aaaa" minlength="10" maxlength="10" required
-                               pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                               pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
                                oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                oninput="setCustomValidity('')">
                     </div>
@@ -176,12 +176,12 @@
                                                        class="datepicker validate" type="text"
                                                        title="Formato de fecha: dd/mm/aaaa" size="10" required
                                                        placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
-                                                       pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                       pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
                                                        oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                        oninput="setCustomValidity('')">
                                             @else
                                                 <input id="fechaBaut" name="fechaBautizo"
-                                                       pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                       pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
                                                        class="" type="text" value="{{ $actaBautismo->FechaBautismo }}"
                                                        readonly>
                                             @endif
@@ -310,7 +310,7 @@
                                                        class="datepicker validate" type="text"
                                                        title="Formato de fecha: dd/mm/aaaa" size="10"
                                                        placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
-                                                       pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                       pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
                                                        oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                        oninput="setCustomValidity('')">
                                             </div>
@@ -432,7 +432,7 @@
                                                        class="datepicker validate" type="text"
                                                        title="Formato de fecha: dd/mm/aaaa" size="10"
                                                        placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
-                                                       pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                       pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
                                                        oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                        oninput="setCustomValidity('')">
                                             @else
@@ -530,7 +530,7 @@
                                                        class="datepicker validate" type="text"
                                                        title="Formato de fecha: dd/mm/aaaa" size="10"
                                                        placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
-                                                       pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                       pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
                                                        oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                        oninput="setCustomValidity('')">
                                             </div>
@@ -615,7 +615,7 @@
                                                        class="datepicker validate" type="text"
                                                        title="Formato de fecha: dd/mm/aaaa" size="10"
                                                        placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
-                                                       pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                       pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
                                                        oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                        oninput="setCustomValidity('')">
                                             @else
@@ -712,7 +712,7 @@
                                                        class="datepicker validate" type="text"
                                                        title="Formato de fecha: dd/mm/aaaa" size="10"
                                                        placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
-                                                       pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                       pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
                                                        oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                        oninput="setCustomValidity('')">
                                             </div>
@@ -795,7 +795,7 @@
                                                        class="datepicker validate" type="text"
                                                        title="Formato de fecha: dd/mm/aaaa" size="10"
                                                        placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
-                                                       pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                       pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
                                                        oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                        oninput="setCustomValidity('')">
                                             @else
@@ -894,7 +894,7 @@
                                                    class="datepicker validate" type="text"
                                                    title="Formato de fecha: dd/mm/aaaa" size="10"
                                                    placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
-                                                   pattern="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"
+                                                   pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
                                                    oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                    oninput="setCustomValidity('')">
                                         </div>
