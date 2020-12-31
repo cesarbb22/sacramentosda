@@ -249,31 +249,6 @@
                         }
 
                         // pagination
-                        var from = data.from;
-                        var last = data.last_page;
-                        $(".pagination").empty();
-                        if (from == data.current_page) {
-                            $(".pagination").append("<li class='disabled'><a href='#!'><i class='material-icons'>chevron_left</i></a></li>");
-                        } else {
-                            $(".pagination").append("<li class='waves-effect'><a href='"+ data.prev_page_url +"'><i class='material-icons'>chevron_left</i></a></li>");
-                        }
-
-                        for (var i = 1; i <= last; i++) {
-                            if (i == data.current_page) {
-                                $(".pagination").append("<li class='active'><a href='http://127.0.0.1:8000/queryPersonas?page="+ i +"'>"+ i +"</a></li>");
-                            } else {
-                                $(".pagination").append("<li class='waves-effect'><a href='http://127.0.0.1:8000/queryPersonas?page="+ i +"'>"+ i +"</a></li>");
-                            }
-                        }
-
-                        if (last == data.current_page) {
-                            $(".pagination").append("<li class='disabled'><a href='#!'><i class='material-icons'>chevron_right</i></a></li>");
-                        } else {
-                            $(".pagination").append("<li class='waves-effect'><a href='"+ data.next_page_url +"'><i class='material-icons'>chevron_right</i></a></li>");
-                        }
-
-                        //-----------------------
-
                         var pageLen = data.last_page;
                         var curPage = data.current_page;
                         var item = [];
@@ -298,8 +273,6 @@
                         function render( curPage, item, first ) {
                             var html = '', separatorAdded = false;
                             for(var i in item){
-                                console.log('i: ' + i);
-                                console.log('item[i]: ' + item[i]);
                                 if ( isPageInRange( curPage, i, pageLen, 1, 1 ) ) {
                                     //html += '<li data-page="' + i + '">' + item[i] + '</li>';
                                     html += "<li data-page='" + item[i] + "'><a href='http://127.0.0.1:8000/queryPersonas?page="+ item[i] +"'>"+ item[i] +"</a></li>";
