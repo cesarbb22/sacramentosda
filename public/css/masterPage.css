@@ -93,3 +93,25 @@ input:not([type]):focus:not([readonly]) + label, input[type=text]:focus:not([rea
 .p-creado-por {
     color: #babdb2;
 }
+
+
+
+#holder > li {
+    padding: 5px;
+    margin: 2px;
+    display: inline-block;
+}
+#holder > li[data-page] {
+    border: solid #a0a0a0 1px;
+    border-radius: 5px;
+}
+#holder > li.separator:before {
+    content: '...';
+}
+#holder > li.active {
+    background-color: #51081C;
+    color: #fff;
+}
+#holder > li[data-page]:hover {
+    cursor: pointer;
+}

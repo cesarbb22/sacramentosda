@@ -131,7 +131,7 @@
             </table>
 
             <div style="text-align: center">
-                <ul class="pagination">
+                <ul id="holder" class="pagination">
                 </ul>
             </div>
         </div>
@@ -257,19 +257,79 @@
                         } else {
                             $(".pagination").append("<li class='waves-effect'><a href='"+ data.prev_page_url +"'><i class='material-icons'>chevron_left</i></a></li>");
                         }
-                        for (var i = 1; i <= last; i++) {
 
+                        for (var i = 1; i <= last; i++) {
                             if (i == data.current_page) {
                                 $(".pagination").append("<li class='active'><a href='http://127.0.0.1:8000/queryPersonas?page="+ i +"'>"+ i +"</a></li>");
                             } else {
                                 $(".pagination").append("<li class='waves-effect'><a href='http://127.0.0.1:8000/queryPersonas?page="+ i +"'>"+ i +"</a></li>");
                             }
                         }
+
                         if (last == data.current_page) {
                             $(".pagination").append("<li class='disabled'><a href='#!'><i class='material-icons'>chevron_right</i></a></li>");
                         } else {
                             $(".pagination").append("<li class='waves-effect'><a href='"+ data.next_page_url +"'><i class='material-icons'>chevron_right</i></a></li>");
                         }
+
+                        //-----------------------
+
+                        var pageLen = data.last_page;
+                        var curPage = data.current_page;
+                        var item = [];
+                        for(var i = 1; i<=pageLen;i++){
+                            item.push(i);
+                        }
+
+                        function isPageInRange( curPage, index, maxPages, pageBefore, pageAfter ) {
+                            if (index <= 1) {
+                                // first 2 pages
+                                return true;
+                            }
+                            if (index >= maxPages - 2) {
+                                // last 2 pages
+                                return true;
+                            }
+                            if (index >= curPage - pageBefore && index <= curPage + pageAfter) {
+                                return true;
+                            }
+                        }
+
+                        function render( curPage, item, first ) {
+                            var html = '', separatorAdded = false;
+                            for(var i in item){
+                                console.log('i: ' + i);
+                                console.log('item[i]: ' + item[i]);
+                                if ( isPageInRange( curPage, i, pageLen, 1, 1 ) ) {
+                                    //html += '<li data-page="' + i + '">' + item[i] + '</li>';
+                                    html += "<li data-page='" + item[i] + "'><a href='http://127.0.0.1:8000/queryPersonas?page="+ item[i] +"'>"+ item[i] +"</a></li>";
+                                    // as we added a page, we reset the separatorAdded
+                                    separatorAdded = false;
+                                } else {
+                                    if (!separatorAdded) {
+                                        // only add a separator when it wasn't added before
+                                        html += '<li class="separator" />';
+                                        separatorAdded = true;
+                                    }
+                                }
+                            }
+
+                            var holder = document.querySelector('#holder');
+                            holder.innerHTML = html;
+                            document.querySelector('#holder>li[data-page="' + curPage + '"]').classList.add('active');
+                            if ( first ) {
+                                holder.addEventListener('click', function(e) {
+                                    if (!e.target.getAttribute('data-page')) {
+                                        // no relevant item clicked (you could however offer expand here )
+                                        return;
+                                    }
+                                    curPage = parseInt( e.target.getAttribute('data-page') );
+                                    render( curPage, item );
+                                });
+                            }
+                        }
+
+                        render( curPage, item, true );
                     }
                 });
             }
