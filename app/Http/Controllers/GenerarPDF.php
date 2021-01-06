@@ -209,7 +209,7 @@ class GenerarPDF extends Controller
 
         $parroquiaRegistraMat = 'Archivo Diocesano de Alajuela';
         if($acta->matrimonio->IDParroquiaRegistra != -1) {
-            $parroquia = Parroquia::where('IDParroquia', $acta->bautismo->IDParroquiaRegistra)->first();
+            $parroquia = Parroquia::where('IDParroquia', $acta->matrimonio->IDParroquiaRegistra)->first();
             $parroquiaRegistraMat = 'parroquia ' . $parroquia->NombreParroquia;
         }
 
