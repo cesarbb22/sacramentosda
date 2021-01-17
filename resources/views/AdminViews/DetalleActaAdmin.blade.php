@@ -213,7 +213,7 @@
                         <div class="row" style="text-align: left">
                             <button id="Descargar" class="waves-effect waves-light btn left modal-trigger"
                                     data-target="modalPDFDetalleBautismo"><i
-                                    class="material-icons left">file_download</i>Descargar Constancia
+                                    class="material-icons left">file_download</i>Constancia de Bautizo
                             </button>
                         </div>
                         <br>
@@ -297,7 +297,7 @@
                     <div class="row" style="text-align: left">
                         <button id="Descargar" class="waves-effect waves-light btn left modal-trigger"
                                 data-target="modalPDFDetalleConfirma"><i
-                                class="material-icons left">file_download</i>Descargar Constancia
+                                class="material-icons left">file_download</i>Constancia de Confirma
                         </button>
                     </div>
                     <br>
@@ -380,7 +380,7 @@
                     <div class="row" style="text-align: left">
                         <button id="Descargar" class="waves-effect waves-light btn left modal-trigger"
                                 data-target="modalPDFDetalleMatrimonio"><i
-                                class="material-icons left">file_download</i>Descargar Constancia
+                                class="material-icons left">file_download</i>Constancia de Matrimonio
                         </button>
                     </div>
                     <br>
@@ -463,7 +463,7 @@
                     <div class="row" style="text-align: left">
                         <button id="Descargar" class="waves-effect waves-light btn left modal-trigger"
                                 data-target="modalPDFDetalleDefuncion"><i
-                                class="material-icons left">file_download</i>Descargar Constancia
+                                class="material-icons left">file_download</i>Constancia de Defunción
                         </button>
                     </div>
                     <br>
@@ -483,7 +483,7 @@
                 <div class="row">
                     <button id="Descargar" class="waves-effect waves-light btn right modal-trigger"
                             data-target="modalPDFDetalle"><i
-                            class="material-icons left">file_download</i>Descargar Constancia
+                            class="material-icons left">file_download</i>Descargar CSR
                     </button>
                 </div>
             </div>
