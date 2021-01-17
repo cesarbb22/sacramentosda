@@ -140,8 +140,10 @@
     <script type="text/javascript">
 
         window.onload = function () {
+            var today = new Date();
+            today.setDate(today.getDate() + 15);
             $(".datepicker").datepicker({
-                maxDate: new Date(), dateFormat: "dd/mm/yy", autoSize: true,
+                maxDate: today, dateFormat: "dd/mm/yy", autoSize: true,
                 monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"]
             }).val()
 
