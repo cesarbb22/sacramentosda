@@ -325,10 +325,10 @@
                             }
 
                             var iconDetalle = "<i class='material-icons'>description</i>";
-                            var detalle = "<a id='" + idPersona + "Detalle'>" + iconDetalle + "</a>";
+                            var detalle = "<a id='" + idPersona + "Detalle' target='_blank'>" + iconDetalle + "</a>";
 
                             var iconEditar = "<i class='material-icons'>mode_edit</i>";
-                            var editar = "<a id='" + idPersona + "Editar'>" + iconEditar + "</a>";
+                            var editar = "<a id='" + idPersona + "Editar' target='_blank'>" + iconEditar + "</a>";
 
                             $('#tablaConsulta tbody').append('<tr><td>' + cedula + '</td><td>' + nombre + ' ' + primerApellido + ' ' + segundoApellido + '</td>' +
                                 '<td>' + lugarBautismo + '</td><td>' + fechaBautismo + '</td><td>' + fechaNacimiento + '</td><td>' + detalle + '</td><td>' + editar + '</td><td id hidden>' + idPersona + '</td></tr>');
