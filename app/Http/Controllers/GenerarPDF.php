@@ -47,6 +47,9 @@ class GenerarPDF extends Controller
             case '7':
                 $motivo = 'segundas nupcias';
                 break;
+            case '8':
+                $motivo = 'nulidad matrimonial';
+                break;
         }
 
 
@@ -115,6 +118,9 @@ class GenerarPDF extends Controller
                 break;
             case '3':
                 $motivo = 'madrina de bautizo';
+                break;
+            case '4':
+                $motivo = 'sacramento de la confirmación';
                 break;
         }
 
