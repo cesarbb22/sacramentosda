@@ -118,9 +118,9 @@
                 <tr>
                     <th>Cédula</th>
                     <th>Nombre</th>
+                    <th>Fecha de Nacimiento</th>
                     <th>Lugar de Bautizo</th>
                     <th>Fecha de Bautizo</th>
-                    <th>Fecha de Nacimiento</th>
                     <th>Detalle</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
@@ -239,7 +239,7 @@
                             var eliminar = "<a id='" + idPersona + "Eliminar'>" + iconEliminar + "</a>";
 
                             $('#tablaConsulta tbody').append('<tr><td>' + cedula + '</td><td>' + nombre + ' ' + primerApellido + ' ' + segundoApellido + '</td>' +
-                                '<td>' + lugarBautismo + '</td><td>' + fechaBautismo + '</td><td>' + fechaNacimiento + '</td><td>' + detalle + '</td><td>' + editar +
+                                '<td>' + fechaNacimiento + '</td><td>' + lugarBautismo + '</td><td>' + fechaBautismo + '</td><td>' + detalle + '</td><td>' + editar +
                                 '</td><td>' + eliminar + '</td><td id hidden>' + idPersona + '</td></tr>');
 
 
