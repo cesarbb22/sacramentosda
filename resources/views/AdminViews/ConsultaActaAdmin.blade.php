@@ -193,6 +193,16 @@
                 getData(page);
             });
 
+            $(document).on('click', '.eliminarPartida', function (event) {
+                var self = $(this);
+                var href = self.attr('href');
+                event.preventDefault();
+                var answer = confirm("¿Seguro que desea eliminar la partida?");
+                if (answer) {
+                    window.location = href;
+                }
+            });
+
             $('#queryForm').on('submit', function (e) {
                 e.preventDefault();
                 getData(1);
@@ -238,7 +248,7 @@
                             var editar = "<a id='" + idPersona + "Editar' target='_blank'>" + iconEditar + "</a>";
 
                             var iconEliminar = "<i class='material-icons'>delete</i>";
-                            var eliminar = "<a id='" + idPersona + "Eliminar'>" + iconEliminar + "</a>";
+                            var eliminar = "<a id='" + idPersona + "Eliminar' class='eliminarPartida'>" + iconEliminar + "</a>";
 
                             $('#tablaConsulta tbody').append('<tr><td>' + cedula + '</td><td>' + nombre + ' ' + primerApellido + ' ' + segundoApellido + '</td>' +
                                 '<td>' + fechaNacimiento + '</td><td>' + lugarBautismo + '</td><td>' + fechaBautismo + '</td><td>' + detalle + '</td><td>' + editar +
