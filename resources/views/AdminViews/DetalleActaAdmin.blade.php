@@ -570,7 +570,8 @@
                             <option value="1">Personales</option>
                             <option value="2">Padrino de Bautizo</option>
                             <option value="3">Madrina de Bautizo</option>
-                            <option value="4">Sacramento de la Confirmación</option>
+                            <option value="4">Ingreso a Catequesis</option>
+                            <option value="5">Sacramento de la Confirmación</option>
                         </select>
                         <label>Seleccione el motivo de la constancia:</label>
                     </div>

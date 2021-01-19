@@ -120,6 +120,9 @@ class GenerarPDF extends Controller
                 $motivo = 'madrina de bautizo';
                 break;
             case '4':
+                $motivo = 'ingreso a catequesis';
+                break;
+            case '5':
                 $motivo = 'sacramento de la confirmación';
                 break;
         }
