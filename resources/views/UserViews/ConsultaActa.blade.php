@@ -135,7 +135,7 @@
             </table>
 
             <div style="text-align: center">
-                <ul class="pagination">
+                <ul id="holder" class="pagination">
                 </ul>
             </div>
         </div>
