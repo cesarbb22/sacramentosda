@@ -39,6 +39,8 @@ class ActaUsuarioController extends Controller
                 }
             }
 
+            $userParroquia = Auth::user()->IDParroquia;
+
             $Persona = new Persona;
             if ($request->has('nombrePadre')) {
 
@@ -122,7 +124,7 @@ class ActaUsuarioController extends Controller
                     $ActaBautizo->NotasMarginales = $request->notasMarginalesBau;
                     $ActaBautizo->IDUbicacionActaBau = $UbicacionActaB->IDUbicacionActa;
                     $ActaBautizo->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
-                    $ActaBautizo->IDParroquiaRegistra = Auth::user()->IDParroquia;
+                    $ActaBautizo->IDParroquiaRegistra = $userParroquia;
                     $ActaBautizo->save();
 
                     $Acta->IDBautismo = $ActaBautizo->IDBautismo;
@@ -152,7 +154,7 @@ class ActaUsuarioController extends Controller
                     $ActaConfirma->NotasMarginales = $request->notasMarginalesConf;
                     $ActaConfirma->IDUbicacionActaCon = $UbicacionActaC->IDUbicacionActa;
                     $ActaConfirma->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
-                    $ActaConfirma->IDParroquiaRegistra = Auth::user()->IDParroquia;
+                    $ActaConfirma->IDParroquiaRegistra = $userParroquia;
                     $ActaConfirma->save();
 
                     $Acta->IDConfirma = $ActaConfirma->IDConfirma;
@@ -181,7 +183,7 @@ class ActaUsuarioController extends Controller
                     $ActaMatrimonio->NotasMarginales = $request->notasMarginalesMat;
                     $ActaMatrimonio->IDUbicacionActaMat = $UbicacionActaM->IDUbicacionActa;
                     $ActaMatrimonio->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
-                    $ActaMatrimonio->IDParroquiaRegistra = Auth::user()->IDParroquia;
+                    $ActaMatrimonio->IDParroquiaRegistra = $userParroquia;
                     $ActaMatrimonio->save();
 
                     $Acta->IDMatrimonio = $ActaMatrimonio->IDMatrimonio;
@@ -210,7 +212,7 @@ class ActaUsuarioController extends Controller
                     $ActaDefuncion->NotasMarginales = $request->notasMarginalesDef;
                     $ActaDefuncion->IDUbicacionActaDef = $UbicacionActaD->IDUbicacionActa;
                     $ActaDefuncion->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
-                    $ActaDefuncion->IDParroquiaRegistra = Auth::user()->IDParroquia;
+                    $ActaDefuncion->IDParroquiaRegistra = $userParroquia;
                     $ActaDefuncion->save();
 
                     $Acta->IDDefuncion = $ActaDefuncion->IDDefuncion;
