@@ -82,7 +82,7 @@
     </div>
 
     <div class="registrosDiv centrar-texto">
-        Según registros de libros bautismales de {{ $parroquiaRegistraCon }}:
+        Según registros de libros de confirma {{ $parroquiaRegistraCon }}:
         <table class="tabla-registros">
             <tr>
                 <td class="centrar-texto">Libro</td>

@@ -102,10 +102,10 @@ class GenerarPDF extends Controller
             ->where('IDActa', $request->idActa)
             ->first();
 
-        $parroquiaRegistraBau = 'Archivo Diocesano de Alajuela';
+        $parroquiaRegistraBau = 'del Archivo Diocesano de Alajuela';
         if($acta->bautismo->IDParroquiaRegistra != -1) {
             $parroquia = Parroquia::where('IDParroquia', $acta->bautismo->IDParroquiaRegistra)->first();
-            $parroquiaRegistraBau = 'parroquia ' . $parroquia->NombreParroquia;
+            $parroquiaRegistraBau = 'de la parroquia ' . $parroquia->NombreParroquia;
         }
 
         $motivo = '';
@@ -154,7 +154,6 @@ class GenerarPDF extends Controller
         return $pdf->download('CertificadoBautismo.pdf');
     }
 
-
     public function generarPDFConfirma(Request $request)
     {
 
@@ -162,10 +161,10 @@ class GenerarPDF extends Controller
             ->where('IDActa', $request->idActa)
             ->first();
 
-        $parroquiaRegistraCon = 'Archivo Diocesano de Alajuela';
+        $parroquiaRegistraCon = 'del Archivo Diocesano de Alajuela';
         if($acta->confirma->IDParroquiaRegistra != -1) {
             $parroquia = Parroquia::where('IDParroquia', $acta->confirma->IDParroquiaRegistra)->first();
-            $parroquiaRegistraCon = 'parroquia ' . $parroquia->NombreParroquia;
+            $parroquiaRegistraCon = 'de la parroquia ' . $parroquia->NombreParroquia;
         }
 
         $motivo = '';
@@ -216,10 +215,10 @@ class GenerarPDF extends Controller
             ->where('IDActa', $request->idActa)
             ->first();
 
-        $parroquiaRegistraMat = 'Archivo Diocesano de Alajuela';
+        $parroquiaRegistraMat = 'del Archivo Diocesano de Alajuela';
         if($acta->matrimonio->IDParroquiaRegistra != -1) {
             $parroquia = Parroquia::where('IDParroquia', $acta->matrimonio->IDParroquiaRegistra)->first();
-            $parroquiaRegistraMat = 'parroquia ' . $parroquia->NombreParroquia;
+            $parroquiaRegistraMat = 'de la parroquia ' . $parroquia->NombreParroquia;
         }
 
         $motivo = '';
@@ -273,10 +272,10 @@ class GenerarPDF extends Controller
             ->where('IDActa', $request->idActa)
             ->first();
 
-        $parroquiaRegistraDef = 'Archivo Diocesano de Alajuela';
+        $parroquiaRegistraDef = 'del Archivo Diocesano de Alajuela';
         if($acta->defuncion->IDParroquiaRegistra != -1) {
             $parroquia = Parroquia::where('IDParroquia', $acta->defuncion->IDParroquiaRegistra)->first();
-            $parroquiaRegistraDef = 'parroquia ' . $parroquia->NombreParroquia;
+            $parroquiaRegistraDef = 'de la parroquia ' . $parroquia->NombreParroquia;
         }
 
         $motivo = '';

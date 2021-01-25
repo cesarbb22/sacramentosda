@@ -75,7 +75,7 @@
     </div>
 
     <div class="registrosDiv centrar-texto">
-        Según registros de libros bautismales de la {{ $parroquiaRegistraMat }}:
+        Según registros de libros matrimoniales {{ $parroquiaRegistraMat }}:
         <table class="tabla-registros">
             <tr>
                 <td class="centrar-texto">Libro</td>
