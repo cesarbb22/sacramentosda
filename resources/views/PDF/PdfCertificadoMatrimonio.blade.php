@@ -56,7 +56,7 @@
         @if($acta->matrimonio != null && $acta->matrimonio->IDParroquiaMatrimonio != null)
             <p>En la Parroquia <strong>{{ $acta->matrimonio->parroquia->NombreParroquia }}</strong></p>
         @elseif($acta->matrimonio != null)
-            <p>En <span class="texto-capitalize"><strong>{{ $acta->matrimonio->LugarBautismo }}</strong></span></p>
+            <p>En <span class="texto-capitalize"><strong>{{ $acta->matrimonio->LugarMatrimonio }}</strong></span></p>
         @endif
     </div>
 

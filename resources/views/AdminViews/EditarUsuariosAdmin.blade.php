@@ -11,7 +11,7 @@
           </div>
           <div class="col l2"></div><br><br><br><br><br>
     @endif
-    
+
     @if(session()->has('msjBueno'))
         <div class="col l2"></div>
           <div class="col s12 m8 l8">
@@ -21,14 +21,14 @@
           </div>
           <div class="col l2"></div><br><br><br><br><br>
     @endif
-    
+
          <div class="col m3 l3"></div>
           <div class="col s16 m3 l6">
         <div class="card-panel z-depth-5">
-            
+
             <h3 class="center-align">Editar usuario</h3>
                 <br>
-                
+
                 <div class="panel-body">
                     @if (session('status'))
                         <div class="alert alert-success">
@@ -38,12 +38,12 @@
 
                     <form class="form-horizontal" role="form" method="POST" action="/actualizarUsuario">
                         {{ csrf_field() }}
-                        
+
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Nombre</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ $usuario->Nombre }}" autofocus readonly=”readonly>
+                                <input id="name" type="text" class="form-control" name="name" value="{{ $usuario->Nombre }}" autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -52,14 +52,14 @@
                                 @endif
                             </div>
                         </div>
-                        
-                        
-                        
+
+
+
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Primer Apellido</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="pApellido" value="{{ $usuario->PrimerApellido }}" required autofocus readonly=”readonly>
+                                <input id="name" type="text" class="form-control" name="pApellido" value="{{ $usuario->PrimerApellido }}" required autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -68,12 +68,12 @@
                                 @endif
                             </div>
                         </div>
-                        
+
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Segundo Apellido</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="sApellido" value="{{ $usuario->SegundoApellido}}" required autofocus readonly=”readonly>
+                                <input id="name" type="text" class="form-control" name="sApellido" value="{{ $usuario->SegundoApellido}}" required autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -82,7 +82,7 @@
                                 @endif
                             </div>
                         </div>
-                        
+
                          <div class="input-field">
                           <select name='parroquia' id="parroquia">
                             @foreach ($parroquias as $pa)
@@ -91,7 +91,7 @@
                           </select>
                           <label>Parroquia</label>
                         </div>
-                    
+
                         <div class="input-field">
                           <select name='puesto' id='puesto'>
                             @foreach ($puesto as $pu)
@@ -112,12 +112,12 @@
                                     @endif
                                 </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="cel" class="col-md-4 control-label">Número de celular</label>
 
                             <div class="col-md-6">
-                                <input id="cel" type="text" class="form-control" name="numCel" value="{{ $usuario->NumCelular }}" readonly=”readonly”>
+                                <input id="cel" type="text" class="form-control" name="numCel" value="{{ $usuario->NumCelular }}">
                             </div>
                         </div>
 
@@ -142,18 +142,18 @@
             </div>
         </div>
     </div>
-    
+
     <script>
- 
+
       window.onload = function() {
         $(document).ready(function(){
             $('#parroquia > option[value="{{ $usuario->IDParroquia }}"]').attr('selected', 'selected');
             $('#puesto > option[value="{{ $usuario->IDPuesto }}"]').attr('selected', 'selected');
             $('#rol > option[value="{{ $usuario->IDRol }}"]').attr('selected', 'selected');
         });
-        
+
          $('select').material_select();
-      
+
       }
 
     </script>
