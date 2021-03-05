@@ -59,10 +59,16 @@
             <form id="formActa" method="POST" action="/crearActaUsuario" autocomplete="off">
                 {{ csrf_field() }}
                 <div class="row">
+                    <div class="input-field col s3">
+                        <input name='tipoCedula' type="radio" id="tipoCed1"/>
+                        <label for="tipoCed1">Nacional</label>
+                        <input name='tipoCedula' type="radio" id="tipoCed2"/>
+                        <label for="tipoCed2">Extranjero</label>
+                    </div>
                     <div class="input-field col s4">
-                        <input id="numCedula" name='numCedula' type="text" class="validate" minlength="9" maxlength="9"
-                               oninvalid="this.setCustomValidity('Debe ingresar cédula con el formato: 101230456')"
-                               oninput="setCustomValidity('')" pattern="^[0-9]{9}$">
+                        <input id="numCedula" name='numCedula' type="text" class="validate" disabled
+                               oninvalid="this.setCustomValidity('Formato incorrecto')"
+                               oninput="setCustomValidity('')">
                         <label for="numCedula">Número de cédula:</label>
                     </div>
                     <div class="input-field col s8">
@@ -558,6 +564,30 @@
             $('#parroquiaMatrimonio > option[value="{{ $parroquiaUser }}"]').attr('selected', 'selected');
             $('#parroquiaDefuncion > option[value="{{ $parroquiaUser }}"]').attr('selected', 'selected');
 
+            // radio button para cedula
+            $("#tipoCed1").change(function () {
+                if ($("#tipoCed1").is(':checked')) {
+                    $("#numCedula").prop('pattern', '^[0-9]{9}$');
+                    $("#numCedula").prop('minlength', '9');
+                    $("#numCedula").prop('maxlength', '9');
+                    $("#numCedula").prop('disabled', false);
+                    $("#numCedula").focus();
+                    $("#numCedula").blur();
+                }
+            });
+
+            $("#tipoCed2").change(function () {
+                if ($("#tipoCed2").is(':checked')) {
+                    $("#numCedula").prop('pattern', '^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+){11,16}|[0-9]{11,16}$');
+                    $("#numCedula").prop('minlength', '11');
+                    $("#numCedula").prop('maxlength', '16');
+                    $("#numCedula").prop('disabled', false);
+                    $("#numCedula").focus();
+                    $("#numCedula").blur();
+                }
+            });
+
+            // radio button para tipo de hijo
             $("#tipoH2").change(function () {
                 if ($("#tipoH2").is(':checked')) {
                     $("#nombrePadre").prop('disabled', false);
@@ -741,6 +771,58 @@
                         fecNac = fecNac + '/';
                     }
                     $('#fechaNac').val(fecNac);
+                }
+            });
+
+            // Fecha Bautizo autocompletado
+            $("#fechaBaut").keypress(function (e) {
+                e.preventDefault();
+                var fecha = $('#fechaBaut').val();
+                if (fecha.length <= 9) {
+                    fecha = fecha + e.key;
+                    if (fecha.length === 2 || fecha.length === 5) {
+                        fecha = fecha + '/';
+                    }
+                    $('#fechaBaut').val(fecha);
+                }
+            });
+
+            // Fecha Confirma autocompletado
+            $("#fechaConfir").keypress(function (e) {
+                e.preventDefault();
+                var fecha = $('#fechaConfir').val();
+                if (fecha.length <= 9) {
+                    fecha = fecha + e.key;
+                    if (fecha.length === 2 || fecha.length === 5) {
+                        fecha = fecha + '/';
+                    }
+                    $('#fechaConfir').val(fecha);
+                }
+            });
+
+            // Fecha Matrimonio autocompletado
+            $("#fechaMatrimonio").keypress(function (e) {
+                e.preventDefault();
+                var fecha = $('#fechaMatrimonio').val();
+                if (fecha.length <= 9) {
+                    fecha = fecha + e.key;
+                    if (fecha.length === 2 || fecha.length === 5) {
+                        fecha = fecha + '/';
+                    }
+                    $('#fechaMatrimonio').val(fecha);
+                }
+            });
+
+            // Fecha defuncion autocompletado
+            $("#fechaDefuncion").keypress(function (e) {
+                e.preventDefault();
+                var fecha = $('#fechaDefuncion').val();
+                if (fecha.length <= 9) {
+                    fecha = fecha + e.key;
+                    if (fecha.length === 2 || fecha.length === 5) {
+                        fecha = fecha + '/';
+                    }
+                    $('#fechaDefuncion').val(fecha);
                 }
             });
 

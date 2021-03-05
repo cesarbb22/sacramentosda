@@ -61,11 +61,17 @@
 
                 {{ csrf_field() }}
                 <div class="row">
+                    <div class="input-field col s3">
+                        <input name='tipoCedula' type="radio" id="tipoCed1" value="1"/>
+                        <label for="tipoCed1">Nacional</label>
+                        <input name='tipoCedula' type="radio" id="tipoCed2" value="2"/>
+                        <label for="tipoCed2">Extranjero</label>
+                    </div>
                     <div class="input-field col s4">
                         <input id="numCedulaEdit" name='numCedulaEdit' type="text" class="validate"
-                               value="{{ $persona->Cedula }}" maxlength="9" pattern="^[0-9]{9}$"
-                               oninvalid="this.setCustomValidity('Debe ingresar cédula con el formato: 101230456')"
-                               oninput="setCustomValidity('')"  pattern="^[0-9]{9}$">
+                               value="{{ $persona->Cedula }}"
+                               oninvalid="this.setCustomValidity('Formato incorrecto')"
+                               oninput="setCustomValidity('')" >
                         <label for="numCedulaEdit">Número de cédula:</label>
                     </div>
                 </div>
@@ -932,6 +938,38 @@
                     $("#nombreMadreEdit").prop('disabled', false);
                 }
 
+                // radio button para cedula
+                var cedula = {!! json_encode($persona->Cedula) !!};
+                if (cedula != null && cedula.length == 9) {
+                    $("input[name=tipoCedula][value='1']").prop('checked', true);
+                } else if (cedula != null && cedula.length >= 11) {
+                    $("input[name=tipoCedula][value='2']").prop('checked', true);
+                } else {
+                    $("#numCedulaEdit").prop('disabled', true);
+                }
+                $("#tipoCed1").change(function () {
+                    if ($("#tipoCed1").is(':checked')) {
+                        $("#numCedulaEdit").prop('pattern', '^[0-9]{9}$');
+                        $("#numCedulaEdit").prop('minlength', '9');
+                        $("#numCedulaEdit").prop('maxlength', '9');
+                        $("#numCedulaEdit").prop('disabled', false);
+                        $("#numCedulaEdit").focus();
+                        $("#numCedulaEdit").blur();
+                    }
+                });
+
+                $("#tipoCed2").change(function () {
+                    if ($("#tipoCed2").is(':checked')) {
+                        $("#numCedulaEdit").prop('pattern', '^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+){11,16}|[0-9]{11,16}$');
+                        $("#numCedulaEdit").prop('minlength', '11');
+                        $("#numCedulaEdit").prop('maxlength', '16');
+                        $("#numCedulaEdit").prop('disabled', false);
+                        $("#numCedulaEdit").focus();
+                        $("#numCedulaEdit").blur();
+                    }
+                });
+                //--------------------------------------
+
                 $("#lugarBautizoDiv").css("display", "none");
                 $("#lugarConfirmaDiv").css("display", "none");
                 $("#lugarMatrimonioDiv").css("display", "none");
@@ -1139,6 +1177,72 @@
                     $("#lugarDefuncion").prop('required', false);
                     $("#lugarDefuncionDiv").css("display", "none");
                     $("#lugarDefuncion").val("");
+                }
+            });
+
+
+            // Fecha Nacimiento autocompletado
+            $("#fechaNac").keypress(function (e) {
+                e.preventDefault();
+                var fecNac = $('#fechaNac').val();
+                if (fecNac.length <= 9) {
+                    fecNac = fecNac + e.key;
+                    if (fecNac.length === 2 || fecNac.length === 5) {
+                        fecNac = fecNac + '/';
+                    }
+                    $('#fechaNac').val(fecNac);
+                }
+            });
+
+            // Fecha Bautizo autocompletado
+            $("#fechaBaut").keypress(function (e) {
+                e.preventDefault();
+                var fecha = $('#fechaBaut').val();
+                if (fecha.length <= 9) {
+                    fecha = fecha + e.key;
+                    if (fecha.length === 2 || fecha.length === 5) {
+                        fecha = fecha + '/';
+                    }
+                    $('#fechaBaut').val(fecha);
+                }
+            });
+
+            // Fecha Confirma autocompletado
+            $("#fechaConfir").keypress(function (e) {
+                e.preventDefault();
+                var fecha = $('#fechaConfir').val();
+                if (fecha.length <= 9) {
+                    fecha = fecha + e.key;
+                    if (fecha.length === 2 || fecha.length === 5) {
+                        fecha = fecha + '/';
+                    }
+                    $('#fechaConfir').val(fecha);
+                }
+            });
+
+            // Fecha Matrimonio autocompletado
+            $("#fechaMatrimonio").keypress(function (e) {
+                e.preventDefault();
+                var fecha = $('#fechaMatrimonio').val();
+                if (fecha.length <= 9) {
+                    fecha = fecha + e.key;
+                    if (fecha.length === 2 || fecha.length === 5) {
+                        fecha = fecha + '/';
+                    }
+                    $('#fechaMatrimonio').val(fecha);
+                }
+            });
+
+            // Fecha defuncion autocompletado
+            $("#fechaDefuncion").keypress(function (e) {
+                e.preventDefault();
+                var fecha = $('#fechaDefuncion').val();
+                if (fecha.length <= 9) {
+                    fecha = fecha + e.key;
+                    if (fecha.length === 2 || fecha.length === 5) {
+                        fecha = fecha + '/';
+                    }
+                    $('#fechaDefuncion').val(fecha);
                 }
             });
 
