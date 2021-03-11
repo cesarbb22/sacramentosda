@@ -156,7 +156,7 @@
 
             <div class="nav-wrapper">
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="https://www.consulta.tse.go.cr/consulta_persona/consulta_nombres.aspx"
+                    <li><a href="http://servicioselectorales.tse.go.cr/chc/consulta_cedula.aspx"
                            target="_blank" title="Consultas Civiles TSE"><i class="material-icons large">search</i></a></li>
                     <li><a href="Manual/Manualdelusuario.pdf" download="Manual Sistema Web"
                            title="Descargar manual de sistema"><i class="material-icons large">help</i></a></li>
