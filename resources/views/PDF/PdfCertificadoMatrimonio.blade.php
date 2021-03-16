@@ -125,7 +125,7 @@
                 </tr>
                 <tr class="centrar-texto">
                     <td>
-                        <p class="no-margin-padding">Pbro. Lic. Sixto Varela Santamaría</p>
+                        <p class="no-margin-padding">Pbro. Ronald Murillo Mora</p>
                         <p class="no-margin-padding">Canciller</p>
                     </td>
                 </tr>
