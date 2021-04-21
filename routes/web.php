@@ -35,6 +35,8 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
         return view('AdminViews.ContactoAdmin');
     });
 
+    Route::get('/reportes', 'SeccionReportes@home')->middleware('auth');
+
     Route::get('/consultaAdmin', 'consultaAdmin@home')->middleware('auth');
 
     Route::get('/solicitudRechazadaAdmin/{id}', 'CentroNotificaciones@rechazarSolicitud')->middleware('auth');
@@ -72,6 +74,8 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
     Route::get('/Detalle/{id}',['as' => '/Detalle', 'uses' => 'ActaAdminController@DetalleActa'])->middleware('auth');
 
     Route::post('/queryPersonas', 'consultaAdmin@query');
+
+    Route::post('/queryBautizosAnnio', 'SeccionReportes@queryBautizosAnnio');
 
     Route::get('/notificacionesAdmin', function () {
         return view('AdminViews.notificacionesAdmin');
