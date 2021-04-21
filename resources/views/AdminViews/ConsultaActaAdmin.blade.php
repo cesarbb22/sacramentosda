@@ -133,6 +133,7 @@
             <div style="text-align: center">
                 <ul id="holder" class="pagination">
                 </ul>
+                <p id="totalCount"></p>
             </div>
         </div>
     </div>
@@ -214,6 +215,7 @@
                     url: "/queryPersonas?page=" + page,
                     data: $("#queryForm").serialize(), // serializes the form's elements.
                     success: function (data) {
+                        document.getElementById("totalCount").innerHTML = "total " + data.total + " partidas";
                         $("#tablaConsulta td").parent().remove();
 
                         var len = data.data.length;
