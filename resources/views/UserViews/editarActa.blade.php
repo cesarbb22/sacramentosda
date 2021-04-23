@@ -1225,10 +1225,16 @@
                     $("#lugarBautizo").prop('required', true);
                     $("#lugarBautizoDiv").css("display", "block");
                     $("#lugarBautizo").val("");
+                    $("#numLibroB").prop('required', false);
+                    $("#numFolioB").prop('required', false);
+                    $("#numAsientoB").prop('required', false);
                 } else {
                     $("#lugarBautizo").prop('required', false);
                     $("#lugarBautizoDiv").css("display", "none");
                     $("#lugarBautizo").val("");
+                    $("#numLibroB").prop('required', true);
+                    $("#numFolioB").prop('required', true);
+                    $("#numAsientoB").prop('required', true);
                 }
             });
 
