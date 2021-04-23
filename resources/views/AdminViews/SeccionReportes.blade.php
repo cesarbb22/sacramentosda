@@ -57,7 +57,6 @@
                             <div class="col s6">
                                 <h5>Resultado:</h5>
                                 <h4 id="resultado"></h4>
-                                <p STYLE="color: red">SE PUEDE BUSCAR POR PARROQUIA PERO FALTA EL FILTRO POR AÑO</p>
                             </div>
                         </div>
                     </li>
