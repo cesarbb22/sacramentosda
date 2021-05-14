@@ -8,7 +8,7 @@
 </head>
 <body>
 <div id="plantilla-sacramentos-header">
-    <img src="style/img/plantilla-confirma-header.png" height="100%" width="100%">
+    <img src="style/img/plantilla-defuncion-header.png" height="100%" width="100%">
 </div>
 
 <div id="watermark">
