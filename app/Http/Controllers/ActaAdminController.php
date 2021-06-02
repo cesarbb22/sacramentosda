@@ -636,6 +636,8 @@ class ActaAdminController extends Controller
             $actaDefuncion = ActaDefuncion::where('IDDefuncion', $idDefuncion)->first();
             $laico = Laico::findOrFail($id);
 
+            $parroquias = \App\Parroquia::all();
+
             $date = $laico->FechaNacimiento;
             $laico->FechaNacimiento = $this->formatDatetoString($date);
 
@@ -729,12 +731,15 @@ class ActaAdminController extends Controller
                 $UbicacionActaDefuncion = null;
             }
 
+            $parroquiaUser = Auth::user()->puesto->IDPuesto <= 2 ? -1 : Auth::user()->IDParroquia;
+
             return view('AdminViews.DetalleActaAdmin', ['persona' => Persona::findOrFail($id), 'laico' => $laico,
                 'acta' => $acta, 'actaBautismo' => $actaBautismo, 'actaConfirma' => $actaConfirma, 'actaMatrimonio' => $actaMatrimonio,
                 'actaDefuncion' => $actaDefuncion, 'UbicacionActaBautismo' => $UbicacionActaBautismo, 'UbicacionActaConfirma' => $UbicacionActaConfirma,
                 'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion, 'tipoHijo' => $tipoHijo,
                 'nomParroquiaBauRegistra'=>$nomParroquiaBauRegistra, 'nomParroquiaConfRegistra'=>$nomParroquiaConfRegistra,
-                'nomParroquiaMatRegistra'=>$nomParroquiaMatRegistra, 'nomParroquiaDefRegistra'=>$nomParroquiaDefRegistra]);
+                'nomParroquiaMatRegistra'=>$nomParroquiaMatRegistra, 'nomParroquiaDefRegistra'=>$nomParroquiaDefRegistra, 'parroquias' => $parroquias,
+                'parroquiaUser' => $parroquiaUser]);
 
         } catch (Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error");

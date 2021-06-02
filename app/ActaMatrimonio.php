@@ -8,7 +8,7 @@ class ActaMatrimonio extends Model
 {
     protected $table = 'actamatrimonio';
     protected $primaryKey = 'IDMatrimonio';
-    protected $fillable = array( 'IDParroquiaMatrimonio','LugarMatrimonio','FechaMatrimonio','NombreConyugue','NotasMarginales','IDUbicacionActaMat','NombreUserRegistra','IDParroquiaRegistra');
+    protected $fillable = array( 'IDParroquiaMatrimonio','LugarMatrimonio','FechaMatrimonio','NombreConyugue','NotasMarginales','IDUbicacionActaMat','NombreUserRegistra','IDParroquiaRegistra', 'AvisoEnviado');
     public $timestamps = true;
     protected $dateFormat = 'Y-m-d H:i:s';
 

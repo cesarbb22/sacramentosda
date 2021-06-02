@@ -24,40 +24,53 @@ td, th {
  <div id='n' class="row">
 
      @if(session()->has('msjMalo'))
-        <div class="col l2"></div>
-          <div class="col s12 m8 l8">
-            <div class="card-panel red lighten-2 center-align">
-              <span class="white-text">{{session('msjMalo')}}</span>
-            </div>
-          </div>
-          <div class="col l2"></div><br><br><br><br><br>
-    @endif
+         <div class="col l2"></div>
+         <div class="col s12 m8 l8">
+             <div class="card-panel red lighten-2 center-align">
+                 <span class="white-text">{{session('msjMalo')}}</span>
+             </div>
+         </div>
+         <div class="col l2"></div><br><br><br><br><br>
+     @endif
 
-    @if(session()->has('msjBueno'))
-        <div class="col l2"></div>
-          <div class="col s12 m8 l8">
-            <div class="card-panel green darken-3 center-align">
-              <span class="white-text">{{session('msjBueno')}}</span>
-            </div>
-          </div>
-          <div class="col l2"></div><br><br><br><br><br>
-    @endif
+     @if(session()->has('msjBueno'))
+         <div class="col l2"></div>
+         <div class="col s12 m8 l8">
+             <div class="card-panel green darken-3 center-align">
+                 <span class="white-text">{{session('msjBueno')}}</span>
+             </div>
+         </div>
+         <div class="col l2"></div><br><br><br><br><br>
+     @endif
 
     <div class="col s12 m4 l2"></div>
     <div class=" col s12 m4 l8 card-panel z-depth-5">
 
         <div class="row">
-          <div class="col s12 m4 l3"></div>
-
-          <div class="col s12 m4 l6"><h4 class="center-align">Centro de Notificaciones</h4></div>
-
-          <div class="col s12 m4 l3">
-             <div class="row">
-                 <br>
-                <button id="reload" class="waves-effect waves-light btn right" type="button"><i class="material-icons left">loop</i>Actualizar</button>
+            <div class="col s12 m4 l4">
+                <div class="row">
+                    <br>
+                    <div class="switch">
+                        <label>
+                            <strong>Recibidos</strong>
+                            <input id="switch-tipo" type="checkbox">
+                            <span class="lever"></span>
+                            <strong>Enviados</strong>
+                        </label>
+                    </div>
+                </div>
             </div>
+
+          <div class="col s12 m4 l4"><h4 class="center-align">Avisos Sacramentales</h4></div>
+
+          <div class="col s12 m4 l4">
+              <div class="row">
+                  <br>
+                  <button id="reload" class="waves-effect waves-light btn right" type="button"><i class="material-icons left">loop</i>Actualizar</button>
+              </div>
           </div>
         </div>
+
 <br>
        <table id='miTabla' class="bordered">
         </table>
@@ -82,31 +95,81 @@ td, th {
     function description(id) {
             $('#descripcion').html( $('#desc'+id).html() );
             $('#modal1').modal('open');
-        }
+    }
 
     window.onload = function(e){
+        $('.modal').modal();
+
+        $("#switch-tipo").change(function () {
+            ajaxCall();
+        });
+
         setTimeout(function() {
             $("#reload").trigger('click');
         },1);
 
-        $('.modal').modal();
-
-
         $("#reload").click(function() {
+            ajaxCall();
+        });
+
+        function ajaxCall() {
+            // enviado -> 4, recibido -> 5
+            var isTipoEnviado = $("#switch-tipo").is(':checked');
+            var tipo_solicitud = isTipoEnviado ? 4 : 5;
+
             $.ajax({
                 type: "POST",
                 url: "/obtenerSolicitudesUsuario",
                 //data: ", // serializes the form's elements.
                 data: {
                     "_token": "{{ csrf_token() }}",
+                    "tipo": tipo_solicitud
                 },
                 success: function(data) {
                     $('#miTabla').empty();
-                    var content = "<thead><tr><th>Tipo de Solicitud</th><th>Remitente</th><th>Parroquia</th><th>Estado</th><th>Detalles</th><th>Ver partida</th><th>Aceptar respuesta</th></tr></thead><tbody>"
-                    for(i=0; i<data.length; i++){
+                    var content = "";
+                    content = "<thead><tr><th>Parroquia que notifica</th><th>Fecha de Aviso</th><th>Sacramento</th><th>Estado</th><th>Ver partida</th><th>Finalizar</th></tr></thead><tbody>"
+                    if (isTipoEnviado) {
+                        content = "<thead><tr><th>Parroquia a la que se notifica</th><th>Fecha de Aviso</th><th>Sacramento</th><th>Estado</th><th>Ver partida</th><th>Finalizar</th></tr></thead><tbody>"
+                    }
 
-                        if (data[i].IDTipo_Solicitud == 3) { // nuevo usuario
-                            content += '<tr><td>' + data[i].tipo.NombreTipo_Solicitud + '</td>'
+                    for(i=0; i<data.length; i++){
+                        var nombreParroquia = data[i].user.parroquia.NombreParroquia;
+                        if (isTipoEnviado) {
+                            nombreParroquia = data[i].IDParroquia == -1 ? "Archivo Diocesano de Alajuela" : data[i].parroquia.NombreParroquia;
+                        }
+                        content += '<tr>'
+                            + '<td>' + nombreParroquia + '</td>'
+                            + '<td>' + formatDateToString(data[i].Fecha_Solicitud) + '</td>'
+                            + '<td>' + data[i].Sacramento + '</td>'
+                            + '<td><strong><em>' + data[i].estado.NombreEstado_Solicitud + '</em></strong></td>'
+                            + '<td><a class="desc" target="_blank" href="DetalleUsuario/'+data[i].acta.IDPersona+'"><i class="material-icons">description</i></a></td>';
+                        if (!isTipoEnviado) {
+                            if (data[i].estado.IDEstado_Solicitud != 4) {
+                                content += '<td><a href="/aceptarSolicitud/'+data[i].IDSolicitud+'"><i class="material-icons">done</i></a></td>';
+                            }
+                        }
+                        content += '</tr>';
+                    }
+                    content += "</tbody>"
+
+                    $('#miTabla').append(content);
+                }
+            });
+        }
+    }
+
+    function formatDateToString(dateString)
+    {
+        var yyyy = dateString.slice(0, 4);
+        var mm = dateString.slice(5, 7);
+        var dd = dateString.slice(8, 10);
+        return dd + '/' + mm + '/' + yyyy;
+    }
+
+    /*if (data[i].IDTipo_Solicitud == 3) { // nuevo usuario
+                            content += '<tr>'
+                                    //+ '<td>' + data[i].tipo.NombreTipo_Solicitud + '</td>'
                                     + '<td>' + data[i].user.Nombre + ' '+ data[i].user.PrimerApellido + ' ' + data[i].user.SegundoApellido + '</td>'
                                     + '<td>' + data[i].user.parroquia.NombreParroquia+ '</td>'
                                     + '<td><strong><em>' + data[i].estado.NombreEstado_Solicitud + '</em></strong></td>'
@@ -115,7 +178,8 @@ td, th {
                                     + '<td><a href="/aceptarSolicitud/'+data[i].IDSolicitud+'"><i class="material-icons">done</i></a></td>'
                                     + '<td id="desc'+i+'" hidden></td> </tr>';
                         } else if (data[i].IDTipo_Solicitud == 2) { //editar
-                            content += '<tr><td>' + data[i].tipo.NombreTipo_Solicitud + '</td>'
+                            content += '<tr>'
+                                    //+ '<td>' + data[i].tipo.NombreTipo_Solicitud + '</td>'
                                     + '<td>' + data[i].user.Nombre + ' '+ data[i].user.PrimerApellido + ' ' + data[i].user.SegundoApellido + '</td>'
                                     + '<td>' + data[i].user.parroquia.NombreParroquia+ '</td>'
                                     + '<td><strong><em>' + data[i].estado.NombreEstado_Solicitud + '</em></strong></td>'
@@ -123,23 +187,16 @@ td, th {
                                     + '<td><a class="desc" href="DetalleUsuario/'+data[i].actas[0].IDPersona+'"><i class="material-icons">description</i></a></td>'
                                     + '<td><a href="/aceptarSolicitud/'+data[i].IDSolicitud+'"><i class="material-icons">done</i></a></td>'
                                     + '<td id="desc'+i+'" hidden>'+data[i].actas[0].pivot.Descripcion+'</td> </tr>';
-                        } else { // eliminar
-                            content += '<tr><td>' + data[i].tipo.NombreTipo_Solicitud + '</td>'
+                        } else if (data[i].IDTipo_Solicitud == 1) { // eliminar
+                            content += '<tr>'
+                                //+ '<td>' + data[i].tipo.NombreTipo_Solicitud + '</td>'
                                 + '<td>' + data[i].user.Nombre + ' '+ data[i].user.PrimerApellido + ' ' + data[i].user.SegundoApellido + '</td>'
                                 + '<td>' + data[i].user.parroquia.NombreParroquia+ '</td>'
                                 + '<td><strong><em>' + data[i].estado.NombreEstado_Solicitud + '</em></strong></td>'
                                 + '<td></td>'
                                 + '<td></td>'
                                 + '<td><a href="/aceptarSolicitud/'+data[i].IDSolicitud+'"><i class="material-icons">done</i></a></td>';
-                        }
-                    }
-                    content += "</tbody>"
-
-                    $('#miTabla').append(content);
-                }
-            });
-        });
-    }
+                        }*/
 </script>
 
 @endsection

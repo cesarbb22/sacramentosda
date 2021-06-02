@@ -651,6 +651,8 @@ class ActaUsuarioController extends Controller
             $actaDefuncion = ActaDefuncion::where('IDDefuncion', $idDefuncion)->first();
             $laico = Laico::findOrFail($id);
 
+            $parroquias = \App\Parroquia::all();
+
             $date = $laico->FechaNacimiento;
             $laico->FechaNacimiento = $this->formatDateToString($date);
 
@@ -749,7 +751,8 @@ class ActaUsuarioController extends Controller
                 'actaDefuncion' => $actaDefuncion, 'UbicacionActaBautismo' => $UbicacionActaBautismo, 'UbicacionActaConfirma' => $UbicacionActaConfirma,
                 'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion, 'tipoHijo' => $tipoHijo,
                 'nomParroquiaBauRegistra'=>$nomParroquiaBauRegistra, 'nomParroquiaConfRegistra'=>$nomParroquiaConfRegistra,
-                'nomParroquiaMatRegistra'=>$nomParroquiaMatRegistra, 'nomParroquiaDefRegistra'=>$nomParroquiaDefRegistra]);
+                'nomParroquiaMatRegistra'=>$nomParroquiaMatRegistra, 'nomParroquiaDefRegistra'=>$nomParroquiaDefRegistra, 'parroquias' => $parroquias,
+                'parroquiaUser' => Auth::user()->IDParroquia]);
 
         } catch (Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error " + $e);

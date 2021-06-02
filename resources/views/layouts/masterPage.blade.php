@@ -143,8 +143,6 @@
 
             <div class="nav-wrapper">
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="{{ route('login') }}">Iniciar sesión</a></li>
-                    <li><a href="{{ url('/registro') }}">Registrarse</a></li>
                 </ul>
             </div>
 
@@ -161,6 +159,7 @@
                 </ul>
 
                 <ul class="">
+                    <li><a href="{{ url('notificaciones') }} ">Avisos</a></li>
                     <li><a href="{{ url('Actas') }} ">Crear Partida</a></li>
                     <!-- <li><a class="dropdown-button" data-constrainwidth="false" data-beloworigin="true" data-activates="dropdownActa">Actas<i class="material-icons right">arrow_drop_down</i></a></li> -->
                     <li><a href="{{ url('consulta') }}">Consultas</a></li>

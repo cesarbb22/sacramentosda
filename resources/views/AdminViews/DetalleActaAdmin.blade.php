@@ -300,6 +300,37 @@
                                 class="material-icons left">file_download</i>Constancia de Confirma
                         </button>
                     </div>
+                    @if($actaConfirma->IDParroquiaRegistra == $parroquiaUser)
+                        <div class="row" style="text-align: left">
+                            @if($actaBautismo != null && $actaBautismo->IDParroquiaRegistra != $parroquiaUser)
+                                @if ($actaConfirma->AvisoEnviado == 0)
+                                    <button id="avisoConfirma" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="CONFIRMA">
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @else
+                                    <button id="avisoConfirma" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="CONFIRMA"
+                                            disabled>
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @endif
+                            @elseif ($actaBautismo == null)
+                                @if ($actaConfirma->AvisoEnviado == 0)
+                                    <button id="avisoConfirma" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="CONFIRMA">
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @else
+                                    <button id="avisoConfirma" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="CONFIRMA"
+                                            disabled>
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @endif
+                            @endif
+                        </div>
+                    @endif
                     <br>
                 @else
                     <div class="row">
@@ -383,6 +414,37 @@
                                 class="material-icons left">file_download</i>Constancia de Matrimonio
                         </button>
                     </div>
+                    @if($actaMatrimonio->IDParroquiaRegistra == $parroquiaUser)
+                        <div class="row" style="text-align: left">
+                            @if($actaBautismo != null && $actaBautismo->IDParroquiaRegistra != $parroquiaUser)
+                                @if ($actaMatrimonio->AvisoEnviado == 0)
+                                    <button id="avisoMatrimonio" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="MATRIMONIO">
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @else
+                                    <button id="avisoMatrimonio" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="MATRIMONIO"
+                                            disabled>
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @endif
+                            @elseif ($actaBautismo == null)
+                                @if ($actaMatrimonio->AvisoEnviado == 0)
+                                    <button id="avisoMatrimonio" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="MATRIMONIO">
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @else
+                                    <button id="avisoMatrimonio" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="MATRIMONIO"
+                                            disabled>
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @endif
+                            @endif
+                        </div>
+                    @endif
                     <br>
                 @else
                     <div class="row">
@@ -466,6 +528,37 @@
                                 class="material-icons left">file_download</i>Constancia de Defunción
                         </button>
                     </div>
+                    @if($actaDefuncion->IDParroquiaRegistra == $parroquiaUser)
+                        <div class="row" style="text-align: left">
+                            @if($actaBautismo != null && $actaBautismo->IDParroquiaRegistra != $parroquiaUser)
+                                @if ($actaDefuncion->AvisoEnviado == 0)
+                                    <button id="avisoDefuncion" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="DEFUNCION">
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @else
+                                    <button id="avisoDefuncion" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="DEFUNCION"
+                                            disabled>
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @endif
+                            @elseif ($actaBautismo == null)
+                                @if ($actaDefuncion->AvisoEnviado == 0)
+                                    <button id="avisoDefuncion" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="DEFUNCION">
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @else
+                                    <button id="avisoDefuncion" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="DEFUNCION"
+                                            disabled>
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @endif
+                            @endif
+                        </div>
+                    @endif
                     <br>
                 @else
                     <div class="row">
@@ -730,6 +823,40 @@
         </form>
     </div>
 
+    <!-- Modal Structure Aviso -->
+    <div id="modalAviso" class="modal modal-fixed-footer">
+        <form id="enviarAviso" method="POST" action="/enviarAvisoAdmin">
+            {{ csrf_field() }}
+            <div class="modal-content">
+                <div>
+                    <h4>Enviar Aviso</h4>
+                </div>
+                <hr><br><br>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <select id="idParroquiaAvisar" name='idParroquiaAvisar'>
+                            <option value="-1">Archivo Diocesano de Alajuela</option>
+                            @foreach ($parroquias as $paAviso)
+                                <option
+                                    value="{{ $paAviso->IDParroquia }}">{{ $paAviso->NombreParroquia }}</option>
+                            @endforeach
+                        </select>
+                        <label>Seleccione la parroquia que desea notificar:</label>
+                    </div>
+                    <input id="sacramento" name="sacramento" value="" type="text" hidden>
+                    <input id="idActaAvisar" name="idActaAvisar" value="" type="text" hidden>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="modalCancelBtnConfirma" onclick="closeModalAviso();"
+                   class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
+                <button id="modalEnviarAvisoBtn" type="submit" class="modal-action waves-effect waves-green btn-flat ">
+                    Enviar Aviso
+                </button>
+            </div>
+        </form>
+    </div>
+
     <script>
         function closeModal() {
             $('.modal').modal('close');
@@ -738,6 +865,11 @@
             $('#codigoConfirma').val('');
             $('#codigoMatrimonio').val('');
             $('#codigoDefuncion').val('');
+        }
+
+        function closeModalAviso() {
+            $('.modal').modal('close');
+            location.reload();
         }
 
         window.onload = function () {
@@ -749,6 +881,37 @@
 
             $('#detalleForm').on('submit', function (e) {
                 e.preventDefault();
+            });
+
+            // funcion Enviar Avisos
+            $('.avisoBtn').on('click', function (e) {
+                e.preventDefault();
+
+                var actaBautismo = {!! json_encode($actaBautismo) !!};
+                if (actaBautismo == null) {
+                    $('#sacramento').val(e.currentTarget.attributes.getNamedItem("tipo").value);
+                    $('#idActaAvisar').val($('#idActa').val());
+                    $('#modalAviso').modal('open');
+                } else {
+                    var answer = confirm("¿Seguro que desea enviar el aviso?");
+                    if (answer) {
+                        var formData = new FormData();
+                        formData.append("idActaAvisar", $('#idActa').val());
+                        formData.append("idParroquiaAvisar", actaBautismo.IDParroquiaBautismo);
+                        formData.append("sacramento", e.currentTarget.attributes.getNamedItem("tipo").value);
+                        formData.append("_token", "{{ csrf_token() }}");
+
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', '/enviarAvisoAdmin');
+                        xhr.responseType = 'arraybuffer';
+                        xhr.onload = function (e) {
+                            if (this.status == 200) {
+                                location.reload();
+                            }
+                        }
+                        xhr.send(formData);
+                    }
+                }
             });
 
             // PDF Sacramentos Recibidos

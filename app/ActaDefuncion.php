@@ -10,7 +10,7 @@ class ActaDefuncion extends Model
 
     protected $primaryKey = 'IDDefuncion';
 
-    protected $fillable = array( 'IDParroquiaDefuncion','LugarDefuncion','FechaDefuncion','CausaMuerte','NotasMarginales','IDUbicacionActaDef','NombreUserRegistra','IDParroquiaRegistra');
+    protected $fillable = array( 'IDParroquiaDefuncion','LugarDefuncion','FechaDefuncion','CausaMuerte','NotasMarginales','IDUbicacionActaDef','NombreUserRegistra','IDParroquiaRegistra', 'AvisoEnviado');
 
     public $timestamps = true;
 

@@ -45,6 +45,8 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 
     Route::get('/solicitudAceptadaAdmin/{id}', 'CentroNotificaciones@aceptarSolicitud')->middleware('auth');
 
+    Route::get('/aceptarSolicitudAdmin/{id}', 'CentroNotificaciones@aceptarSolicitud')->middleware('auth');
+
     Route::post('/crearActa', 'ActaAdminController@crearActa');
 
     Route::post('/actualizarUsuario', 'UserController@editarUsuarioAdmin');
@@ -53,7 +55,7 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 
     Route::get('/ActasAdmin', 'ActaAdminController@home')->middleware('auth');
 
-    Route::post('/obtenerSolicitudes', 'CentroNotificaciones@obtenerSolicitudesAdmin')->middleware('auth');
+    Route::post('/obtenerSolicitudesAdmin', 'CentroNotificaciones@obtenerSolicitudesAdmin')->middleware('auth');
 
     Route::get('/Editar/{id}', 'ActaAdminController@EditarActa')->middleware('auth');
 
@@ -76,6 +78,8 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
     Route::post('/queryPersonas', 'consultaAdmin@query');
 
     Route::post('/queryBautizosAnnio', 'SeccionReportes@queryBautizosAnnio');
+
+    Route::post('/enviarAvisoAdmin', 'CentroNotificaciones@enviarAviso');
 
     Route::get('/notificacionesAdmin', function () {
         return view('AdminViews.notificacionesAdmin');
@@ -116,6 +120,8 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function() 
 
     Route::post('/obtenerSolicitudesUsuario', 'CentroNotificacionUsuario@obtenerSolicitudes')->middleware('auth');
 
+    Route::post('/enviarAviso', 'CentroNotificacionUsuario@enviarAviso' )->middleware('auth');
+
     Route::get('/cambiarContrasenaUser', function () {
         return view('auth.passwords.changeUser');
     })->middleware('auth');
@@ -123,7 +129,6 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function() 
     Route::get('/notificaciones', function () {
         return view('UserViews.notificaciones');
     })->middleware('auth');
-
 });
 
 Route::get('/editarPerfil', 'UserController@index')->middleware('auth');

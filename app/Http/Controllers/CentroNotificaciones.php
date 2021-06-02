@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 use App\Acta;
 use App\ActaBautizo;
 use App\ActaConfirma;
@@ -11,6 +14,7 @@ use App\Laico;
 use App\Persona;
 use App\Solicitud;
 use App\UbicacionActa;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -24,48 +28,86 @@ class CentroNotificaciones extends Controller
         return view('AdminViews.notificacionesAdmin');
     }
 
-    public function obtenerSolicitudesAdmin()
+    public function obtenerSolicitudesAdmin(Request $request)
     {
-        //$solicitud = \App\Solicitud::where('IDEstado_Solicitud', '=', 3)->get();
+        // enviado -> 4, recibido -> 5
+        $tipo_solicitud = $request->tipo;
 
-        $solicitud = \App\Solicitud::with('user', 'actas', 'tipo', 'estado', 'user.parroquia')->where('IDEstado_Solicitud', '=', 3)
-            ->get();
+        $idParroquia = Auth::user()->IDParroquia;
+        if (Auth::user()->puesto->IDPuesto == 1 || Auth::user()->puesto->IDPuesto == 2) {
+            $idParroquia = -1;
+        }
+
+        $solicitud = null;
+        if ($tipo_solicitud == 5) { //recibidos
+            $solicitud = \App\Solicitud::with('user', 'acta', 'tipo', 'estado', 'user.parroquia', 'parroquia')
+                ->where("IDParroquia", '=', $idParroquia)
+                ->orderBy('IDEstado_Solicitud', 'asc')
+                ->orderBy('Fecha_Solicitud', 'desc')
+                ->get();
+        } else { //enviados
+            $solicitud = \App\Solicitud::with('user', 'acta', 'tipo', 'estado', 'user.parroquia', 'parroquia')
+                ->where('IDUser', '=', Auth::user()->IDUser)
+                ->orderBy('IDEstado_Solicitud', 'asc')
+                ->orderBy('Fecha_Solicitud', 'desc')
+                ->get();
+        }
+
         return $solicitud;
+    }
+
+
+    public function enviarAviso(Request $request) {
+        try {
+            $acta = Acta::findOrFail($request->idActaAvisar);
+
+            $partida = null;
+            switch ($request->sacramento) {
+                case 'CONFIRMA':
+                    $partida = ActaConfirma::findOrFail($acta->IDConfirma);
+                    break;
+                case 'MATRIMONIO':
+                    $partida = ActaMatrimonio::findOrFail($acta->IDMatrimonio);
+                    break;
+                case 'DEFUNCION':
+                    $partida = ActaDefuncion::findOrFail($acta->IDDefuncion);
+                    break;
+            }
+
+            $solicitud = new Solicitud;
+
+            $solicitud->IDUser = Auth::user()->IDUser;
+            $solicitud->IDTipo_Solicitud = 3;
+            $solicitud->IDEstado_Solicitud = 3;
+            $solicitud->Fecha_Solicitud = Carbon::createFromFormat('Y-m-d H:i:s', Carbon::now()->subDays(1));
+            $solicitud->IDParroquia = $request->idParroquiaAvisar;
+            $solicitud->IDActa = $request->idActaAvisar;
+            $solicitud->Sacramento = $request->sacramento;
+            $solicitud->save();
+
+            $partida->AvisoEnviado = 1;
+            $partida->save();
+
+            return back()->with('msjBueno', "Aviso enviado exitosamente!");
+        } catch (Exception $e) {
+            return back()->with('msjMalo', "Ha ocurrido un error".$e);
+        }
     }
 
 
     public function aceptarSolicitud($id)
     {
-        $solicitud = \App\Solicitud::find($id);
+        try {
+            $solicitud = \App\Solicitud::find($id);
+            $solicitud->IDEstado_Solicitud = 4;
+            $solicitud->save();
 
-        if ($solicitud->IDTipo_Solicitud == 3) { // nuevo usuario
-            $user = \App\User::find($solicitud->IDUser);
-            $user->Activo = 1;
-
-            $user->save();
-
-            $this->cambiarEstadoSolicitud($solicitud, 4);
-        } elseif ($solicitud->IDTipo_Solicitud == 1) {
-            try {
-                //eliminar acta
-                $sol_acta = \App\Solicitud_Acta::find($id);
-                $acta = Acta::find($sol_acta->IDActa);
-
-                $this->eliminarActa($acta);
-
-                // solicitud rechazada
-                $this->cambiarEstadoSolicitud($solicitud, 1);
-
-                Log::info('Acta eliminada correctamente ' . $acta);
-                return back()->with('msjBueno', "Se ha eliminado el acta correctamente");
-
-            } catch (\Exception $e) {
-                Log::error('Error al eliminar acta: ' . $e);
-                return back()->with('msjMalo', "Ha ocurrido un error al eliminar el acta");
-            }
+            Log::info('Solicitud finalizada correctamente: ' . $solicitud);
+            return back()->with('msjBueno', "Se ha finalizado la solicitud correctamente!");
+        } catch (\Exception $e) {
+            Log::error('Error al finalizar solicitud: ' . $e);
+            return back()->with('msjMalo', "Ha ocurrido un error al finalizar la solicitud");
         }
-
-        return Redirect::to('/centroNotificacionAdmin');
     }
 
 

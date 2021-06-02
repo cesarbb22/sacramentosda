@@ -12,16 +12,20 @@ class Solicitud extends Model
 
     protected $primaryKey = 'IDSolicitud';
 
-    protected $fillable = array('IDUser', 'IDTipo_Solicitud', 'IDEstado_Solicitud');
+    protected $fillable = array('IDUser', 'IDTipo_Solicitud', 'IDEstado_Solicitud', 'Fecha_Solicitud', 'IDParroquia', 'IDActa', 'Sacramento');
 
     public $timestamps = true;
 
     protected $dateFormat = 'Y-m-d H:i:s';
 
 
-    public function actas()
+    /*public function actas()
     {
         return $this->belongsToMany('App\Acta', 'solicitud_acta', 'IDSolicitud', 'IDActa')->withPivot('Descripcion');;
+    }*/
+
+    public function acta() {
+        return $this->hasOne('App\Acta', 'IDActa', 'IDActa');
     }
 
     public function user()
@@ -37,5 +41,10 @@ class Solicitud extends Model
     public function estado()
     {
         return $this->hasOne('App\Estado_Solicitud', 'IDEstado_Solicitud', 'IDEstado_Solicitud');
+    }
+
+    public function parroquia()
+    {
+        return $this->hasOne('App\Parroquia', 'IDParroquia', 'IDParroquia');
     }
 }

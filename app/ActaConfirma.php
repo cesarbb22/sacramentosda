@@ -10,7 +10,7 @@ class ActaConfirma extends Model
 
     protected $primaryKey = 'IDConfirma';
 
-    protected $fillable = array( 'IDParroquiaConfirma','LugarConfirma','FechaConfirma','PadrinoCon1','NotasMarginales','IDUbicacionActaCon','NombreUserRegistra','IDParroquiaRegistra');
+    protected $fillable = array( 'IDParroquiaConfirma','LugarConfirma','FechaConfirma','PadrinoCon1','NotasMarginales','IDUbicacionActaCon','NombreUserRegistra','IDParroquiaRegistra', 'AvisoEnviado');
 
     public $timestamps = true;
 
