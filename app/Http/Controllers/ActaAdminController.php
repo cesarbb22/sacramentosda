@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Solicitud;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -751,6 +752,8 @@ class ActaAdminController extends Controller
         try {
             $acta = Acta::where('IDPersona', $id)->first();
 
+            $solicitud = Solicitud::where('IDActa', $acta->IDActa)->first();
+
             $idBautismo = $acta->IDBautismo;
             $idConfirma = $acta->IDConfirma;
             $idMatrimonio = $acta->IDMatrimonio;
@@ -786,6 +789,10 @@ class ActaAdminController extends Controller
                 $UbicacionActaDefuncion = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaDef)->first();
                 $UbicacionActaDefuncion->delete();
                 $actaDefuncion->delete();
+            }
+
+            if ($solicitud != null) {
+                Solicitud::destroy($solicitud->IDSolicitud);
             }
 
             $acta->delete();

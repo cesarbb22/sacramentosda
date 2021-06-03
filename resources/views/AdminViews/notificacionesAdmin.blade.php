@@ -138,7 +138,7 @@ td, th {
                             + '<td>' + formatDateToString(data[i].Fecha_Solicitud) + '</td>'
                             + '<td>' + data[i].Sacramento + '</td>'
                             + '<td><strong><em>' + data[i].estado.NombreEstado_Solicitud + '</em></strong></td>'
-                            + '<td><a class="desc" target="_blank" href="DetalleUsuario/'+data[i].acta.IDPersona+'"><i class="material-icons">description</i></a></td>';
+                            + '<td><a class="desc" target="_blank" href="Detalle/'+data[i].acta.IDPersona+'"><i class="material-icons">description</i></a></td>';
                         if (!isTipoEnviado) {
                             //content += '<td><a href="javascript:DoPost('+data[i].IDSolicitud+')"><i class="material-icons">done</i></a></td>';
                             if (data[i].estado.IDEstado_Solicitud != 4) {
