@@ -3,22 +3,15 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Log;
-use Auth;
-use App\Persona;
-use App\Laico;
-use App\UbicacionActa;
+use Illuminate\Support\Facades\Auth;
+
 use App\Acta;
-use App\ActaBautizo;
 use App\ActaConfirma;
-use App\ActaMatrimonio;
 use App\ActaDefuncion;
-use App\Parroquia;
-use App\Solicitud_Acta;
+use App\ActaMatrimonio;
 use App\Solicitud;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
 class CentroNotificacionUsuario extends Controller
 {

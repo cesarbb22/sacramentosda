@@ -14,11 +14,9 @@ use App\Laico;
 use App\Persona;
 use App\Solicitud;
 use App\UbicacionActa;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
-use App\User;
 
 class CentroNotificaciones extends Controller
 {
