@@ -752,7 +752,7 @@ class ActaAdminController extends Controller
         try {
             $acta = Acta::where('IDPersona', $id)->first();
 
-            $solicitud = Solicitud::where('IDActa', $acta->IDActa)->first();
+            $solicitudes = Solicitud::where('IDActa', $acta->IDActa)->get();
 
             $idBautismo = $acta->IDBautismo;
             $idConfirma = $acta->IDConfirma;
@@ -791,7 +791,7 @@ class ActaAdminController extends Controller
                 $actaDefuncion->delete();
             }
 
-            if ($solicitud != null) {
+            foreach ($solicitudes as $solicitud) {
                 Solicitud::destroy($solicitud->IDSolicitud);
             }
 
