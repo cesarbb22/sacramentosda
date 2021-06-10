@@ -12,7 +12,7 @@ class Solicitud extends Model
 
     protected $primaryKey = 'IDSolicitud';
 
-    protected $fillable = array('IDUser', 'IDTipo_Solicitud', 'IDEstado_Solicitud', 'Fecha_Solicitud', 'IDParroquia', 'IDActa', 'Sacramento');
+    protected $fillable = array('IDUser', 'IDTipo_Solicitud', 'IDEstado_Solicitud', 'Fecha_Solicitud', 'IDParroquia', 'IDActa', 'Sacramento', 'Descripcion');
 
     public $timestamps = true;
 

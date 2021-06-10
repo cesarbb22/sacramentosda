@@ -72,10 +72,10 @@ td, th {
     </div>
 </div>
 
-  <!--Modal Structure -->
+  <!--Modal Descripcion -->
   <div id="modal1" class="modal modal-fixed-footer">
     <div class="modal-content">
-      <h4>Descripción de la solicitud</h4>
+        <h4>Información Adicional</h4>
       <hr>
       <p id='descripcion'></p>
     </div>
@@ -123,28 +123,38 @@ td, th {
                 success: function(data) {
                     $('#miTabla').empty();
                     var content = "";
-                    content = "<thead><tr><th>Parroquia Remitente</th><th>Fecha de Aviso</th><th>Sacramento</th><th>Estado</th><th>Ver partida</th><th>Finalizar</th></tr></thead><tbody>"
+                    content = "<thead><tr><th>Parroquia Remitente</th><th>Fecha de Aviso</th><th>Sacramento</th><th>Estado</th><th>Información Adicional</th><th>Ver partida</th><th>Finalizar</th></tr></thead><tbody>"
                     if (isTipoEnviado) {
-                        content = "<thead><tr><th>Parroquia a la que se envia aviso</th><th>Fecha de Aviso</th><th>Sacramento</th><th>Estado</th><th>Ver partida</th><th>Finalizar</th></tr></thead><tbody>"
+                        content = "<thead><tr><th>Parroquia a la que se envia aviso</th><th>Fecha de Aviso</th><th>Sacramento</th><th>Estado</th><th>Información Adicional</th><th>Ver partida</th><th>Finalizar</th></tr></thead><tbody>"
                     }
 
                     for(i=0; i<data.length; i++){
                         var nombreParroquia = data[i].user.parroquia.NombreParroquia;
                         if (isTipoEnviado) {
                             nombreParroquia = data[i].IDParroquia == -1 ? "Archivo Diocesano de Alajuela" : data[i].parroquia.NombreParroquia;
+                        } else {
+                            if (data[i].user.IDPuesto < 3) {
+                                nombreParroquia = "Archivo Diocesano de Alajuela";
+                            }
                         }
                         content += '<tr>'
                             + '<td>' + nombreParroquia + '</td>'
                             + '<td>' + formatDateToString(data[i].Fecha_Solicitud) + '</td>'
                             + '<td>' + data[i].Sacramento + '</td>'
-                            + '<td><strong><em>' + data[i].estado.NombreEstado_Solicitud + '</em></strong></td>'
-                            + '<td><a class="desc" target="_blank" href="Detalle/'+data[i].acta.IDPersona+'"><i class="material-icons">description</i></a></td>';
+                            + '<td><strong><em>' + data[i].estado.NombreEstado_Solicitud + '</em></strong></td>';
+                        if (data[i].Descripcion != null) {
+                            content += '<td><a class="desc" href="#" onClick = "description('+i+');"><i class="material-icons">comment</i></a></td>';
+                        } else {
+                            content += '<td></td>';
+                        }
+                        content += '<td><a class="desc" target="_blank" href="Detalle/'+data[i].acta.IDPersona+'"><i class="material-icons">description</i></a></td>';
                         if (!isTipoEnviado) {
                             //content += '<td><a href="javascript:DoPost('+data[i].IDSolicitud+')"><i class="material-icons">done</i></a></td>';
                             if (data[i].estado.IDEstado_Solicitud != 4) {
                                 content += '<td><a readonly href="/aceptarSolicitudAdmin/'+data[i].IDSolicitud+'"><i class="material-icons">done</i></a></td>';
                             }
                         }
+                        content += '<td id="desc'+i+'" hidden>'+data[i].Descripcion+'</td>';
                         content += '</tr>';
                     }
                     content += "</tbody>"

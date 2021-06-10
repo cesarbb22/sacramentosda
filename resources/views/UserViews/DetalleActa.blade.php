@@ -844,15 +844,23 @@
                 </div>
                 <hr><br><br>
                 <div class="row">
-                    <div class="input-field col s6">
-                        <select id="idParroquiaAvisar" name='idParroquiaAvisar'>
-                            <option value="-1">Archivo Diocesano de Alajuela</option>
-                            @foreach ($parroquias as $paAviso)
-                                <option
-                                    value="{{ $paAviso->IDParroquia }}">{{ $paAviso->NombreParroquia }}</option>
-                            @endforeach
-                        </select>
-                        <label>Seleccione la parroquia que desea notificar:</label>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <select id="idParroquiaAvisar" name='idParroquiaAvisar'>
+                                <option value="-1">Archivo Diocesano de Alajuela</option>
+                                @foreach ($parroquias as $paAviso)
+                                    <option
+                                        value="{{ $paAviso->IDParroquia }}">{{ $paAviso->NombreParroquia }}</option>
+                                @endforeach
+                            </select>
+                            <label>Seleccione la parroquia que desea notificar:</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="idDescripcion" class="materialize-textarea" data-length="500" name="descripcion"></textarea>
+                            <label for="idDescripcion">Ingrese información adicional (en caso de ser necesario)</label>
+                        </div>
                     </div>
                     <input id="sacramento" name="sacramento" value="" type="text" hidden>
                     <input id="idActaAvisar" name="idActaAvisar" value="" type="text" hidden>

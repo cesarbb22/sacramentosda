@@ -81,6 +81,7 @@ class CentroNotificaciones extends Controller
             $solicitud->IDParroquia = $request->idParroquiaAvisar;
             $solicitud->IDActa = $request->idActaAvisar;
             $solicitud->Sacramento = $request->sacramento;
+            $solicitud->Descripcion = $request->descripcion;
             $solicitud->save();
 
             $partida->AvisoEnviado = 1;
