@@ -149,6 +149,7 @@ td, th {
         // funcion buscar cedula
         $('#btnBuscarCed').on('click', function (e) {
             e.preventDefault();
+            $('#verActaBtn').attr('disabled', true);
 
             var numCedula = $('#numCedula').val();
             if (numCedula != null && numCedula != '') {
