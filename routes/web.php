@@ -81,6 +81,8 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 
     Route::post('/enviarAvisoAdmin', 'CentroNotificaciones@enviarAviso');
 
+    Route::post('/buscarCedulaAvisoAdmin', 'CentroNotificaciones@buscarCedulaAvisa' )->middleware('auth');
+
     Route::get('/notificacionesAdmin', function () {
         return view('AdminViews.notificacionesAdmin');
     })->middleware('auth');
@@ -121,6 +123,8 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function() 
     Route::post('/obtenerSolicitudesUsuario', 'CentroNotificacionUsuario@obtenerSolicitudes')->middleware('auth');
 
     Route::post('/enviarAviso', 'CentroNotificacionUsuario@enviarAviso' )->middleware('auth');
+
+    Route::post('/buscarCedulaAviso', 'CentroNotificacionUsuario@buscarCedulaAvisa' )->middleware('auth');
 
     Route::get('/cambiarContrasenaUser', function () {
         return view('auth.passwords.changeUser');

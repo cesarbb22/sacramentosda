@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 
 use App\Acta;
@@ -88,6 +89,19 @@ class CentroNotificaciones extends Controller
             $partida->save();
 
             return back()->with('msjBueno', "Aviso enviado exitosamente!");
+        } catch (Exception $e) {
+            return back()->with('msjMalo', "Ha ocurrido un error".$e);
+        }
+    }
+
+    public function buscarCedulaAvisa(Request $request) {
+        try {
+            $cedula = $request->numCedula;
+            $acta = Acta::with('persona')
+                ->whereHas('persona', function (Builder $query) use ($cedula) {
+                    $query->where('persona.Cedula', '=', $cedula);
+                })->get();
+            return $acta;
         } catch (Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error".$e);
         }

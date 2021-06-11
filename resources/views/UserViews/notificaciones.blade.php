@@ -68,6 +68,9 @@ td, th {
                   <br>
                   <button id="reload" class="waves-effect waves-light btn right" type="button"><i class="material-icons left">loop</i>Actualizar</button>
               </div>
+              <div class="row">
+                  <a id="enviarAviso" class="waves-effect waves-light btn modal-trigger right" href="#modalEnviarAviso"><i class="material-icons left">email</i>Enviar Aviso</a>
+              </div>
           </div>
         </div>
 
@@ -89,6 +92,43 @@ td, th {
     </div>
   </div>
 
+<!--Modal Enviar Aviso -->
+<div id="modalEnviarAviso" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4>Enviar Aviso</h4>
+        <hr>
+        <form id="enviarAviso" method="POST" action="/buscarCedulaAviso">
+            {{ csrf_field() }}
+            <br>
+            <div class="row">
+                <h5>Ingrese el número de identificación de la persona que desea buscar para enviar el aviso:</h5>
+            </div>
+            <div class="row" style="text-align: center">
+                <div class="col s4"></div>
+                <div class="input-field col s4">
+                    <div class="row">
+                        <input id="numCedula" name='numCedula' type="text" class="validate" required
+                               oninvalid="this.setCustomValidity('Información requerida')"
+                               oninput="setCustomValidity('')">
+                        <label for="numCedula">Número de identificación</label>
+                    </div>
+                    <div class="row">
+                        <button id="btnBuscarCed" class="waves-effect waves-light btn">Buscar</button>
+                    </div>
+                </div>
+                <div class="col s4"></div>
+            </div>
+
+            <div class="row" style="text-align: center">
+                <a id="verActaBtn" class="waves-effect waves-light btn modal-trigger" target="_blank" disabled>Ver Acta</a>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" onclick="closeModalAviso();" class="waves-effect waves-light btn-flat ">Cerrar</a>
+    </div>
+</div>
+
 
 <script type="text/javascript">
 
@@ -97,8 +137,41 @@ td, th {
             $('#modal1').modal('open');
     }
 
+    function closeModalAviso() {
+        $('#numCedula').val("");
+        $('#verActaBtn').attr('disabled', true);
+        $('#modalEnviarAviso').modal('close');
+    }
+
     window.onload = function(e){
         $('.modal').modal();
+
+        // funcion buscar cedula
+        $('#btnBuscarCed').on('click', function (e) {
+            e.preventDefault();
+
+            var numCedula = $('#numCedula').val();
+            if (numCedula != null && numCedula != '') {
+                $.ajax({
+                    type: "POST",
+                    url: "/buscarCedulaAviso",
+                    //data: ", // serializes the form's elements.
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "numCedula": numCedula
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        if (data.length > 0) {
+                            btn = document.getElementById('verActaBtn');
+                            btn.setAttribute("href", "/DetalleUsuario/" + data[0].IDActa);
+                            $('#verActaBtn').attr('disabled', false);
+                        }
+                    }
+                });
+            }
+
+        });
 
         $("#switch-tipo").change(function () {
             ajaxCall();
