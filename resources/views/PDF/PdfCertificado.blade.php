@@ -8,7 +8,7 @@
 </head>
 <body>
 <div id="plantilla-header">
-    <img src="style/img/plantilla-header.png" height="100%" width="100%">
+    <img src="style/img/plantilla-header1.png" height="100%" width="100%">
 </div>
 
 <div id="watermark">
@@ -220,7 +220,7 @@
 
 
 <div id="footer">
-    <img src="style/img/plantilla-footer.png" height="100%" width="100%">
+    <img src="style/img/plantilla-footer1.png" height="100%" width="100%">
 </div>
 </body>
 </html>
