@@ -162,7 +162,6 @@ td, th {
                         "numCedula": numCedula
                     },
                     success: function(data) {
-                        console.log(data);
                         if (data.length > 0) {
                             btn = document.getElementById('verActaBtn');
                             btn.setAttribute("href", "/DetalleUsuario/" + data[0].IDPersona);
