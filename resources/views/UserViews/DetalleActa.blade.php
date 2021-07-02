@@ -628,6 +628,7 @@
                             <option value="6">Matrimonio</option>
                             <option value="7">Segundas Nupcias</option>
                             <option value="8">Nulidad Matrimonial</option>
+                            <option value="9">Catequesis Prematrimonial</option>
                         </select>
                         <label>Seleccione el motivo de la constancia:</label>
                     </div>

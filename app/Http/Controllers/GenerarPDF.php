@@ -50,6 +50,9 @@ class GenerarPDF extends Controller
             case '8':
                 $motivo = 'nulidad matrimonial';
                 break;
+            case '9':
+                $motivo = 'catequesis prematrimonial';
+                break;
         }
 
 
