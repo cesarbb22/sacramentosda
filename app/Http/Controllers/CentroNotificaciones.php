@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 use App\Acta;
@@ -55,6 +56,31 @@ class CentroNotificaciones extends Controller
         return $solicitud;
     }
 
+    public function resetAviso(Request $request) {
+        try {
+            $acta = Acta::findOrFail($request->idActaAvisar);
+
+            $partida = null;
+            switch ($request->sacramento) {
+                case 'CONFIRMA':
+                    $partida = ActaConfirma::findOrFail($acta->IDConfirma);
+                    break;
+                case 'MATRIMONIO':
+                    $partida = ActaMatrimonio::findOrFail($acta->IDMatrimonio);
+                    break;
+                case 'DEFUNCION':
+                    $partida = ActaDefuncion::findOrFail($acta->IDDefuncion);
+                    break;
+            }
+
+            $partida->AvisoEnviado = 0;
+            $partida->save();
+
+            return back()->with('msjBueno', "Aviso enviado exitosamente!");
+        } catch (Exception $e) {
+            return back()->with('msjMalo', "Ha ocurrido un error".$e);
+        }
+    }
 
     public function enviarAviso(Request $request) {
         try {

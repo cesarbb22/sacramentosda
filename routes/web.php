@@ -81,6 +81,8 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 
     Route::post('/enviarAvisoAdmin', 'CentroNotificaciones@enviarAviso');
 
+    Route::post('/resetearAviso', 'CentroNotificaciones@resetAviso');
+
     Route::post('/buscarCedulaAvisoAdmin', 'CentroNotificaciones@buscarCedulaAvisa' )->middleware('auth');
 
     Route::get('/notificacionesAdmin', function () {

@@ -304,12 +304,16 @@
                         <div class="row" style="text-align: left">
                             @if($actaBautismo != null && $actaBautismo->IDParroquiaRegistra != $parroquiaUser)
                                 @if ($actaConfirma->AvisoEnviado == 0)
-                                    <button id="avisoConfirma" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="CONFIRMA">
+                                    <button id="avisoConfirma"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="CONFIRMA">
                                         <i class="material-icons left">info</i>
                                         Enviar Aviso
                                     </button>
                                 @else
-                                    <button id="avisoConfirma" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="CONFIRMA"
+                                    <button id="avisoConfirma"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="CONFIRMA"
                                             disabled>
                                         <i class="material-icons left">info</i>
                                         Enviar Aviso
@@ -317,18 +321,32 @@
                                 @endif
                             @elseif ($actaBautismo == null)
                                 @if ($actaConfirma->AvisoEnviado == 0)
-                                    <button id="avisoConfirma" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="CONFIRMA">
+                                    <button id="avisoConfirma"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="CONFIRMA">
                                         <i class="material-icons left">info</i>
                                         Enviar Aviso
                                     </button>
                                 @else
-                                    <button id="avisoConfirma" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="CONFIRMA"
+                                    <button id="avisoConfirma"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="CONFIRMA"
                                             disabled>
                                         <i class="material-icons left">info</i>
                                         Enviar Aviso
                                     </button>
                                 @endif
                             @endif
+                        </div>
+                    @endif
+
+                    @if ($actaConfirma->AvisoEnviado != 0)
+                        <div class="row">
+                            <button id="resetAvisoConfirma"
+                                    class="resetAvisoBtn waves-effect waves-light btn left modal-trigger"
+                                    tipo="CONFIRMA">
+                                <i class="material-icons left">restore</i>Resetear Aviso
+                            </button>
                         </div>
                     @endif
                     <br>
@@ -418,12 +436,16 @@
                         <div class="row" style="text-align: left">
                             @if($actaBautismo != null && $actaBautismo->IDParroquiaRegistra != $parroquiaUser)
                                 @if ($actaMatrimonio->AvisoEnviado == 0)
-                                    <button id="avisoMatrimonio" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="MATRIMONIO">
+                                    <button id="avisoMatrimonio"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="MATRIMONIO">
                                         <i class="material-icons left">info</i>
                                         Enviar Aviso
                                     </button>
                                 @else
-                                    <button id="avisoMatrimonio" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="MATRIMONIO"
+                                    <button id="avisoMatrimonio"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="MATRIMONIO"
                                             disabled>
                                         <i class="material-icons left">info</i>
                                         Enviar Aviso
@@ -431,18 +453,32 @@
                                 @endif
                             @elseif ($actaBautismo == null)
                                 @if ($actaMatrimonio->AvisoEnviado == 0)
-                                    <button id="avisoMatrimonio" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="MATRIMONIO">
+                                    <button id="avisoMatrimonio"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="MATRIMONIO">
                                         <i class="material-icons left">info</i>
                                         Enviar Aviso
                                     </button>
                                 @else
-                                    <button id="avisoMatrimonio" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="MATRIMONIO"
+                                    <button id="avisoMatrimonio"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="MATRIMONIO"
                                             disabled>
                                         <i class="material-icons left">info</i>
                                         Enviar Aviso
                                     </button>
                                 @endif
                             @endif
+                        </div>
+                    @endif
+
+                    @if ($actaMatrimonio->AvisoEnviado != 0)
+                        <div class="row">
+                            <button id="resetAvisoMatrimonio"
+                                    class="resetAvisoBtn waves-effect waves-light btn left modal-trigger"
+                                    tipo="MATRIMONIO">
+                                <i class="material-icons left">restore</i>Resetear Aviso
+                            </button>
                         </div>
                     @endif
                     <br>
@@ -532,12 +568,16 @@
                         <div class="row" style="text-align: left">
                             @if($actaBautismo != null && $actaBautismo->IDParroquiaRegistra != $parroquiaUser)
                                 @if ($actaDefuncion->AvisoEnviado == 0)
-                                    <button id="avisoDefuncion" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="DEFUNCION">
+                                    <button id="avisoDefuncion"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="DEFUNCION">
                                         <i class="material-icons left">info</i>
                                         Enviar Aviso
                                     </button>
                                 @else
-                                    <button id="avisoDefuncion" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="DEFUNCION"
+                                    <button id="avisoDefuncion"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="DEFUNCION"
                                             disabled>
                                         <i class="material-icons left">info</i>
                                         Enviar Aviso
@@ -545,18 +585,32 @@
                                 @endif
                             @elseif ($actaBautismo == null)
                                 @if ($actaDefuncion->AvisoEnviado == 0)
-                                    <button id="avisoDefuncion" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="DEFUNCION">
+                                    <button id="avisoDefuncion"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="DEFUNCION">
                                         <i class="material-icons left">info</i>
                                         Enviar Aviso
                                     </button>
                                 @else
-                                    <button id="avisoDefuncion" class="avisoBtn waves-effect waves-light btn left modal-trigger" tipo="DEFUNCION"
+                                    <button id="avisoDefuncion"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="DEFUNCION"
                                             disabled>
                                         <i class="material-icons left">info</i>
                                         Enviar Aviso
                                     </button>
                                 @endif
                             @endif
+                        </div>
+                    @endif
+
+                    @if ($actaDefuncion->AvisoEnviado != 0)
+                        <div class="row">
+                            <button id="resetAvisoDefuncion"
+                                    class="resetAvisoBtn waves-effect waves-light btn left modal-trigger"
+                                    tipo="DEFUNCION">
+                                <i class="material-icons left">restore</i>Resetear Aviso
+                            </button>
                         </div>
                     @endif
                     <br>
@@ -571,7 +625,8 @@
 
 
                 <div class="row"><br>
-                    <hr><br></div>
+                    <hr>
+                    <br></div>
 
                 <div class="row">
                     <button id="Descargar" class="waves-effect waves-light btn right modal-trigger"
@@ -676,7 +731,8 @@
             <div class="modal-footer">
                 <a id="modalCancelBtnBautismo" onclick="closeModal();"
                    class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
-                <button id="modalDescargarBtnBautismo" type="submit" class="modal-action waves-effect waves-green btn-flat ">
+                <button id="modalDescargarBtnBautismo" type="submit"
+                        class="modal-action waves-effect waves-green btn-flat ">
                     Descargar
                 </button>
             </div>
@@ -722,7 +778,8 @@
             <div class="modal-footer">
                 <a id="modalCancelBtnConfirma" onclick="closeModal();"
                    class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
-                <button id="modalDescargarBtnConfirma" type="submit" class="modal-action waves-effect waves-green btn-flat ">
+                <button id="modalDescargarBtnConfirma" type="submit"
+                        class="modal-action waves-effect waves-green btn-flat ">
                     Descargar
                 </button>
             </div>
@@ -769,7 +826,8 @@
             <div class="modal-footer">
                 <a id="modalCancelBtnMatrimonio" onclick="closeModal();"
                    class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
-                <button id="modalDescargarBtnMatrimonio" type="submit" class="modal-action waves-effect waves-green btn-flat ">
+                <button id="modalDescargarBtnMatrimonio" type="submit"
+                        class="modal-action waves-effect waves-green btn-flat ">
                     Descargar
                 </button>
             </div>
@@ -813,7 +871,8 @@
             <div class="modal-footer">
                 <a id="modalCancelBtnDefuncion" onclick="closeModal();"
                    class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
-                <button id="modalDescargarBtnDefuncion" type="submit" class="modal-action waves-effect waves-green btn-flat ">
+                <button id="modalDescargarBtnDefuncion" type="submit"
+                        class="modal-action waves-effect waves-green btn-flat ">
                     Descargar
                 </button>
             </div>
@@ -831,7 +890,8 @@
                 <div>
                     <h4>Enviar Aviso</h4>
                 </div>
-                <hr><br><br>
+                <hr>
+                <br><br>
                 <div class="row">
                     <div class="row">
                         <div class="input-field col s6">
@@ -847,7 +907,8 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <textarea id="idDescripcion" class="materialize-textarea" data-length="500" name="descripcion"></textarea>
+                            <textarea id="idDescripcion" class="materialize-textarea" data-length="500"
+                                      name="descripcion"></textarea>
                             <label for="idDescripcion">Ingrese información adicional (en caso de ser necesario)</label>
                         </div>
                     </div>
@@ -919,6 +980,29 @@
                         }
                         xhr.send(formData);
                     }
+                }
+            });
+
+            // funcion Resetear Aviso
+            $('.resetAvisoBtn').on('click', function (e) {
+                e.preventDefault();
+
+                var answer = confirm("¿Seguro que desea resetear el aviso?");
+                if (answer) {
+                    var formData = new FormData();
+                    formData.append("idActaAvisar", $('#idActa').val());
+                    formData.append("sacramento", e.currentTarget.attributes.getNamedItem("tipo").value);
+                    formData.append("_token", "{{ csrf_token() }}");
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/resetearAviso');
+                    xhr.responseType = 'arraybuffer';
+                    xhr.onload = function (e) {
+                        if (this.status == 200) {
+                            location.reload();
+                        }
+                    }
+                    xhr.send(formData);
                 }
             });
 
