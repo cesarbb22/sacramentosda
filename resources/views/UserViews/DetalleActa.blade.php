@@ -722,8 +722,10 @@
                         <select name="motivo" id="motivoConfirma" required>
                             <option value="0" selected>--</option>
                             <option value="1">Personales</option>
-                            <option value="2">Padrino de Confirma</option>
-                            <option value="3">Madrina de Confirma</option>
+                            <option value="2">Padrino de Bautizo</option>
+                            <option value="3">Madrina de Bautizo</option>
+                            <option value="4">Padrino de Confirma</option>
+                            <option value="5">Madrina de Confirma</option>
                         </select>
                         <label>Seleccione el motivo de la constancia:</label>
                     </div>

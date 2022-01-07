@@ -179,9 +179,15 @@ class GenerarPDF extends Controller
                 $motivo = 'personales';
                 break;
             case '2':
-                $motivo = 'padrino de confirma';
+                $motivo = 'padrino de bautizo';
                 break;
             case '3':
+                $motivo = 'madrina de bautizo';
+                break;
+            case '4':
+                $motivo = 'padrino de confirma';
+                break;
+            case '5':
                 $motivo = 'madrina de confirma';
                 break;
         }
