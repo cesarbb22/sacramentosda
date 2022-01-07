@@ -669,10 +669,11 @@
                             <option value="3">Madrina de Bautizo</option>
                             <option value="4">Padrino de Confirma</option>
                             <option value="5">Madrina de Confirma</option>
-                            <option value="6">Matrimonio</option>
-                            <option value="7">Segundas Nupcias</option>
-                            <option value="8">Nulidad Matrimonial</option>
-                            <option value="9">Catequesis Prematrimonial</option>
+                            <option value="6">Sacramento de la Confirmación</option>
+                            <option value="7">Matrimonio</option>
+                            <option value="8">Segundas Nupcias</option>
+                            <option value="9">Nulidad Matrimonial</option>
+                            <option value="10">Catequesis Prematrimonial</option>
                         </select>
                         <label>Seleccione el motivo de la constancia:</label>
                     </div>
@@ -766,8 +767,10 @@
                         <select name="motivo" id="motivoConfirma" required>
                             <option value="0" selected>--</option>
                             <option value="1">Personales</option>
-                            <option value="2">Padrino de Confirma</option>
-                            <option value="3">Madrina de Confirma</option>
+                            <option value="2">Padrino de Bautizo</option>
+                            <option value="3">Madrina de Bautizo</option>
+                            <option value="4">Padrino de Confirma</option>
+                            <option value="5">Madrina de Confirma</option>
                         </select>
                         <label>Seleccione el motivo de la constancia:</label>
                     </div>
