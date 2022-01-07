@@ -42,15 +42,18 @@ class GenerarPDF extends Controller
                 $motivo = 'madrina de confirma';
                 break;
             case '6':
-                $motivo = 'matrimonio';
+                $motivo = 'sacramento de la confirmación';
                 break;
             case '7':
-                $motivo = 'segundas nupcias';
+                $motivo = 'matrimonio';
                 break;
             case '8':
-                $motivo = 'nulidad matrimonial';
+                $motivo = 'segundas nupcias';
                 break;
             case '9':
+                $motivo = 'nulidad matrimonial';
+                break;
+            case '10':
                 $motivo = 'catequesis prematrimonial';
                 break;
         }
