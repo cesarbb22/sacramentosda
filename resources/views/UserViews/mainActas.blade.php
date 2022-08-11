@@ -268,6 +268,88 @@
                         </li>
 
                         <li>
+                            <div class="collapsible-header waves-light waves-effect white-text">Partida de Primera Comunión
+                            </div>
+                            <div class="collapsible-body">
+
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <p>
+                                            <input type="checkbox" id="checkPC" name="checkPrimeraComunion"/>
+                                            <label for="checkPC">Agregar Primera Comunión</label>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <label>Fecha de Primera Comunión:</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <select id="parroquiaPrimeraComunion" name='parroquiaPrimeraComunion' disabled>
+                                            @foreach ($parroquias as $paPC)
+                                                <option value="{{ $paPC->IDParroquia }}">{{ $paPC->NombreParroquia }}</option>
+                                            @endforeach
+                                            <option value="otro">Otro</option>
+                                        </select>
+                                        <label>Seleccione la Parroquia:</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input id="fechaPrimeraComunion" name='fechaPrimeraComunion'
+                                               class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa"
+                                               size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10" required disabled
+                                               pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
+                                               oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                               oninput="setCustomValidity('')">
+                                    </div>
+                                </div>
+
+                                <div class="row" id="lugarPrimeraComunionDiv">
+                                    <div class="input-field col s6">
+                                        <input id="lugarPrimeraComunion" name="lugarPrimeraComunion" type="text" class=""
+                                               disabled>
+                                        <label for="lugarPrimeraComunion"> Matrimonio en:</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s8">
+                                        <label for="informacion">Esta información consta en:</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-num col s4">
+                                        <input id="numLibroPC" name="numLibroPC" type="number" class="validate"
+                                               disabled>
+                                        <label for="numLibroPC">Número de Libro:</label>
+                                    </div>
+                                    <div class="input-num col s4">
+                                        <input id="numFolioPC" name="numFolioPC" type="number" class="validate"
+                                               disabled>
+                                        <label for="numFolioPC">Número de Folio:</label>
+                                    </div>
+                                    <div class="input-num col s4">
+                                        <input id="numAsientoPC" name="numAsientoPC" type="number" class="validate"
+                                               disabled>
+                                        <label for="numAsientoPC">Número de Asiento:</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="notasMarginalesPrimeraC" name="notasMarginalesPrimeraC" class="materialize-textarea" disabled></textarea>
+                                        <label for="notasMarginalesPrimeraC">Notas Marginales:</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
                             <div class="collapsible-header waves-light waves-effect white-text">Partida de Confirma
                             </div>
                             <div class="collapsible-body">
@@ -560,6 +642,7 @@
             }).val()
 
             $('#parroquiaBautismo > option[value="{{ $parroquiaUser }}"]').attr('selected', 'selected');
+            $('#parroquiaPrimeraComunion > option[value="{{ $parroquiaUser }}"]').attr('selected', 'selected');
             $('#parroquiaConfirma > option[value="{{ $parroquiaUser }}"]').attr('selected', 'selected');
             $('#parroquiaMatrimonio > option[value="{{ $parroquiaUser }}"]').attr('selected', 'selected');
             $('#parroquiaDefuncion > option[value="{{ $parroquiaUser }}"]').attr('selected', 'selected');
@@ -631,6 +714,28 @@
                     $("#numFolioB").prop('disabled', true);
                     $("#numAsientoB").prop('disabled', true);
                     $("#notasMarginalesBau").prop('disabled', true);
+                }
+                $('select').material_select();
+            });
+
+            $("#checkPC").change(function () {
+                if ($("#checkPC").is(':checked')) {
+                    $("#parroquiaPrimeraComunion").prop('disabled', false);
+                    $("#lugarPrimeraComunion").prop('disabled', false);
+                    $("#fechaPrimeraComunion").prop('disabled', false);
+                    $("#numLibroPC").prop('disabled', false);
+                    $("#numFolioPC").prop('disabled', false);
+                    $("#numAsientoPC").prop('disabled', false);
+                    $("#notasMarginalesPrimeraC").prop('disabled', false);
+                } else {
+                    $("#parroquiaPrimeraComunion").prop('disabled', true);
+                    $("#lugarPrimeraComunion").val("");
+                    $("#lugarPrimeraComunion").prop('disabled', true);
+                    $("#fechaPrimeraComunion").prop('disabled', true);
+                    $("#numLibroPC").prop('disabled', true);
+                    $("#numFolioPC").prop('disabled', true);
+                    $("#numAsientoPC").prop('disabled', true);
+                    $("#notasMarginalesPrimeraC").prop('disabled', true);
                 }
                 $('select').material_select();
             });
@@ -708,6 +813,7 @@
             });
 
             $("#lugarBautizoDiv").css("display", "none");
+            $("#lugarPrimeraComunionDiv").css("display", "none");
             $("#lugarConfirmaDiv").css("display", "none");
             $("#lugarMatrimonioDiv").css("display", "none");
             $("#lugarDefuncionDiv").css("display", "none");
@@ -730,6 +836,20 @@
                     $("#numAsientoB").prop('required', true);
                 }
             });
+
+            $("#parroquiaPrimeraComunion").change(function () {
+                var valor = $("#parroquiaPrimeraComunion").val();
+                if (valor === "otro") {
+                    $("#lugarPrimeraComunion").prop('required', true);
+                    $("#lugarPrimeraComunionDiv").css("display", "block");
+                    $("#lugarPrimeraComunion").val("");
+                } else {
+                    $("#lugarPrimeraComunion").prop('required', false);
+                    $("#lugarPrimeraComunionDiv").css("display", "none");
+                    $("#lugarPrimeraComunion").val("");
+                }
+            });
+
             $("#parroquiaConfirma").change(function () {
                 var valor = $("#parroquiaConfirma").val();
                 if (valor === "otro") {
@@ -741,7 +861,9 @@
                     $("#lugarConfirmaDiv").css("display", "none");
                     $("#lugarConfirma").val("");
                 }
+
             });
+
             $("#parroquiaMatrimonio").change(function () {
                 var valor = $("#parroquiaMatrimonio").val();
                 if (valor === "otro") {
@@ -754,6 +876,7 @@
                     $("#lugarMatrimonio").val("");
                 }
             });
+
             $("#parroquiaDefuncion").change(function () {
                 var valor = $("#parroquiaDefuncion").val();
                 if (valor === "otro") {
@@ -790,6 +913,19 @@
                         fecha = fecha + '/';
                     }
                     $('#fechaBaut').val(fecha);
+                }
+            });
+
+            // Fecha Primera Comunion autocompletado
+            $("#fechaPrimeraComunion").keypress(function (e) {
+                e.preventDefault();
+                var fecha = $('#fechaPrimeraComunion').val();
+                if (fecha.length <= 9) {
+                    fecha = fecha + e.key;
+                    if (fecha.length === 2 || fecha.length === 5) {
+                        fecha = fecha + '/';
+                    }
+                    $('#fechaPrimeraComunion').val(fecha);
                 }
             });
 

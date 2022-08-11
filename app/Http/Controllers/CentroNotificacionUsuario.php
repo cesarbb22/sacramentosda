@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ActaPrimeraComunion;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
@@ -56,6 +57,9 @@ class CentroNotificacionUsuario extends Controller
 
             $partida = null;
             switch ($request->sacramento) {
+                case 'PRIMERA_COMUNION':
+                    $partida = ActaPrimeraComunion::findOrFail($acta->IDPrimeraComunion);
+                    break;
                 case 'CONFIRMA':
                     $partida = ActaConfirma::findOrFail($acta->IDConfirma);
                     break;

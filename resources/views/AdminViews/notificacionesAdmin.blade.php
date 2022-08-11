@@ -203,6 +203,7 @@ td, th {
 
                     for(i=0; i<data.length; i++){
                         var nombreParroquia = data[i].user.parroquia.NombreParroquia;
+                        var nombreSacramento = data[i].Sacramento;
                         if (isTipoEnviado) {
                             nombreParroquia = data[i].IDParroquia == -1 ? "Archivo Diocesano de Alajuela" : data[i].parroquia.NombreParroquia;
                         } else {
@@ -213,7 +214,7 @@ td, th {
                         content += '<tr>'
                             + '<td>' + nombreParroquia + '</td>'
                             + '<td>' + formatDateToString(data[i].Fecha_Solicitud) + '</td>'
-                            + '<td>' + data[i].Sacramento + '</td>'
+                            + '<td>' + nombreSacramento.replace("_", " ") + '</td>'
                             + '<td><strong><em>' + data[i].estado.NombreEstado_Solicitud + '</em></strong></td>';
                         if (data[i].Descripcion != null) {
                             content += '<td><a class="desc" href="#" onClick = "description('+i+');"><i class="material-icons">comment</i></a></td>';

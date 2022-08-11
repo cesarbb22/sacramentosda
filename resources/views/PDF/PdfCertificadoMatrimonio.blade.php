@@ -11,10 +11,6 @@
     <img src="style/img/plantilla-matrimonio-header.png" height="100%" width="100%">
 </div>
 
-<div id="watermark">
-    <img src="style/img/logo-100.png" height="100%" width="100%">
-</div>
-
 
 <div class="container">
     <div id="codigoDiv">

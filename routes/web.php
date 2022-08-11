@@ -140,6 +140,7 @@ Route::group(['middleware' => 'App\Http\Middleware\UserMiddleware'], function() 
 Route::get('/editarPerfil', 'UserController@index')->middleware('auth');
 Route::post('/pdf', 'GenerarPDF@generarPDF' )->middleware('auth');
 Route::post('/pdfBautismo', 'GenerarPDF@generarPDFBautismo' )->middleware('auth');
+Route::post('/pdfPrimeraComunion', 'GenerarPDF@generarPDFPrimeraComunion' )->middleware('auth');
 Route::post('/pdfConfirma', 'GenerarPDF@generarPDFConfirma' )->middleware('auth');
 Route::post('/pdfMatrimonio', 'GenerarPDF@generarPDFMatrimonio' )->middleware('auth');
 Route::post('/pdfDefuncion', 'GenerarPDF@generarPDFDefuncion' )->middleware('auth');

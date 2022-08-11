@@ -160,6 +160,54 @@ class GenerarPDF extends Controller
         return $pdf->download('CertificadoBautismo.pdf');
     }
 
+    public function generarPDFPrimeraComunion(Request $request)
+    {
+
+        $acta = Acta::with('persona', 'persona.laico', 'primeracomunion', 'primeracomunion.parroquia', 'primeracomunion.ubicacionActa')
+            ->where('IDActa', $request->idActa)
+            ->first();
+
+        $parroquiaRegistraPrimeraC = 'del Archivo Diocesano de Alajuela';
+        if($acta->primeracomunion->IDParroquiaRegistra != -1) {
+            $parroquia = Parroquia::where('IDParroquia', $acta->primeracomunion->IDParroquiaRegistra)->first();
+            $parroquiaRegistraPrimeraC = 'de la parroquia ' . $parroquia->NombreParroquia;
+        }
+
+        $motivo = '';
+        switch ($request->motivo) {
+            case '1':
+                $motivo = 'personales';
+                break;
+        }
+
+
+        $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
+
+        // fecha nacimiento
+        $fechaNac = Carbon::parse($acta->persona->laico->FechaNacimiento);
+        $mesNac = $meses[($fechaNac->format('n')) - 1];
+        $fecNacFormatted = $fechaNac->format('d') . ' de ' . $mesNac . ' de ' . $fechaNac->format('Y');
+
+        // fecha primera comunion
+        $fecPrimeraCFormatted = null;
+        if ($acta->primeracomunion != null && $acta->primeracomunion->FechaPrimeraComunion != null) {
+            $fechaPrimeraC = Carbon::parse($acta->primeracomunion->FechaPrimeraComunion);
+            $mesPrimeraC = $meses[($fechaPrimeraC->format('n')) - 1];
+            $fecPrimeraCFormatted = $fechaPrimeraC->format('d') . ' de ' . $mesPrimeraC . ' de ' . $fechaPrimeraC->format('Y');
+        }
+
+        // fecha hoy
+        $fecHoyFormatted = null;
+        $fechaHoy = Carbon::now();
+        $mesHoy = $meses[($fechaHoy->format('n')) - 1];
+        $fecHoyFormatted = $fechaHoy->format('d') . ' de ' . $mesHoy . ' de ' . $fechaHoy->format('Y');
+
+        $pdf = \PDF::loadView('PDF.PdfCertificadoPrimeraComunion', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac'=> $fecNacFormatted,
+            'parroquiaRegistraPrimeraC'=>$parroquiaRegistraPrimeraC, 'fecPrimeraC'=> $fecPrimeraCFormatted, 'motivo'=>$motivo, 'fecHoy'=> $fecHoyFormatted]);
+
+        return $pdf->download('CertificadoPrimeraComunion.pdf');
+    }
+
     public function generarPDFConfirma(Request $request)
     {
 
