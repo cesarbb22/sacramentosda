@@ -188,7 +188,7 @@
         </div>
 
         <div class="container">
-            Copyright © 2020 Diócesis de Alajuela, Costa Rica. Derechos Reservados.
+            Copyright © 2022 Diócesis de Alajuela, Costa Rica. Derechos Reservados.
         </div>
     </div>
 </footer>
