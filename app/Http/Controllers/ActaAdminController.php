@@ -16,6 +16,7 @@ use App\Laico;
 use App\UbicacionActa;
 use App\Acta;
 use App\ActaBautizo;
+use App\ActaPrimeraComunion;
 use App\ActaConfirma;
 use App\ActaMatrimonio;
 use App\ActaDefuncion;
@@ -36,7 +37,6 @@ class ActaAdminController extends Controller
         $parroquias = \App\Parroquia::all();
         return view('AdminViews.mainActasAdmin', ['parroquias' => $parroquias, 'parroquiaUser' => Auth::user()->IDParroquia]);
     }
-
 
     public function crearActa(Request $request)
     {
@@ -103,7 +103,7 @@ class ActaAdminController extends Controller
 
             $CURIA_DIOCESANA_PARROQUIA = -1; //curia diocesana
 
-            if ($request->has('checkBautizo') || $request->has('checkConfirma') || $request->has('checkMatrimonio') || $request->has('checkDefuncion')) {
+            if ($request->has('checkBautizo') || $request->has('checkPrimeraComunion') || $request->has('checkConfirma') || $request->has('checkMatrimonio') || $request->has('checkDefuncion')) {
 
                 //------------------------------------------------------------------------------
 
@@ -141,6 +141,34 @@ class ActaAdminController extends Controller
                     //-------------------------------------------------------
                 }
 
+                if ($request->has('checkPrimeraComunion')) {
+                    $UbicacionPrimeraComunion = new UbicacionActa;
+
+                    $UbicacionPrimeraComunion->Libro = $request->numLibroPC;
+                    $UbicacionPrimeraComunion->Folio = $request->numFolioPC;
+                    $UbicacionPrimeraComunion->Asiento = $request->numAsientoPC;
+
+                    $UbicacionPrimeraComunion->save();
+
+                    $ActaPrimeraComunion = new ActaPrimeraComunion;
+
+                    if ($request->lugarPrimeraComunion != "") {
+                        $ActaPrimeraComunion->LugarPrimeraComunion = $request->lugarPrimeraComunion;
+                    } else {
+                        $ActaPrimeraComunion->IDParroquiaPrimeraComunion = $request->parroquiaPrimeraComunion;
+                    }
+                    if ($request->fechaPrimeraComunion != "") {
+                        $ActaPrimeraComunion->FechaPrimeraComunion = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaPrimeraComunion));
+                    }
+                    $ActaPrimeraComunion->NotasMarginales = $request->notasMarginalesPrimeraC;
+                    $ActaPrimeraComunion->IDUbicacionPrimeraComunion = $UbicacionPrimeraComunion->IDUbicacionActa;
+                    $ActaPrimeraComunion->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
+                    $ActaPrimeraComunion->IDParroquiaRegistra = $CURIA_DIOCESANA_PARROQUIA;
+                    $ActaPrimeraComunion->save();
+
+                    $Acta->IDPrimeraComunion = $ActaPrimeraComunion->IDPrimeraComunion;
+                }
+
                 if ($request->has('checkConfirma')) {
                     $UbicacionActaC = new UbicacionActa;
 
@@ -168,6 +196,7 @@ class ActaAdminController extends Controller
 
                     $Acta->IDConfirma = $ActaConfirma->IDConfirma;
                 }
+
                 if ($request->has('checkMatrimonio')) {
                     $UbicacionActaM = new UbicacionActa;
 
@@ -196,6 +225,7 @@ class ActaAdminController extends Controller
 
                     $Acta->IDMatrimonio = $ActaMatrimonio->IDMatrimonio;
                 }
+
                 if ($request->has('checkDefuncion')) {
                     $UbicacionActaD = new UbicacionActa;
 
@@ -235,7 +265,7 @@ class ActaAdminController extends Controller
         }
     }
 
-
+    // Metodo para cargar la pantalla de Editar con la informacion del acta
     public function EditarActa($id)
     {
         try {
@@ -253,11 +283,13 @@ class ActaAdminController extends Controller
             $parroquias = \App\Parroquia::all();
 
             $idBautismo = $acta->IDBautismo;
+            $idPrimeraComunion = $acta->IDPrimeraComunion;
             $idConfirma = $acta->IDConfirma;
             $idMatrimonio = $acta->IDMatrimonio;
             $idDefuncion = $acta->IDDefuncion;
 
             $actaBautismo = ActaBautizo::where('IDBautismo', $idBautismo)->first();
+            $actaPrimeraComunion = ActaPrimeraComunion::where('IDPrimeraComunion', $idPrimeraComunion)->first();
             $actaConfirma = ActaConfirma::where('IDConfirma', $idConfirma)->first();
             $actaMatrimonio = ActaMatrimonio::where('IDMatrimonio', $idMatrimonio)->first();
             $actaDefuncion = ActaDefuncion::where('IDDefuncion', $idDefuncion)->first();
@@ -279,6 +311,25 @@ class ActaAdminController extends Controller
             } else {
                 $idUbicacionActaBau = null;
                 $UbicacionActaBautismo = null;
+            }
+
+            $nomParroquiaPrimeraCRegistra = null;
+            if ($idPrimeraComunion != null) {
+                if ($actaPrimeraComunion->IDParroquiaRegistra != -1) {
+                    $parroquiaPrimeraCRegistra = Parroquia::find($actaPrimeraComunion->IDParroquiaRegistra);
+                    $nomParroquiaPrimeraCRegistra = $parroquiaPrimeraCRegistra->NombreParroquia;
+                } else {
+                    $nomParroquiaPrimeraCRegistra = 'Archivo Diocesano de Alajuela';
+                }
+                $idUbicacionPrimeraComunion = $actaPrimeraComunion->IDUbicacionPrimeraComunion;
+                $UbicacionPrimeraComunion = UbicacionActa::where('IDUbicacionActa', $idUbicacionPrimeraComunion)->first();
+                if ($actaPrimeraComunion->IDParroquiaPrimeraComunion != null) {
+                    $parroquia = Parroquia::find($actaPrimeraComunion->IDParroquiaPrimeraComunion);
+                    $actaPrimeraComunion->LugarPrimeraComunion = $parroquia->NombreParroquia;
+                }
+            } else {
+                $idUbicacionPrimeraComunion = null;
+                $UbicacionPrimeraComunion = null;
             }
 
             $nomParroquiaConfRegistra = null;
@@ -341,10 +392,12 @@ class ActaAdminController extends Controller
             $laico = Laico::findOrFail($persona->IDPersona);
 
             return view('AdminViews.EditarActaAdmin', ['source' => $source, 'idSolicitud' => $id, 'persona' => $persona, 'laico' => $laico,
-                'acta' => $acta, 'actaBautismo' => $actaBautismo, 'actaConfirma' => $actaConfirma, 'actaMatrimonio' => $actaMatrimonio,
-                'actaDefuncion' => $actaDefuncion, 'UbicacionActaBautismo' => $UbicacionActaBautismo, 'UbicacionActaConfirma' => $UbicacionActaConfirma,
-                'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion, 'parroquias' => $parroquias,
-                'parroquiaUser' => Auth::user()->IDParroquia, 'nomParroquiaBauRegistra'=>$nomParroquiaBauRegistra, 'nomParroquiaConfRegistra'=>$nomParroquiaConfRegistra,
+                'acta' => $acta, 'actaBautismo' => $actaBautismo, 'actaPrimeraComunion' =>$actaPrimeraComunion, 'actaConfirma' => $actaConfirma,
+                'actaMatrimonio' => $actaMatrimonio, 'actaDefuncion' => $actaDefuncion, 'UbicacionActaBautismo' => $UbicacionActaBautismo,
+                'UbicacionPrimeraComunion' =>$UbicacionPrimeraComunion, 'UbicacionActaConfirma' => $UbicacionActaConfirma,
+                'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion,
+                'parroquias' => $parroquias, 'parroquiaUser' => Auth::user()->IDParroquia, 'nomParroquiaBauRegistra'=>$nomParroquiaBauRegistra,
+                'nomParroquiaPrimeraCRegistra' => $nomParroquiaPrimeraCRegistra, 'nomParroquiaConfRegistra'=>$nomParroquiaConfRegistra,
                 'nomParroquiaMatRegistra'=>$nomParroquiaMatRegistra, 'nomParroquiaDefRegistra'=>$nomParroquiaDefRegistra]);
 
         } catch (\Exception $e) {
@@ -353,7 +406,7 @@ class ActaAdminController extends Controller
         }
     } // fin EditarActa
 
-
+    // Metodo para actualizar los datos del acta editada
     public function actualizarActa(Request $request)
     {
         try {
@@ -380,6 +433,7 @@ class ActaAdminController extends Controller
 
             $acta = Acta::where('IDPersona', $id)->first();
             $idBautismo = $acta->IDBautismo;
+            $idPrimeraComunion = $acta->IDPrimeraComunion;
             $idConfirma = $acta->IDConfirma;
             $idMatrimonio = $acta->IDMatrimonio;
             $idDefuncion = $acta->IDDefuncion;
@@ -444,6 +498,56 @@ class ActaAdminController extends Controller
                 $actaBautismo->save();
 
                 $acta->IDBautismo = $actaBautismo->IDBautismo;
+            }
+
+            if ($idPrimeraComunion != null) {
+                $actaPrimeraComunion = ActaPrimeraComunion::where('IDPrimeraComunion', $idPrimeraComunion)->first();
+                if ($request->parroquiaPrimeraComunion != 'otro') {
+                    $actaPrimeraComunion->IDParroquiaPrimeraComunion = $request->parroquiaPrimeraComunion;
+                    $actaPrimeraComunion->LugarPrimeraComunion = null;
+                } else {
+                    $actaPrimeraComunion->IDParroquiaPrimeraComunion = null;
+                    $actaPrimeraComunion->LugarPrimeraComunion = $request->lugarPrimeraComunion;
+                }
+                if ($request->fechaPrimeraComunion != "") {
+                    $actaPrimeraComunion->FechaPrimeraComunion = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaPrimeraComunion));
+                } else {
+                    $actaPrimeraComunion->FechaPrimeraComunion = null;
+                }
+                $actaPrimeraComunion->NotasMarginales = $request->notasMarginalesPrimeraCEdit;
+                $actaPrimeraComunion->save();
+
+                $idUbicacionPrimeraComunion = $actaPrimeraComunion->IDUbicacionPrimeraComunion;
+                $UbicacionPrimeraComunion = UbicacionActa::where('IDUbicacionActa', $idUbicacionPrimeraComunion)->first();
+                $UbicacionPrimeraComunion->Libro = $request->numLibroPC;
+                $UbicacionPrimeraComunion->Folio = $request->numFolioPC;
+                $UbicacionPrimeraComunion->Asiento = $request->numAsientoPC;
+                $UbicacionPrimeraComunion->save();
+            } else if ($request->has('checkPrimeraComunion')) {
+                $UbicacionPrimeraComunion = new UbicacionActa;
+                $UbicacionPrimeraComunion->Libro = $request->numLibroPC;
+                $UbicacionPrimeraComunion->Folio = $request->numFolioPC;
+                $UbicacionPrimeraComunion->Asiento = $request->numAsientoPC;
+                $UbicacionPrimeraComunion->save();
+
+                $actaPrimeraComunion = new ActaPrimeraComunion();
+                if ($request->has('parroquiaPrimeraComunion') && $request->parroquiaPrimeraComunion != 'otro') {
+                    $actaPrimeraComunion->IDParroquiaPrimeraComunion = $request->parroquiaPrimeraComunion;
+                } else {
+                    $actaPrimeraComunion->LugarPrimeraComunion = $request->lugarPrimeraComunion;
+                }
+                if ($request->fechaPrimeraComunion != "") {
+                    $actaPrimeraComunion->FechaPrimeraComunion = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaPrimeraComunion));
+                } else {
+                    $actaPrimeraComunion->FechaPrimeraComunion = null;
+                }
+                $actaPrimeraComunion->NotasMarginales = $request->notasMarginalesPrimeraCEdit;
+                $actaPrimeraComunion->IDUbicacionPrimeraComunion = $UbicacionPrimeraComunion->IDUbicacionActa;
+                $actaPrimeraComunion->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
+                $actaPrimeraComunion->IDParroquiaRegistra = $CURIA_DIOCESANA_PARROQUIA;
+                $actaPrimeraComunion->save();
+
+                $acta->IDPrimeraComunion = $actaPrimeraComunion->IDPrimeraComunion;
             }
 
             if ($idConfirma != null) {
@@ -620,18 +724,19 @@ class ActaAdminController extends Controller
         }
     } // fin actualizarActa
 
-
     public function DetalleActa($id)
     {
         try {
             $acta = Acta::where('IDPersona', $id)->first();
 
             $idBautismo = $acta->IDBautismo;
+            $idPrimeraComunion = $acta->IDPrimeraComunion;
             $idConfirma = $acta->IDConfirma;
             $idMatrimonio = $acta->IDMatrimonio;
             $idDefuncion = $acta->IDDefuncion;
 
             $actaBautismo = ActaBautizo::where('IDBautismo', $idBautismo)->first();
+            $actaPrimeraComunion = ActaPrimeraComunion::where('IDPrimeraComunion', $idPrimeraComunion)->first();
             $actaConfirma = ActaConfirma::where('IDConfirma', $idConfirma)->first();
             $actaMatrimonio = ActaMatrimonio::where('IDMatrimonio', $idMatrimonio)->first();
             $actaDefuncion = ActaDefuncion::where('IDDefuncion', $idDefuncion)->first();
@@ -667,6 +772,27 @@ class ActaAdminController extends Controller
             } else {
                 $idUbicacionActaBau = null;
                 $UbicacionActaBautismo = null;
+            }
+
+            $nomParroquiaPrimeraCRegistra = null;
+            if ($idPrimeraComunion != null) {
+                if ($actaPrimeraComunion->IDParroquiaRegistra != -1) {
+                    $nomParroquiaPrimeraCRegistra = Parroquia::find($actaPrimeraComunion->IDParroquiaRegistra);
+                    $nomParroquiaPrimeraCRegistra = $nomParroquiaPrimeraCRegistra->NombreParroquia;
+                } else {
+                    $nomParroquiaPrimeraCRegistra = 'Archivo Diocesano de Alajuela';
+                }
+                $idUbicacionPrimeraComunion = $actaPrimeraComunion->IDUbicacionPrimeraComunion;
+                $date = $actaPrimeraComunion->FechaPrimeraComunion;
+                $actaPrimeraComunion->FechaPrimeraComunion = $this->formatDatetoString($date);
+                $UbicacionPrimeraComunion = UbicacionActa::where('IDUbicacionActa', $idUbicacionPrimeraComunion)->first();
+                if ($actaPrimeraComunion->IDParroquiaPrimeraComunion != null) {
+                    $parroquia = Parroquia::find($actaPrimeraComunion->IDParroquiaPrimeraComunion);
+                    $actaPrimeraComunion->LugarPrimeraComunion = $parroquia->NombreParroquia;
+                }
+            } else {
+                $idUbicacionPrimeraComunion = null;
+                $UbicacionPrimeraComunion = null;
             }
 
             $nomParroquiaConfRegistra = null;
@@ -735,12 +861,14 @@ class ActaAdminController extends Controller
             $parroquiaUser = Auth::user()->puesto->IDPuesto <= 2 ? -1 : Auth::user()->IDParroquia;
 
             return view('AdminViews.DetalleActaAdmin', ['persona' => Persona::findOrFail($id), 'laico' => $laico,
-                'acta' => $acta, 'actaBautismo' => $actaBautismo, 'actaConfirma' => $actaConfirma, 'actaMatrimonio' => $actaMatrimonio,
-                'actaDefuncion' => $actaDefuncion, 'UbicacionActaBautismo' => $UbicacionActaBautismo, 'UbicacionActaConfirma' => $UbicacionActaConfirma,
-                'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion, 'tipoHijo' => $tipoHijo,
-                'nomParroquiaBauRegistra'=>$nomParroquiaBauRegistra, 'nomParroquiaConfRegistra'=>$nomParroquiaConfRegistra,
-                'nomParroquiaMatRegistra'=>$nomParroquiaMatRegistra, 'nomParroquiaDefRegistra'=>$nomParroquiaDefRegistra, 'parroquias' => $parroquias,
-                'parroquiaUser' => $parroquiaUser]);
+                'acta' => $acta, 'actaBautismo' => $actaBautismo, 'actaPrimeraComunion' => $actaPrimeraComunion,
+                'actaConfirma' => $actaConfirma, 'actaMatrimonio' => $actaMatrimonio, 'actaDefuncion' => $actaDefuncion,
+                'UbicacionActaBautismo' => $UbicacionActaBautismo, 'UbicacionPrimeraComunion' => $UbicacionPrimeraComunion,
+                'UbicacionActaConfirma' => $UbicacionActaConfirma, 'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio,
+                'UbicacionActaDefuncion' => $UbicacionActaDefuncion, 'tipoHijo' => $tipoHijo,
+                'nomParroquiaBauRegistra'=>$nomParroquiaBauRegistra, 'nomParroquiaPrimeraCRegistra' => $nomParroquiaPrimeraCRegistra,
+                'nomParroquiaConfRegistra'=>$nomParroquiaConfRegistra, 'nomParroquiaMatRegistra'=>$nomParroquiaMatRegistra,
+                'nomParroquiaDefRegistra'=>$nomParroquiaDefRegistra, 'parroquias' => $parroquias, 'parroquiaUser' => $parroquiaUser]);
 
         } catch (Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error");
@@ -755,6 +883,7 @@ class ActaAdminController extends Controller
             $solicitudes = Solicitud::where('IDActa', $acta->IDActa)->get();
 
             $idBautismo = $acta->IDBautismo;
+            $idPrimeraComunion = $acta->IDPrimeraComunion;
             $idConfirma = $acta->IDConfirma;
             $idMatrimonio = $acta->IDMatrimonio;
             $idDefuncion = $acta->IDDefuncion;
@@ -765,6 +894,14 @@ class ActaAdminController extends Controller
                 $UbicacionActaBautismo = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaBau)->first();
                 $UbicacionActaBautismo->delete();
                 $actaBautismo->delete();
+            }
+
+            if ($idPrimeraComunion != null) {
+                $actaPrimeraComunion = ActaPrimeraComunion::where('IDPrimeraComunion', $idPrimeraComunion)->first();
+                $idUbicacionPrimeraC = $actaPrimeraComunion->IDUbicacionPrimeraComunion;
+                $UbicacionPrimeraComunion = UbicacionActa::where('IDUbicacionActa', $idUbicacionPrimeraC)->first();
+                $UbicacionPrimeraComunion->delete();
+                $actaPrimeraComunion->delete();
             }
 
             if ($idConfirma != null) {

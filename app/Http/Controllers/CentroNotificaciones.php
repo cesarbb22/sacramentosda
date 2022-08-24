@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ActaPrimeraComunion;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -62,6 +63,9 @@ class CentroNotificaciones extends Controller
 
             $partida = null;
             switch ($request->sacramento) {
+                case 'PRIMERA_COMUNION':
+                    $partida = ActaPrimeraComunion::findOrFail($acta->IDPrimeraComunion);
+                    break;
                 case 'CONFIRMA':
                     $partida = ActaConfirma::findOrFail($acta->IDConfirma);
                     break;
@@ -78,7 +82,7 @@ class CentroNotificaciones extends Controller
 
             return back()->with('msjBueno', "Aviso enviado exitosamente!");
         } catch (Exception $e) {
-            return back()->with('msjMalo', "Ha ocurrido un error".$e);
+            return back()->with('msjMalo', "Ha ocurrido un error");
         }
     }
 
@@ -88,6 +92,9 @@ class CentroNotificaciones extends Controller
 
             $partida = null;
             switch ($request->sacramento) {
+                case 'PRIMERA_COMUNION':
+                    $partida = ActaPrimeraComunion::findOrFail($acta->IDPrimeraComunion);
+                    break;
                 case 'CONFIRMA':
                     $partida = ActaConfirma::findOrFail($acta->IDConfirma);
                     break;
@@ -116,7 +123,7 @@ class CentroNotificaciones extends Controller
 
             return back()->with('msjBueno', "Aviso enviado exitosamente!");
         } catch (Exception $e) {
-            return back()->with('msjMalo', "Ha ocurrido un error".$e);
+            return back()->with('msjMalo', "Ha ocurrido un error");
         }
     }
 

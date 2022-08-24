@@ -241,6 +241,119 @@
                 </div>
                 @endif
 
+                <div class="collapsible-header waves-light waves-effect white-text">Partida de Primera Comunión</div>
+                @if($actaPrimeraComunion != null)
+                    <div class="row">
+                        <div class="input-field col s6"></div>
+                        <div class="input-field col s6">
+                            <label>Fecha de Primera Comunión:</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="lugarPrimeraComunion" name="lugarPrimeraComunion" type="text"
+                                   value="{{ $actaPrimeraComunion -> LugarPrimeraComunion }}" readonly>
+                            <label for="lugarPrimeraComunion"> Primera Comunión en:</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="fechaPrimeraComunion" name="fechaPrimeraComunion"
+                                   pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d"
+                                   class="" type="text" title="Formato de fecha: dd/mm/aaaa"
+                                   value="{{ $actaPrimeraComunion -> FechaPrimeraComunion }}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s8">
+                            <label for="informacion">Esta información consta en:</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-num col s4">
+                            <input id="numLibroPC" name="numLibroPC" type="number"
+                                   value="{{ $UbicacionPrimeraComunion->Libro }}" readonly>
+                            <label for="numLibroPC">Número de Libro:</label>
+                        </div>
+                        <div class="input-num col s4">
+                            <input id="numFolioPC" name="numFolioPC" type="number"
+                                   value="{{ $UbicacionPrimeraComunion->Folio }}" readonly>
+                            <label for="numFolioPC">Número de Folio:</label>
+                        </div>
+                        <div class="input-num col s4">
+                            <input id="numAsientoPC" name="numAsientoPC" type="number"
+                                   value="{{ $UbicacionPrimeraComunion->Asiento }}" readonly>
+                            <label for="numAsientoPC">Número de Asiento:</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="notasMarginalesPrimeraComunion" name='notasMarginalesPrimeraComunion' type="text"
+                                   value="{{ $actaPrimeraComunion->NotasMarginales }}" readonly>
+                            <label for="notasMarginalesPrimeraComunion">Notas Marginales:</label>
+                        </div>
+                    </div>
+
+                    <div class="div-creado-por">
+                        <span class="p-creado-por">Creada por: {{ $nomParroquiaPrimeraCRegistra }}</span>
+                    </div>
+                    <br>
+                    <div class="row" style="text-align: left">
+                        <button id="Descargar" class="waves-effect waves-light btn left modal-trigger"
+                                data-target="modalPDFDetallePrimeraComunion"><i
+                                class="material-icons left">file_download</i>Constancia de Primera Comunión
+                        </button>
+                    </div>
+                    @if($actaPrimeraComunion->IDParroquiaRegistra == $parroquiaUser)
+                        <div class="row" style="text-align: left">
+                            @if($actaBautismo != null && $actaBautismo->IDParroquiaRegistra != $parroquiaUser)
+                                @if ($actaPrimeraComunion->AvisoEnviado == 0)
+                                    <button id="avisoPrimeraComunion"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="PRIMERA_COMUNION">
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @else
+                                    <button id="avisoPrimeraComunion"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="PRIMERA_COMUNION"
+                                            disabled>
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @endif
+                            @elseif ($actaBautismo == null)
+                                @if ($actaPrimeraComunion->AvisoEnviado == 0)
+                                    <button id="avisoPrimeraComunion"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="PRIMERA_COMUNION">
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @else
+                                    <button id="avisoPrimeraComunion"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="PRIMERA_COMUNION"
+                                            disabled>
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @endif
+                            @endif
+                        </div>
+                    @endif
+                    <br>
+                @else
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <p>No cuenta con esta partida</p>
+                        </div>
+
+                    </div>
+                @endif
 
                 <div class="collapsible-header waves-light waves-effect white-text">Partida de Confirma</div>
 
@@ -699,6 +812,51 @@
         </form>
     </div>
 
+    <!-- Modal Structure Primera Comunion -->
+    <div id="modalPDFDetallePrimeraComunion" class="modal modal-fixed-footer">
+        <form id="pdfFormPrimeraComunion" method="POST" action="/pdf">
+            {{ csrf_field() }}
+            <div class="modal-content">
+                <div>
+                    <h4>Descargar Constancia</h4>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="input-field">
+                        <input id="codigoPrimeraComunion" name="codigo" type="text" required
+                               oninvalid="this.setCustomValidity('Campo requerido')"
+                               oninput="setCustomValidity('')">
+                        <label for="codigo">Código de referencia</label>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="input-field">
+                        <select name="motivo" id="motivoPrimeraComunion" required>
+                            <option value="0" selected>--</option>
+                            <option value="1">Personales</option>
+                        </select>
+                        <label>Seleccione el motivo de la constancia:</label>
+                    </div>
+                </div>
+                <div class="input-field">
+                    <input id="idActaPrimeraComunion" name="idActa" value="{{ $acta->IDActa }}" type="text" hidden>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="modalCancelBtnPrimeraComunion" onclick="closeModal();"
+                   class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
+                <button id="modalDescargarBtnPrimeraComunion" type="submit"
+                        class="modal-action waves-effect waves-green btn-flat ">
+                    Descargar
+                </button>
+            </div>
+            <div id="loadingDivPrimeraComunion" class="progress">
+                <div class="indeterminate"></div>
+            </div>
+        </form>
+    </div>
+
     <!-- Modal Structure Confirma -->
     <div id="modalPDFDetalleConfirma" class="modal modal-fixed-footer">
         <form id="pdfFormConfirma" method="POST" action="/pdf">
@@ -871,7 +1029,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a id="modalCancelBtnConfirma" onclick="closeModalAviso();"
+                <a id="modalCancelBtnAviso" onclick="closeModalAviso();"
                    class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
                 <button id="modalEnviarAvisoBtn" type="submit" class="modal-action waves-effect waves-green btn-flat ">
                     Enviar Aviso
@@ -885,6 +1043,7 @@
             $('.modal').modal('close');
             $('#codigo').val('');
             $('#codigoBautismo').val('');
+            $('#codigoPrimeraComunion').val('');
             $('#codigoConfirma').val('');
             $('#codigoMatrimonio').val('');
             $('#codigoDefuncion').val('');
@@ -898,6 +1057,7 @@
         window.onload = function () {
             $('#loadingDiv').hide();
             $('#loadingDivBautismo').hide();
+            $('#loadingDivPrimeraComunion').hide();
             $('#loadingDivConfirma').hide();
             $('#loadingDivMatrimonio').hide();
             $('#loadingDivDefuncion').hide();
@@ -1009,6 +1169,45 @@
                         $('#modalDescargarBtnBautismo').attr('disabled', false);
                         $('#loadingDivBautismo').hide();
                         $('#codigoBautismo').val('');
+                        $('.modal').modal('close');
+                    }
+                };
+                xhr.send(formData);
+            });
+
+            // PDF Primera Comunion
+            $('#pdfFormPrimeraComunion').on('submit', function (e) {
+                e.preventDefault();
+
+                if ($('#motivoPrimeraComunion').val() == '0') {
+                    return;
+                }
+
+                $('#modalCancelBtnPrimeraComunion').attr('disabled', true);
+                $('#modalDescargarBtnPrimeraComunion').attr('disabled', true);
+                $('#loadingDivPrimeraComunion').show();
+
+                var formData = new FormData();
+                formData.append("codigo", $('#codigoPrimeraComunion').val());
+                formData.append("motivo", $('#motivoPrimeraComunion').val());
+                formData.append("idActa", $('#idActaPrimeraComunion').val());
+                formData.append("_token", "{{ csrf_token() }}");
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/pdfPrimeraComunion');
+                xhr.responseType = 'arraybuffer';
+                xhr.onload = function (e) {
+                    if (this.status == 200) {
+                        var blob = new Blob([this.response], {type: "application/pdf"});
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = $('#codigoPrimeraComunion').val() + ".pdf";
+                        link.click();
+
+                        $('#modalCancelBtnPrimeraComunion').attr('disabled', false);
+                        $('#modalDescargarBtnPrimeraComunion').attr('disabled', false);
+                        $('#loadingDivPrimeraComunion').hide();
+                        $('#codigoPrimeraComunion').val('');
                         $('.modal').modal('close');
                     }
                 };
@@ -1160,6 +1359,14 @@
                     $("#contentBautismo").css("display", "block");
                 } else {
                     $("#contentBautismo").css("display", "none");
+                }
+            });
+
+            $("#checkPrimeraComunion").change(function () {
+                if ($("#checkPrimeraComunion").is(':checked')) {
+                    $("#contentPrimeraComunion").css("display", "block");
+                } else {
+                    $("#contentPrimeraComunion").css("display", "none");
                 }
             });
 
