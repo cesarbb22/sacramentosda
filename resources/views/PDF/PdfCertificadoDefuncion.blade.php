@@ -66,7 +66,7 @@
         @if($acta->defuncion != null && $acta->defuncion->IDParroquiaDefuncion != null)
             <p>En la Parroquia <strong>{{ $acta->defuncion->parroquia->NombreParroquia }}</strong></p>
         @elseif($acta->defuncion != null)
-            <p>En <span class="texto-capitalize"><strong>{{ $acta->defuncion->LugarBautismo }}</strong></span></p>
+            <p>En <span class="texto-capitalize"><strong>{{ $acta->defuncion->LugarDefuncion }}</strong></span></p>
         @endif
         <p>Causa de muerte: <strong>{{ $acta->defuncion->CausaMuerte }}</strong></p>
     </div>

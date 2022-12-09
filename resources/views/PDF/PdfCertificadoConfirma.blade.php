@@ -64,7 +64,7 @@
         @if($acta->confirma != null && $acta->confirma->IDParroquiaConfirma != null)
             <p>En la Parroquia <strong>{{ $acta->confirma->parroquia->NombreParroquia }}</strong></p>
         @elseif($acta->confirma != null)
-            <p>En <span class="texto-capitalize"><strong>{{ $acta->confirma->LugarBautismo }}</strong></span></p>
+            <p>En <span class="texto-capitalize"><strong>{{ $acta->confirma->LugarConfirma }}</strong></span></p>
         @endif
         <p>Padrinos: <strong>{{ $acta->confirma->PadrinoCon1 }}</strong></p>
     </div>
