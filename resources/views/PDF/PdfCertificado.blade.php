@@ -81,6 +81,30 @@
                 @endif
             </tr>
 
+            @if($acta->primeraComunion != null)
+                <tr class="mat-altura">
+                    <td class="izq-texto"><strong>Primera Comunión:</strong></td>
+                    @if($acta->primeracomunion->FechaPrimeraComunion == null)
+                        <td>NO CONSTA FECHA</td>
+                    @else
+                        <td>el {{ $fecPrimeraC }}</td>
+                    @endif
+
+                    @if($acta->primeracomunion->IDParroquiaPrimeraComunion != null)
+                        <td>en la Parroquia {{ $acta->primeracomunion->parroquia->NombreParroquia }}</td>
+                    @elseif($acta->primeracomunion != null)
+                        <td>en <span class="texto-capitalize">{{ $acta->primeracomunion->LugarPrimeraComunion }}</span></td>
+                    @endif
+                </tr>
+            @else
+                <tr>
+                    <td class="izq-texto"><strong>Primera Comunión:</strong></td>
+                    <td>NO CONSTA</td>
+                </tr>
+                <tr>
+                </tr>
+            @endif
+
             @if($acta->confirma != null)
                 <tr class="tr-padding">
                     <td class="izq-texto"><strong>Confirmación:</strong></td>

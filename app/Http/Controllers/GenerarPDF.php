@@ -89,14 +89,23 @@ class GenerarPDF extends Controller
             $fecMatFormatted = $fechaMat->format('d') . ' de ' . $mesMat . ' de ' . $fechaMat->format('Y');
         }
 
+        // fecha primera comunion
+        $fecPrimeraCFormatted = null;
+        if ($acta->primeraComunion != null && $acta->primeraComunion->FechaPrimeraComunion != null) {
+            $fechaPrimeraC = Carbon::parse($acta->primeraComunion->FechaPrimeraComunion);
+            $mesPrimeraC = $meses[($fechaPrimeraC->format('n')) - 1];
+            $fecPrimeraCFormatted = $fechaPrimeraC->format('d') . ' de ' . $mesPrimeraC . ' de ' . $fechaPrimeraC->format('Y');
+        }
+
         // fecha hoy
         $fecHoyFormatted = null;
         $fechaHoy = Carbon::now();
         $mesHoy = $meses[($fechaHoy->format('n')) - 1];
         $fecHoyFormatted = $fechaHoy->format('d') . ' de ' . $mesHoy . ' de ' . $fechaHoy->format('Y');
 
-        $pdf = \PDF::loadView('PDF.PdfCertificado', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac'=> $fecNacFormatted, 'fecBau'=> $fecBauFormatted
-        , 'parroquiaRegistraBau'=>$parroquiaRegistraBau, 'fecConf'=> $fecConfFormatted, 'fecMat'=> $fecMatFormatted, 'motivo'=>$motivo, 'fecHoy'=> $fecHoyFormatted]);
+        $pdf = \PDF::loadView('PDF.PdfCertificado', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac'=> $fecNacFormatted, 'fecBau'=> $fecBauFormatted,
+            'parroquiaRegistraBau'=>$parroquiaRegistraBau, 'fecConf'=> $fecConfFormatted, 'fecMat'=> $fecMatFormatted, 'fecPrimeraC' => $fecPrimeraCFormatted,
+            'motivo'=>$motivo, 'fecHoy'=> $fecHoyFormatted]);
 
         return $pdf->download('Certificado.pdf');
     }
