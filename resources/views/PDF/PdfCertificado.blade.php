@@ -101,8 +101,6 @@
                     <td class="izq-texto"><strong>Primera Comunión:</strong></td>
                     <td>NO CONSTA</td>
                 </tr>
-                <tr>
-                </tr>
             @endif
 
             @if($acta->confirma != null)
