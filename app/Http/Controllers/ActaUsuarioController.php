@@ -267,7 +267,7 @@ class ActaUsuarioController extends Controller
             $acta = null;
             $persona = null;
             $source = 'consulta';
-            $isEditableArray = array(true, true, true, true);
+            $isEditableArray = array(true, true, true, true, true);
             $usuarioParroquia = Auth::user()->IDParroquia;
             if ($source == 'notificaciones') {
                 $sol_acta = \App\Solicitud_Acta::find($id);
@@ -304,14 +304,24 @@ class ActaUsuarioController extends Controller
                 }
                 $idUbicacionActaBau = $actaBautismo->IDUbicacionActaBau;
                 $UbicacionActaBautismo = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaBau)->first();
+                if ($actaBautismo->IDParroquiaBautismo != null) {
+                    $parroquia = Parroquia::find($actaBautismo->IDParroquiaBautismo);
+                    $actaBautismo->LugarBautismo = $parroquia->NombreParroquia;
+                }
                 if ($actaBautismo->IDParroquiaRegistra != $usuarioParroquia) {
-                    if ($actaBautismo->IDParroquiaBautismo != null) {
-                        $parroquia = Parroquia::find($actaBautismo->IDParroquiaBautismo);
-                        $actaBautismo->LugarBautismo = $parroquia->NombreParroquia;
+                    if ($actaBautismo->IDParroquiaBautismo == null) {
+                        if ($actaBautismo->FechaBautismo != null) {
+                            $date = date('d/m/Y', strtotime($actaBautismo->FechaBautismo));
+                            $actaBautismo->FechaBautismo = $date;
+                        }
+                        $isEditableArray[0] = false;
+                    } elseif ($actaBautismo->IDParroquiaBautismo != $usuarioParroquia) {
+                        if ($actaBautismo->FechaBautismo != null) {
+                            $date = date('d/m/Y', strtotime($actaBautismo->FechaBautismo));
+                            $actaBautismo->FechaBautismo = $date;
+                        }
+                        $isEditableArray[0] = false;
                     }
-                    $date = date('d/m/Y', strtotime($actaBautismo->FechaBautismo));
-                    $actaBautismo->FechaBautismo = $date;
-                    $isEditableArray[0] = false;
                 }
             }
 
@@ -328,14 +338,24 @@ class ActaUsuarioController extends Controller
                 }
                 $idUbicacionPrimeraComunion = $actaPrimeraComunion->IDUbicacionPrimeraComunion;
                 $UbicacionPrimeraComunion = UbicacionActa::where('IDUbicacionActa', $idUbicacionPrimeraComunion)->first();
+                if ($actaPrimeraComunion->IDParroquiaPrimeraComunion != null) {
+                    $parroquia = Parroquia::find($actaPrimeraComunion->IDParroquiaPrimeraComunion);
+                    $actaPrimeraComunion->LugarPrimeraComunion = $parroquia->NombreParroquia;
+                }
                 if ($actaPrimeraComunion->IDParroquiaRegistra != $usuarioParroquia) {
-                    if ($actaPrimeraComunion->IDParroquiaPrimeraComunion != null) {
-                        $parroquia = Parroquia::find($actaPrimeraComunion->IDParroquiaPrimeraComunion);
-                        $actaPrimeraComunion->LugarPrimeraComunion = $parroquia->NombreParroquia;
+                    if ($actaPrimeraComunion->IDParroquiaPrimeraComunion == null) {
+                        if ($actaPrimeraComunion->FechaPrimeraComunion != null) {
+                            $date = date('d/m/Y', strtotime($actaPrimeraComunion->FechaPrimeraComunion));
+                            $actaPrimeraComunion->FechaPrimeraComunion = $date;
+                        }
+                        $isEditableArray[1] = false;
+                    } elseif ($actaPrimeraComunion->IDParroquiaPrimeraComunion != $usuarioParroquia) {
+                        if ($actaPrimeraComunion->FechaPrimeraComunion != null) {
+                            $date = date('d/m/Y', strtotime($actaPrimeraComunion->FechaPrimeraComunion));
+                            $actaPrimeraComunion->FechaPrimeraComunion = $date;
+                        }
+                        $isEditableArray[1] = false;
                     }
-                    $date = date('d/m/Y', strtotime($actaPrimeraComunion->FechaPrimeraComunion));
-                    $actaPrimeraComunion->FechaPrimeraComunion = $date;
-                    $isEditableArray[1] = false;
                 }
             }
 
@@ -352,14 +372,24 @@ class ActaUsuarioController extends Controller
                 }
                 $idUbicacionActaCon = $actaConfirma->IDUbicacionActaCon;
                 $UbicacionActaConfirma = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaCon)->first();
+                if ($actaConfirma->IDParroquiaConfirma != null) {
+                    $parroquia = Parroquia::find($actaConfirma->IDParroquiaConfirma);
+                    $actaConfirma->LugarConfirma = $parroquia->NombreParroquia;
+                }
                 if ($actaConfirma->IDParroquiaRegistra != $usuarioParroquia) {
-                    if ($actaConfirma->IDParroquiaConfirma != null) {
-                        $parroquia = Parroquia::find($actaConfirma->IDParroquiaConfirma);
-                        $actaConfirma->LugarConfirma = $parroquia->NombreParroquia;
+                    if ($actaConfirma->IDParroquiaConfirma == null) {
+                        if ($actaConfirma->FechaConfirma != null) {
+                            $date = date('d/m/Y', strtotime($actaConfirma->FechaConfirma));
+                            $actaConfirma->FechaConfirma = $date;
+                        }
+                        $isEditableArray[2] = false;
+                    } elseif ($actaConfirma->IDParroquiaConfirma != $usuarioParroquia) {
+                        if ($actaConfirma->FechaConfirma != null) {
+                            $date = date('d/m/Y', strtotime($actaConfirma->FechaConfirma));
+                            $actaConfirma->FechaConfirma = $date;
+                        }
+                        $isEditableArray[2] = false;
                     }
-                    $date = date('d/m/Y', strtotime($actaConfirma->FechaConfirma));
-                    $actaConfirma->FechaConfirma = $date;
-                    $isEditableArray[2] = false;
                 }
             }
 
@@ -376,14 +406,24 @@ class ActaUsuarioController extends Controller
                 }
                 $idUbicacionActaMat = $actaMatrimonio->IDUbicacionActaMat;
                 $UbicacionActaMatrimonio = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaMat)->first();
+                if ($actaMatrimonio->IDParroquiaMatrimonio != null) {
+                    $parroquia = Parroquia::find($actaMatrimonio->IDParroquiaMatrimonio);
+                    $actaMatrimonio->LugarMatrimonio = $parroquia->NombreParroquia;
+                }
                 if ($actaMatrimonio->IDParroquiaRegistra != $usuarioParroquia) {
-                    if ($actaMatrimonio->IDParroquiaMatrimonio != null) {
-                        $parroquia = Parroquia::find($actaMatrimonio->IDParroquiaMatrimonio);
-                        $actaMatrimonio->LugarMatrimonio = $parroquia->NombreParroquia;
+                    if ($actaMatrimonio->IDParroquiaMatrimonio == null) {
+                        if ($actaMatrimonio->FechaMatrimonio != null) {
+                            $date = date('d/m/Y', strtotime($actaMatrimonio->FechaMatrimonio));
+                            $actaMatrimonio->FechaMatrimonio = $date;
+                        }
+                        $isEditableArray[3] = false;
+                    } elseif ($actaMatrimonio->IDParroquiaMatrimonio != $usuarioParroquia) {
+                        if ($actaMatrimonio->FechaMatrimonio != null) {
+                            $date = date('d/m/Y', strtotime($actaMatrimonio->FechaMatrimonio));
+                            $actaMatrimonio->FechaMatrimonio = $date;
+                        }
+                        $isEditableArray[3] = false;
                     }
-                    $date = date('d/m/Y', strtotime($actaMatrimonio->FechaMatrimonio));
-                    $actaMatrimonio->FechaMatrimonio = $date;
-                    $isEditableArray[3] = false;
                 }
             }
 
@@ -400,14 +440,24 @@ class ActaUsuarioController extends Controller
                 }
                 $idUbicacionActaDef = $actaDefuncion->IDUbicacionActaDef;
                 $UbicacionActaDefuncion = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaDef)->first();
+                if ($actaDefuncion->IDParroquiaDefuncion != null) {
+                    $parroquia = Parroquia::find($actaDefuncion->IDParroquiaDefuncion);
+                    $actaDefuncion->LugarDefuncion = $parroquia->NombreParroquia;
+                }
                 if ($actaDefuncion->IDParroquiaRegistra != $usuarioParroquia) {
-                    if ($actaDefuncion->IDParroquiaDefuncion != null) {
-                        $parroquia = Parroquia::find($actaDefuncion->IDParroquiaDefuncion);
-                        $actaDefuncion->LugarDefuncion = $parroquia->NombreParroquia;
+                    if ($actaDefuncion->IDParroquiaDefuncion == null) {
+                        if ($actaDefuncion->FechaDefuncion != null) {
+                            $date = date('d/m/Y', strtotime($actaDefuncion->FechaDefuncion));
+                            $actaDefuncion->FechaDefuncion = $date;
+                        }
+                        $isEditableArray[4] = false;
+                    } elseif ($actaDefuncion->IDParroquiaDefuncion != $usuarioParroquia) {
+                        if ($actaDefuncion->FechaDefuncion != null) {
+                            $date = date('d/m/Y', strtotime($actaDefuncion->FechaDefuncion));
+                            $actaDefuncion->FechaDefuncion = $date;
+                        }
+                        $isEditableArray[4] = false;
                     }
-                    $date = date('d/m/Y', strtotime($actaDefuncion->FechaDefuncion));
-                    $actaDefuncion->FechaDefuncion = $date;
-                    $isEditableArray[4] = false;
                 }
             }
 
@@ -462,7 +512,8 @@ class ActaUsuarioController extends Controller
 
             if ($idBautismo != null) {
                 $actaBautismo = ActaBautizo::where('IDBautismo', $idBautismo)->first();
-                if ($actaBautismo->IDParroquiaRegistra == $usuarioParroquia) {
+                if ($actaBautismo->IDParroquiaRegistra == $usuarioParroquia ||
+                    ($actaBautismo->IDParroquiaBautismo != null && $actaBautismo->IDParroquiaBautismo == $usuarioParroquia)) {
                     if ($request->parroquiaBautismo != 'otro') {
                         $actaBautismo->IDParroquiaBautismo = $request->parroquiaBautismo;
                         $actaBautismo->LugarBautismo = null;
@@ -524,7 +575,8 @@ class ActaUsuarioController extends Controller
 
             if ($idPrimeraComunion != null) {
                 $actaPrimeraComunion = ActaPrimeraComunion::where('IDPrimeraComunion', $idPrimeraComunion)->first();
-                if ($actaPrimeraComunion->IDParroquiaRegistra == $usuarioParroquia) {
+                if ($actaPrimeraComunion->IDParroquiaRegistra == $usuarioParroquia ||
+                    ($actaPrimeraComunion->IDParroquiaPrimeraComunion != null && $actaPrimeraComunion->IDParroquiaPrimeraComunion == $usuarioParroquia)) {
                     if ($request->parroquiaPrimeraComunion != 'otro') {
                         $actaPrimeraComunion->IDParroquiaPrimeraComunion = $request->parroquiaPrimeraComunion;
                         $actaPrimeraComunion->LugarPrimeraComunion = null;
@@ -576,7 +628,8 @@ class ActaUsuarioController extends Controller
 
             if ($idConfirma != null) {
                 $actaConfirma = ActaConfirma::where('IDConfirma', $idConfirma)->first();
-                if ($actaConfirma->IDParroquiaRegistra == $usuarioParroquia) {
+                if ($actaConfirma->IDParroquiaRegistra == $usuarioParroquia ||
+                    ($actaConfirma->IDParroquiaConfirma != null && $actaConfirma->IDParroquiaConfirma == $usuarioParroquia)) {
                     if ($request->parroquiaConfirma != 'otro') {
                         $actaConfirma->IDParroquiaConfirma = $request->parroquiaConfirma;
                         $actaConfirma->LugarConfirma = null;
@@ -630,7 +683,8 @@ class ActaUsuarioController extends Controller
 
             if ($idMatrimonio != null) {
                 $actaMatrimonio = ActaMatrimonio::where('IDMatrimonio', $idMatrimonio)->first();
-                if ($actaMatrimonio->IDParroquiaRegistra == $usuarioParroquia) {
+                if ($actaMatrimonio->IDParroquiaRegistra == $usuarioParroquia ||
+                    ($actaMatrimonio->IDParroquiaMatrimonio != null && $actaMatrimonio->IDParroquiaMatrimonio == $usuarioParroquia)) {
                     if ($request->parroquiaMatrimonio != 'otro') {
                         $actaMatrimonio->IDParroquiaMatrimonio = $request->parroquiaMatrimonio;
                         $actaMatrimonio->LugarMatrimonio = null;
@@ -684,7 +738,8 @@ class ActaUsuarioController extends Controller
 
             if ($idDefuncion != null) {
                 $actaDefuncion = ActaDefuncion::where('IDDefuncion', $idDefuncion)->first();
-                if ($actaDefuncion->IDParroquiaRegistra == $usuarioParroquia) {
+                if ($actaDefuncion->IDParroquiaRegistra == $usuarioParroquia ||
+                    ($actaDefuncion->IDParroquiaDefuncion != null && $actaDefuncion->IDParroquiaDefuncion == $usuarioParroquia)) {
                     if ($request->parroquiaDefuncion != 'otro') {
                         $actaDefuncion->IDParroquiaDefuncion = $request->parroquiaDefuncion;
                         $actaDefuncion->LugarDefuncion = null;
