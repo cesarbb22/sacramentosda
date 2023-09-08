@@ -49,6 +49,7 @@ class ActaAdminController extends Controller
             }
 
             $Persona = new Persona;
+            $Laico = new Laico;
             if ($request->has('nombrePadre')) {
 
                 $Persona->Cedula = $request->numCedula;
@@ -56,11 +57,6 @@ class ActaAdminController extends Controller
                 $Persona->PrimerApellido = $request->apellido1;
                 $Persona->SegundoApellido = $request->apellido2;
 
-                $Persona->save();
-
-                $Laico = new Laico;
-
-                $Laico->IDPersona = $Persona->IDPersona;
                 $Laico->IDTipo_Hijo = 2;
                 $Laico->NombreMadre = $request->nombreMadre;
                 $Laico->NombrePadre = $request->nombrePadre;
@@ -70,8 +66,6 @@ class ActaAdminController extends Controller
                 } else {
                     $Laico->FechaNacimiento = null;
                 }
-
-                $Laico->save();
             } else {
 
                 $Persona->Cedula = $request->numCedula;
@@ -79,12 +73,6 @@ class ActaAdminController extends Controller
                 $Persona->PrimerApellido = $request->apellido1;
                 $Persona->SegundoApellido = $request->apellido2;
 
-                $Persona->save();
-
-
-                $Laico = new Laico;
-
-                $Laico->IDPersona = $Persona->IDPersona;
                 $Laico->IDTipo_Hijo = 1;
                 $Laico->NombreMadre = $request->nombreMadre;
                 $Laico->LugarNacimiento = $request->lugarNac;
@@ -93,9 +81,6 @@ class ActaAdminController extends Controller
                 } else {
                     $Laico->FechaNacimiento = null;
                 }
-
-
-                $Laico->save();
             }
 
             //------------------------------------------------------------------------------
@@ -255,11 +240,15 @@ class ActaAdminController extends Controller
                 }
             }//fin if acta
 
+            $Persona->save();
+
+            $Laico->IDPersona = $Persona->IDPersona;
+            $Laico->save();
+
             $Acta->IDPersona = $Persona->IDPersona;
             $Acta->save();
 
             return back()->with('msjBueno', "Se agregó la partida correctamente");
-
         } catch (Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error. Intente nuevamente!");
         }
