@@ -43,6 +43,7 @@ class ActaUsuarioController extends Controller
             $userParroquia = Auth::user()->IDParroquia;
 
             $Persona = new Persona;
+            $Laico = new Laico;
             if ($request->has('nombrePadre')) {
 
                 $Persona->Cedula = $request->numCedula;
@@ -50,11 +51,6 @@ class ActaUsuarioController extends Controller
                 $Persona->PrimerApellido = $request->apellido1;
                 $Persona->SegundoApellido = $request->apellido2;
 
-                $Persona->save();
-
-                $Laico = new Laico;
-
-                $Laico->IDPersona = $Persona->IDPersona;
                 $Laico->IDTipo_Hijo = 2;
                 $Laico->NombreMadre = $request->nombreMadre;
                 $Laico->NombrePadre = $request->nombrePadre;
@@ -64,7 +60,6 @@ class ActaUsuarioController extends Controller
                 } else {
                     $Laico->FechaNacimiento = null;
                 }
-                $Laico->save();
             } else {
 
                 $Persona->Cedula = $request->numCedula;
@@ -72,12 +67,6 @@ class ActaUsuarioController extends Controller
                 $Persona->PrimerApellido = $request->apellido1;
                 $Persona->SegundoApellido = $request->apellido2;
 
-                $Persona->save();
-
-
-                $Laico = new Laico;
-
-                $Laico->IDPersona = $Persona->IDPersona;
                 $Laico->IDTipo_Hijo = 1;
                 $Laico->NombreMadre = $request->nombreMadre;
                 $Laico->LugarNacimiento = $request->lugarNac;
@@ -86,18 +75,13 @@ class ActaUsuarioController extends Controller
                 } else {
                     $Laico->FechaNacimiento = null;
                 }
-
-                $Laico->save();
             }
 
             //------------------------------------------------------------------------------
+
             $Acta = new Acta;
 
-
             if ($request->has('checkBautizo') || $request->has('checkPrimeraComunion') || $request->has('checkConfirma') || $request->has('checkMatrimonio') || $request->has('checkDefuncion')) {
-
-                //------------------------------------------------------------------------------
-
                 if ($request->has('checkBautizo')) {
                     $UbicacionActaB = new UbicacionActa;
 
@@ -249,6 +233,11 @@ class ActaUsuarioController extends Controller
                     $Acta->IDDefuncion = $ActaDefuncion->IDDefuncion;
                 }
             }//fin if acta
+
+            $Persona->save();
+
+            $Laico->IDPersona = $Persona->IDPersona;
+            $Laico->save();
 
             $Acta->IDPersona = $Persona->IDPersona;
             $Acta->save();
