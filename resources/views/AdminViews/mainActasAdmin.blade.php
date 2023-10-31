@@ -163,7 +163,7 @@
                                             @foreach ($parroquias as $pa)
                                                 <option value="{{ $pa->IDParroquia }}">{{ $pa->NombreParroquia }}</option>
                                             @endforeach
-                                            <option value="otro">Otro</option>
+{{--                                            <option value="otro">Otro</option>--}}
                                         </select>
                                         <label>Seleccione la Parroquia:</label>
                                     </div>
