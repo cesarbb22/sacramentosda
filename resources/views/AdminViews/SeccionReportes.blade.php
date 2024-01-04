@@ -45,8 +45,8 @@
                                             <label for="bautismo">Bautismo</label>
                                         </p>
                                         <p>
-                                            <input name="pComunion" type="checkbox" id="pComunion"/>
-                                            <label for="pComunion">Primera Comunion</label>
+                                            <input name="pcomunion" type="checkbox" id="pcomunion"/>
+                                            <label for="pcomunion">Primera Comunion</label>
                                         </p>
                                         <p>
                                             <input name="confirma" type="checkbox" id="confirma"/>
