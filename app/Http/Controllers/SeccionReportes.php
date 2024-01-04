@@ -18,20 +18,54 @@ class SeccionReportes extends Controller
 
     public function queryBautizosAnnio(Request $request) {
         $parroquia = $request->parroquia;
-        $fechaInicioBautizo = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->annio, '01', '01'));
-        $fechaFinBautizo = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->annio, '12', '31'));
-        $count = Acta::with(['persona', 'persona.laico', 'bautismo', 'bautismo.parroquia'])
-            ->whereHas('bautismo', function (Builder $query) use ($parroquia, $fechaInicioBautizo, $fechaFinBautizo) {
-                $query->where('actabautismo.IDParroquiaBautismo', $parroquia)
-                ->whereBetween('actabautismo.FechaBautismo', [$fechaInicioBautizo, $fechaFinBautizo]);
-            })
-            ->count();
+        $fechaInicio = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaInicio));
+        $fechaFin = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaFin));
 
-        return $count;
+        $totalCount = 0;
+
+        if ($request->has('bautismo')) {
+            $totalCount += Acta::whereHas('bautismo', function (Builder $query) use ($parroquia, $fechaInicio, $fechaFin) {
+                $query->where('actabautismo.IDParroquiaBautismo', $parroquia)
+                    ->whereBetween('actabautismo.created_at', [$fechaInicio, $fechaFin]);
+            })->count();
+        }
+
+        if ($request->has('pcomunion')) {
+            $totalCount += Acta::whereHas('primeracomunion', function (Builder $query) use ($parroquia, $fechaInicio, $fechaFin) {
+                $query->where('actaprimeracomunion.IDParroquiaPrimeraComunion', $parroquia)
+                    ->whereBetween('actaprimeracomunion.created_at', [$fechaInicio, $fechaFin]);
+            })->count();
+        }
+
+        if ($request->has('confirma')) {
+            $totalCount += Acta::whereHas('confirma', function (Builder $query) use ($parroquia, $fechaInicio, $fechaFin) {
+                $query->where('actaconfirma.IDParroquiaConfirma', $parroquia)
+                    ->whereBetween('actaconfirma.created_at', [$fechaInicio, $fechaFin]);
+            })->count();
+        }
+
+        if ($request->has('matrimonio')) {
+            $totalCount += Acta::whereHas('matrimonio', function (Builder $query) use ($parroquia, $fechaInicio, $fechaFin) {
+                $query->where('actamatrimonio.IDParroquiaMatrimonio', $parroquia)
+                    ->whereBetween('actamatrimonio.created_at', [$fechaInicio, $fechaFin]);
+            })->count();
+        }
+
+        if ($request->has('defuncion')) {
+            $totalCount += Acta::whereHas('defuncion', function (Builder $query) use ($parroquia, $fechaInicio, $fechaFin) {
+                $query->where('actadefuncion.IDParroquiaDefuncion', $parroquia)
+                    ->whereBetween('actadefuncion.created_at', [$fechaInicio, $fechaFin]);
+            })->count();
+        }
+
+        return $totalCount;
     }
 
-    function formatDate($yearString, $mm, $dd)
+    function formatDate($dateString)
     {
-        return $yearString . '-' . $mm . '-' . $dd . ' 00:00:00';
+        $dd = substr($dateString, 0, 2);
+        $mm = substr($dateString, 3, 2);
+        $yyyy = substr($dateString, 6, 4);
+        return $yyyy . '-' . $mm . '-' . $dd . ' 00:00:00';
     }
 }
