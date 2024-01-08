@@ -718,6 +718,12 @@
                             <div class="collapsible-body">
                                 @if($actaMatrimonio != null)
                                     <div class="row">
+                                        <button id="nuevoMatBtn" class="waves-effect waves-light btn right"><i
+                                                class="material-icons left">add</i>Nuevo Matrimonio
+                                        </button>
+                                    </div>
+
+                                    <div class="row">
                                         <div class="input-field col s6"></div>
                                         <div class="input-field col s6">
                                             <label>Fecha del Matrimonio:</label>
@@ -793,7 +799,108 @@
                                     <div class="div-creado-por">
                                         <span class="p-creado-por">Creada por: {{ $nomParroquiaMatRegistra }}</span>
                                     </div>
+
+                                    @foreach ($matrimoniosInfo as $info)
+                                        @if($info['actaMatrimonio'] != null)
+                                            <hr/><hr/>
+                                            <div class="row">
+                                                <div class="input-field col s6"></div>
+                                                <div class="input-field col s6">
+                                                    <label>Fecha del Matrimonio:</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="input-field col s6">
+                                                    <select
+                                                        id="parroquiaMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}"
+                                                        name='parroquiaMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}'>
+                                                        @foreach ($parroquias as $paMat)
+                                                            <option
+                                                                value="{{ $paMat->IDParroquia }}">{{ $paMat->NombreParroquia }}</option>
+                                                        @endforeach
+                                                        <option value="otro">Otro</option>
+                                                    </select>
+                                                    <label
+                                                        for="parroquiaMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}">Seleccione
+                                                        la Parroquia:</label>
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <input id="fechaMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}" name='fechaMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}'
+                                                           class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                                           pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
+                                                           oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                                           oninput="setCustomValidity('')">
+                                                </div>
+                                            </div>
+
+                                            <div class="row"
+                                                 id="lugarMatrimonioDiv_{{ $info['actaMatrimonio']->IDMatrimonio }}">
+                                                <div class="input-field col s6">
+                                                    <input
+                                                        id="lugarMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}"
+                                                        name="lugarMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}"
+                                                        type="text"
+                                                        value="{{ $info['actaMatrimonio']->LugarMatrimonio }}">
+                                                    <label for="lugarMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}">Matrimonio en:</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="input-field col s8">
+                                                    <input id="nombreConyuge_{{ $info['actaMatrimonio']->IDMatrimonio }}" name="nombreConyuge_{{ $info['actaMatrimonio']->IDMatrimonio }}" type="text" class="validate"
+                                                           value="{{ $info['actaMatrimonio'] -> NombreConyugue }}" required
+                                                           oninvalid="this.setCustomValidity('Campo requerido')"
+                                                           oninput="setCustomValidity('')">
+                                                    <label for="nombreConyuge_{{ $info['actaMatrimonio']->IDMatrimonio }}">Nombre del cónyuge:</label>
+                                                </div>
+                                                <div class="input-field col s8">
+                                                    <label for="informacion">Esta información consta en:</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="input-num col s4">
+                                                    <input id="numLibroM_{{ $info['actaMatrimonio']->IDMatrimonio }}" name="numLibroM_{{ $info['actaMatrimonio']->IDMatrimonio }}" type="number" class="validate"
+                                                           value="{{ $info['UbicacionActaMatrimonio']->Libro }}">
+                                                    <label for="numLibroM_{{ $info['actaMatrimonio']->IDMatrimonio }}">Número de Libro:</label>
+                                                </div>
+                                                <div class="input-num col s4">
+                                                    <input id="numFolioM_{{ $info['actaMatrimonio']->IDMatrimonio }}" name="numFolioM_{{ $info['actaMatrimonio']->IDMatrimonio }}" type="number" class="validate"
+                                                           value="{{ $info['UbicacionActaMatrimonio']->Folio }}">
+                                                    <label for="numFolioM_{{ $info['actaMatrimonio']->IDMatrimonio }}">Número de Folio:</label>
+                                                </div>
+                                                <div class="input-num col s4">
+                                                    <input id="numAsientoM_{{ $info['actaMatrimonio']->IDMatrimonio }}" name="numAsientoM_{{ $info['actaMatrimonio']->IDMatrimonio }}" type="number" class="validate"
+                                                           value="{{ $info['UbicacionActaMatrimonio']->Asiento }}">
+                                                    <label for="numAsientoM_{{ $info['actaMatrimonio']->IDMatrimonio }}">Número de Asiento:</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <input id="notasMarginalesMatEdit_{{ $info['actaMatrimonio']->IDMatrimonio }}" name='notasMarginalesMatEdit_{{ $info['actaMatrimonio']->IDMatrimonio }}' type="text"
+                                                           value="{{ $info['actaMatrimonio']->NotasMarginales }}">
+                                                    <label for="notasMarginalesMatEdit_{{ $info['actaMatrimonio']->IDMatrimonio }}">Notas Marginales:</label>
+                                                </div>
+                                            </div>
+                                            <div class="div-creado-por">
+                                                <span
+                                                    class="p-creado-por">Creada por: {{ $info['nomParroquiaMatRegistra'] }}</span>
+                                            </div>
+                                        @endif
+                                    @endforeach
+
+                                    <div id="nuevosMatrimoniosContainer">
+                                        <input type="hidden" name="matrimonioCount" id="matrimonioCount" value="{{ count($matrimoniosInfo) }}">
+                                    </div>
                                 @else
+                                    <div class="row">
+                                        <button id="nuevoMatBtn" class="waves-effect waves-light btn right"
+                                                disabled><i
+                                                class="material-icons left">add</i>Nuevo Matrimonio
+                                        </button>
+                                    </div>
                                     <div class="row">
                                         <div class="input-field col s6">
                                             <p>No cuenta con esta partida</p>
@@ -875,6 +982,10 @@
                                                 <label for="notasMarginalesMat">Notas Marginales:</label>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div id="nuevosMatrimoniosContainer">
+                                        <input type="hidden" name="matrimonioCount" id="matrimonioCount" value="0">
                                     </div>
                             @endif
                         </li>
@@ -1057,9 +1168,7 @@
                 </div>
 
                 <input type="hidden" name="IDPersona" id="IDPersona" value="{{ $persona->IDPersona }}"/>
-
                 <input type="hidden" name="source" id="Source" value="{{ $source }}"/>
-
                 <input type="hidden" name="idSolicitud" id="Source" value="{{ $idSolicitud }}"/>
 
             </form>
@@ -1068,7 +1177,104 @@
     </div>
 
     <script>
+        function obtenerHtmlFormulario(id, parroquias) {
+            var opcionesParroquias = parroquias.map(function (paMat) {
+                return `<option value="${paMat.IDParroquia}">${paMat.NombreParroquia}</option>`;
+            }).join('');
+
+            return `
+        <div class="row">
+        <hr/><hr/>
+                                        <div class="input-field col s6">
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <label>Fecha del Matrimonio:</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <select id="parroquiaMatrimonio_nuevo_${id}" name="parroquiaMatrimonio_nuevo_${id}">
+                    ${opcionesParroquias}
+                    <option value="otro">Otro</option>
+                </select>
+        <label>Seleccione la Parroquia:</label>
+    </div>
+    <div class="input-field col s6">
+        <input id="fechaMatrimonio_nuevo_${id}" name='fechaMatrimonio_nuevo_${id}'
+               class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+               pattern="^([0-2][0-9]|3[0-1])(\\/|-)(0[1-9]|1[0-2])\\2(\\d{4})$"                                               oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+               oninput="setCustomValidity('')">
+    </div>
+</div>
+
+<div class="row" id="lugarMatrimonioDiv_nuevo_${id}">
+    <div class="input-field col s6">
+        <input id="lugarMatrimonio_nuevo_${id}" name="lugarMatrimonio_nuevo_${id}" type="text" class="">
+        <label for="lugarMatrimonio_nuevo_${id}"> Matrimonio en:</label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field col s8">
+        <input id="nombreConyuge_nuevo_${id}" name="nombreConyuge_nuevo_${id}" type="text" class="validate"
+               required
+               oninvalid="this.setCustomValidity('Campo requerido')"
+               oninput="setCustomValidity('')">
+        <label for="nombreConyuge_nuevo_${id}">Nombre del cónyuge:</label>
+    </div>
+    <div class="input-field col s8">
+        <label for="informacion">Esta información consta en:</label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-num col s4">
+        <input id="numLibroM_nuevo_${id}" name="numLibroM_nuevo_${id}" type="number" class="validate">
+        <label for="numLibroM_nuevo_${id}">Número de Libro:</label>
+    </div>
+    <div class="input-num col s4">
+        <input id="numFolioM_nuevo_${id}" name="numFolioM_nuevo_${id}" type="number" class="validate">
+        <label for="numFolioM_nuevo_${id}">Número de Folio:</label>
+    </div>
+    <div class="input-num col s4">
+        <input id="numAsientoM_nuevo_${id}" name="numAsientoM_nuevo_${id}" type="number" class="validate">
+        <label for="numAsientoM_nuevo_${id}">Número de Asiento:</label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field col s12">
+        <textarea id="notasMarginalesMat_nuevo_${id}" name="notasMarginalesMat_nuevo_${id}" class="materialize-textarea"></textarea>
+        <label for="notasMarginalesMat_nuevo_${id}">Notas Marginales:</label>
+    </div>
+</div>
+`;
+        }
+
         window.onload = function () {
+            var parroquias = @json($parroquias);
+            var contadorNuevosMatId = parseInt($('#matrimonioCount').val()) + 1;
+
+            $('#nuevoMatBtn').on('click', function () {
+                contadorNuevosMatId++;
+                var nuevoFormulario = obtenerHtmlFormulario(contadorNuevosMatId, parroquias);
+                $('#nuevosMatrimoniosContainer').append(nuevoFormulario);
+                $("#lugarMatrimonioDiv_nuevo_" + contadorNuevosMatId).css("display", "none");
+
+                // Inicializar
+                $('select').material_select();
+
+                var today = new Date();
+                today.setDate(today.getDate() + 15);
+                $(".datepicker").datepicker({
+                    maxDate: today, dateFormat: "dd/mm/yy", autoSize: true,
+                    monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"]
+                }).val()
+
+                // Actualizar el conteo de matrimonios
+                $('#matrimonioCount').val(contadorNuevosMatId);
+            });
+
             var today = new Date();
             today.setDate(today.getDate() + 15);
             $(".datepicker").datepicker({ maxDate: today, dateFormat: "dd/mm/yy", autoSize: true,
@@ -1126,6 +1332,7 @@
                 $("#lugarPrimeraComunionDiv").css("display", "none");
                 $("#lugarConfirmaDiv").css("display", "none");
                 $("#lugarMatrimonioDiv").css("display", "none");
+                $('[id^="lugarMatrimonioDiv_"]').css("display", "none");
                 $("#lugarDefuncionDiv").css("display", "none");
 
                 var laico = {!! json_encode($laico) !!};
@@ -1133,6 +1340,7 @@
                 var actaPrimeraComunion = {!! json_encode($actaPrimeraComunion) !!};
                 var actaConfirma = {!! json_encode($actaConfirma) !!};
                 var actaMatrimonio = {!! json_encode($actaMatrimonio) !!};
+                var matrimoniosList = {!! json_encode($matrimoniosInfo) !!};
                 var actaDefuncion = {!! json_encode($actaDefuncion) !!};
 
                 if (actaBautismo != null && actaBautismo.AbuelosPaternos != null) {
@@ -1166,6 +1374,14 @@
                 if (actaMatrimonio != null && actaMatrimonio.FechaMatrimonio) {
                     $( "#fechaMatrimonio" ).datepicker( "setDate", new Date(actaMatrimonio.FechaMatrimonio.replace(/-/g, "/")));
                 }
+
+                matrimoniosList.forEach(function(matrimonio) {
+                    if (matrimonio.actaMatrimonio != null && matrimonio.actaMatrimonio.FechaMatrimonio) {
+                        var fechaMatrimonioId = "#fechaMatrimonio_" + matrimonio.actaMatrimonio.IDMatrimonio;
+                        $(fechaMatrimonioId).datepicker("setDate", new Date(matrimonio.actaMatrimonio.FechaMatrimonio.replace(/-/g, "/")));
+                    }
+                });
+
                 if (actaDefuncion != null && actaDefuncion.FechaDefuncion) {
                     $( "#fechaDefuncion" ).datepicker( "setDate", new Date(actaDefuncion.FechaDefuncion.replace(/-/g, "/")));
                 }
@@ -1202,12 +1418,26 @@
                     $('#parroquiaMatrimonio > option[value="'+ actaMatrimonio.IDParroquiaMatrimonio +'"]').attr('selected', 'selected');
                 }
 
+                matrimoniosList.forEach(function(matrimonio) {
+                    if (matrimonio.actaMatrimonio != null && matrimonio.actaMatrimonio.IDParroquiaMatrimonio === null) {
+                        var parroquiaMatrimonioId = "#parroquiaMatrimonio_" + matrimonio.actaMatrimonio.IDMatrimonio;
+                        $(parroquiaMatrimonioId + ' > option[value="otro"]').attr('selected', 'selected');
+                        $("#lugarMatrimonio_" + matrimonio.actaMatrimonio.IDMatrimonio).prop('required', true);
+                        $("#lugarMatrimonioDiv_" + matrimonio.actaMatrimonio.IDMatrimonio).css("display", "block");
+                    } else if (matrimonio.actaMatrimonio != null) {
+                        var parroquiaMatrimonioId = "#parroquiaMatrimonio_" + matrimonio.actaMatrimonio.IDMatrimonio;
+                        $(parroquiaMatrimonioId + ' > option[value="' + matrimonio.actaMatrimonio.IDParroquiaMatrimonio + '"]').attr('selected', 'selected');
+                    }
+                });
+
+
                 if (actaDefuncion != null && actaDefuncion.IDParroquiaDefuncion === null) {
                     $('#parroquiaDefuncion > option[value="otro"]').attr('selected', 'selected');
                     $("#lugarDefuncion").prop('required', true);
                     $("#lugarDefuncionDiv").css("display", "block");
                 } else if (actaDefuncion != null) {
                     $('#parroquiaDefuncion > option[value="'+ actaDefuncion.IDParroquiaDefuncion +'"]').attr('selected', 'selected');
+                    $("#lugarDefuncionDiv").css("display", "none");
                 }
 
                 // poner la parroquia del usuario cuando el acta no ha sido creada
@@ -1365,6 +1595,26 @@
                 }
             });
 
+            var matrimoniosList = {!! json_encode($matrimoniosInfo) !!};
+            matrimoniosList.forEach(function(matrimonio) {
+                var parroquiaMatrimonioId = "#parroquiaMatrimonio_" + matrimonio.actaMatrimonio.IDMatrimonio;
+                var lugarMatrimonioId = "#lugarMatrimonio_" + matrimonio.actaMatrimonio.IDMatrimonio;
+                var lugarMatrimonioDivId = "#lugarMatrimonioDiv_" + matrimonio.actaMatrimonio.IDMatrimonio;
+
+                $(parroquiaMatrimonioId).change(function () {
+                    var valor = $(parroquiaMatrimonioId).val();
+                    if (valor === "otro") {
+                        $(lugarMatrimonioId).prop('required', true);
+                        $(lugarMatrimonioDivId).css("display", "block");
+                        $(lugarMatrimonioId).val("");
+                    } else {
+                        $(lugarMatrimonioId).prop('required', false);
+                        $(lugarMatrimonioDivId).css("display", "none");
+                        $(lugarMatrimonioId).val("");
+                    }
+                });
+            });
+
             $("#parroquiaDefuncion").change(function () {
                 var valor = $("#parroquiaDefuncion").val();
                 if (valor === "otro") {
@@ -1378,17 +1628,31 @@
                 }
             });
 
+            $('#nuevosMatrimoniosContainer').on('change', '[id^=parroquiaMatrimonio_]', function () {
+                var valor = $(this).val();
+                var id = $(this).attr('id').split('_')[2]; // Obtiene el identificador único del formulario actual
+
+                if (valor === "otro") {
+                    $("#lugarMatrimonio_nuevo_" + id).prop('required', true);
+                    $("#lugarMatrimonioDiv_nuevo_" + id).css("display", "block");
+                    $("#lugarMatrimonio_nuevo_" + id).val("");
+                } else {
+                    $("#lugarMatrimonio_nuevo_" + id).prop('required', false);
+                    $("#lugarMatrimonioDiv_nuevo_" + id).css("display", "none");
+                    $("#lugarMatrimonio_nuevo_" + id).val("");
+                }
+            });
 
             // Fecha Nacimiento autocompletado
-            $("#fechaNac").keypress(function (e) {
+            $("#fechaNacEdit").keypress(function (e) {
                 e.preventDefault();
-                var fecNac = $('#fechaNac').val();
+                var fecNac = $('#fechaNacEdit').val();
                 if (fecNac.length <= 9) {
                     fecNac = fecNac + e.key;
                     if (fecNac.length === 2 || fecNac.length === 5) {
                         fecNac = fecNac + '/';
                     }
-                    $('#fechaNac').val(fecNac);
+                    $('#fechaNacEdit').val(fecNac);
                 }
             });
 
@@ -1441,6 +1705,50 @@
                         fecha = fecha + '/';
                     }
                     $('#fechaMatrimonio').val(fecha);
+                }
+            });
+
+            matrimoniosList.forEach(function(matrimonio) {
+                var fechaMatrimonioId = "#fechaMatrimonio_" + matrimonio.actaMatrimonio.IDMatrimonio;
+                $(fechaMatrimonioId).keypress(function (e) {
+                    e.preventDefault();
+                    var fecha = $(fechaMatrimonioId).val();
+                    if (fecha.length <= 9) {
+                        fecha = fecha + e.key;
+                        if (fecha.length === 2 || fecha.length === 5) {
+                            fecha = fecha + '/';
+                        }
+                        $(fechaMatrimonioId).val(fecha);
+                    }
+                });
+            });
+
+            matrimoniosList.forEach(function(matrimonio) {
+                var fechaMatrimonioId = "#fechaMatrimonio_nuevo" + matrimonio.actaMatrimonio.IDMatrimonio;
+                $(fechaMatrimonioId).keypress(function (e) {
+                    e.preventDefault();
+                    var fecha = $(fechaMatrimonioId).val();
+                    if (fecha.length <= 9) {
+                        fecha = fecha + e.key;
+                        if (fecha.length === 2 || fecha.length === 5) {
+                            fecha = fecha + '/';
+                        }
+                        $(fechaMatrimonioId).val(fecha);
+                    }
+                });
+            });
+
+            // fecha matrimonio dinamicos
+            $('#nuevosMatrimoniosContainer').on('keypress', '[id^=fechaMatrimonio_]', function (e) {
+                e.preventDefault();
+                var $thisFecha = $(this);
+                var fecha = $thisFecha.val();
+                if (fecha.length <= 9) {
+                    fecha = fecha + e.key;
+                    if (fecha.length === 2 || fecha.length === 5) {
+                        fecha = fecha + '/';
+                    }
+                    $thisFecha.val(fecha);
                 }
             });
 

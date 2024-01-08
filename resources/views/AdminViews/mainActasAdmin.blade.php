@@ -53,10 +53,10 @@
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="input-field col s3">
-                            <input name='tipoCedula' type="radio" id="tipoCed1"/>
-                            <label for="tipoCed1">Nacional</label>
-                            <input name='tipoCedula' type="radio" id="tipoCed2"/>
-                            <label for="tipoCed2">Extranjero</label>
+                        <input name='tipoCedula' type="radio" id="tipoCed1"/>
+                        <label for="tipoCed1">Nacional</label>
+                        <input name='tipoCedula' type="radio" id="tipoCed2"/>
+                        <label for="tipoCed2">Extranjero</label>
                     </div>
                     <div class="input-field col s4">
                         <input id="numCedula" name='numCedula' type="text" class="validate" disabled
@@ -97,7 +97,8 @@
                     <div class="col s8">
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="nombrePadre" name='nombrePadre' type="text" class="validate" required disabled>
+                                <input id="nombrePadre" name='nombrePadre' type="text" class="validate" required
+                                       disabled>
                                 <label for="nombrePadre">Nombre del padre:</label>
                             </div>
                         </div>
@@ -123,7 +124,8 @@
                     </div>
                     <div class="input-field col s6">
                         <input id="fechaNac" name='fechaNac'
-                               class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" required size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                               class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" required
+                               size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
                                pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
                                oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                oninput="setCustomValidity('')">
@@ -161,16 +163,20 @@
                                     <div class="input-field col s6">
                                         <select id="parroquiaBautismo" name='parroquiaBautismo' disabled>
                                             @foreach ($parroquias as $pa)
-                                                <option value="{{ $pa->IDParroquia }}">{{ $pa->NombreParroquia }}</option>
+                                                <option
+                                                    value="{{ $pa->IDParroquia }}">{{ $pa->NombreParroquia }}</option>
                                             @endforeach
-{{--                                            <option value="otro">Otro</option>--}}
+                                            {{--                                            <option value="otro">Otro</option>--}}
                                         </select>
                                         <label>Seleccione la Parroquia:</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <input id="fechaBaut" name='fechaBautizo'
-                                               class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" disabled size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10" required
-                                               pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"                                               oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                               class="datepicker validate" type="text"
+                                               title="Formato de fecha: dd/mm/aaaa" disabled size="10"
+                                               placeholder="dd/mm/aaaa" minlength="10" maxlength="10" required
+                                               pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
+                                               oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                oninput="setCustomValidity('')">
                                     </div>
                                 </div>
@@ -185,14 +191,16 @@
 
                                 <div class="row">
                                     <div class="input-field col s8">
-                                        <input id="nombreAbuelosPaternos" name="nombreAbuelosPaternos" type="text" class="validate"
+                                        <input id="nombreAbuelosPaternos" name="nombreAbuelosPaternos" type="text"
+                                               class="validate"
                                                required disabled
                                                oninvalid="this.setCustomValidity('Campo requerido')"
                                                oninput="setCustomValidity('')">
                                         <label for="nombreAbuelosPaternos">Nombre de abuelos paternos:</label>
                                     </div>
                                     <div class="input-field col s8">
-                                        <input id="nombreAbuelosMaternos" name="nombreAbuelosMaternos" type="text" class="validate"
+                                        <input id="nombreAbuelosMaternos" name="nombreAbuelosMaternos" type="text"
+                                               class="validate"
                                                required disabled
                                                oninvalid="this.setCustomValidity('Campo requerido')"
                                                oninput="setCustomValidity('')">
@@ -216,7 +224,8 @@
                                         <label for="nombrePadrino">Nombre del padrino:</label>
                                     </div>
                                     <div class="input-field col s8">
-                                        <input id="nombreSacerdoteBau" name="nombreSacerdoteBau" type="text" class="validate"
+                                        <input id="nombreSacerdoteBau" name="nombreSacerdoteBau" type="text"
+                                               class="validate"
                                                required disabled
                                                oninvalid="this.setCustomValidity('Campo requerido')"
                                                oninput="setCustomValidity('')">
@@ -247,7 +256,8 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <textarea id="notasMarginalesBau" name="notasMarginalesBau" class="materialize-textarea" disabled></textarea>
+                                        <textarea id="notasMarginalesBau" name="notasMarginalesBau"
+                                                  class="materialize-textarea" disabled></textarea>
                                         <label for="notasMarginalesBau">Notas Marginales:</label>
                                     </div>
                                 </div>
@@ -255,14 +265,16 @@
                         </li>
 
                         <li>
-                            <div class="collapsible-header waves-light waves-effect white-text">Partida de Primera Comunión
+                            <div class="collapsible-header waves-light waves-effect white-text">Partida de Primera
+                                Comunión
                             </div>
                             <div class="collapsible-body">
 
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <p>
-                                            <input type="checkbox" id="checkPrimeraComunion" name="checkPrimeraComunion"/>
+                                            <input type="checkbox" id="checkPrimeraComunion"
+                                                   name="checkPrimeraComunion"/>
                                             <label for="checkPrimeraComunion">Agregar Primera Comunión</label>
                                         </p>
                                     </div>
@@ -280,7 +292,8 @@
                                     <div class="input-field col s6">
                                         <select id="parroquiaPrimeraComunion" name='parroquiaPrimeraComunion' disabled>
                                             @foreach ($parroquias as $pa)
-                                                <option value="{{ $pa->IDParroquia }}">{{ $pa->NombreParroquia }}</option>
+                                                <option
+                                                    value="{{ $pa->IDParroquia }}">{{ $pa->NombreParroquia }}</option>
                                             @endforeach
                                             <option value="otro">Otro</option>
                                         </select>
@@ -288,15 +301,19 @@
                                     </div>
                                     <div class="input-field col s6">
                                         <input id="fechaPrimeraComunion" name='fechaPrimeraComunion'
-                                               class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" disabled size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10" required
-                                               pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"                                               oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                               class="datepicker validate" type="text"
+                                               title="Formato de fecha: dd/mm/aaaa" disabled size="10"
+                                               placeholder="dd/mm/aaaa" minlength="10" maxlength="10" required
+                                               pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
+                                               oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                oninput="setCustomValidity('')">
                                     </div>
                                 </div>
 
                                 <div class="row" id="lugarPrimeraComunionDiv">
                                     <div class="input-field col s6">
-                                        <input id="lugarPrimeraComunion" name="lugarPrimeraComunion" type="text" class=""
+                                        <input id="lugarPrimeraComunion" name="lugarPrimeraComunion" type="text"
+                                               class=""
                                                disabled>
                                         <label for="lugarPrimeraComunion"> Bautizado en:</label>
                                     </div>
@@ -328,7 +345,8 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <textarea id="notasMarginalesPrimeraC" name="notasMarginalesPrimeraC" class="materialize-textarea" disabled></textarea>
+                                        <textarea id="notasMarginalesPrimeraC" name="notasMarginalesPrimeraC"
+                                                  class="materialize-textarea" disabled></textarea>
                                         <label for="notasMarginalesPrimeraC">Notas Marginales:</label>
                                     </div>
                                 </div>
@@ -360,7 +378,8 @@
                                     <div class="input-field col s6">
                                         <select id="parroquiaConfirma" name='parroquiaConfirma' disabled>
                                             @foreach ($parroquias as $paConf)
-                                                <option value="{{ $paConf->IDParroquia }}">{{ $paConf->NombreParroquia }}</option>
+                                                <option
+                                                    value="{{ $paConf->IDParroquia }}">{{ $paConf->NombreParroquia }}</option>
                                             @endforeach
                                             <option value="otro">Otro</option>
                                         </select>
@@ -368,8 +387,11 @@
                                     </div>
                                     <div class="input-field col s6">
                                         <input id="fechaConfir" name='fechaConfirma'
-                                               class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" disabled size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
-                                               pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"                                               oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                               class="datepicker validate" type="text"
+                                               title="Formato de fecha: dd/mm/aaaa" disabled size="10"
+                                               placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                               pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
+                                               oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                oninput="setCustomValidity('')">
                                     </div>
                                 </div>
@@ -416,7 +438,8 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <textarea id="notasMarginalesConf" name="notasMarginalesConf" class="materialize-textarea" disabled></textarea>
+                                        <textarea id="notasMarginalesConf" name="notasMarginalesConf"
+                                                  class="materialize-textarea" disabled></textarea>
                                         <label for="notasMarginalesConf">Notas Marginales:</label>
                                     </div>
                                 </div>
@@ -427,88 +450,103 @@
                             <div class="collapsible-header waves-light waves-effect white-text">Partida de Matrimonio
                             </div>
                             <div class="collapsible-body">
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <p>
+                                                <input type="checkbox" id="checkMatrimonio" name="checkMatrimonio"/>
+                                                <label for="checkMatrimonio">Agregar Matrimonio</label>
+                                            </p>
+                                        </div>
 
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <p>
-                                            <input type="checkbox" id="checkMatrimonio" name="checkMatrimonio"/>
-                                            <label for="checkMatrimonio">Agregar Matrimonio</label>
-                                        </p>
+                                        <div class="row">
+                                            <button id="nuevoMatBtn" class="waves-effect waves-light btn right"
+                                                    disabled><i
+                                                    class="material-icons left">add</i>Nuevo Matrimonio
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <label>Fecha del Matrimonio:</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <select id="parroquiaMatrimonio" name='parroquiaMatrimonio' disabled>
+                                                @foreach ($parroquias as $paMat)
+                                                    <option
+                                                        value="{{ $paMat->IDParroquia }}">{{ $paMat->NombreParroquia }}</option>
+                                                @endforeach
+                                                <option value="otro">Otro</option>
+                                            </select>
+                                            <label>Seleccione la Parroquia:</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <input id="fechaMatrimonio" name='fechaMatrimonio'
+                                                   class="datepicker validate" type="text"
+                                                   title="Formato de fecha: dd/mm/aaaa" disabled size="10"
+                                                   placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                                   pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
+                                                   oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                                   oninput="setCustomValidity('')">
+                                        </div>
+                                    </div>
+
+                                    <div class="row" id="lugarMatrimonioDiv">
+                                        <div class="input-field col s6">
+                                            <input id="lugarMatrimonio" name="lugarMatrimonio" type="text" class=""
+                                                   disabled>
+                                            <label for="lugarMatrimonio"> Matrimonio en:</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="input-field col s8">
+                                            <input id="nombreConyuge" name="nombreConyuge" type="text" class="validate"
+                                                   required disabled
+                                                   oninvalid="this.setCustomValidity('Campo requerido')"
+                                                   oninput="setCustomValidity('')">
+                                            <label for="nombreConyuge">Nombre del cónyuge:</label>
+                                        </div>
+                                        <div class="input-field col s8">
+                                            <label for="informacion">Esta información consta en:</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="input-num col s4">
+                                            <input id="numLibroM" name="numLibroM" type="number" class="validate"
+                                                   disabled>
+                                            <label for="numLibroM">Número de Libro:</label>
+                                        </div>
+                                        <div class="input-num col s4">
+                                            <input id="numFolioM" name="numFolioM" type="number" class="validate"
+                                                   disabled>
+                                            <label for="numFolioM">Número de Folio:</label>
+                                        </div>
+                                        <div class="input-num col s4">
+                                            <input id="numAsientoM" name="numAsientoM" type="number" class="validate"
+                                                   disabled>
+                                            <label for="numAsientoM">Número de Asiento:</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <textarea id="notasMarginalesMat" name="notasMarginalesMat"
+                                                      class="materialize-textarea" disabled></textarea>
+                                            <label for="notasMarginalesMat">Notas Marginales:</label>
+                                        </div>
+                                    </div>
+
+                                    <div id="nuevosMatrimoniosContainer">
+                                        <input type="hidden" name="matrimonioCount" id="matrimonioCount" value="0">
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <label>Fecha del Matrimonio:</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <select id="parroquiaMatrimonio" name='parroquiaMatrimonio' disabled>
-                                            @foreach ($parroquias as $paMat)
-                                                <option value="{{ $paMat->IDParroquia }}">{{ $paMat->NombreParroquia }}</option>
-                                            @endforeach
-                                            <option value="otro">Otro</option>
-                                        </select>
-                                        <label>Seleccione la Parroquia:</label>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <input id="fechaMatrimonio" name='fechaMatrimonio'
-                                               class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" disabled size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
-                                               pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"                                               oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
-                                               oninput="setCustomValidity('')">
-                                    </div>
-                                </div>
-
-                                <div class="row" id="lugarMatrimonioDiv">
-                                    <div class="input-field col s6">
-                                        <input id="lugarMatrimonio" name="lugarMatrimonio" type="text" class=""
-                                               disabled>
-                                        <label for="lugarMatrimonio"> Matrimonio en:</label>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="input-field col s8">
-                                        <input id="nombreConyuge" name="nombreConyuge" type="text" class="validate"
-                                               required disabled
-                                               oninvalid="this.setCustomValidity('Campo requerido')"
-                                               oninput="setCustomValidity('')">
-                                        <label for="nombreConyuge">Nombre del cónyuge:</label>
-                                    </div>
-                                    <div class="input-field col s8">
-                                        <label for="informacion">Esta información consta en:</label>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="input-num col s4">
-                                        <input id="numLibroM" name="numLibroM" type="number" class="validate"
-                                               disabled>
-                                        <label for="numLibroM">Número de Libro:</label>
-                                    </div>
-                                    <div class="input-num col s4">
-                                        <input id="numFolioM" name="numFolioM" type="number" class="validate"
-                                               disabled>
-                                        <label for="numFolioM">Número de Folio:</label>
-                                    </div>
-                                    <div class="input-num col s4">
-                                        <input id="numAsientoM" name="numAsientoM" type="number" class="validate"
-                                               disabled>
-                                        <label for="numAsientoM">Número de Asiento:</label>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <textarea id="notasMarginalesMat" name="notasMarginalesMat" class="materialize-textarea" disabled></textarea>
-                                        <label for="notasMarginalesMat">Notas Marginales:</label>
-                                    </div>
-                                </div>
-                            </div>
                         </li>
 
                         <li>
@@ -536,7 +574,8 @@
                                     <div class="input-field col s6">
                                         <select id="parroquiaDefuncion" name='parroquiaDefuncion' disabled>
                                             @foreach ($parroquias as $paDef)
-                                                <option value="{{ $paDef->IDParroquia }}">{{ $paDef->NombreParroquia }}</option>
+                                                <option
+                                                    value="{{ $paDef->IDParroquia }}">{{ $paDef->NombreParroquia }}</option>
                                             @endforeach
                                             <option value="otro">Otro</option>
                                         </select>
@@ -544,8 +583,11 @@
                                     </div>
                                     <div class="input-field col s6">
                                         <input id="fechaDefuncion" name='fechaDefuncion'
-                                               class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" disabled size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
-                                               pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"                                               oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+                                               class="datepicker validate" type="text"
+                                               title="Formato de fecha: dd/mm/aaaa" disabled size="10"
+                                               placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+                                               pattern="^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"
+                                               oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
                                                oninput="setCustomValidity('')">
                                     </div>
                                 </div>
@@ -592,7 +634,8 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <textarea id="notasMarginalesDef" name="notasMarginalesDef" class="materialize-textarea" disabled></textarea>
+                                        <textarea id="notasMarginalesDef" name="notasMarginalesDef"
+                                                  class="materialize-textarea" disabled></textarea>
                                         <label for="notasMarginalesDef">Notas Marginales:</label>
                                     </div>
                                 </div>
@@ -614,12 +657,109 @@
     </div>
 
     <script>
+        function obtenerHtmlFormulario(id, parroquias) {
+            var opcionesParroquias = parroquias.map(function (paMat) {
+                return `<option value="${paMat.IDParroquia}">${paMat.NombreParroquia}</option>`;
+            }).join('');
+
+            return `
+        <div class="row">
+        <hr/><hr/>
+                                        <div class="input-field col s6">
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <label>Fecha del Matrimonio:</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <select id="parroquiaMatrimonio_${id}" name="parroquiaMatrimonio_${id}">
+                    ${opcionesParroquias}
+                    <option value="otro">Otro</option>
+                </select>
+        <label>Seleccione la Parroquia:</label>
+    </div>
+    <div class="input-field col s6">
+        <input id="fechaMatrimonio_${id}" name='fechaMatrimonio_${id}'
+               class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+               pattern="^([0-2][0-9]|3[0-1])(\\/|-)(0[1-9]|1[0-2])\\2(\\d{4})$"                                               oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+               oninput="setCustomValidity('')">
+    </div>
+</div>
+
+<div class="row" id="lugarMatrimonioDiv_${id}">
+    <div class="input-field col s6">
+        <input id="lugarMatrimonio_${id}" name="lugarMatrimonio_${id}" type="text" class="">
+        <label for="lugarMatrimonio_${id}"> Matrimonio en:</label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field col s8">
+        <input id="nombreConyuge_${id}" name="nombreConyuge_${id}" type="text" class="validate"
+               required
+               oninvalid="this.setCustomValidity('Campo requerido')"
+               oninput="setCustomValidity('')">
+        <label for="nombreConyuge_${id}">Nombre del cónyuge:</label>
+    </div>
+    <div class="input-field col s8">
+        <label for="informacion">Esta información consta en:</label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-num col s4">
+        <input id="numLibroM_${id}" name="numLibroM_${id}" type="number" class="validate">
+        <label for="numLibroM">Número de Libro:</label>
+    </div>
+    <div class="input-num col s4">
+        <input id="numFolioM_${id}" name="numFolioM_${id}" type="number" class="validate">
+        <label for="numFolioM_${id}">Número de Folio:</label>
+    </div>
+    <div class="input-num col s4">
+        <input id="numAsientoM_${id}" name="numAsientoM_${id}" type="number" class="validate">
+        <label for="numAsientoM_${id}">Número de Asiento:</label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field col s12">
+        <textarea id="notasMarginalesMat_${id}" name="notasMarginalesMat_${id}" class="materialize-textarea"></textarea>
+        <label for="notasMarginalesMat_${id}">Notas Marginales:</label>
+    </div>
+</div>
+`;
+        }
 
         window.onload = function () {
+            var parroquias = @json($parroquias);
+            var contadorNuevosMatId = 0;
+
+            $('#nuevoMatBtn').on('click', function () {
+                contadorNuevosMatId++;
+                var nuevoFormulario = obtenerHtmlFormulario(contadorNuevosMatId, parroquias);
+                $('#nuevosMatrimoniosContainer').append(nuevoFormulario);
+                $("#lugarMatrimonioDiv_" + contadorNuevosMatId).css("display", "none");
+
+                // Inicializar
+                $('select').material_select();
+
+                var today = new Date();
+                today.setDate(today.getDate() + 15);
+                $(".datepicker").datepicker({
+                    maxDate: today, dateFormat: "dd/mm/yy", autoSize: true,
+                    monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"]
+                }).val()
+
+                // Actualizar el conteo de matrimonios
+                $('#matrimonioCount').val(contadorNuevosMatId);
+            });
+
             var today = new Date();
             today.setDate(today.getDate() + 15);
-            $(".datepicker").datepicker({ maxDate: today, dateFormat: "dd/mm/yy", autoSize: true,
-                monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre" ]
+            $(".datepicker").datepicker({
+                maxDate: today, dateFormat: "dd/mm/yy", autoSize: true,
+                monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"]
             }).val()
 
             $('#parroquiaBautismo > option[value="{{ $parroquiaUser }}"]').attr('selected', 'selected');
@@ -755,6 +895,7 @@
                     $("#numFolioM").prop('disabled', false);
                     $("#numAsientoM").prop('disabled', false);
                     $("#notasMarginalesMat").prop('disabled', false);
+                    $('#nuevoMatBtn').attr('disabled', false);
                 } else {
                     $("#parroquiaMatrimonio").prop('disabled', true);
                     $("#lugarMatrimonio").val("");
@@ -765,6 +906,9 @@
                     $("#numFolioM").prop('disabled', true);
                     $("#numAsientoM").prop('disabled', true);
                     $("#notasMarginalesMat").prop('disabled', true);
+                    $('#nuevoMatBtn').attr('disabled', true);
+                    $('#nuevosMatrimoniosContainer').empty();
+                    contadorNuevosMatId = 0;
                 }
                 $('select').material_select();
             });
@@ -871,6 +1015,20 @@
                     $("#lugarDefuncion").val("");
                 }
             });
+            $('#nuevosMatrimoniosContainer').on('change', '[id^=parroquiaMatrimonio_]', function () {
+                var valor = $(this).val();
+                var id = $(this).attr('id').split('_')[1]; // Obtiene el identificador único del formulario actual
+
+                if (valor === "otro") {
+                    $("#lugarMatrimonio_" + id).prop('required', true);
+                    $("#lugarMatrimonioDiv_" + id).css("display", "block");
+                    $("#lugarMatrimonio_" + id).val("");
+                } else {
+                    $("#lugarMatrimonio_" + id).prop('required', false);
+                    $("#lugarMatrimonioDiv_" + id).css("display", "none");
+                    $("#lugarMatrimonio_" + id).val("");
+                }
+            });
 
 
             // Fecha Nacimiento autocompletado
@@ -948,6 +1106,20 @@
                         fecha = fecha + '/';
                     }
                     $('#fechaDefuncion').val(fecha);
+                }
+            });
+
+            // fecha matrimonio dinamicos
+            $('#nuevosMatrimoniosContainer').on('keypress', '[id^=fechaMatrimonio_]', function (e) {
+                e.preventDefault();
+                var $thisFecha = $(this);
+                var fecha = $thisFecha.val();
+                if (fecha.length <= 9) {
+                    fecha = fecha + e.key;
+                    if (fecha.length === 2 || fecha.length === 5) {
+                        fecha = fecha + '/';
+                    }
+                    $thisFecha.val(fecha);
                 }
             });
 

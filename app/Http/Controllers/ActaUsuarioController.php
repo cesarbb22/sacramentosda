@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ActaPrimeraComunion;
+use App\IntermediaActaMatrimonio;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -76,6 +77,7 @@ class ActaUsuarioController extends Controller
                     $Laico->FechaNacimiento = null;
                 }
             }
+            $idsMatrimonios = [];
 
             //------------------------------------------------------------------------------
 
@@ -201,6 +203,45 @@ class ActaUsuarioController extends Controller
                     $ActaMatrimonio->save();
 
                     $Acta->IDMatrimonio = $ActaMatrimonio->IDMatrimonio;
+
+                    // ************** agregar otros matrimonios **************
+                    $matrimonioCount = $request->input('matrimonioCount'); // variable para contar cuántos matrimonios hay
+
+                    for ($i = 1; $i <= $matrimonioCount; $i++) {
+                        // Comprobar si los datos del matrimonio actual existen
+                        if ($request->has('nombreConyuge_' . $i)) {
+                            $UbicacionActaMat = new UbicacionActa;
+
+                            $UbicacionActaMat->Libro = $request->input('numLibroM_' . $i);
+                            $UbicacionActaMat->Folio = $request->input('numFolioM_' . $i);
+                            $UbicacionActaMat->Asiento = $request->input('numAsientoM_' . $i);
+
+                            $UbicacionActaMat->save();
+
+                            $ActaMatrimonio = new ActaMatrimonio;
+
+                            // Aquí procesas los demás campos como lugarMatrimonio y fechaMatrimonio
+                            if ($request->input('lugarMatrimonio_' . $i) != "") {
+                                $ActaMatrimonio->LugarMatrimonio = $request->input('lugarMatrimonio_' . $i);
+                            } else {
+                                $ActaMatrimonio->IDParroquiaMatrimonio = $request->input('parroquiaMatrimonio_' . $i);
+                            }
+                            if ($request->input('fechaMatrimonio_' . $i) != "") {
+                                $ActaMatrimonio->FechaMatrimonio = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->input('fechaMatrimonio_' . $i)));
+                            }
+
+                            $ActaMatrimonio->NombreConyugue = $request->input('nombreConyuge_' . $i);
+                            $ActaMatrimonio->NotasMarginales = $request->input('notasMarginalesMat_' . $i);
+                            $ActaMatrimonio->IDUbicacionActaMat = $UbicacionActaMat->IDUbicacionActa;
+                            $ActaMatrimonio->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
+                            $ActaMatrimonio->IDParroquiaRegistra = $userParroquia;
+
+                            $ActaMatrimonio->save();
+
+                            // guardar ids para luego guardarlos en la tabla intermedia_matrimonio
+                            $idsMatrimonios[] = $ActaMatrimonio->IDMatrimonio;
+                        }
+                    }
                 }
 
                 if ($request->has('checkDefuncion')) {
@@ -242,6 +283,14 @@ class ActaUsuarioController extends Controller
             $Acta->IDPersona = $Persona->IDPersona;
             $Acta->save();
 
+            // Código para guardar la relación en la tabla intermedia matrimonio
+            foreach ($idsMatrimonios as $idMatrimonio) {
+                $relacion = new IntermediaActaMatrimonio;
+                $relacion->IDPersona = $Persona->IDPersona;
+                $relacion->IDMatrimonio = $idMatrimonio;
+                $relacion->save();
+            }
+
             return back()->with('msjBueno', "Se agregó el acta correctamente");
 
         } catch (Exception $e) {
@@ -279,6 +328,9 @@ class ActaUsuarioController extends Controller
             $actaConfirma = ActaConfirma::where('IDConfirma', $idConfirma)->first();
             $actaMatrimonio = ActaMatrimonio::where('IDMatrimonio', $idMatrimonio)->first();
             $actaDefuncion = ActaDefuncion::where('IDDefuncion', $idDefuncion)->first();
+            $intermediaMatrimonio = IntermediaActaMatrimonio::where('IDPersona', $id)->get();
+
+            $matrimoniosInfo = [];
 
             # bautismo
             $idUbicacionActaBau = null;
@@ -414,6 +466,31 @@ class ActaUsuarioController extends Controller
                         $isEditableArray[3] = false;
                     }
                 }
+
+                if ($intermediaMatrimonio != null) {
+                    foreach ($intermediaMatrimonio as $intermedia) {
+                        $actaMatrimonioInter = ActaMatrimonio::find($intermedia->IDMatrimonio);
+                        if ($actaMatrimonioInter->IDParroquiaRegistra != -1) {
+                            $parroquiaMatRegistraInter = Parroquia::find($actaMatrimonioInter->IDParroquiaRegistra);
+                            $nomParroquiaMatRegistraInter = $parroquiaMatRegistraInter->NombreParroquia;
+                        } else {
+                            $nomParroquiaMatRegistraInter = 'Archivo Diocesano de Alajuela';
+                        }
+                        $UbicacionActaMatrimonioInter = UbicacionActa::where('IDUbicacionActa', $actaMatrimonioInter->IDUbicacionActaMat)->first();
+
+                        if ($actaMatrimonioInter->IDParroquiaMatrimonio != null) {
+                            $parroquiaInter = Parroquia::find($actaMatrimonioInter->IDParroquiaMatrimonio);
+                            $actaMatrimonioInter->LugarMatrimonio = $parroquiaInter->NombreParroquia;
+                        }
+
+                        // Agrega la información procesada al array
+                        $matrimoniosInfo[] = [
+                            'nomParroquiaMatRegistra' => $nomParroquiaMatRegistraInter,
+                            'UbicacionActaMatrimonio' => $UbicacionActaMatrimonioInter,
+                            'actaMatrimonio' => $actaMatrimonioInter
+                        ];
+                    }
+                }
             }
 
             # defuncion
@@ -459,7 +536,8 @@ class ActaUsuarioController extends Controller
                 'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion, 'parroquias' => $parroquias,
                 'isEditableArray' => $isEditableArray, 'parroquiaUser' => Auth::user()->IDParroquia, 'nomParroquiaBauRegistra'=>$nomParroquiaBauRegistra,
                 'nomParroquiaPrimeraCRegistra' => $nomParroquiaPrimeraCRegistra, 'nomParroquiaConfRegistra'=>$nomParroquiaConfRegistra,
-                'nomParroquiaMatRegistra'=>$nomParroquiaMatRegistra, 'nomParroquiaDefRegistra'=>$nomParroquiaDefRegistra]);
+                'nomParroquiaMatRegistra'=>$nomParroquiaMatRegistra, 'nomParroquiaDefRegistra'=>$nomParroquiaDefRegistra,
+                'matrimoniosInfo' => $matrimoniosInfo]);
         } catch (Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error. Intente nuevamente!");
         }
@@ -498,6 +576,7 @@ class ActaUsuarioController extends Controller
             $idDefuncion = $acta->IDDefuncion;
 
             $usuarioParroquia = Auth::user()->IDParroquia;
+            $idsMatrimoniosPorGuardar = [];
 
             if ($idBautismo != null) {
                 $actaBautismo = ActaBautizo::where('IDBautismo', $idBautismo)->first();
@@ -697,6 +776,78 @@ class ActaUsuarioController extends Controller
                     $UbicacionActaMatrimonio->Asiento = $request->numAsientoM;
                     $UbicacionActaMatrimonio->save();
                 }
+
+                // ************** agregar otros matrimonios cuando ya existen otros matrimonios **************
+                $matrimonioCount = $request->input('matrimonioCount'); // variable para contar cuántos matrimonios hay
+                $idsMatrimonios = $this->extraerIdsMatrimonios($request);; // este array guardará los IDs de los matrimonios
+                $idsMatrimoniosNuevos = $this->extraerIdsMatrimoniosNuevos($request);
+
+                // editar matrimonios
+                foreach ($idsMatrimonios as $id) {
+                    $actaMatrimonio = ActaMatrimonio::where('IDMatrimonio', $id)->first();
+                    if ($actaMatrimonio->IDParroquiaRegistra == $usuarioParroquia ||
+                        ($actaMatrimonio->IDParroquiaMatrimonio != null && $actaMatrimonio->IDParroquiaMatrimonio == $usuarioParroquia)) {
+                        if ($request->input("parroquiaMatrimonio_".$id) != 'otro') {
+                            $actaMatrimonio->IDParroquiaMatrimonio = $request->input("parroquiaMatrimonio_".$id);
+                            $actaMatrimonio->LugarMatrimonio = null;
+                        } else {
+                            $actaMatrimonio->IDParroquiaMatrimonio = null;
+                            $actaMatrimonio->LugarMatrimonio = $request->input("lugarMatrimonio_".$id);
+                        }
+                        if ($request->input("fechaMatrimonio_".$id) != "") {
+                            $actaMatrimonio->FechaMatrimonio = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->input("fechaMatrimonio_".$id)));
+                        } else {
+                            $actaMatrimonio->FechaMatrimonio = null;
+                        }
+                        $actaMatrimonio->NombreConyugue = $request->input("nombreConyuge_".$id);
+                        $actaMatrimonio->NotasMarginales = $request->input("notasMarginalesMatEdit_".$id);
+                        $actaMatrimonio->save();
+
+                        $idUbicacionActaMat = $actaMatrimonio->IDUbicacionActaMat;
+                        $UbicacionActaMatrimonio = UbicacionActa::where('IDUbicacionActa', $idUbicacionActaMat)->first();
+                        $UbicacionActaMatrimonio->Libro = $request->input("numLibroM_".$id);
+                        $UbicacionActaMatrimonio->Folio = $request->input("numFolioM_".$id);
+                        $UbicacionActaMatrimonio->Asiento = $request->input("numAsientoM_".$id);
+                        $UbicacionActaMatrimonio->save();
+                    }
+                }
+
+                // agregar nuevos matrimonios con matrimonios ya existentes
+                foreach ($idsMatrimoniosNuevos as $id) {
+                    // Comprobar si los datos del matrimonio actual existen
+                    if ($request->has('nombreConyuge_nuevo_' . $id)) {
+                        $UbicacionActaMat = new UbicacionActa;
+
+                        $UbicacionActaMat->Libro = $request->input('numLibroM_nuevo_' . $id);
+                        $UbicacionActaMat->Folio = $request->input('numFolioM_nuevo_' . $id);
+                        $UbicacionActaMat->Asiento = $request->input('numAsientoM_nuevo_' . $id);
+
+                        $UbicacionActaMat->save();
+
+                        $ActaMatrimonio = new ActaMatrimonio;
+
+                        // Aquí procesas los demás campos como lugarMatrimonio y fechaMatrimonio
+                        if ($request->input('lugarMatrimonio_nuevo_' . $id) != "") {
+                            $ActaMatrimonio->LugarMatrimonio = $request->input('lugarMatrimonio_nuevo_' . $id);
+                        } else {
+                            $ActaMatrimonio->IDParroquiaMatrimonio = $request->input('parroquiaMatrimonio_nuevo_' . $id);
+                        }
+                        if ($request->input('fechaMatrimonio_nuevo_' . $id) != "") {
+                            $ActaMatrimonio->FechaMatrimonio = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->input('fechaMatrimonio_nuevo_' . $id)));
+                        }
+
+                        $ActaMatrimonio->NombreConyugue = $request->input('nombreConyuge_nuevo_' . $id);
+                        $ActaMatrimonio->NotasMarginales = $request->input('notasMarginalesMat_nuevo_' . $id);
+                        $ActaMatrimonio->IDUbicacionActaMat = $UbicacionActaMat->IDUbicacionActa;
+                        $ActaMatrimonio->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
+                        $ActaMatrimonio->IDParroquiaRegistra = Auth::user()->IDParroquia;
+
+                        $ActaMatrimonio->save();
+
+                        // guardar ids para luego guardarlos en la tabla intermedia_matrimonio
+                        $idsMatrimoniosPorGuardar[] = $ActaMatrimonio->IDMatrimonio;
+                    }
+                }
             } else if ($request->has('checkMatrimonio')) {
                 $UbicacionActaMatrimonio = new UbicacionActa;
                 $UbicacionActaMatrimonio->Libro = $request->numLibroM;
@@ -723,6 +874,45 @@ class ActaUsuarioController extends Controller
                 $actaMatrimonio->save();
 
                 $acta->IDMatrimonio = $actaMatrimonio->IDMatrimonio;
+
+                // ************** agregar otros matrimonios **************
+                $matrimonioCount = $request->input('matrimonioCount'); // variable para contar cuántos matrimonios hay
+
+                for ($i = 1; $i <= $matrimonioCount; $i++) {
+                    // Comprobar si los datos del matrimonio actual existen
+                    if ($request->has('nombreConyuge_' . $i)) {
+                        $UbicacionActaMat = new UbicacionActa;
+
+                        $UbicacionActaMat->Libro = $request->input('numLibroM_' . $i);
+                        $UbicacionActaMat->Folio = $request->input('numFolioM_' . $i);
+                        $UbicacionActaMat->Asiento = $request->input('numAsientoM_' . $i);
+
+                        $UbicacionActaMat->save();
+
+                        $ActaMatrimonio = new ActaMatrimonio;
+
+                        // Aquí procesas los demás campos como lugarMatrimonio y fechaMatrimonio
+                        if ($request->input('lugarMatrimonio_' . $i) != "") {
+                            $ActaMatrimonio->LugarMatrimonio = $request->input('lugarMatrimonio_' . $i);
+                        } else {
+                            $ActaMatrimonio->IDParroquiaMatrimonio = $request->input('parroquiaMatrimonio_' . $i);
+                        }
+                        if ($request->input('fechaMatrimonio_' . $i) != "") {
+                            $ActaMatrimonio->FechaMatrimonio = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->input('fechaMatrimonio_' . $i)));
+                        }
+
+                        $ActaMatrimonio->NombreConyugue = $request->input('nombreConyuge_' . $i);
+                        $ActaMatrimonio->NotasMarginales = $request->input('notasMarginalesMat_' . $i);
+                        $ActaMatrimonio->IDUbicacionActaMat = $UbicacionActaMat->IDUbicacionActa;
+                        $ActaMatrimonio->NombreUserRegistra = Auth::user()->Nombre . ' ' . Auth::user()->PrimerApellido . ' ' . Auth::user()->SegundoApellido;
+                        $ActaMatrimonio->IDParroquiaRegistra = Auth::user()->IDParroquia;
+
+                        $ActaMatrimonio->save();
+
+                        // guardar ids para luego guardarlos en la tabla intermedia_matrimonio
+                        $idsMatrimoniosPorGuardar[] = $ActaMatrimonio->IDMatrimonio;
+                    }
+                }
             }
 
             if ($idDefuncion != null) {
@@ -781,10 +971,19 @@ class ActaUsuarioController extends Controller
             }
 
             $acta->save();
+
+            // Código para guardar la relación en la tabla intermedia matrimonio
+            foreach ($idsMatrimoniosPorGuardar as $idMatrimonio) {
+                $relacion = new IntermediaActaMatrimonio;
+                $relacion->IDPersona = $_POST['IDPersona'];
+                $relacion->IDMatrimonio = $idMatrimonio;
+                $relacion->save();
+            }
+
             return back()->with('msjBueno', "Se ha modificado la partida correctamente");
 
         } catch (\Exception $e) {
-            Log::error('Ha ocurrido un error: ' . $e);
+            error_log('Ha ocurrido un error: '.$e);
             return back()->with('msjMalo', "Ha ocurrido un error al modificar la partida: " . $e);
         }
     }//Fin actualizar acta
@@ -807,6 +1006,7 @@ class ActaUsuarioController extends Controller
             $actaMatrimonio = ActaMatrimonio::where('IDMatrimonio', $idMatrimonio)->first();
             $actaDefuncion = ActaDefuncion::where('IDDefuncion', $idDefuncion)->first();
             $laico = Laico::findOrFail($id);
+            $intermediaMatrimonio = IntermediaActaMatrimonio::where('IDPersona', $id)->get();
 
             $parroquias = \App\Parroquia::all();
 
@@ -898,6 +1098,38 @@ class ActaUsuarioController extends Controller
                     $parroquia = Parroquia::find($actaMatrimonio->IDParroquiaMatrimonio);
                     $actaMatrimonio->LugarMatrimonio = $parroquia->NombreParroquia;
                 }
+
+                $matrimoniosInfo = [];
+                if ($intermediaMatrimonio != null) {
+                    foreach ($intermediaMatrimonio as $intermedia) {
+                        $actaMatrimonioInter = ActaMatrimonio::find($intermedia->IDMatrimonio);
+                        if ($actaMatrimonioInter) {
+                            if ($actaMatrimonioInter->IDParroquiaRegistra != -1) {
+                                $parroquiaMatRegistra = Parroquia::find($actaMatrimonioInter->IDParroquiaRegistra);
+                                $nomParroquiaMatRegistraInter = $parroquiaMatRegistra->NombreParroquia;
+                            } else {
+                                $nomParroquiaMatRegistraInter = 'Archivo Diocesano de Alajuela';
+                            }
+
+                            $date = $actaMatrimonioInter->FechaMatrimonio;
+                            $actaMatrimonioInter->FechaMatrimonio = $this->formatDatetoString($date);
+
+                            $UbicacionActaMatrimonioInter = UbicacionActa::where('IDUbicacionActa', $actaMatrimonioInter->IDUbicacionActaMat)->first();
+
+                            if ($actaMatrimonioInter->IDParroquiaMatrimonio != null) {
+                                $parroquia = Parroquia::find($actaMatrimonioInter->IDParroquiaMatrimonio);
+                                $actaMatrimonioInter->LugarMatrimonio = $parroquia->NombreParroquia;
+                            }
+
+                            // Agrega la información procesada al array
+                            $matrimoniosInfo[] = [
+                                'nomParroquiaMatRegistra' => $nomParroquiaMatRegistraInter,
+                                'UbicacionActaMatrimonio' => $UbicacionActaMatrimonioInter,
+                                'actaMatrimonio' => $actaMatrimonioInter
+                            ];
+                        }
+                    }
+                }
             } else {
                 $idUbicacionActaMat = null;
                 $UbicacionActaMatrimonio = null;
@@ -931,8 +1163,8 @@ class ActaUsuarioController extends Controller
                 'UbicacionActaMatrimonio' => $UbicacionActaMatrimonio, 'UbicacionActaDefuncion' => $UbicacionActaDefuncion, 'tipoHijo' => $tipoHijo,
                 'nomParroquiaBauRegistra'=>$nomParroquiaBauRegistra, 'nomParroquiaPrimeraCRegistra'=>$nomParroquiaPrimeraCRegistra,
                 'nomParroquiaConfRegistra'=>$nomParroquiaConfRegistra, 'nomParroquiaMatRegistra'=>$nomParroquiaMatRegistra,
-                'nomParroquiaDefRegistra'=>$nomParroquiaDefRegistra, 'parroquias' => $parroquias,
-                'parroquiaUser' => Auth::user()->IDParroquia]);
+                'nomParroquiaDefRegistra'=>$nomParroquiaDefRegistra, 'parroquias' => $parroquias, 'parroquiaUser' => Auth::user()->IDParroquia,
+                'matrimoniosInfo' => $matrimoniosInfo]);
 
         } catch (Exception $e) {
             return back()->with('msjMalo', "Ha ocurrido un error " + $e);
@@ -1005,5 +1237,37 @@ class ActaUsuarioController extends Controller
         $mm = substr($dateString, 5, 2);
         $dd = substr($dateString, 8, 2);
         return $dd . '/' . $mm . '/' . $yyyy;
+    }
+
+    private function extraerIdsMatrimonios($request): array
+    {
+        $elementNames = array_keys($request->all());
+
+        // Filtrar solo los nombres que siguen el formato "nombreConyuge_N"
+        $filteredNames = array_filter($elementNames, function($name) {
+            return preg_match('/^nombreConyuge_(\d+)$/', $name);
+        });
+
+        // Extraer los identificadores numéricos
+        return array_map(function($name) {
+            preg_match('/^nombreConyuge_(\d+)$/', $name, $matches);
+            return $matches[1];
+        }, $filteredNames);
+    }
+
+    private function extraerIdsMatrimoniosNuevos($request): array
+    {
+        $elementNames = array_keys($request->all());
+
+        // Filtrar solo los nombres que siguen el formato "nombreConyuge_N"
+        $filteredNames = array_filter($elementNames, function($name) {
+            return preg_match('/^nombreConyuge_nuevo_(\d+)$/', $name);
+        });
+
+        // Extraer los identificadores numéricos
+        return array_map(function($name) {
+            preg_match('/^nombreConyuge_nuevo_(\d+)$/', $name, $matches);
+            return $matches[1];
+        }, $filteredNames);
     }
 }

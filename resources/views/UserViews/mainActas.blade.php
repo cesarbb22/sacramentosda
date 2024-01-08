@@ -451,6 +451,13 @@
                                             <label for="checkM">Agregar Matrimonio</label>
                                         </p>
                                     </div>
+
+                                    <div class="row">
+                                        <button id="nuevoMatBtn" class="waves-effect waves-light btn right"
+                                                disabled><i
+                                                class="material-icons left">add</i>Nuevo Matrimonio
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <div class="row">
@@ -525,6 +532,10 @@
                                         <textarea id="notasMarginalesMat" name="notasMarginalesMat" class="materialize-textarea" disabled></textarea>
                                         <label for="notasMarginalesMat">Notas Marginales:</label>
                                     </div>
+                                </div>
+
+                                <div id="nuevosMatrimoniosContainer">
+                                    <input type="hidden" name="matrimonioCount" id="matrimonioCount" value="0">
                                 </div>
                             </div>
                         </li>
@@ -633,8 +644,104 @@
     </div>
 
     <script>
+        function obtenerHtmlFormulario(id, parroquias) {
+            var opcionesParroquias = parroquias.map(function (paMat) {
+                return `<option value="${paMat.IDParroquia}">${paMat.NombreParroquia}</option>`;
+            }).join('');
+
+            return `
+        <div class="row">
+        <hr/><hr/>
+                                        <div class="input-field col s6">
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <label>Fecha del Matrimonio:</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <select id="parroquiaMatrimonio_${id}" name="parroquiaMatrimonio_${id}">
+                    ${opcionesParroquias}
+                    <option value="otro">Otro</option>
+                </select>
+        <label>Seleccione la Parroquia:</label>
+    </div>
+    <div class="input-field col s6">
+        <input id="fechaMatrimonio_${id}" name='fechaMatrimonio_${id}'
+               class="datepicker validate" type="text" title="Formato de fecha: dd/mm/aaaa" size="10" placeholder="dd/mm/aaaa" minlength="10" maxlength="10"
+               pattern="^([0-2][0-9]|3[0-1])(\\/|-)(0[1-9]|1[0-2])\\2(\\d{4})$"                                               oninvalid="this.setCustomValidity('Debe ingresar fecha con el formato: dd/mm/yyyy')"
+               oninput="setCustomValidity('')">
+    </div>
+</div>
+
+<div class="row" id="lugarMatrimonioDiv_${id}">
+    <div class="input-field col s6">
+        <input id="lugarMatrimonio_${id}" name="lugarMatrimonio_${id}" type="text" class="">
+        <label for="lugarMatrimonio_${id}"> Matrimonio en:</label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field col s8">
+        <input id="nombreConyuge_${id}" name="nombreConyuge_${id}" type="text" class="validate"
+               required
+               oninvalid="this.setCustomValidity('Campo requerido')"
+               oninput="setCustomValidity('')">
+        <label for="nombreConyuge_${id}">Nombre del cónyuge:</label>
+    </div>
+    <div class="input-field col s8">
+        <label for="informacion">Esta información consta en:</label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-num col s4">
+        <input id="numLibroM_${id}" name="numLibroM_${id}" type="number" class="validate">
+        <label for="numLibroM">Número de Libro:</label>
+    </div>
+    <div class="input-num col s4">
+        <input id="numFolioM_${id}" name="numFolioM_${id}" type="number" class="validate">
+        <label for="numFolioM_${id}">Número de Folio:</label>
+    </div>
+    <div class="input-num col s4">
+        <input id="numAsientoM_${id}" name="numAsientoM_${id}" type="number" class="validate">
+        <label for="numAsientoM_${id}">Número de Asiento:</label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field col s12">
+        <textarea id="notasMarginalesMat_${id}" name="notasMarginalesMat_${id}" class="materialize-textarea"></textarea>
+        <label for="notasMarginalesMat_${id}">Notas Marginales:</label>
+    </div>
+</div>
+`;
+        }
 
         window.onload = function () {
+            var parroquias = @json($parroquias);
+            var contadorNuevosMatId = 0;
+
+            $('#nuevoMatBtn').on('click', function () {
+                contadorNuevosMatId++;
+                var nuevoFormulario = obtenerHtmlFormulario(contadorNuevosMatId, parroquias);
+                $('#nuevosMatrimoniosContainer').append(nuevoFormulario);
+                $("#lugarMatrimonioDiv_" + contadorNuevosMatId).css("display", "none");
+
+                // Inicializar
+                $('select').material_select();
+
+                var today = new Date();
+                today.setDate(today.getDate() + 15);
+                $(".datepicker").datepicker({
+                    maxDate: today, dateFormat: "dd/mm/yy", autoSize: true,
+                    monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"]
+                }).val()
+
+                // Actualizar el conteo de matrimonios
+                $('#matrimonioCount').val(contadorNuevosMatId);
+            });
+
             var today = new Date();
             today.setDate(today.getDate() + 15);
             $(".datepicker").datepicker({ maxDate: today, dateFormat: "dd/mm/yy", autoSize: true,
@@ -774,6 +881,7 @@
                     $("#numFolioM").prop('disabled', false);
                     $("#numAsientoM").prop('disabled', false);
                     $("#notasMarginalesMat").prop('disabled', false);
+                    $('#nuevoMatBtn').attr('disabled', false);
                 } else {
                     $("#parroquiaMatrimonio").prop('disabled', true);
                     $("#lugarMatrimonio").val("");
@@ -784,6 +892,9 @@
                     $("#numFolioM").prop('disabled', true);
                     $("#numAsientoM").prop('disabled', true);
                     $("#notasMarginalesMat").prop('disabled', true);
+                    $('#nuevoMatBtn').attr('disabled', true);
+                    $('#nuevosMatrimoniosContainer').empty();
+                    contadorNuevosMatId = 0;
                 }
                 $('select').material_select();
             });
@@ -889,6 +1000,20 @@
                     $("#lugarDefuncion").val("");
                 }
             });
+            $('#nuevosMatrimoniosContainer').on('change', '[id^=parroquiaMatrimonio_]', function () {
+                var valor = $(this).val();
+                var id = $(this).attr('id').split('_')[1]; // Obtiene el identificador único del formulario actual
+
+                if (valor === "otro") {
+                    $("#lugarMatrimonio_" + id).prop('required', true);
+                    $("#lugarMatrimonioDiv_" + id).css("display", "block");
+                    $("#lugarMatrimonio_" + id).val("");
+                } else {
+                    $("#lugarMatrimonio_" + id).prop('required', false);
+                    $("#lugarMatrimonioDiv_" + id).css("display", "none");
+                    $("#lugarMatrimonio_" + id).val("");
+                }
+            });
 
             // Fecha Nacimiento autocompletado
             $("#fechaNac").keypress(function (e) {
@@ -965,6 +1090,20 @@
                         fecha = fecha + '/';
                     }
                     $('#fechaDefuncion').val(fecha);
+                }
+            });
+
+            // fecha matrimonio dinamicos
+            $('#nuevosMatrimoniosContainer').on('keypress', '[id^=fechaMatrimonio_]', function (e) {
+                e.preventDefault();
+                var $thisFecha = $(this);
+                var fecha = $thisFecha.val();
+                if (fecha.length <= 9) {
+                    fecha = fecha + e.key;
+                    if (fecha.length === 2 || fecha.length === 5) {
+                        fecha = fecha + '/';
+                    }
+                    $thisFecha.val(fecha);
                 }
             });
 

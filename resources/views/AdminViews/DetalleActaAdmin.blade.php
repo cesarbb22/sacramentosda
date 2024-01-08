@@ -609,6 +609,129 @@
                     </div>
                 @endif
 
+                @foreach ($matrimoniosInfo as $info)
+                    <hr/><hr/>
+                    <div class="row">
+                        <div class="input-field col s6"></div>
+                        <div class="input-field col s6">
+                            <label>Fecha del Matrimonio:</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="lugarMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}" name="lugarMatrimonio" type="text"
+                                   value="{{ $info['actaMatrimonio']->LugarMatrimonio }}" readonly>
+                            <label for="lugarMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}"> Matrimonio en:</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="fechaMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}" name="fechaMatrimonio"
+                                   class="" type="text"
+                                   value="{{ $info['actaMatrimonio']->FechaMatrimonio }}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s8">
+                            <input id="nombreConyuge_{{ $info['actaMatrimonio']->IDMatrimonio }}" name="nombreConyuge" type="text"
+                                   value="{{ $info['actaMatrimonio']->NombreConyugue }}" readonly>
+                            <label for="nombreConyuge_{{ $info['actaMatrimonio']->IDMatrimonio }}">Nombre del cónyuge:</label>
+                        </div>
+                        <div class="input-field col s8">
+                            <label for="informacion">Esta información consta en:</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-num col s4">
+                            <input id="numLibroM_{{ $info['actaMatrimonio']->IDMatrimonio }}" name="numLibroM" type="number"
+                                   value="{{ $info['UbicacionActaMatrimonio']->Libro }}" readonly>
+                            <label for="numLibroM_{{ $info['actaMatrimonio']->IDMatrimonio }}">Número de Libro:</label>
+                        </div>
+                        <div class="input-num col s4">
+                            <input id="numFolioM_{{ $info['actaMatrimonio']->IDMatrimonio }}" name="numFolioM" type="number"
+                                   value="{{ $info['UbicacionActaMatrimonio']->Folio }}" readonly>
+                            <label for="numFolioM_{{ $info['actaMatrimonio']->IDMatrimonio }}">Número de Folio:</label>
+                        </div>
+                        <div class="input-num col s4">
+                            <input id="numAsientoM_{{ $info['actaMatrimonio']->IDMatrimonio }}" name="numAsientoM" type="number"
+                                   value="{{ $info['UbicacionActaMatrimonio']->Asiento }}" readonly>
+                            <label for="numAsientoM_{{ $info['actaMatrimonio']->IDMatrimonio }}">Número de Asiento:</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="notasMarginalesMatEdit_{{ $info['actaMatrimonio']->IDMatrimonio }}" name='notasMarginalesMatEdit' type="text"
+                                   value="{{ $info['actaMatrimonio']->NotasMarginales }}" readonly>
+                            <label for="notasMarginalesMatEdit_{{ $info['actaMatrimonio']->IDMatrimonio }}">Notas Marginales:</label>
+                        </div>
+                    </div>
+
+                    <div class="div-creado-por">
+                        <span class="p-creado-por">Creada por: {{ $info['nomParroquiaMatRegistra'] }}</span>
+                    </div>
+                    <br>
+                    <div class="row" style="text-align: left">
+                        <button id="Descargar_{{ $info['actaMatrimonio']->IDMatrimonio }}" class="waves-effect waves-light btn left modal-trigger"
+                                data-target="modalPDFDetalleMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}" disabled><i
+                                class="material-icons left">file_download</i>Constancia de Matrimonio
+                        </button>
+                    </div>
+
+                    @if($info['actaMatrimonio']->IDParroquiaRegistra == $parroquiaUser)
+                        <div class="row" style="text-align: left">
+                            @if($actaBautismo != null && $actaBautismo->IDParroquiaRegistra != $parroquiaUser)
+                                @if ($info['actaMatrimonio']->AvisoEnviado == 0)
+                                    <button id="avisoMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="MATRIMONIO" disabled>
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @else
+                                    <button id="avisoMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="MATRIMONIO"
+                                            disabled>
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @endif
+                            @elseif ($actaBautismo == null)
+                                @if ($info['actaMatrimonio']->AvisoEnviado == 0)
+                                    <button id="avisoMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="MATRIMONIO" disabled>
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @else
+                                    <button id="avisoMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}"
+                                            class="avisoBtn waves-effect waves-light btn left modal-trigger"
+                                            tipo="MATRIMONIO"
+                                            disabled>
+                                        <i class="material-icons left">info</i>
+                                        Enviar Aviso
+                                    </button>
+                                @endif
+                            @endif
+                        </div>
+                    @endif
+
+                    @if ($info['actaMatrimonio']->AvisoEnviado != 0)
+                        <div class="row">
+                            <button id="resetAvisoMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}"
+                                    class="resetAvisoBtn waves-effect waves-light btn left modal-trigger"
+                                    tipo="MATRIMONIO">
+                                <i class="material-icons left">restore</i>Resetear Aviso
+                            </button>
+                        </div>
+                    @endif
+                    <br>
+                @endforeach
+
+
 
                 <div class="collapsible-header waves-light waves-effect white-text">Partida de Defunción</div>
                 @if($actaDefuncion != null)
@@ -1003,6 +1126,49 @@
         </form>
     </div>
 
+    @foreach ($matrimoniosInfo as $index => $info)
+        <!-- Modal Structure Matrimonio para cada actaMatrimonio -->
+        <div id="modalPDFDetalleMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}" class="modal modal-fixed-footer">
+            <form id="pdfFormMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}" method="POST" action="/pdf">
+                {{ csrf_field() }}
+                <div class="modal-content">
+                    <div>
+                        <h4>Descargar Constancia</h4>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="input-field">
+                            <input id="codigoMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}" name="codigo" type="text" required
+                                   oninvalid="this.setCustomValidity('Campo requerido')"
+                                   oninput="setCustomValidity('')">
+                            <label for="codigoMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}">Código de referencia</label>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="input-field">
+                            <select name="motivo" id="motivoMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}" required>
+                                <option value="0" selected>--</option>
+                                <option value="1">Personales</option>
+                            </select>
+                            <label for="motivoMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}">Seleccione el motivo de la constancia:</label>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <input id="idActaMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}" name="idActa" value="{{ $info['actaMatrimonio']->IDMatrimonio }}" type="text" hidden>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a onclick="closeModal();" class="modal-action modal-close waves-effect waves-green btn-flat ">Cancelar</a>
+                    <button type="submit" class="modal-action waves-effect waves-green btn-flat ">Descargar</button>
+                </div>
+                <div id="loadingDivMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}" class="progress">
+                    <div class="indeterminate"></div>
+                </div>
+            </form>
+        </div>
+    @endforeach
+
     <!-- Modal Structure Defuncion -->
     <div id="modalPDFDetalleDefuncion" class="modal modal-fixed-footer">
         <form id="pdfFormDefuncion" method="POST" action="/pdf">
@@ -1114,6 +1280,7 @@
             $('#loadingDivPrimeraComunion').hide();
             $('#loadingDivConfirma').hide();
             $('#loadingDivMatrimonio').hide();
+            $('[id^="loadingDivMatrimonio_"]').hide();
             $('#loadingDivDefuncion').hide();
 
             $('#detalleForm').on('submit', function (e) {
@@ -1369,6 +1536,47 @@
                 xhr.send(formData);
             });
 
+            $('[id^="pdfFormMatrimonio_"]').on('submit', function (e) {
+                e.preventDefault();
+
+                var formId = $(this).attr('id');
+                var matrimonioId = formId.split('_')[1];
+
+                if ($('#motivoMatrimonio_' + matrimonioId).val() == '0') {
+                    return;
+                }
+
+                $('#modalCancelBtnMatrimonio_' + matrimonioId).attr('disabled', true);
+                $('#modalDescargarBtnMatrimonio_' + matrimonioId).attr('disabled', true);
+                $('#loadingDivMatrimonio_' + matrimonioId).show();
+
+                var formData = new FormData();
+                formData.append("codigo", $('#codigoMatrimonio_' + matrimonioId).val());
+                formData.append("motivo", $('#motivoMatrimonio_' + matrimonioId).val());
+                formData.append("idActa", $('#idActaMatrimonio_' + matrimonioId).val());
+                formData.append("_token", "{{ csrf_token() }}");
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/pdfMatrimonio');
+                xhr.responseType = 'arraybuffer';
+                xhr.onload = function (e) {
+                    if (this.status == 200) {
+                        var blob = new Blob([this.response], {type: "application/pdf"});
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = $('#codigoMatrimonio_' + matrimonioId).val() + ".pdf";
+                        link.click();
+
+                        $('#modalCancelBtnMatrimonio_' + matrimonioId).attr('disabled', false);
+                        $('#modalDescargarBtnMatrimonio_' + matrimonioId).attr('disabled', false);
+                        $('#loadingDivMatrimonio_' + matrimonioId).hide();
+                        $('#codigoMatrimonio_' + matrimonioId).val('');
+                        $('.modal').modal('close');
+                    }
+                };
+                xhr.send(formData);
+            });
+
             // PDF Defuncion
             $('#pdfFormDefuncion').on('submit', function (e) {
                 e.preventDefault();
@@ -1429,46 +1637,6 @@
                 if ($("#tipoH1").is(':checked')) {
                     $("#nombrePadreEdit").prop('disabled', true);
                     $("#nombreMadreEdit").prop('disabled', false);
-                }
-            });
-
-            $("#checkBautismo").change(function () {
-                if ($("#checkBautismo").is(':checked')) {
-                    $("#contentBautismo").css("display", "block");
-                } else {
-                    $("#contentBautismo").css("display", "none");
-                }
-            });
-
-            $("#checkPrimeraComunion").change(function () {
-                if ($("#checkPrimeraComunion").is(':checked')) {
-                    $("#contentPrimeraComunion").css("display", "block");
-                } else {
-                    $("#contentPrimeraComunion").css("display", "none");
-                }
-            });
-
-            $("#checkConfirma").change(function () {
-                if ($("#checkConfirma").is(':checked')) {
-                    $("#contentConfirma").css("display", "block");
-                } else {
-                    $("#contentConfirma").css("display", "none");
-                }
-            });
-
-            $("#checkMatrimonio").change(function () {
-                if ($("#checkMatrimonio").is(':checked')) {
-                    $("#contentMatrimonio").css("display", "block");
-                } else {
-                    $("#contentMatrimonio").css("display", "none");
-                }
-            });
-
-            $("#checkDefuncion").change(function () {
-                if ($("#checkDefuncion").is(':checked')) {
-                    $("#contentDefuncion").css("display", "block");
-                } else {
-                    $("#contentDefuncion").css("display", "none");
                 }
             });
 
