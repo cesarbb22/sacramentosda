@@ -939,6 +939,8 @@ class ActaAdminController extends Controller
                 $tipoHijo = "legítimo";
             }
 
+            $matrimoniosInfo = [];
+
             $nomParroquiaBauRegistra = null;
             if ($idBautismo != null) {
                 if ($actaBautismo->IDParroquiaRegistra != -1) {
@@ -1019,7 +1021,6 @@ class ActaAdminController extends Controller
                     $actaMatrimonio->LugarMatrimonio = $parroquia->NombreParroquia;
                 }
 
-                $matrimoniosInfo = [];
                 if ($intermediaMatrimonio != null) {
                     foreach ($intermediaMatrimonio as $intermedia) {
                         $actaMatrimonioInter = ActaMatrimonio::find($intermedia->IDMatrimonio);
