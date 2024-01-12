@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\ActaMatrimonio;
+use App\IntermediaActaMatrimonio;
 use App\Parroquia;
 use Illuminate\Http\Request;
 use App\Acta;
@@ -17,9 +19,10 @@ class GenerarPDF extends Controller
         $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia', 'bautismo.ubicacionActa', 'confirma', 'confirma.parroquia', 'matrimonio', 'matrimonio.parroquia')
             ->where('IDActa', $request->idActa)
             ->first();
+        $intermediaMatrimonio = IntermediaActaMatrimonio::where('IDPersona', $acta->IDPersona)->get();
 
         $parroquiaRegistraBau = 'Archivo Diocesano de Alajuela';
-        if($acta->bautismo->IDParroquiaRegistra != -1) {
+        if ($acta->bautismo->IDParroquiaRegistra != -1) {
             $parroquia = Parroquia::where('IDParroquia', $acta->bautismo->IDParroquiaRegistra)->first();
             $parroquiaRegistraBau = 'parroquia ' . $parroquia->NombreParroquia;
         }
@@ -59,7 +62,7 @@ class GenerarPDF extends Controller
         }
 
 
-        $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
+        $meses = array("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre");
 
         // fecha nacimiento
         $fechaNac = Carbon::parse($acta->persona->laico->FechaNacimiento);
@@ -81,13 +84,40 @@ class GenerarPDF extends Controller
             $fecConfFormatted = $fechaConf->format('d') . ' de ' . $mesConf . ' de ' . $fechaConf->format('Y');
         }
 
+        $fechaMatrimonioMasReciente = null;
+        $actaMatrimonioMasReciente = null;
+        $numeroMatrimonios = 0;
+
         // fecha matrimonio
+        foreach ($intermediaMatrimonio as $intermedia) {
+            $actaMatrimonioInter = ActaMatrimonio::with('parroquia')
+                ->where('IDMatrimonio', $intermedia->IDMatrimonio)
+                ->first();
+
+            if ($actaMatrimonioInter) {
+                $fechaActaMatrimonio = Carbon::parse($actaMatrimonioInter->FechaMatrimonio);
+
+                if (is_null($fechaMatrimonioMasReciente) || $fechaActaMatrimonio->gt($fechaMatrimonioMasReciente)) {
+                    $fechaMatrimonioMasReciente = $fechaActaMatrimonio;
+                    $actaMatrimonioMasReciente = $actaMatrimonioInter;
+                }
+            }
+            $numeroMatrimonios = $numeroMatrimonios + 1;
+        }
+
         $fecMatFormatted = null;
         if ($acta->matrimonio != null && $acta->matrimonio->FechaMatrimonio != null) {
             $fechaMat = Carbon::parse($acta->matrimonio->FechaMatrimonio);
             $mesMat = $meses[($fechaMat->format('n')) - 1];
             $fecMatFormatted = $fechaMat->format('d') . ' de ' . $mesMat . ' de ' . $fechaMat->format('Y');
         }
+
+        if ($fechaMatrimonioMasReciente) {
+            $mesMat = $meses[($fechaMatrimonioMasReciente->format('n')) - 1];
+            $fecMatFormatted = $fechaMatrimonioMasReciente->format('d') . ' de ' . $mesMat . ' de ' . $fechaMatrimonioMasReciente->format('Y');
+        }
+
+        $cantidadMatrimonios = $this->parsearCantidadMatrimonios($numeroMatrimonios);
 
         // fecha primera comunion
         $fecPrimeraCFormatted = null;
@@ -103,9 +133,9 @@ class GenerarPDF extends Controller
         $mesHoy = $meses[($fechaHoy->format('n')) - 1];
         $fecHoyFormatted = $fechaHoy->format('d') . ' de ' . $mesHoy . ' de ' . $fechaHoy->format('Y');
 
-        $pdf = \PDF::loadView('PDF.PdfCertificado', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac'=> $fecNacFormatted, 'fecBau'=> $fecBauFormatted,
-            'parroquiaRegistraBau'=>$parroquiaRegistraBau, 'fecConf'=> $fecConfFormatted, 'fecMat'=> $fecMatFormatted, 'fecPrimeraC' => $fecPrimeraCFormatted,
-            'motivo'=>$motivo, 'fecHoy'=> $fecHoyFormatted]);
+        $pdf = \PDF::loadView('PDF.PdfCertificado', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac' => $fecNacFormatted, 'fecBau' => $fecBauFormatted,
+            'parroquiaRegistraBau' => $parroquiaRegistraBau, 'fecConf' => $fecConfFormatted, 'fecMat' => $fecMatFormatted, 'fecPrimeraC' => $fecPrimeraCFormatted,
+            'motivo' => $motivo, 'fecHoy' => $fecHoyFormatted, 'actaMatrimonioReciente' => $actaMatrimonioMasReciente, 'cantidadMatrimonios' => $cantidadMatrimonios]);
 
         return $pdf->download('Certificado.pdf');
     }
@@ -118,7 +148,7 @@ class GenerarPDF extends Controller
             ->first();
 
         $parroquiaRegistraBau = 'del Archivo Diocesano de Alajuela';
-        if($acta->bautismo->IDParroquiaRegistra != -1) {
+        if ($acta->bautismo->IDParroquiaRegistra != -1) {
             $parroquia = Parroquia::where('IDParroquia', $acta->bautismo->IDParroquiaRegistra)->first();
             $parroquiaRegistraBau = 'de la parroquia ' . $parroquia->NombreParroquia;
         }
@@ -143,7 +173,7 @@ class GenerarPDF extends Controller
         }
 
 
-        $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
+        $meses = array("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre");
 
         // fecha nacimiento
         $fechaNac = Carbon::parse($acta->persona->laico->FechaNacimiento);
@@ -163,8 +193,8 @@ class GenerarPDF extends Controller
         $mesHoy = $meses[($fechaHoy->format('n')) - 1];
         $fecHoyFormatted = $fechaHoy->format('d') . ' de ' . $mesHoy . ' de ' . $fechaHoy->format('Y');
 
-        $pdf = \PDF::loadView('PDF.PdfCertificadoBautismo', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac'=> $fecNacFormatted, 'fecBau'=> $fecBauFormatted
-            , 'parroquiaRegistraBau'=>$parroquiaRegistraBau, 'motivo'=>$motivo, 'fecHoy'=> $fecHoyFormatted]);
+        $pdf = \PDF::loadView('PDF.PdfCertificadoBautismo', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac' => $fecNacFormatted, 'fecBau' => $fecBauFormatted
+            , 'parroquiaRegistraBau' => $parroquiaRegistraBau, 'motivo' => $motivo, 'fecHoy' => $fecHoyFormatted]);
 
         return $pdf->download('CertificadoBautismo.pdf');
     }
@@ -177,7 +207,7 @@ class GenerarPDF extends Controller
             ->first();
 
         $parroquiaRegistraPrimeraC = 'del Archivo Diocesano de Alajuela';
-        if($acta->primeracomunion->IDParroquiaRegistra != -1) {
+        if ($acta->primeracomunion->IDParroquiaRegistra != -1) {
             $parroquia = Parroquia::where('IDParroquia', $acta->primeracomunion->IDParroquiaRegistra)->first();
             $parroquiaRegistraPrimeraC = 'de la parroquia ' . $parroquia->NombreParroquia;
         }
@@ -190,7 +220,7 @@ class GenerarPDF extends Controller
         }
 
 
-        $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
+        $meses = array("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre");
 
         // fecha nacimiento
         $fechaNac = Carbon::parse($acta->persona->laico->FechaNacimiento);
@@ -211,8 +241,8 @@ class GenerarPDF extends Controller
         $mesHoy = $meses[($fechaHoy->format('n')) - 1];
         $fecHoyFormatted = $fechaHoy->format('d') . ' de ' . $mesHoy . ' de ' . $fechaHoy->format('Y');
 
-        $pdf = \PDF::loadView('PDF.PdfCertificadoPrimeraComunion', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac'=> $fecNacFormatted,
-            'parroquiaRegistraPrimeraC'=>$parroquiaRegistraPrimeraC, 'fecPrimeraC'=> $fecPrimeraCFormatted, 'motivo'=>$motivo, 'fecHoy'=> $fecHoyFormatted]);
+        $pdf = \PDF::loadView('PDF.PdfCertificadoPrimeraComunion', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac' => $fecNacFormatted,
+            'parroquiaRegistraPrimeraC' => $parroquiaRegistraPrimeraC, 'fecPrimeraC' => $fecPrimeraCFormatted, 'motivo' => $motivo, 'fecHoy' => $fecHoyFormatted]);
 
         return $pdf->download('CertificadoPrimeraComunion.pdf');
     }
@@ -225,7 +255,7 @@ class GenerarPDF extends Controller
             ->first();
 
         $parroquiaRegistraCon = 'del Archivo Diocesano de Alajuela';
-        if($acta->confirma->IDParroquiaRegistra != -1) {
+        if ($acta->confirma->IDParroquiaRegistra != -1) {
             $parroquia = Parroquia::where('IDParroquia', $acta->confirma->IDParroquiaRegistra)->first();
             $parroquiaRegistraCon = 'de la parroquia ' . $parroquia->NombreParroquia;
         }
@@ -250,7 +280,7 @@ class GenerarPDF extends Controller
         }
 
 
-        $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
+        $meses = array("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre");
 
         // fecha nacimiento
         $fechaNac = Carbon::parse($acta->persona->laico->FechaNacimiento);
@@ -271,8 +301,8 @@ class GenerarPDF extends Controller
         $mesHoy = $meses[($fechaHoy->format('n')) - 1];
         $fecHoyFormatted = $fechaHoy->format('d') . ' de ' . $mesHoy . ' de ' . $fechaHoy->format('Y');
 
-        $pdf = \PDF::loadView('PDF.PdfCertificadoConfirma', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac'=> $fecNacFormatted,
-            'parroquiaRegistraCon'=>$parroquiaRegistraCon, 'fecConf'=> $fecConfFormatted, 'motivo'=>$motivo, 'fecHoy'=> $fecHoyFormatted]);
+        $pdf = \PDF::loadView('PDF.PdfCertificadoConfirma', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac' => $fecNacFormatted,
+            'parroquiaRegistraCon' => $parroquiaRegistraCon, 'fecConf' => $fecConfFormatted, 'motivo' => $motivo, 'fecHoy' => $fecHoyFormatted]);
 
         return $pdf->download('CertificadoConfirma.pdf');
     }
@@ -285,7 +315,7 @@ class GenerarPDF extends Controller
             ->first();
 
         $parroquiaRegistraMat = 'del Archivo Diocesano de Alajuela';
-        if($acta->matrimonio->IDParroquiaRegistra != -1) {
+        if ($acta->matrimonio->IDParroquiaRegistra != -1) {
             $parroquia = Parroquia::where('IDParroquia', $acta->matrimonio->IDParroquiaRegistra)->first();
             $parroquiaRegistraMat = 'de la parroquia ' . $parroquia->NombreParroquia;
         }
@@ -307,7 +337,7 @@ class GenerarPDF extends Controller
         }
 
 
-        $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
+        $meses = array("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre");
 
         // fecha nacimiento
         $fechaNac = Carbon::parse($acta->persona->laico->FechaNacimiento);
@@ -328,10 +358,73 @@ class GenerarPDF extends Controller
         $mesHoy = $meses[($fechaHoy->format('n')) - 1];
         $fecHoyFormatted = $fechaHoy->format('d') . ' de ' . $mesHoy . ' de ' . $fechaHoy->format('Y');
 
-        $pdf = \PDF::loadView('PDF.PdfCertificadoMatrimonio', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac'=> $fecNacFormatted,
-            'parroquiaRegistraMat'=>$parroquiaRegistraMat, 'fecMat'=> $fecMatFormatted, 'motivo'=>$motivo, 'fecHoy'=> $fecHoyFormatted]);
+        $pdf = \PDF::loadView('PDF.PdfCertificadoMatrimonio', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac' => $fecNacFormatted,
+            'parroquiaRegistraMat' => $parroquiaRegistraMat, 'fecMat' => $fecMatFormatted, 'motivo' => $motivo, 'fecHoy' => $fecHoyFormatted]);
 
         return $pdf->download('CertificadoMatrimonio.pdf');
+    }
+
+    public function generarPDFMatrimonioAdicional(Request $request)
+    {
+        $acta = Acta::with(['persona', 'persona.laico'])
+            ->where('IDActa', $request->idActa)
+            ->first();
+
+        $matrimonio = IntermediaActaMatrimonio::with(['actaMatrimonio.parroquia', 'actaMatrimonio.ubicacionActa'])
+                ->where('IDPersona', $acta->IDPersona)
+                ->where('IDMatrimonio', $request->idMatrimonio)
+                ->first()
+                ->actaMatrimonio ?? null;
+
+        $parroquiaRegistraMat = 'del Archivo Diocesano de Alajuela';
+        if ($matrimonio->IDParroquiaRegistra != -1) {
+            $parroquia = Parroquia::where('IDParroquia', $matrimonio->IDParroquiaRegistra)->first();
+            $parroquiaRegistraMat = 'de la parroquia ' . $parroquia->NombreParroquia;
+        }
+
+        $motivo = '';
+        switch ($request->motivo) {
+            case '1':
+                $motivo = 'personales';
+                break;
+            case '2':
+                $motivo = 'registro civil';
+                break;
+            case '3':
+                $motivo = 'nulidad matrimonial';
+                break;
+            case '4':
+                $motivo = 'segundas nupcias';
+                break;
+        }
+
+
+        $meses = array("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre");
+
+        // fecha nacimiento
+        $fechaNac = Carbon::parse($acta->persona->laico->FechaNacimiento);
+        $mesNac = $meses[($fechaNac->format('n')) - 1];
+        $fecNacFormatted = $fechaNac->format('d') . ' de ' . $mesNac . ' de ' . $fechaNac->format('Y');
+
+        // fecha matrimonio
+        $fecMatFormatted = null;
+        if ($matrimonio != null && $matrimonio->FechaMatrimonio != null) {
+            $fechaMat = Carbon::parse($matrimonio->FechaMatrimonio);
+            $mesMat = $meses[($fechaMat->format('n')) - 1];
+            $fecMatFormatted = $fechaMat->format('d') . ' de ' . $mesMat . ' de ' . $fechaMat->format('Y');
+        }
+
+        // fecha hoy
+        $fecHoyFormatted = null;
+        $fechaHoy = Carbon::now();
+        $mesHoy = $meses[($fechaHoy->format('n')) - 1];
+        $fecHoyFormatted = $fechaHoy->format('d') . ' de ' . $mesHoy . ' de ' . $fechaHoy->format('Y');
+
+        $pdf = \PDF::loadView('PDF.PdfCertificadoMatrimonioAdicional', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac' => $fecNacFormatted,
+            'parroquiaRegistraMat' => $parroquiaRegistraMat, 'fecMat' => $fecMatFormatted, 'motivo' => $motivo, 'fecHoy' => $fecHoyFormatted,
+            'matrimonio' => $matrimonio]);
+
+        return $pdf->download('CertificadoMatrimonioAdicional.pdf');
     }
 
     public function generarPDFDefuncion(Request $request)
@@ -342,7 +435,7 @@ class GenerarPDF extends Controller
             ->first();
 
         $parroquiaRegistraDef = 'del Archivo Diocesano de Alajuela';
-        if($acta->defuncion->IDParroquiaRegistra != -1) {
+        if ($acta->defuncion->IDParroquiaRegistra != -1) {
             $parroquia = Parroquia::where('IDParroquia', $acta->defuncion->IDParroquiaRegistra)->first();
             $parroquiaRegistraDef = 'de la parroquia ' . $parroquia->NombreParroquia;
         }
@@ -355,7 +448,7 @@ class GenerarPDF extends Controller
         }
 
 
-        $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
+        $meses = array("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre");
 
         // fecha nacimiento
         $fechaNac = Carbon::parse($acta->persona->laico->FechaNacimiento);
@@ -376,9 +469,37 @@ class GenerarPDF extends Controller
         $mesHoy = $meses[($fechaHoy->format('n')) - 1];
         $fecHoyFormatted = $fechaHoy->format('d') . ' de ' . $mesHoy . ' de ' . $fechaHoy->format('Y');
 
-        $pdf = \PDF::loadView('PDF.PdfCertificadoDefuncion', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac'=> $fecNacFormatted,
-            'parroquiaRegistraDef'=>$parroquiaRegistraDef, 'fecDef'=> $fecDefFormatted, 'motivo'=>$motivo, 'fecHoy'=> $fecHoyFormatted]);
+        $pdf = \PDF::loadView('PDF.PdfCertificadoDefuncion', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac' => $fecNacFormatted,
+            'parroquiaRegistraDef' => $parroquiaRegistraDef, 'fecDef' => $fecDefFormatted, 'motivo' => $motivo, 'fecHoy' => $fecHoyFormatted]);
 
         return $pdf->download('CertificadoDefuncion.pdf');
+    }
+
+    private function parsearCantidadMatrimonios($numeroMatrimonios)
+    {
+        $cantidadTexto = null;
+
+        switch ($numeroMatrimonios) {
+            case 1:
+                $cantidadTexto = '[SEGUNDO MATRIMONIO]';
+                break;
+            case 2:
+                $cantidadTexto = '[TERCER MATRIMONIO]';
+                break;
+            case 3:
+                $cantidadTexto = '[CUARTO MATRIMONIO]';
+                break;
+            case 4:
+                $cantidadTexto = '[QUINTO MATRIMONIO]';
+                break;
+            case 5:
+                $cantidadTexto = '[SEXTO MATRIMONIO]';
+                break;
+            case 6:
+                $cantidadTexto = '[SETIMO MATRIMONIO]';
+                break;
+        }
+
+        return $cantidadTexto;
     }
 }

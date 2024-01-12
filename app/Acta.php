@@ -54,4 +54,17 @@ class Acta extends Model
     {
         return $this->belongsToMany('App\Solicitud', 'solicitud_acta', 'IDActa', 'IDSolicitud');
     }
+
+    public function matrimoniosAsociados()
+    {
+        // Esta relación devuelve todos los matrimonios asociados con la IDPersona de esta Acta.
+        return $this->hasManyThrough(
+            'App\ActaMatrimonio',
+            'App\IntermediaActaMatrimonio',
+            'IDPersona', // Clave foránea en la tabla intermedia que apunta a Acta
+            'IDMatrimonio', // Clave foránea en ActaMatrimonio que apunta a la tabla matrimonios
+            'IDPersona', // Clave local en Acta que se usa para unirse con la tabla intermedia
+            'IDMatrimonio' // Clave local en la tabla intermedia que se usa para unirse con ActaMatrimonio
+        );
+    }
 }

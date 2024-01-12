@@ -8,7 +8,7 @@
 </head>
 <body>
 <div id="plantilla-sacramentos-header">
-    <img src="style/img/plantilla-confirma-header.png" height="100%" width="100%">
+    <img src="style/img/plantilla-matrimonio-header.png" height="100%" width="100%">
 </div>
 
 
@@ -22,73 +22,66 @@
             <h2 id="titulo no-margin-padding">LA DIÓCESIS DE ALAJUELA</h2>
             <h3 id="titulo no-margin-padding">HACE CONSTAR QUE:</h3>
         </div>
+        <br><br>
         <div>
-            <h2 id="nombrePersona">
-                <strong>{{ $acta->persona->Nombre . ' ' . $acta->persona->PrimerApellido . ' ' . $acta->persona->SegundoApellido }}</strong>
-            </h2>
-
-            <div>
-                <span class="spanMargin">Nació el: <strong>{{ $fecNac }}</strong></span>
-                @if($acta->persona->laico->LugarNacimiento == null)
-                    <span class="spanMargin">en: <strong>NO CONSTA</strong></span>
+            <h3 class="no-margin-padding">
+                @if($acta->persona->Cedula == null)
+                    <span class="upperCase">{{ $acta->persona->Nombre . ' ' . $acta->persona->PrimerApellido . ' ' . $acta->persona->SegundoApellido }}</span>
+                    <span class="strong">Ced. NO CONSTA</span>
                 @else
-                    <span class="spanMargin">en: <span
-                            class="texto-capitalize"><strong>{{ $acta->persona->laico->LugarNacimiento }}</strong></span></span>
+                    <span class="upperCase">{{ $acta->persona->Nombre . ' ' . $acta->persona->PrimerApellido . ' ' . $acta->persona->SegundoApellido }}</span>
+                    <span class="strong">Ced. {{ $acta->persona->Cedula }}</span>
                 @endif
-            </div>
-            <div>
-                @if($acta->persona->laico->IDTipo_Hijo == 1)
-                    <span>Hijo de: <span
-                            class="texto-capitalize"><strong>{{ $acta->persona->laico->NombreMadre }}</strong></span></span>
-                @else
-                    <span>Hijo de: <span
-                            class="texto-capitalize"><strong>{{ $acta->persona->laico->NombrePadre }}</strong></span>  y  <span
-                            class="texto-capitalize"><strong>{{ $acta->persona->laico->NombreMadre }}</strong></span></span>
-                @endif
-            </div>
+            </h3>
+            <h3 class="no-margin-padding">
+                <span class="strong">y</span> <span class="upperCase">{{ $matrimonio->NombreConyugue }}</span>
+            </h3>
         </div>
     </div>
 
+    <br><br><br>
 
     <div class="sacramentosDiv centrar-texto">
-        <h4 class="titulo-sacramentos"><strong>HA RECIBIDO EL SACRAMENTO DE LA</strong></h4>
-        <h2>CONFIRMACIÓN</h2>
+        <h2 class="titulo-sacramentos"><strong>CONTRAJERON MATRIMONIO</strong></h2>
     </div>
+
+    <br><br><br>
 
     <div class="row sacramento-info-div">
-        <p>El día: <strong>{{ $fecConf }}</strong></p>
-        @if($acta->confirma != null && $acta->confirma->IDParroquiaConfirma != null)
-            <p>En la Parroquia <strong>{{ $acta->confirma->parroquia->NombreParroquia }}</strong></p>
-        @elseif($acta->confirma != null)
-            <p>En <span class="texto-capitalize"><strong>{{ $acta->confirma->LugarConfirma }}</strong></span></p>
+        <p>El día: <strong>{{ $fecMat }}</strong></p>
+        @if($matrimonio != null && $matrimonio->IDParroquiaMatrimonio != null)
+            <p>En la Parroquia <strong>{{ $matrimonio->parroquia->NombreParroquia }}</strong></p>
+        @elseif($matrimonio != null)
+            <p>En <span class="texto-capitalize"><strong>{{ $matrimonio->LugarMatrimonio }}</strong></span></p>
         @endif
-        <p>Padrinos: <strong>{{ $acta->confirma->PadrinoCon1 }}</strong></p>
     </div>
 
+    <br>
+
     <div class="observacionesDiv">
-        @if($acta->confirma != null)
-            @if($acta->confirma->NotasMarginales == null || $acta->confirma->NotasMarginales == '')
+        @if($matrimonio != null)
+            @if($matrimonio->NotasMarginales == null || $matrimonio->NotasMarginales == '')
                 <p class="izq-texto">Notas
                     Marginales: NO CONSTA</p>
             @else
                 <p class="izq-texto">Notas
-                    Marginales: {{ $acta->confirma->NotasMarginales }}</p>
+                    Marginales: {{ $matrimonio->NotasMarginales }}</p>
             @endif
         @endif
     </div>
 
     <div class="registrosDiv centrar-texto">
-        Según registros de libros de confirma {{ $parroquiaRegistraCon }}:
+        Según registros de libros matrimoniales {{ $parroquiaRegistraMat }}:
         <table class="tabla-registros">
             <tr>
                 <td class="centrar-texto">Libro</td>
-                <td><strong>{{ $acta->confirma->ubicacionActa->Libro }}</strong></td>
+                <td><strong>{{ $matrimonio->ubicacionActa->Libro }}</strong></td>
 
                 <td class="centrar-texto">Folio</td>
-                <td><strong>{{ $acta->confirma->ubicacionActa->Folio }}</strong></td>
+                <td><strong>{{ $matrimonio->ubicacionActa->Folio }}</strong></td>
 
                 <td class="centrar-texto">Asiento</td>
-                <td><strong>{{ $acta->confirma->ubicacionActa->Asiento }}</strong></td>
+                <td><strong>{{ $matrimonio->ubicacionActa->Asiento }}</strong></td>
             </tr>
         </table>
     </div>
@@ -96,11 +89,13 @@
     <div class="extiendeDiv centrar-texto">
         @if(Auth::user()->IDPuesto == 1 || Auth::user()->IDPuesto == 2)
             @if($motivo == 'personales')
-                <p>Se extiende la presente solicitud para efectos <strong>{{ $motivo }}</strong>, dado en la <strong>Curia Diocesana de
+                <p>Se extiende la presente solicitud para efectos <strong>{{ $motivo }}</strong>, dado en la <strong>Curia
+                        Diocesana de
                         Alajuela</strong>
                     el {{ $fecHoy }}</p>
             @else
-                <p>Se extiende la presente solicitud para efectos de <strong>{{ $motivo }}</strong>, dado en la <strong>Curia Diocesana de
+                <p>Se extiende la presente solicitud para efectos de <strong>{{ $motivo }}</strong>, dado en la <strong>Curia
+                        Diocesana de
                         Alajuela</strong>
                     el {{ $fecHoy }}</p>
             @endif
@@ -110,7 +105,8 @@
                     <strong>{{ Auth::user()->parroquia->NombreParroquia }}</strong>
                     el {{ $fecHoy }}</p>
             @else
-                <p>Se extiende la presente solicitud para efectos de <strong>{{ $motivo }}</strong>, dado en la Parroquia
+                <p>Se extiende la presente solicitud para efectos de <strong>{{ $motivo }}</strong>, dado en la
+                    Parroquia
                     <strong>{{ Auth::user()->parroquia->NombreParroquia }}</strong>
                     el {{ $fecHoy }}</p>
             @endif
@@ -151,3 +147,9 @@
 </div>
 </body>
 </html>
+
+
+
+
+
+

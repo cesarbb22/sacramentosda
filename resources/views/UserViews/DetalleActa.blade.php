@@ -647,7 +647,7 @@
                     <br>
                     <div class="row" style="text-align: left">
                         <button id="Descargar_{{ $info['actaMatrimonio']->IDMatrimonio }}" class="waves-effect waves-light btn left modal-trigger"
-                                data-target="modalPDFDetalleMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}" disabled><i
+                                data-target="modalPDFDetalleMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}"><i
                                 class="material-icons left">file_download</i>Constancia de Matrimonio
                         </button>
                     </div>
@@ -1097,11 +1097,15 @@
                             <select name="motivo" id="motivoMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}" required>
                                 <option value="0" selected>--</option>
                                 <option value="1">Personales</option>
+                                <option value="2">Registro Civil</option>
+                                <option value="3">Nulidad Matrimonial</option>
+                                <option value="4">Segundas Nupcias</option>
                             </select>
                             <label for="motivoMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}">Seleccione el motivo de la constancia:</label>
                         </div>
                     </div>
                     <div class="input-field">
+                        <input id="idActaMatrimonioActa_{{ $info['actaMatrimonio']->IDMatrimonio }}" name="idActa" value="{{ $acta->IDActa }}" type="text" hidden>
                         <input id="idActaMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}" name="idActa" value="{{ $info['actaMatrimonio']->IDMatrimonio }}" type="text" hidden>
                     </div>
                 </div>
@@ -1476,11 +1480,12 @@
                 var formData = new FormData();
                 formData.append("codigo", $('#codigoMatrimonio_' + matrimonioId).val());
                 formData.append("motivo", $('#motivoMatrimonio_' + matrimonioId).val());
-                formData.append("idActa", $('#idActaMatrimonio_' + matrimonioId).val());
+                formData.append("idActa", $('#idActaMatrimonioActa_' + matrimonioId).val());
+                formData.append("idMatrimonio", $('#idActaMatrimonio_' + matrimonioId).val());
                 formData.append("_token", "{{ csrf_token() }}");
 
                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/pdfMatrimonio');
+                xhr.open('POST', '/pdfMatrimonioAdicional');
                 xhr.responseType = 'arraybuffer';
                 xhr.onload = function (e) {
                     if (this.status == 200) {

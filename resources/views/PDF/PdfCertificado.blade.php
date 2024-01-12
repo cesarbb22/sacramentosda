@@ -125,7 +125,28 @@
                 </tr>
             @endif
 
-            @if($acta->matrimonio != null)
+            @if($actaMatrimonioReciente != null)
+                <tr class="mat-altura">
+                    <td class="izq-texto"><strong>Matrimonio:</strong></td>
+                    @if($actaMatrimonioReciente->FechaMatrimonio == null)
+                        <td>NO CONSTA FECHA</td>
+                    @else
+                        <td>el {{ $fecMat }}</td>
+                    @endif
+
+                    @if($actaMatrimonioReciente->IDParroquiaMatrimonio != null)
+                        <td>en la Parroquia {{ $actaMatrimonioReciente->parroquia->NombreParroquia }}</td>
+                    @elseif($actaMatrimonioReciente != null)
+                        <td>en <span class="texto-capitalize">{{ $actaMatrimonioReciente->LugarMatrimonio }}</span></td>
+                    @endif
+                </tr>
+                <tr class="mat-altura">
+                    <td></td>
+                    <td colspan="2">con <span class="texto-capitalize">{{ $actaMatrimonioReciente->NombreConyugue }}</span>
+                        {{ $cantidadMatrimonios }}
+                    </td>
+                </tr>
+            @elseif($acta->matrimonio != null)
                 <tr class="mat-altura">
                     <td class="izq-texto"><strong>Matrimonio:</strong></td>
                     @if($acta->matrimonio->FechaMatrimonio == null)
@@ -216,7 +237,7 @@
                 </tr>
                 <tr class="centrar-texto">
                     <td>
-                        <p class="no-margin-padding">Pbro. Ronald Eduardo Murillo Mora</p>
+                        <p class="no-margin-padding">Pbro. Luis Fernando Rodríguez Rodríguez</p>
                         <p class="no-margin-padding">Canciller</p>
                     </td>
                 </tr>

@@ -127,7 +127,7 @@
                 </tr>
                 <tr class="centrar-texto">
                     <td>
-                        <p class="no-margin-padding">Pbro. Ronald Eduardo Murillo Mora</p>
+                        <p class="no-margin-padding">Pbro. Luis Fernando Rodríguez Rodríguez</p>
                         <p class="no-margin-padding">Canciller</p>
                     </td>
                 </tr>

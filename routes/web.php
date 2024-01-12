@@ -143,6 +143,7 @@ Route::post('/pdfBautismo', 'GenerarPDF@generarPDFBautismo' )->middleware('auth'
 Route::post('/pdfPrimeraComunion', 'GenerarPDF@generarPDFPrimeraComunion' )->middleware('auth');
 Route::post('/pdfConfirma', 'GenerarPDF@generarPDFConfirma' )->middleware('auth');
 Route::post('/pdfMatrimonio', 'GenerarPDF@generarPDFMatrimonio' )->middleware('auth');
+Route::post('/pdfMatrimonioAdicional', 'GenerarPDF@generarPDFMatrimonioAdicional' )->middleware('auth');
 Route::post('/pdfDefuncion', 'GenerarPDF@generarPDFDefuncion' )->middleware('auth');
 
 Route::post('/guardarContrasena', 'UserController@cambiarContrasena');
