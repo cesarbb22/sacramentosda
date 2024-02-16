@@ -658,14 +658,14 @@
                                 @if ($info['actaMatrimonio']->AvisoEnviado == 0)
                                     <button id="avisoMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}"
                                             class="avisoBtn waves-effect waves-light btn left modal-trigger"
-                                            tipo="MATRIMONIO" disabled>
+                                            tipo="MATRIMONIO_ADICIONAL" mat_id="{{ $info['actaMatrimonio']->IDMatrimonio }}">
                                         <i class="material-icons left">info</i>
                                         Enviar Aviso
                                     </button>
                                 @else
                                     <button id="avisoMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}"
                                             class="avisoBtn waves-effect waves-light btn left modal-trigger"
-                                            tipo="MATRIMONIO"
+                                            tipo="MATRIMONIO_ADICIONAL"
                                             disabled>
                                         <i class="material-icons left">info</i>
                                         Enviar Aviso
@@ -675,30 +675,20 @@
                                 @if ($info['actaMatrimonio']->AvisoEnviado == 0)
                                     <button id="avisoMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}"
                                             class="avisoBtn waves-effect waves-light btn left modal-trigger"
-                                            tipo="MATRIMONIO" disabled>
+                                            tipo="MATRIMONIO_ADICIONAL" mat_id="{{ $info['actaMatrimonio']->IDMatrimonio }}">
                                         <i class="material-icons left">info</i>
                                         Enviar Aviso
                                     </button>
                                 @else
                                     <button id="avisoMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}"
                                             class="avisoBtn waves-effect waves-light btn left modal-trigger"
-                                            tipo="MATRIMONIO"
+                                            tipo="MATRIMONIO_ADICIONAL"
                                             disabled>
                                         <i class="material-icons left">info</i>
                                         Enviar Aviso
                                     </button>
                                 @endif
                             @endif
-                        </div>
-                    @endif
-
-                    @if ($info['actaMatrimonio']->AvisoEnviado != 0)
-                        <div class="row">
-                            <button id="resetAvisoMatrimonio_{{ $info['actaMatrimonio']->IDMatrimonio }}"
-                                    class="resetAvisoBtn waves-effect waves-light btn left modal-trigger"
-                                    tipo="MATRIMONIO">
-                                <i class="material-icons left">restore</i>Resetear Aviso
-                            </button>
                         </div>
                     @endif
                     <br>
@@ -1223,8 +1213,6 @@
         }
 
         window.onload = function () {
-            console.log({!! json_encode($matrimoniosInfo) !!});
-
             $('#loadingDiv').hide();
             $('#loadingDivBautismo').hide();
             $('#loadingDivPrimeraComunion').hide();
@@ -1249,11 +1237,17 @@
                 } else {
                     var answer = confirm("¿Seguro que desea enviar el aviso?");
                     if (answer) {
+                        var sacramento = e.currentTarget.attributes.getNamedItem("tipo").value;
                         var formData = new FormData();
                         formData.append("idActaAvisar", $('#idActa').val());
                         formData.append("idParroquiaAvisar", actaBautismo.IDParroquiaRegistra);
-                        formData.append("sacramento", e.currentTarget.attributes.getNamedItem("tipo").value);
+                        formData.append("sacramento", sacramento);
                         formData.append("_token", "{{ csrf_token() }}");
+
+                        if (sacramento === "MATRIMONIO_ADICIONAL") {
+                            console.log("MATRIMONIO_ADICIONAL: " + e.currentTarget.attributes.getNamedItem("mat_id").value);
+                            formData.append("matrimonioId", e.currentTarget.attributes.getNamedItem("mat_id").value);
+                        }
 
                         var xhr = new XMLHttpRequest();
                         xhr.open('POST', '/enviarAviso');

@@ -72,6 +72,9 @@ class CentroNotificaciones extends Controller
                 case 'MATRIMONIO':
                     $partida = ActaMatrimonio::findOrFail($acta->IDMatrimonio);
                     break;
+                case 'MATRIMONIO_ADICIONAL':
+                    $partida = ActaMatrimonio::findOrFail($request->matrimonioId);
+                    break;
                 case 'DEFUNCION':
                     $partida = ActaDefuncion::findOrFail($acta->IDDefuncion);
                     break;
@@ -100,6 +103,9 @@ class CentroNotificaciones extends Controller
                     break;
                 case 'MATRIMONIO':
                     $partida = ActaMatrimonio::findOrFail($acta->IDMatrimonio);
+                    break;
+                case 'MATRIMONIO_ADICIONAL':
+                    $partida = ActaMatrimonio::findOrFail($request->matrimonioId);
                     break;
                 case 'DEFUNCION':
                     $partida = ActaDefuncion::findOrFail($acta->IDDefuncion);
