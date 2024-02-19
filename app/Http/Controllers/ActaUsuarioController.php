@@ -41,7 +41,10 @@ class ActaUsuarioController extends Controller
                 }
             }
 
-            $userParroquia = Auth::user()->IDParroquia;
+            $userParroquia = null;
+            if (Auth::check()) {
+                $userParroquia = Auth::user()->IDParroquia;
+            }
 
             $Persona = new Persona;
             $Laico = new Laico;
