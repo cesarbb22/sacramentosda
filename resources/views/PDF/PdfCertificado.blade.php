@@ -177,18 +177,6 @@
         </table>
     </div>
 
-    <div class="observacionesDiv">
-        @if($acta->bautismo != null)
-            @if($acta->bautismo->NotasMarginales == null || $acta->bautismo->NotasMarginales == '')
-                <p class="izq-texto">Notas
-                    Marginales: NO CONSTA</p>
-            @else
-                <p class="izq-texto">Notas
-                    Marginales: {{ $acta->bautismo->NotasMarginales }}</p>
-            @endif
-        @endif
-    </div>
-
     <div class="registrosDiv centrar-texto">
         Según registros de libros bautismales de {{ $parroquiaRegistraBau }}:
         <table class="tabla-registros">
