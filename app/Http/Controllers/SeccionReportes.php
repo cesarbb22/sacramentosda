@@ -20,6 +20,7 @@ class SeccionReportes extends Controller
         $parroquia = $request->parroquia;
         $fechaInicio = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaInicio));
         $fechaFin = Carbon::createFromFormat('Y-m-d H:i:s', $this->formatDate($request->fechaFin));
+        $fechaFin->addDay();
 
         $totalCount = 0;
 
