@@ -918,6 +918,12 @@
                         <label>Seleccione el motivo de la constancia:</label>
                     </div>
                 </div>
+                <div class="row">
+                    <p>
+                        <input name="incluirNotasMarginales" type="checkbox" id="incluirNotasMarginales"/>
+                        <label for="incluirNotasMarginales">¿Desea incluir notas marginales?</label>
+                    </p>
+                </div>
                 <div class="input-field">
                     <input id="idActa" name="idActa" value="{{ $acta->IDActa }}" type="text" hidden>
                 </div>
@@ -1372,6 +1378,7 @@
                 var formData = new FormData();
                 formData.append("codigo", $('#codigo').val());
                 formData.append("motivo", $('#motivo').val());
+                formData.append("incluirNotasMarginales", $('#incluirNotasMarginales').prop('checked'));
                 formData.append("idActa", $('#idActa').val());
                 formData.append("_token", "{{ csrf_token() }}");
 

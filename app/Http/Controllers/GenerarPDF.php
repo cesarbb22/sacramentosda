@@ -15,7 +15,7 @@ class GenerarPDF extends Controller
 
     public function generarPDF(Request $request)
     {
-
+        $incluirNotasMarginales = $request->incluirNotasMarginales;
         $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia', 'bautismo.ubicacionActa', 'confirma', 'confirma.parroquia', 'matrimonio', 'matrimonio.parroquia')
             ->where('IDActa', $request->idActa)
             ->first();
@@ -135,7 +135,8 @@ class GenerarPDF extends Controller
 
         $pdf = \PDF::loadView('PDF.PdfCertificado', ['acta' => $acta, 'codigo' => $request->codigo, 'fecNac' => $fecNacFormatted, 'fecBau' => $fecBauFormatted,
             'parroquiaRegistraBau' => $parroquiaRegistraBau, 'fecConf' => $fecConfFormatted, 'fecMat' => $fecMatFormatted, 'fecPrimeraC' => $fecPrimeraCFormatted,
-            'motivo' => $motivo, 'fecHoy' => $fecHoyFormatted, 'actaMatrimonioReciente' => $actaMatrimonioMasReciente, 'cantidadMatrimonios' => $cantidadMatrimonios]);
+            'motivo' => $motivo, 'fecHoy' => $fecHoyFormatted, 'actaMatrimonioReciente' => $actaMatrimonioMasReciente, 'cantidadMatrimonios' => $cantidadMatrimonios,
+            'incluirNotasMarginales' => $incluirNotasMarginales]);
 
         return $pdf->download('Certificado.pdf');
     }
