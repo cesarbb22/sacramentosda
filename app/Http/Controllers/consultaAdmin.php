@@ -13,7 +13,7 @@ class consultaAdmin extends Controller
     public function home()
     {
         // Solo lo que necesita la vista (combo de parroquias)
-        $parroquias = Parroquia::select('IDParroquia','NombreParroquia')
+        $parroquias = Parroquia::select('IDParroquia', 'NombreParroquia')
             ->orderBy('NombreParroquia')
             ->get();
 
@@ -25,38 +25,33 @@ class consultaAdmin extends Controller
     {
         $perPage = min(max((int) $request->input('per_page', 11), 5), 100);
 
-        $actas = Acta::query()->with([
-            // Limitar columnas en relaciones (incluye llaves foráneas)
+        $actas = \App\Acta::query()->with([
+            // Persona: incluimos la PK para que Eloquent enlace (IDPersona)
             'persona' => function ($q) {
-                $q->select('IDPersona','Cedula','Nombre','PrimerApellido','SegundoApellido');
+                $q->select('IDPersona', 'Cedula', 'Nombre', 'PrimerApellido', 'SegundoApellido');
             },
+            // Laico: su FK hacia persona es IDPersona, por eso la incluimos
             'persona.laico' => function ($q) {
-                $q->select('IDPersona','FechaNacimiento');
+                $q->select('IDPersona', 'FechaNacimiento');
             },
-            'bautismo' => function ($q) {
-                $q->select('IDActa','IDParroquiaBautismo','FechaBautismo','LugarBautismo');
-            },
-            'bautismo.parroquia' => function ($q) {
-                $q->select('IDParroquia','NombreParroquia');
-            },
+            // Bautismo y parroquia: sin select => usa * (evitamos pedir columnas que no existen)
+            'bautismo',
+            'bautismo.parroquia',
         ]);
 
         // Buscar por cédula
         if ($request->boolean('buscCed') && $request->filled('numCed')) {
-            $ced = '%'.trim($request->numCed).'%';
-            $actas->whereHas('persona', function (Builder $q) use ($ced) {
+            $ced = '%' . trim($request->numCed) . '%';
+            $actas->whereHas('persona', function (\Illuminate\Database\Eloquent\Builder $q) use ($ced) {
                 $q->where('persona.Cedula', 'like', $ced);
             });
         }
 
-        // Buscar por nombre (con binding para evitar inyección)
+        // Buscar por nombre (con binding)
         if ($request->filled('nombre')) {
             $nombre = trim($request->nombre);
-            $actas->whereHas('persona', function (Builder $q) use ($nombre) {
-                $q->whereRaw(
-                    'concat(persona.Nombre," ",persona.PrimerApellido," ",persona.SegundoApellido) like ?',
-                    ["%{$nombre}%"]
-                );
+            $actas->whereHas('persona', function (\Illuminate\Database\Eloquent\Builder $q) use ($nombre) {
+                $q->whereRaw('concat(persona.Nombre," ",persona.PrimerApellido," ",persona.SegundoApellido) like ?', ["%{$nombre}%"]);
             });
         }
 
@@ -64,12 +59,12 @@ class consultaAdmin extends Controller
         if ($request->filled('parroquia')) {
             if ($request->parroquia !== 'otro') {
                 $parr = $request->parroquia;
-                $actas->whereHas('bautismo', function (Builder $q) use ($parr) {
+                $actas->whereHas('bautismo', function (\Illuminate\Database\Eloquent\Builder $q) use ($parr) {
                     $q->where('actabautismo.IDParroquiaBautismo', $parr);
                 });
             } elseif ($request->filled('lugar')) {
-                $lugar = '%'.trim($request->lugar).'%';
-                $actas->whereHas('bautismo', function (Builder $q) use ($lugar) {
+                $lugar = '%' . trim($request->lugar) . '%';
+                $actas->whereHas('bautismo', function (\Illuminate\Database\Eloquent\Builder $q) use ($lugar) {
                     $q->where('actabautismo.LugarBautismo', 'like', $lugar);
                 });
             }
@@ -77,12 +72,12 @@ class consultaAdmin extends Controller
 
         // Rango de fechas (d/m/Y -> Y-m-d)
         if ($request->filled('fechaInicio')) {
-            $fi = Carbon::createFromFormat('d/m/Y', $request->fechaInicio)->format('Y-m-d');
+            $fi = \Carbon\Carbon::createFromFormat('d/m/Y', $request->fechaInicio)->format('Y-m-d');
             $ff = $request->filled('fechaFin')
-                ? Carbon::createFromFormat('d/m/Y', $request->fechaFin)->format('Y-m-d')
-                : Carbon::now()->format('Y-m-d');
+                ? \Carbon\Carbon::createFromFormat('d/m/Y', $request->fechaFin)->format('Y-m-d')
+                : \Carbon\Carbon::now()->format('Y-m-d');
 
-            $actas->whereHas('persona.laico', function (Builder $q) use ($fi, $ff) {
+            $actas->whereHas('persona.laico', function (\Illuminate\Database\Eloquent\Builder $q) use ($fi, $ff) {
                 $q->whereBetween('laico.FechaNacimiento', [$fi, $ff]);
             });
         }
