@@ -78,6 +78,7 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
     Route::post('/queryPersonas', 'consultaAdmin@query');
 
     Route::post('/queryBautizosAnnio', 'SeccionReportes@queryBautizosAnnio');
+    Route::post('/queryBautizosFechaSacramento', 'SeccionReportes@queryBautizosFechaSacramento');
 
     Route::post('/enviarAvisoAdmin', 'CentroNotificaciones@enviarAviso');
 
