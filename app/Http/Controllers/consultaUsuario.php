@@ -20,189 +20,58 @@ class consultaUsuario extends Controller
 
 
     public function query(Request $request) {
+        // Search by cedula (separate path with early return)
         if ($request->has('buscCed')) {
-            $cedula = $request->numCed;
-            $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia')
-                ->whereHas('persona', function (Builder $query) use ($cedula) {
-                    $query->where('persona.Cedula', 'like', '%'.$cedula.'%');
+            return Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia')
+                ->whereHas('persona', function (Builder $query) use ($request) {
+                    $query->where('persona.Cedula', 'like', '%'.$request->numCed.'%');
                 })
                 ->paginate(11);
-            return $acta;
-        } else {
-            if ($request->nombre != '' && $request->parroquia != '' && $request->fechaInicio != '') {
-                $nombre = $request->nombre;
-                $fechaInicio = date('Y-d-m', strtotime($request->fechaInicio));
-                $fechaFin = $request->fechaFin;
-                if ($fechaFin == '') {
-                    $fechaFin = date('Y-m-d');
-                } else {
-                    $fechaFin = date('Y-d-m', strtotime($request->fechaFin));
-                }
+        }
 
-                if ($request->parroquia != 'otro') {
-                    $parroquia = $request->parroquia;
-                    $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia')
-                        ->whereHas('persona', function (Builder $query) use ($nombre) {
-                            $query->whereRaw('concat(persona.Nombre," ",persona.PrimerApellido," ",persona.SegundoApellido) like "%'.$nombre.'%"');
-                        })
-                        ->whereHas('bautismo', function (Builder $query) use ($parroquia) {
-                            $query->where('actabautismo.IDParroquiaBautismo', $parroquia); // side note: operator '=' is default, so can be ommited
-                        })
-                        ->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
-                            $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
-                        })
-                        ->paginate(11);
-                } else {
-                    $lugar = $request->lugar;
-                    $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia')
-                        ->whereHas('persona', function (Builder $query) use ($nombre) {
-                            $query->whereRaw('concat(persona.Nombre," ",persona.PrimerApellido," ",persona.SegundoApellido) like "%'.$nombre.'%"');
-                        })
-                        ->whereHas('bautismo', function (Builder $query) use ($lugar) {
-                            $query->where('actabautismo.LugarBautismo', 'like', '%'.$lugar.'%');
-                        })
-                        ->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
-                            $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
-                        })
-                        ->paginate(11);
-                }
+        // Build query conditionally based on provided filters
+        $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia');
 
-                return $acta;
+        // Filter by nombre
+        if ($request->filled('nombre')) {
+            $nombre = $request->nombre;
+            $acta->whereHas('persona', function (Builder $query) use ($nombre) {
+                $query->where(function ($q) use ($nombre) {
+                    $q->whereRaw(
+                        'concat(persona.Nombre, " ", persona.PrimerApellido, " ", persona.SegundoApellido) like ?',
+                        ['%'.$nombre.'%']
+                    );
+                });
+            });
+        }
+
+        // Filter by parroquia or lugar
+        if ($request->filled('parroquia')) {
+            if ($request->parroquia !== 'otro') {
+                $parroquia = $request->parroquia;
+                $acta->whereHas('bautismo', function (Builder $query) use ($parroquia) {
+                    $query->where('actabautismo.IDParroquiaBautismo', $parroquia);
+                });
             } else {
-                if ($request->nombre != '' && $request->parroquia != '') {
-                    $nombre = $request->nombre;
-
-                    if ($request->parroquia != 'otro') {
-                        $parroquia = $request->parroquia;
-                        $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia')
-                            ->whereHas('persona', function (Builder $query) use ($nombre) {
-                                $query->whereRaw('concat(persona.Nombre," ",persona.PrimerApellido," ",persona.SegundoApellido) like "%'.$nombre.'%"');
-                            })
-                            ->whereHas('bautismo', function (Builder $query) use ($parroquia) {
-                                $query->where('actabautismo.IDParroquiaBautismo', $parroquia); // side note: operator '=' is default, so can be ommited
-                            })
-                            ->paginate(11);
-                    } else {
-                        $lugar = $request->lugar;
-                        $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia')
-                            ->whereHas('persona', function (Builder $query) use ($nombre) {
-                                $query->whereRaw('concat(persona.Nombre," ",persona.PrimerApellido," ",persona.SegundoApellido) like "%'.$nombre.'%"');
-                            })
-                            ->whereHas('bautismo', function (Builder $query) use ($lugar) {
-                                $query->where('actabautismo.LugarBautismo', 'like', '%'.$lugar.'%');
-                            })
-                            ->paginate(11);
-                    }
-
-                    return $acta;
-                } else {
-                    if ($request->parroquia != '' && $request->fechaInicio != '') {
-                        $fechaInicio = date('Y-d-m', strtotime($request->fechaInicio));
-                        $fechaFin = $request->fechaFin;
-                        if ($fechaFin == '') {
-                            $fechaFin = date('Y-m-d');
-                        } else {
-                            $fechaFin = date('Y-d-m', strtotime($request->fechaFin));
-                        }
-
-                        if ($request->parroquia != 'otro') {
-                            $parroquia = $request->parroquia;
-                            $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia')
-                                ->whereHas('bautismo', function (Builder $query) use ($parroquia) {
-                                    $query->where('actabautismo.IDParroquiaBautismo', $parroquia); // side note: operator '=' is default, so can be ommited
-                                })
-                                ->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
-                                    $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
-                                })
-                                ->paginate(11);
-                        } else {
-                            $lugar = $request->lugar;
-                            $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia')
-                                ->whereHas('bautismo', function (Builder $query) use ($lugar) {
-                                    $query->where('actabautismo.LugarBautismo', 'like', '%'.$lugar.'%');
-                                })
-                                ->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
-                                    $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
-                                })
-                                ->paginate(11);
-                        }
-
-                        return $acta;
-                    } else {
-                        if ($request->nombre != '' && $request->fechaInicio != '') {
-                            $nombre = $request->nombre;
-                            $fechaInicio = date('Y-d-m', strtotime($request->fechaInicio));
-                            $fechaFin = $request->fechaFin;
-                            if ($fechaFin == '') {
-                                $fechaFin = date('Y-m-d');
-                            } else {
-                                $fechaFin = date('Y-d-m', strtotime($request->fechaFin));
-                            }
-
-                            $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia')
-                                ->whereHas('persona', function (Builder $query) use ($nombre) {
-                                    $query->whereRaw('concat(persona.Nombre," ",persona.PrimerApellido," ",persona.SegundoApellido) like "%'.$nombre.'%"');
-                                })
-                                ->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
-                                    $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]); // side note: operator '=' is default, so can be ommited
-                                })
-                                ->paginate(11);
-
-                            return $acta;
-                        } else {
-                            if ($request->nombre != '') {
-                                $nombre = $request->nombre;
-
-                                $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia')
-                                    ->whereHas('persona', function (Builder $query) use ($nombre) {
-                                        $query->whereRaw('concat(persona.Nombre," ",persona.PrimerApellido," ",persona.SegundoApellido) like "%'.$nombre.'%"');
-                                    })
-                                    ->paginate(11);
-
-                                return $acta;
-                            } else {
-                                if ($request->parroquia != '') {
-                                    if ($request->parroquia != 'otro') {
-                                        $parroquia = $request->parroquia;
-                                        $acta = Acta::with(['persona', 'persona.laico', 'bautismo', 'bautismo.parroquia'])
-                                            ->whereHas('bautismo', function (Builder $query) use ($parroquia) {
-                                                $query->where('actabautismo.IDParroquiaBautismo', $parroquia);
-                                            })
-                                            ->paginate(11);
-                                    } else {
-                                        $lugar = $request->lugar;
-                                        $acta = Acta::with(['persona', 'persona.laico', 'bautismo', 'bautismo.parroquia'])
-                                            ->whereHas('bautismo', function (Builder $query) use ($lugar) {
-                                                $query->where('actabautismo.LugarBautismo', 'like', '%'.$lugar.'%');
-                                            })
-                                            ->paginate(11);
-                                    }
-
-                                    return $acta;
-                                } else {
-                                    if ($request->fechaInicio != '') {
-                                        $fechaInicio = date('Y-d-m', strtotime($request->fechaInicio));
-                                        $fechaFin = $request->fechaFin;
-                                        if ($fechaFin == '') {
-                                            $fechaFin = date('Y-m-d');
-                                        } else {
-                                            $fechaFin = date('Y-d-m', strtotime($request->fechaFin));
-                                        }
-
-                                        $acta = Acta::with('persona', 'persona.laico', 'bautismo', 'bautismo.parroquia')
-                                            ->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
-                                                $query->whereBetween('laico.FechaNacimiento', array($fechaInicio, $fechaFin)); // side note: operator '=' is default, so can be ommited
-                                            })
-                                            ->paginate(11);
-
-                                        return $acta;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                $lugar = $request->lugar;
+                $acta->whereHas('bautismo', function (Builder $query) use ($lugar) {
+                    $query->where('actabautismo.LugarBautismo', 'like', '%'.$lugar.'%');
+                });
             }
         }
+
+        // Filter by fecha de nacimiento range
+        if ($request->filled('fechaInicio')) {
+            $fechaInicio = date('Y-d-m', strtotime($request->fechaInicio));
+            $fechaFin = $request->filled('fechaFin')
+                ? date('Y-d-m', strtotime($request->fechaFin))
+                : date('Y-d-m');
+
+            $acta->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
+                $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]);
+            });
+        }
+
+        return $acta->paginate(11);
     }
 }
