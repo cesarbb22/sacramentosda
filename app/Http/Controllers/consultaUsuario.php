@@ -62,10 +62,10 @@ class consultaUsuario extends Controller
 
         // Filter by fecha de nacimiento range
         if ($request->filled('fechaInicio')) {
-            $fechaInicio = date('Y-d-m', strtotime($request->fechaInicio));
+            $fechaInicio = \DateTime::createFromFormat('d/m/Y', $request->fechaInicio)->format('Y-m-d');
             $fechaFin = $request->filled('fechaFin')
-                ? date('Y-d-m', strtotime($request->fechaFin))
-                : date('Y-d-m');
+                ? \DateTime::createFromFormat('d/m/Y', $request->fechaFin)->format('Y-m-d')
+                : date('Y-m-d');
 
             $acta->whereHas('persona.laico', function (Builder $query) use ($fechaInicio, $fechaFin) {
                 $query->whereBetween('laico.FechaNacimiento', [$fechaInicio, $fechaFin]);
